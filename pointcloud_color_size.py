@@ -14,27 +14,15 @@ def load_structure(file_name):
     parser = PDBParser() 
     load_pdb = file_name + ".pdb"
     structure = parser.get_structure(file_name, load_pdb) 
-
     return structure
 
 # Creates a dictionary of atomic coordinates by atom type
-def get_atoms(structure):
 
     # load file into a python list
-    atoms = structure.get_atoms()
-    atoms_list = list(atoms)
-
     # initialize dictionary, then fill up iteratively
     atom_data = dict()
-    for atom in atoms_list:
-        type_name = atom.element
-        if type_name not in atom_data:
-            atom_data[type_name] = [atom.get_coord()]
-        else:
-            atom_data[type_name].append(atom.get_coord())
 
     # return the 3D positions of atoms organized by atom type        
-    return atom_data, atoms_list
 
 
 # Creates a dictionary of coordinates by residues
@@ -145,7 +133,6 @@ def pre_plot_residues(res_data):
 
 def pre_plot_bonds(atom_list):
     ns = NeighborSearch(atom_list)
-    _cutoff_dist = 3
 
     bonds = []
     for target in atom_list:
@@ -161,7 +148,6 @@ def pre_plot_bonds(atom_list):
     return bonds
 
 # plot point cloud of atoms
-def plot_atoms(atoms_spheres, colors_spheres, box=0, bonds=0, r=0, c=0):
     # Use 3 lights because it's a bit brighter
     pl = pv.Plotter(lighting=None)
     pl.background_color = 'grey'
@@ -180,7 +166,6 @@ def plot_atoms(atoms_spheres, colors_spheres, box=0, bonds=0, r=0, c=0):
             pl.add_mesh(b, color='w', render_lines_as_tubes=True, line_width=5)
     # adding the spheres (by residue) one at a time
     # only executes if residue information provided
-    if r != 0:
         k = 0
         for mesh in r:
             pl.add_mesh(mesh, color=c[j], opacity=0.2)
@@ -196,12 +181,9 @@ def plot_atoms(atoms_spheres, colors_spheres, box=0, bonds=0, r=0, c=0):
 def main():
     
     struct = load_structure("2fd7")
-    atom_data, al = get_atoms(struct)
-    bonds = pre_plot_bonds(al)
     res_data = get_residues(struct)
     atoms, colors = pre_plot_atoms(atom_data)
     ress, colors_r = pre_plot_residues(res_data)
-    plot_atoms(atoms, colors, 0)#, bonds)#, ress, colors_r)
 
 
 if __name__ == "__main__":
