@@ -7,6 +7,8 @@ from Bio import SeqIO
 import numpy as np
 import pyvista as pv
 import os
+import trimesh
+
 
 class StickPoint:
     def __init__():
@@ -304,49 +306,46 @@ class Surface:
                 if vorf:
                     ret[i].append(float(entry))
                 else:
-                    ret[i].append(int(entry))
+                    ret[i].append(int(entry)-1)
             i+=1
 
         outfile.close()
         return ret
 
-def surface_trying():
-    s = Surface
-    face, vertice = s.load(s, "2fd7_out")
-    vertices = np.array(vertice)
-    faces = np.hstack(face)
-    pl = pv.Plotter(lighting=None)
-    pl.background_color = 'grey'
-    pl.enable_3_lights()
-    # print(vertices)
-    tmesh = trimesh.Trimesh(vertice, faces=face, process=False)
-    mesh = pv.wrap(tmesh)
-    
-    # geom = TriMeshGeom()
-    # geom.verts.resize(len(vertice))
-    # geom.faces.resize(len(face))
+    def plot_surface(self, filename):
+        """
+        Plot surface from face and vert files
+        :param name: self - The surface object
+        :param type: Surface
+        :param name: file_name - Name of input file
+        :param type: str
+        :return: void - plot
+        """
 
-    # surf = pv.PolyData(vertice, face)
-    # surf.plot(scalars=np.arange(2707))
-    pl.add_mesh(mesh)
-    pl.show()
-    
-import trimesh
+        face, vertice = self.load(self, filename)
+        vertices = np.array(vertice)
+        faces = np.hstack(face)
+        pl = pv.Plotter(lighting=None)
+        pl.background_color = 'grey'
+        pl.enable_3_lights()
+        tmesh = trimesh.Trimesh(vertice, faces=face, process=False)
+        mesh = pv.wrap(tmesh)
+        pl.add_mesh(mesh)
+        pl.show()
+
+
 def main():
-    surface_trying()
+    s = Surface
+    s.plot_surface(s, "2fd7_fine")
 
-    # mesh = pv.Plane(i_resolution=3, j_resolution=3)
-    # mesh.verts = np.vstack((face,
-    #                         vert)).T
-    # mesh.plot(color='tan', render_points_as_spheres=True, point_size=60)
-    # sp = StickPoint
-    # struct = sp.load_structure("2fd7")
-    # atom_data = sp.get_atoms(struct) # second arg: 1 = showsolvent
-    # bonds = sp.pre_plot_bonds(struct)
-    # res_data = sp.get_residues(struct)
-    # atoms, colors = sp.pre_plot_atoms(atom_data)
-    # ress, colors_r = sp.pre_plot_residues(res_data)
-    # sp.plot_atoms(atoms, colors, 1, bonds, ress, colors_r)
+    sp = StickPoint
+    struct = sp.load_structure("2fd7")
+    atom_data = sp.get_atoms(struct) # second arg: 1 = showsolvent
+    bonds = sp.pre_plot_bonds(struct)
+    res_data = sp.get_residues(struct)
+    atoms, colors = sp.pre_plot_atoms(atom_data)
+    ress, colors_r = sp.pre_plot_residues(res_data)
+    sp.plot_atoms(atoms, colors, 1, bonds, ress, colors_r)
 
 
 if __name__ == "__main__":
