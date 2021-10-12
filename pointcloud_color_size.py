@@ -4,10 +4,54 @@ This file was created by Kristof Czirjak as part of his Bachelor's Thesis
 
 from Bio.PDB import *
 from Bio import SeqIO
+from Thesis_l.msms_script import msms_script
 import numpy as np
 import pyvista as pv
 import os
 import trimesh
+import pdb_to_xyzr
+import msms_script
+
+class FileConverter():
+    def __init__(self, *args):
+        """
+        Can be called empty. If called with arguments conversion instant
+        :param name: args[0] - name of file
+        :param type: str
+        :param name: args[1] - density of triangles
+        :param type: float
+        :return: void - converted files
+        """
+        if len(args) > 0:
+            self._name = args[0]
+            self._dest = args[1]
+            self.pdb_to_xyzr(self._name, self._dest)
+            self.msms(self._name)
+        pass
+
+    def pdb_to_xyzr(name, dest):
+        """
+        Run the pdb_to_xyzr script for given filename
+        Works only on linux
+        (could easily be extended with other parameters)
+        :param name: name - Name of file
+        :param type: str
+        :return: void - xyzr file
+        """
+        pdb_to_xyzr.pdb_to_xyzr_script(name, dest)
+
+    def msms(name):
+        """
+        Run the msms script for given filename and density
+        Works on both linux and windows
+        (could easily be extended with other parameters)
+        :param name: name - Name of file
+        :param type: str
+        :param name: dens - Density of triangulation
+        :param type: float
+        :return: void - face and vert files
+        """
+        msms_script.msms_script(name)
 
 
 class StickPoint:
