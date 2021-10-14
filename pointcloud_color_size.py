@@ -11,6 +11,7 @@ import trimesh
 import msms_script
 import pdb_to_xyzr_script
 import platform
+from atmsize import import_atm_info
 
 class FileConverter():
     def __init__(self, *args):
@@ -149,16 +150,7 @@ class StickPoint:
         theta_res = 10
         # these two dictionaries have to be manually created
         # also, if more/other atoms present in protein it will not work
-        atoms_size_dict = {'C': pv.Sphere(radius=0.67, phi_resolution=phi_res, theta_resolution=theta_res),
-                        'O': pv.Sphere(radius=0.48, phi_resolution=phi_res, theta_resolution=theta_res),
-                        'N': pv.Sphere(radius=0.56, phi_resolution=phi_res, theta_resolution=theta_res),
-                        'S': pv.Sphere(radius=0.88, phi_resolution=phi_res, theta_resolution=theta_res),
-                        'CA': pv.Sphere(radius=1.94, phi_resolution=phi_res, theta_resolution=theta_res)}
-        color_dict = {'C': '#333333',
-                        'O': '#EA2128',
-                        'N': '#007DEE',
-                        'S': '#FFDC61',
-                        'CA': '#38761D'}
+        atoms_size_dict, color_dict = import_atm_info()
 
         # create glyphs (spherical) to represent each atom
         atoms_spheres = []
@@ -167,13 +159,17 @@ class StickPoint:
 
             # create a mesh with each atoms position
             mesh = pv.PolyData(np.array(atom_data[atoms_type]))
-
             # place a specific sphere at given position
-            glyphs = mesh.glyph(geom=atoms_size_dict[atoms_type])
+            sphere = pv.Sphere(radius=atoms_size_dict[atoms_type], phi_resolution=phi_res, theta_resolution=theta_res)
+            glyphs = mesh.glyph(geom=sphere)
             atoms_spheres.append(glyphs)
 
-            #color the sphere according to 'CPK' standard
-            colors_spheres.append(color_dict[atoms_type])
+            try:
+                # color the sphere according to 'CPK' standard
+                colors_spheres.append(color_dict[atoms_type])
+            except KeyError:
+                # if atom is unrecognized, color it pink
+                colors_spheres.append('#DD77FF')
 
         # return list of spheres and colors representing each atom
         return atoms_spheres, colors_spheres
@@ -198,31 +194,38 @@ class StickPoint:
             "CYS": 2.87, "GLN": 3.37, "GLU": 1.68, "GLY": 2.51, "HIS": 3.65,
             "ILE": 3.43, "LEU": 3.42, "LYS": 3.77, "MET": 3.44, "PHE": 3.65, 
             "PRO": 3.13, "SER": 2.87, "THR": 2.87, "TRP": 3.54, "TYR": 3.65, 
-            "VAL": 3.24, "HOH":0}
+            "VAL": 3.24, "HOH":0, "HEM": 33.43 } #HEM vol 156536
 
 
         color_dict = {"ALA": '#13B6E2', "ARG": '#23DEFE', "ASN": '#0EFF57', "ASP": '#822DD2', 
             "CYS": '#A22282', "GLN": '#60C7B0', "GLU": '#6913FE', "GLY": '#8E41D0', "HIS": '#7089FC',
             "ILE": '#0CAFF9', "LEU": '#806769', "LYS": '#8B7928', "MET": '#68D139', "PHE": '#8BA695', 
             "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D', 
-            "VAL": '#128033', "HOH": 'w' }
+            "VAL": '#128033', "HOH": 'w', "HEM"; 'w'}
 
         # create glyphs (spherical) to represent each res
         res_spheres = []
         colors_spheres = []
         for res_type in res_data:
 
-            shere = pv.Sphere(radius=res_size_dict[res_type], phi_resolution=phi_res, theta_resolution=theta_res)
+            sphere = pv.Sphere(radius=0.0, phi_resolution=phi_res, theta_resolution=theta_res)
+            try:    
+                #color the sphere according to 'CPK' standard
+                colors_spheres.append(color_dict[res_type])
+
+                sphere = pv.Sphere(radius=res_size_dict[res_type], phi_resolution=phi_res, theta_resolution=theta_res)
+            except KeyError:
+                colors_spheres.append('#DD77FF')
+
+
 
             # create a mesh with each residues position
             mesh = pv.PolyData(np.array(res_data[res_type]))
 
             # place a specific sphere at given position
-            glyphs = mesh.glyph(geom=shere)
+            glyphs = mesh.glyph(geom=sphere)
             res_spheres.append(glyphs)
 
-            #color the sphere according to 'CPK' standard
-            colors_spheres.append(color_dict[res_type])
 
         # return list of spheres and colors representing each res
         return res_spheres, colors_spheres
@@ -369,7 +372,6 @@ class Surface:
         :param type: str
         :return: void - plot
         """
-        #TODO: Surface might include solvent!!!
         face, vertice = self.load(self, filename)
         vertices = np.array(vertice)
         faces = np.hstack(face)
@@ -383,24 +385,26 @@ class Surface:
 
 
 def main():
-    name = "2fd7"
+    name = "1a3n" #"2fd7"
     density = 3.0
     solvent = 0
     bash = 0
-    fc = FileConverter(name, density, solvent, bash)
-    s = Surface
-    out_name = name + "_out_" + str(int(density))
-    print(out_name)
-    s.plot_surface(s, out_name)
 
-    # sp = StickPoint
-    # struct = sp.load_structure(name)
-    # atom_data = sp.get_atoms(struct) # second arg: 1 = showsolvent
-    # bonds = sp.pre_plot_bonds(struct)
+    # plot surface
+    # fc = FileConverter(name, density, solvent, bash)
+    # s = Surface
+    # out_name = name + "_out_" + str(int(density))
+    # s.plot_surface(s, out_name)
+
+    # plot stick point
+    sp = StickPoint
+    struct = sp.load_structure(name)
+    atom_data = sp.get_atoms(struct) # second arg: 1 = showsolvent
+    atoms, colors = sp.pre_plot_atoms(atom_data)
+    bonds = sp.pre_plot_bonds(struct)
     # res_data = sp.get_residues(struct)
-    # atoms, colors = sp.pre_plot_atoms(atom_data)
     # ress, colors_r = sp.pre_plot_residues(res_data)
-    # sp.plot_atoms(atoms, colors, 1, bonds, ress, colors_r)
+    sp.plot_atoms(atoms, colors, 1, bonds) #, ress, colors_r)
 
 
 if __name__ == "__main__":
