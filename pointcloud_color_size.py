@@ -389,6 +389,7 @@ def main():
     density = 3.0
     solvent = 0
     bash = 0
+    show_box = 1
 
     # plot surface
     # fc = FileConverter(name, density, solvent, bash)
@@ -404,7 +405,7 @@ def main():
     bonds = sp.pre_plot_bonds(struct)
     # res_data = sp.get_residues(struct)
     # ress, colors_r = sp.pre_plot_residues(res_data)
-    sp.plot_atoms(atoms, colors, 1, bonds) #, ress, colors_r)
+    sp.plot_atoms(atoms, colors, show_box, bonds) #, ress, colors_r)
 
 
 if __name__ == "__main__":
