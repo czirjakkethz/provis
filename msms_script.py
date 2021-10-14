@@ -1,4 +1,5 @@
 import subprocess
+import platform
 
 def msms_script(name, dens):
     """
@@ -11,11 +12,15 @@ def msms_script(name, dens):
     :param type: float
     :return: void - face and vert files
     """
-    # print("./msms.exe -if %4s.xyzr -of %4s_fine -density %s" % (name, name, str(dens)))
-    ac = subprocess.call("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(dens), str(dens)), shell=True)
+    # print("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)))
+    if platform.system() == "Windows":
+        ac = subprocess.call("msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)), shell=True)
+    else:
+        ac = subprocess.call("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)), shell=True)
+
 
 # def main():
-#     msms("2fd7", 3.0)
+#     msms_script("2fd7", 3.0)
 
 # if __name__ == "__main__":
 #     main()

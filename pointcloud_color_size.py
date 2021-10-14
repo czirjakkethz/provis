@@ -4,18 +4,18 @@ This file was created by Kristof Czirjak as part of his Bachelor's Thesis
 
 from Bio.PDB import *
 from Bio import SeqIO
-from Thesis_l.msms_script import msms_script
 import numpy as np
 import pyvista as pv
 import os
 import trimesh
-import pdb_to_xyzr
 import msms_script
+import pdb_to_xyzr_script
+import platform
 
 class FileConverter():
     def __init__(self, *args):
         """
-        Can be called empty. If called with arguments conversion instant
+        Can be constructed empty. If called with arguments conversion instant
         :param name: args[0] - name of file
         :param type: str
         :param name: args[1] - density of triangles
@@ -25,11 +25,13 @@ class FileConverter():
         if len(args) > 0:
             self._name = args[0]
             self._dest = args[1]
-            self.pdb_to_xyzr(self._name, self._dest)
-            self.msms(self._name)
+            self._solv = args[2]
+            self._bash = args[3]
+            self.pdb_to_xyzr(self._name, self._solv, self._bash)
+            self.msms(self._name, self._dest)
         pass
 
-    def pdb_to_xyzr(name, dest):
+    def pdb_to_xyzr(self, name, solvent, bash=0):
         """
         Run the pdb_to_xyzr script for given filename
         Works only on linux
@@ -38,9 +40,9 @@ class FileConverter():
         :param type: str
         :return: void - xyzr file
         """
-        pdb_to_xyzr.pdb_to_xyzr_script(name, dest)
+        pdb_to_xyzr_script.pdb_to_xyzr_script(name, solvent, bash)
 
-    def msms(name):
+    def msms(self, name, dest):
         """
         Run the msms script for given filename and density
         Works on both linux and windows
@@ -51,11 +53,13 @@ class FileConverter():
         :param type: float
         :return: void - face and vert files
         """
-        msms_script.msms_script(name)
+        msms_script.msms_script(name, dest)
 
 
 class StickPoint:
-    def __init__():
+    def __init__(self, file_name):
+        self._name = file_name
+        #TODO: possibly convert load_structure to constructor
         pass
 
     def load_structure(file_name):
@@ -365,7 +369,7 @@ class Surface:
         :param type: str
         :return: void - plot
         """
-
+        #TODO: Surface might include solvent!!!
         face, vertice = self.load(self, filename)
         vertices = np.array(vertice)
         faces = np.hstack(face)
@@ -379,17 +383,24 @@ class Surface:
 
 
 def main():
+    name = "2fd7"
+    density = 3.0
+    solvent = 0
+    bash = 0
+    fc = FileConverter(name, density, solvent, bash)
     s = Surface
-    s.plot_surface(s, "2fd7_fine")
+    out_name = name + "_out_" + str(int(density))
+    print(out_name)
+    s.plot_surface(s, out_name)
 
-    sp = StickPoint
-    struct = sp.load_structure("2fd7")
-    atom_data = sp.get_atoms(struct) # second arg: 1 = showsolvent
-    bonds = sp.pre_plot_bonds(struct)
-    res_data = sp.get_residues(struct)
-    atoms, colors = sp.pre_plot_atoms(atom_data)
-    ress, colors_r = sp.pre_plot_residues(res_data)
-    sp.plot_atoms(atoms, colors, 1, bonds, ress, colors_r)
+    # sp = StickPoint
+    # struct = sp.load_structure(name)
+    # atom_data = sp.get_atoms(struct) # second arg: 1 = showsolvent
+    # bonds = sp.pre_plot_bonds(struct)
+    # res_data = sp.get_residues(struct)
+    # atoms, colors = sp.pre_plot_atoms(atom_data)
+    # ress, colors_r = sp.pre_plot_residues(res_data)
+    # sp.plot_atoms(atoms, colors, 1, bonds, ress, colors_r)
 
 
 if __name__ == "__main__":
