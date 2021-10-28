@@ -1,17 +1,22 @@
 import csv
   
-def import_atm_info():
-    filename ="atmsizeinfo.csv"
+def import_atm_info(vw):
+    """
+    Funtion to load atomic radii from atmsizeinfo.csv, to be used in main
+    :param name: vw - option to return vanderwaals radius
+    :param type: bool - returns if true
+    :return: dict - dictionary of atomic radius by atom name
+    :return: dict - dictionary of color by atom name
+    """
+    filename_size ="atmsizeinfo.csv"
+    filename_vw ="atmvwinfo.csv"
     
     # opening the file using "with" 
     # statement
 
-    atom_info_list = []
     firstline = []
-
-    
     newdict = {}
-    with open(filename, newline='') as data:
+    with open(filename_size, newline='') as data:
         firstline = data.readline().rstrip().split(",")
         secondline = data.readline().rstrip().split(",")
         l = len(firstline)
@@ -50,6 +55,18 @@ def import_atm_info():
                         'TI': '#999999',
                         'FE': '#DD7700'
                     }
+
+    if vw:
+        firstline = []
+        vwdict = {}
+        with open(filename_vw, newline='') as data:
+            firstline = data.readline().rstrip().split(",")
+            secondline = data.readline().rstrip().split(",")
+            l = len(firstline)
+            for i in range(0,l):
+                vwdict[firstline[i]] = float(secondline[i])
+        return newdict, color, vwdict
+
 
     return newdict, color
 
