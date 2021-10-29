@@ -160,33 +160,52 @@ class DataHandler:
         # return the 3D positions of atoms organized by atom type        
         return res_data
 
-    def get_given_residue_info(self, res):
+    def get_residue_info(self, res, option):
         """
         Calculates information about specified residue from mol2 file
         If exact residue specified eg. "THR1" only that COM returned
         Else list of COM of all residues of that name returned TODO
         :param name: res - Residue name to be looked at
         :param type: str
+        :param name: option - choose what property of residue you want
+        :param type: str - com for Centre Of Mass, ch for charge
         :return: list - list of COM coords of given (exact) residue
         """
-
+        
+        # load info for given residue
         fname = self._name + ".mol2"
         pmol = PandasMol2().read_mol2(fname)
-
-        my = pmol.df[pmol.df['subst_name'] == res][['x', 'y', 'z']]
-        print(my)
-        COM_sum = [0.0, 0.0, 0.0]
-        for i in range(len(my)):
-            COM_sum[0] += my.iloc[i]['x']
-            COM_sum[1] += my.iloc[i]['y']
-            COM_sum[2] += my.iloc[i]['z']
-
-        COM = [i/len(my) for i in COM_sum]
-
-        return COM
+        my = pmol.df[pmol.df['subst_name'] == res]
         
+        # if com option calculate Centre of mass
+        if option.upper() == "COM":
+            COM_sum = [0.0, 0.0, 0.0]
+            for i in range(len(my)):
+                COM_sum[0] += my.iloc[i]['x']
+                COM_sum[1] += my.iloc[i]['y']
+                COM_sum[2] += my.iloc[i]['z']
+            a = len(my['x'])
+            COM = COM_sum
+            
+            
+            if a != 0:
+                COM = [i/a for i in COM_sum]
+            else:
+                print("No such residue: ", res)
 
+            return COM
+            
+        # if charge option calculate residue charge
+        elif option.upper() == "CH" or option.upper() == "CHARGE":
+            charge = 0.0
+            for i in range(len(my)):
+                charge += my.iloc[i]['charge']
+                
+            a = len(my['charge'])
+            if a == 0:
+                print("No such residue: ", res)
 
+            return charge
     
     def load_fv(self, file_name, end, vorf):
         """
@@ -230,7 +249,7 @@ class StickPoint:
         pass
 
 
-    def pre_plot_atoms(self, atom_data, vw=0):
+    def pre_plot_atoms(self, atom_data, vw=0, probe=0):
         """
         Create a list of Shperes representing each atom for plotting
         :param name: atom_data - Dictionary of atoms and their coordinates, by atom type
@@ -249,6 +268,7 @@ class StickPoint:
         # create glyphs (spherical) to represent each atom
         atoms_spheres = []
         colors_spheres = []
+        rad = probe / 2.0
         for atoms_type in atom_data:
 
             # create a mesh with each atoms position
@@ -257,7 +277,7 @@ class StickPoint:
             if not vw:
                 sphere = pv.Sphere(radius=atoms_size_dict[atoms_type], phi_resolution=phi_res, theta_resolution=theta_res)
             else:
-                sphere = pv.Sphere(radius=vw_dict[atoms_type], phi_resolution=phi_res, theta_resolution=theta_res)
+                sphere = pv.Sphere(radius=(vw_dict[atoms_type] + rad), phi_resolution=phi_res, theta_resolution=theta_res)
             glyphs = mesh.glyph(geom=sphere)
             atoms_spheres.append(glyphs)
 
@@ -373,7 +393,7 @@ class StickPoint:
         file_exists = exists(fname)
         fc = FileConverter()
         if not file_exists:
-            fh.pdb_to_mol2(name)
+            fc.pdb_to_mol2(name)
         pmol = PandasMol2().read_mol2(fname)
         bonds_in = bond_parser(fname)
 
@@ -474,7 +494,6 @@ class Surface:
         face, vertice = self.load(filename)
         vertices = np.array(vertice)
         faces = np.hstack(face)
-        print(faces)
         pl = pv.Plotter(lighting=None)
         pl.background_color = 'grey'
         pl.enable_3_lights()
@@ -483,80 +502,121 @@ class Surface:
         pl.add_mesh(mesh)
         pl.show()
 
-    def new_surface(self, atoms):
+    def new_surface(self, atoms, atmsrf):
         
         by_type = list(atoms.values())
         points_ = []
         for i in range(len(by_type)):
             points_.extend(by_type[i])
-        
         points = np.array(points_)
         hull = Delaunay(points)
         indices = hull.simplices
         faces = np.hstack(indices)
         vertices = points[indices]
         vertices_ = vertices.squeeze()
+
+        #############======================
+
+        pl = pv.Plotter(lighting=None)
+        pl.background_color = 'grey'
+        pl.enable_3_lights()
+
+        # adding the spheres (by atom type) one at a time
+        j = 0
+        style = 'surface'
+        mesh_ = pv.wrap(atmsrf[0][0])
+        for mesh in atmsrf[0][1:]:
+            mesh_ = mesh_.merge(mesh)
+            
+        vol = mesh_.delaunay_3d(alpha=1.4)
+        shell = vol.extract_surface().reconstruct_surface()
+        pl.add_mesh(shell, color='white', smooth_shading=True, style=style)
+#        # save a screenshot
+#        pl.show(screenshot='test.png')
+#
+#        mesh = pv.wrap(atomss[0])
+#        for r in range(1,len(atomss)):
+#            print(str(r) + " is triangulated: " + str(atomss[r].is_all_triangles()))
+#            mesh = mesh.boolean_union(atomss[r])
+#            print(str(r) + " is done")
+#        mesh.plot()
+#        pl = pv.Plotter(lighting=None)
+#        pl.background_color = 'grey'
+#        pl.enable_3_lights()
+#        for mesh in res:
+#            pl.add_mesh(mesh, color='w')
+        pl.show()
         
-        X = np.array(points)
-        # My data points are strictly positive. This doesn't work if I don't center about the origin.
-        X -= X.mean(axis=0)
-
-        rad = np.linalg.norm(X, axis=1)
-        zen = np.arccos(X[:,-1] / rad)
-        azi = np.arctan2(X[:,1], X[:,0])
-
-        tris = mtri.Triangulation(zen, azi)
-
-        fig = plt.figure()
-        ax  = fig.add_subplot(111, projection='3d')
-        ax.plot_trisurf(X[:,0], X[:,1], X[:,2], triangles=tris.triangles, cmap=plt.cm.bone)
-        plt.show()
-        # from Bio.PDB.DSSP import DSSP
-        # p = PDBParser()
-        # structure = p.get_structure("2fd7", "2fd7.pdb")
-        # model = structure[0]
-        # dssp = DSSP(model, "2fd7.pdb")
-
-#         # fig = plt.figure()
-#         # ax = fig.add_subplot(1, 1, 1, projection='3d')
-#         # # The triangles in parameter space determine which x, y, z points are
-#         # # connected by an edge
-#         # ax.plot_trisurf(points[:,0], points[:,1], points[:,2], cmap=plt.cm.Spectral)
-#         # # ax.plot_trisurf(points[:,0], points[:,1], points[:,2], triangles=hull.simplices, cmap=plt.cm.Spectral)
-#         # plt.show()
-
-#         ###############################
-
-#         pl = pv.Plotter(lighting=None)
-#         pl.background_color = 'grey'
-#         pl.enable_3_lights()
-#         #################################
-#         # new = []
-#         # for quads in vertices:
-#         #     for point in quads:
-#         #         new.append(point)
+        ###########===========================
 
 
-#         # tmesh = trimesh.Trimesh(new, faces=indices, process=False)
+#        # points is a 3D numpy array (n_points, 3) coordinates of a sphere
+#        cloud = pv.PolyData(points)
+#        volume = cloud.delaunay_3d(alpha=2.7)
+#        shell = volume.extract_geometry()
+#        shell.plot()
+        
+        
+        
+#        X = np.array(points)
+#        # My data points are strictly positive. This doesn't work if I don't center about the origin.
+#        X -= X.mean(axis=0)
+#
+#        rad = np.linalg.norm(X, axis=1)
+#        zen = np.arccos(X[:,-1] / rad)
+#        azi = np.arctan2(X[:,1], X[:,0])
+#
+#        tris = mtri.Triangulation(zen, azi)
+#
+#        fig = plt.figure()
+#        ax  = fig.add_subplot(111, projection='3d')
+#        ax.plot_trisurf(X[:,0], X[:,1], X[:,2], triangles=tris.triangles, cmap=plt.cm.bone)
+#        plt.show()
 
-#         ##################################
-#         new_v = []
-#         for quads in vertices:
-#             for point in quads:
-#                 new_v.append(point)
-#         new_f = []
-#         for el in range(len(indices)):
-#             new_f.append([])
-#             for xyz in range(len(indices[el])):
-#                 new_f[el].append(indices[el][xyz] - 1)
 
-#         tmesh = trimesh.Trimesh(new_v, faces=new_f, process=False)
-# ############################################
+#        # colorful mess, topological surface
+#        from Bio.PDB.DSSP import DSSP
+#        p = PDBParser()
+#        structure = p.get_structure("2fd7", "2fd7.pdb")
+#        model = structure[0]
+#        dssp = DSSP(model, "2fd7.pdb")
+#
+#        fig = plt.figure()
+#        ax = fig.add_subplot(1, 1, 1, projection='3d')
+#        # The triangles in parameter space determine which x, y, z points are
+#        # connected by an edge
+#        ax.plot_trisurf(points[:,0], points[:,1], points[:,2], cmap=plt.cm.Spectral)
+#        # ax.plot_trisurf(points[:,0], points[:,1], points[:,2], triangles=hull.simplices, cmap=plt.cm.Spectral)
+#        plt.show()
 
-#         mesh = pv.wrap(tmesh)
-#         pl.add_mesh(mesh)
-
-#         pl.show(screenshot='surf_2.png')
+         ##############JUST COORDS, Kinda works#################
+#
+#        pl = pv.Plotter(lighting=None)
+#        pl.background_color = 'grey'
+#        pl.enable_3_lights()
+#         ###########According to actual######################
+#
+#        #mesh = pv.PolyData(new)
+#        tmesh = trimesh.Trimesh(points, faces=indices, process=False)
+#
+##         ##############adjusted for some reason####################
+##        new_v = []
+##        for quads in vertices:
+##            for point in quads:
+##                new_v.append(point)
+##        new_f = []
+##        for el in range(len(indices)):
+##            new_f.append([])
+##            for xyz in range(len(indices[el])):
+##                new_f[el].append(indices[el][xyz] - 1)
+##
+##        tmesh = trimesh.Trimesh(new_v, faces=new_f, process=False)
+## ############################################
+#
+#        mesh = pv.wrap(tmesh)
+#        pl.add_mesh(mesh)
+#
+#        pl.show(screenshot='surf_2.png')
 
         
 
@@ -572,33 +632,35 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.tri as mtri
                                     
 def main():
-    name = "2fd7" # "1a3n" #
+    name =  "2fd7" #  "1a3n" #
     density = 3.0
     solvent = 0
     bash = 0
     show_box = 1
 
     dh = DataHandler(name)
-    # dh.get_given_residue_info("THR1")
+    # calculate COM for given residue
+#    dh.get_residue_info('LEU2','ch')
     
     # plot stick point
-    sp = StickPoint('2fd7')
+    sp = StickPoint(name)
     struct = dh.load_structure()
     atom_data = dh.get_atoms(struct) # second arg: 1 = showsolvent
     atoms, colors = sp.pre_plot_atoms(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
-    bonds = sp.pre_plot_bonds(name)
+#    bonds = sp.pre_plot_bonds(name)
     # bonds = sp.pre_plot_bonds(struct)
-    # res_data = sp.get_residues(struct)
-    # ress, colors_r = sp.pre_plot_residues(res_data)
-    sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=bonds, res=0, col_r=0)
-
-
-    # plot surface
-    fc = FileConverter(name, density, solvent, bash)
+    res_data = dh.get_residues(struct)
+    ress, colors_r = sp.pre_plot_residues(res_data)
+#    sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=bonds, res=0, col_r=0)
+#
+#
+#    # plot surface
+#    fc = FileConverter(name, density, solvent, bash)
     s = Surface(name)
     out_name = name + "_out_" + str(int(density))
     s.plot_surface(out_name)
-    # s.new_surface(atom_data)
+    atmsurf = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
+    s.new_surface(atom_data, atmsurf)
 
 if __name__ == "__main__":
     main()
