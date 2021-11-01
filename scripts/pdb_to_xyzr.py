@@ -52,7 +52,7 @@ h_select=5
 
 # read radius table and patterns from supplied file
 npats=0
-atm_file = "atmtypenumbers"
+atm_file = "../data/atmtypenumbers"
 explicit_rad = [None] * 100
 united_rad = [None] * 100
 respat = [None] * 1000

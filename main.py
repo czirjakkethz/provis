@@ -8,10 +8,10 @@ import numpy as np
 import pyvista as pv
 import os
 import trimesh
-import msms_script
-import pdb_to_xyzr_script
+from scripts.msms_script import msms_script
+from scripts.pdb_to_xyzr_script import pdb_to_xyzr_script
 import platform
-from atmsize import import_atm_info
+from scripts.atmsize import import_atm_info
 from biopandas.mol2 import PandasMol2
 import re
 import pandas as pd
@@ -502,7 +502,7 @@ class Surface:
         pl.add_mesh(mesh)
         pl.show()
 
-    def new_surface(self, atoms, atmsrf):
+    def new_surface(self, atoms, atmsrf, col):
         
         by_type = list(atoms.values())
         points_ = []
@@ -524,27 +524,32 @@ class Surface:
         # adding the spheres (by atom type) one at a time
         j = 0
         style = 'surface'
-        mesh_ = pv.wrap(atmsrf[0][0])
-        for mesh in atmsrf[0][1:]:
-            mesh_ = mesh_.merge(mesh)
+        mesh_ = pv.wrap(atmsrf[0])
+        for mesh in atmsrf[1:]:
+            mesh_ = mesh_ + (mesh)
             
         vol = mesh_.delaunay_3d(alpha=1.4)
         shell = vol.extract_surface().reconstruct_surface()
-        pl.add_mesh(shell, color='white', smooth_shading=True, style=style)
-#        # save a screenshot
-#        pl.show(screenshot='test.png')
+        # Compute the normals in-place and use them to warp the globe
+#        shell.compute_normals(inplace=True)  # this activates the normals as well
 #
-#        mesh = pv.wrap(atomss[0])
-#        for r in range(1,len(atomss)):
-#            print(str(r) + " is triangulated: " + str(atomss[r].is_all_triangles()))
-#            mesh = mesh.boolean_union(atomss[r])
-#            print(str(r) + " is done")
-#        mesh.plot()
-#        pl = pv.Plotter(lighting=None)
-#        pl.background_color = 'grey'
-#        pl.enable_3_lights()
-#        for mesh in res:
-#            pl.add_mesh(mesh, color='w')
+#        # Now use those normals to warp the surface
+#        warp = shell.warp_by_scalar(factor=0.5e-5)
+        pl.add_mesh(shell, color="white", smooth_shading=True, style=style, show_edges=True)#, culling='back')
+#        # save a screenshot
+##        pl.show(screenshot='test.png')
+##
+##        mesh = pv.wrap(atomss[0])
+##        for r in range(1,len(atomss)):
+##            print(str(r) + " is triangulated: " + str(atomss[r].is_all_triangles()))
+##            mesh = mesh.boolean_union(atomss[r])
+##            print(str(r) + " is done")
+##        mesh.plot()
+##        pl = pv.Plotter(lighting=None)
+##        pl.background_color = 'grey'
+##        pl.enable_3_lights()
+##        for mesh in res:
+##            pl.add_mesh(mesh, color='w')
         pl.show()
         
         ###########===========================
@@ -577,10 +582,13 @@ class Surface:
 #        # colorful mess, topological surface
 #        from Bio.PDB.DSSP import DSSP
 #        p = PDBParser()
-#        structure = p.get_structure("2fd7", "2fd7.pdb")
+#        structure = p.get_structure("2fd7", "data/2fd7.pdb")
 #        model = structure[0]
-#        dssp = DSSP(model, "2fd7.pdb")
+#        dssp = DSSP(model, "data/2fd7.pdb")
+#        a_key = list(dssp.keys())[2]
 #
+#        print(dssp[a_key])
+
 #        fig = plt.figure()
 #        ax = fig.add_subplot(1, 1, 1, projection='3d')
 #        # The triangles in parameter space determine which x, y, z points are
@@ -632,7 +640,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.tri as mtri
                                     
 def main():
-    name =  "2fd7" #  "1a3n" #
+    name =  "data/2fd7" #  "1a3n" #
     density = 3.0
     solvent = 0
     bash = 0
@@ -657,10 +665,10 @@ def main():
 #    # plot surface
 #    fc = FileConverter(name, density, solvent, bash)
     s = Surface(name)
-    out_name = name + "_out_" + str(int(density))
-    s.plot_surface(out_name)
-    atmsurf = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
-    s.new_surface(atom_data, atmsurf)
+#    out_name = name + "_out_" + str(int(density))
+#    s.plot_surface(out_name)
+    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
+    s.new_surface(atom_data, atmsurf, col)
 
 if __name__ == "__main__":
     main()

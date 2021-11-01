@@ -3,7 +3,7 @@
 import csv
 
 # from https://en.wikipedia.org/wiki/Atomic_radii_of_the_elements_%28data_page%29
-filename ="atmrawinfo.csv"
+filename ="../data/atmrawinfo.csv"
   
 # opening the file using "with" 
 # statement
@@ -32,11 +32,11 @@ for k in options:
 
 
     # open file for writing, "w" is writing
-    w = csv.writer(open("atmsizeinfo.csv", "w", newline=''))
+    w = csv.writer(open("../data/atmsizeinfo.csv", "w", newline=''))
     if k == 4:
-        w = csv.writer(open("atmsizeinfo.csv", "w", newline=''))
+        w = csv.writer(open("../data/atmsizeinfo.csv", "w", newline=''))
     elif k == 5:
-        w = csv.writer(open("atmvwinfo.csv", "w", newline=''))
+        w = csv.writer(open("../data/atmvwinfo.csv", "w", newline=''))
 
     w.writerow(key_list)
     w.writerow(val_list)
