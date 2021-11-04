@@ -14,9 +14,9 @@ def msms_script(name, dens):
     """
     # print("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)))
     if platform.system() == "Windows":
-        ac = subprocess.call("msms.exe -if %4s.xyzr -of ../data/%4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)), shell=True)
+        ac = subprocess.call("msms.exe -if %4s.xyzr -of data/%4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)), shell=True)
     else:
-        ac = subprocess.call("./msms.exe -if %4s.xyzr -of ../data/%4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)), shell=True)
+        ac = subprocess.call("./msms.exe -if %4s.xyzr -of data/%4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)), shell=True)
 
 
 # def main():

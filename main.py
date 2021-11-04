@@ -11,7 +11,7 @@ import trimesh
 from scripts.msms_script import msms_script
 from scripts.pdb_to_xyzr_script import pdb_to_xyzr_script
 import platform
-from scripts.atmsize import import_atm_info
+from scripts.atminfo import import_atm_size_info, import_atm_mass_info
 from biopandas.mol2 import PandasMol2
 import re
 import pandas as pd
@@ -82,34 +82,28 @@ class FileConverter():
 
 class DataHandler:
     def __init__(self, name):
-        self._name = name
-        pass
-
-    def load_structure(self):
         """
         load structure form pdb file (by parsing file) and return structure
         :param name: file_name - Name of file (without filetype) to be loaded
         :param type: str
         :return: structure - Biopython structure representation of the file
         """
-        file_name = self._name
-        parser = PDBParser() 
-        load_pdb = file_name + ".pdb"
-        structure = parser.get_structure(file_name, load_pdb) 
+        self._name = name
+        parser = PDBParser()
+        file_name = name + ".pdb"
+        structure = parser.get_structure(name, file_name)
         
-        return structure
+        self._structure = structure
 
-    def get_atoms(self, structure, show_solvent=False):
+    def get_atoms(self, show_solvent=False):
         """
         Creates a dictionary of atomic coordinates from structure
-        :param name: structure - Biopython structure object of desired molecule
-        :param type: structure
         :param name: show_solvent - If True solvent molecules also added to retrun dictionary
         :param type: bool
         :return: dict - Dictionary of atomic coordinates by atom type
         """
         # load file into a python list
-        residues = structure.get_residues()
+        residues = self._structure.get_residues()
         residues_list = list(residues)
         
         # initialize dictionary, then fill up iteratively
@@ -130,16 +124,14 @@ class DataHandler:
         return atom_data
 
 
-    def get_residues(self, structure):
+    def get_residues(self):
         """
         Creates a dictionary of coordinates by residues from structure object
-        :param name: structure - Biopython structure object of desired molecule
-        :param type: structure
         :return: dict - Dictionary of atomic coordinates by residue type
         """
 
         # load file into a python list
-        residues = structure.get_residues()
+        residues = self._structure.get_residues()
         res_list = list(residues)
 
         # initialize dictionary, then fill up iteratively
@@ -160,7 +152,7 @@ class DataHandler:
         # return the 3D positions of atoms organized by atom type        
         return res_data
 
-    def get_residue_info(self, res, option):
+    def get_residue_info(self, res, chain, option):
         """
         Calculates information about specified residue from mol2 file
         If exact residue specified eg. "THR1" only that COM returned
@@ -175,24 +167,35 @@ class DataHandler:
         # load info for given residue
         fname = self._name + ".mol2"
         pmol = PandasMol2().read_mol2(fname)
-        my = pmol.df[pmol.df['subst_name'] == res]
+        my = pmol.df[pmol.df['subst_id'] == res]
         
+        fid = my.iloc[0]['atom_id'] -1
+        curr_chain = 0
+        actual = pd.DataFrame(columns = list(my))
+        for i, row in my.iterrows():
+            if row['atom_id'] != fid + 1:
+                curr_chain += 1
+            if curr_chain == chain:
+                actual = actual.append(row)
+            fid = row['atom_id']
+                
         # if com option calculate Centre of mass
         if option.upper() == "COM":
             COM_sum = [0.0, 0.0, 0.0]
-            for i in range(len(my)):
-                COM_sum[0] += my.iloc[i]['x']
-                COM_sum[1] += my.iloc[i]['y']
-                COM_sum[2] += my.iloc[i]['z']
-            a = len(my['x'])
+            a = 0
+            mass_dict = import_atm_mass_info()
+            for i in range(len(actual)):
+                m = mass_dict[actual.iloc[i]['atom_type'][0]]
+                COM_sum[0] += actual.iloc[i]['x'] * m
+                COM_sum[1] += actual.iloc[i]['y'] * m
+                COM_sum[2] += actual.iloc[i]['z'] * m
+                a += m
             COM = COM_sum
-            
             
             if a != 0:
                 COM = [i/a for i in COM_sum]
             else:
                 print("No such residue: ", res)
-
             return COM
             
         # if charge option calculate residue charge
@@ -240,13 +243,35 @@ class DataHandler:
 
         outfile.close()
         return ret
-
+        
+    def get_structure(self):
+        """
+        Return the loaded structure object
+        """
+        return self._structure
 
 
 class StickPoint:
     def __init__(self, file_name):
         self._name = file_name
-        pass
+        self._dh = DataHandler(file_name)
+        # these two dictionaries have to be manually created
+        # could not find volume information for CYS, HIS, LYS, THR, TYR
+        # for above mentioned apporximation by "closest" available
+        self._res_size_dict = { "ALA": 2.80, "ARG": 3.77, "ASN": 3.18, "ASP": 1.51,
+            "CYS": 2.87, "GLN": 3.37, "GLU": 1.68, "GLY": 2.51, "HIS": 3.65,
+            "ILE": 3.43, "LEU": 3.42, "LYS": 3.77, "MET": 3.44, "PHE": 3.65,
+            "PRO": 3.13, "SER": 2.87, "THR": 2.87, "TRP": 3.54, "TYR": 3.65,
+            "VAL": 3.24, "HOH":1.375, "HEM": 33.43 } #HEM vol 156536
+
+
+        self._res_color_dict = {"ALA": '#13B6E2', "ARG": '#23DEFE', "ASN": '#0EFF57', "ASP": '#822DD2',
+            "CYS": '#A22282', "GLN": '#60C7B0', "GLU": '#6913FE', "GLY": '#8E41D0', "HIS": '#7089FC',
+            "ILE": '#0CAFF9', "LEU": '#806769', "LYS": '#8B7928', "MET": '#68D139', "PHE": '#8BA695',
+            "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D',
+            "VAL": '#128033', "HOH": 'w', "HEM": 'r'}
+        self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(1)
+
 
 
     def pre_plot_atoms(self, atom_data, vw=0, probe=0):
@@ -263,8 +288,6 @@ class StickPoint:
         # these two dictionaries have to be manually created
         # also, if more/other atoms present in protein it will not work
 
-        atoms_size_dict, color_dict, vw_dict = import_atm_info(1)
-
         # create glyphs (spherical) to represent each atom
         atoms_spheres = []
         colors_spheres = []
@@ -275,7 +298,7 @@ class StickPoint:
             mesh = pv.PolyData(np.array(atom_data[atoms_type]))
             # place a specific sphere at given position
             if not vw:
-                sphere = pv.Sphere(radius=atoms_size_dict[atoms_type], phi_resolution=phi_res, theta_resolution=theta_res)
+                sphere = pv.Sphere(radius=self._atoms_size_dict[atoms_type], phi_resolution=phi_res, theta_resolution=theta_res)
             else:
                 sphere = pv.Sphere(radius=(vw_dict[atoms_type] + rad), phi_resolution=phi_res, theta_resolution=theta_res)
             glyphs = mesh.glyph(geom=sphere)
@@ -283,7 +306,7 @@ class StickPoint:
 
             try:
                 # color the sphere according to 'CPK' standard
-                colors_spheres.append(color_dict[atoms_type])
+                colors_spheres.append(self._atoms_color_dict[atoms_type])
             except KeyError:
                 # if atom is unrecognized, color it pink
                 colors_spheres.append('#DD77FF')
@@ -304,21 +327,6 @@ class StickPoint:
         # Set resolution variables so only need to change once
         phi_res = 25
         theta_res = 25
-        # these two dictionaries have to be manually created
-        # could not find volume information for CYS, HIS, LYS, THR, TYR
-        # for above mentioned apporximation by "closest" available
-        res_size_dict = { "ALA": 2.80, "ARG": 3.77, "ASN": 3.18, "ASP": 1.51, 
-            "CYS": 2.87, "GLN": 3.37, "GLU": 1.68, "GLY": 2.51, "HIS": 3.65,
-            "ILE": 3.43, "LEU": 3.42, "LYS": 3.77, "MET": 3.44, "PHE": 3.65, 
-            "PRO": 3.13, "SER": 2.87, "THR": 2.87, "TRP": 3.54, "TYR": 3.65, 
-            "VAL": 3.24, "HOH":0, "HEM": 33.43 } #HEM vol 156536
-
-
-        color_dict = {"ALA": '#13B6E2', "ARG": '#23DEFE', "ASN": '#0EFF57', "ASP": '#822DD2', 
-            "CYS": '#A22282', "GLN": '#60C7B0', "GLU": '#6913FE', "GLY": '#8E41D0', "HIS": '#7089FC',
-            "ILE": '#0CAFF9', "LEU": '#806769', "LYS": '#8B7928', "MET": '#68D139', "PHE": '#8BA695', 
-            "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D', 
-            "VAL": '#128033', "HOH": 'w', "HEM": 'w'}
 
         # create glyphs (spherical) to represent each res
         res_spheres = []
@@ -328,9 +336,9 @@ class StickPoint:
             sphere = pv.Sphere(radius=0.0, phi_resolution=phi_res, theta_resolution=theta_res)
             try:    
                 #color the sphere according to 'CPK' standard
-                colors_spheres.append(color_dict[res_type])
+                colors_spheres.append(self._res_color_dict[res_type])
 
-                sphere = pv.Sphere(radius=res_size_dict[res_type], phi_resolution=phi_res, theta_resolution=theta_res)
+                sphere = pv.Sphere(radius=self._res_size_dict[res_type], phi_resolution=phi_res, theta_resolution=theta_res)
             except KeyError:
                 colors_spheres.append('#DD77FF')
 
@@ -411,7 +419,7 @@ class StickPoint:
         
         return bonds
 
-    def plot_stick_ball(self, atoms, col_s, box=0, bonds=0, vw=0, res=0, col_r=0):
+    def plot_stick_ball(self, atoms, col_s, box=0, bonds=0, vw=0, residues=0, col_r=0, res=0):
         """
         Plot stick and point model
         :param name: atoms - List of pyvista Shperes representing each atom 
@@ -434,34 +442,38 @@ class StickPoint:
         pl.enable_3_lights()
 
         # adding the spheres (by atom type) one at a time
-        j = 0
         opacity = 1 - vw*0.4
         style = 'surface'
         if vw:
             style='wireframe'
-        for mesh in atoms:
+        for j, mesh in enumerate(atoms):
             pl.add_mesh(mesh, color=col_s[j], opacity=opacity, smooth_shading=True, style=style)
-            j=j+1
 
         # adding the bonds one at a time
         if bonds != 0:
-            l = 0
             for b in bonds:
                 pl.add_mesh(b, color='w', render_lines_as_tubes=True, line_width=5)
         # adding the spheres (by residue) one at a time
         # only executes if residue information provided
-        if res != 0:
-            k = 0
-            for mesh in res:
+        if residues != 0:
+            for k, mesh in enumerate(residues):
                 pl.add_mesh(mesh, color=col_r[k], opacity=0.2)
-                k+=1
         
         # if specified add bounding box
         if box:
             pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
-
+        if res:
+            res_list, chain_list, pad = res.get_res_info()
+            for i, r in enumerate(res_list):
+                chain = chain_list[i]
+                residues = self._dh.get_structure().get_residues()
+                residues_list = list(residues)
+                res_name = residues_list[r + 1].get_resname()
+                d = (self._res_size_dict[res_name] + pad) * 2
+                x, y, z = d,d,d
+                pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5)
         # save a screenshot
-        pl.show(screenshot='test.png')
+        pl.show(screenshot='data/test.png')
 
 class Surface:
     def __init__(self, name):
@@ -553,7 +565,17 @@ class Surface:
         pl.show()
         
         ###########===========================
-
+        
+#from scipy.spatial import Delaunay, ConvexHull
+#import numpy as np
+#import matplotlib.pyplot as plt
+#from mpl_toolkits.mplot3d import Axes3D
+#import matplotlib.tri as mtri
+#from scipy.spatial import Delaunay
+#import numpy as np
+#import matplotlib.pyplot as plt
+#from mpl_toolkits.mplot3d import Axes3D
+#import matplotlib.tri as mtri
 
 #        # points is a 3D numpy array (n_points, 3) coordinates of a sphere
 #        cloud = pv.PolyData(points)
@@ -626,49 +648,72 @@ class Surface:
 #
 #        pl.show(screenshot='surf_2.png')
 
+class Residue():
+    def __init__(self, id=None, chain=0, padding=0):
+        if id == None:
+            self._id_list = []
+            self._chain_list = []
+        else:
+            self._id_list = [id]
+            self._chain_list = [chain]
+        self._pad = padding
         
-
-from scipy.spatial import Delaunay, ConvexHull
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.tri as mtri
-from scipy.spatial import Delaunay
-import numpy as np
-import matplotlib.pyplot as plt 
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.tri as mtri
+    def add_residue(self, id, chain=0):
+        """
+        :param name: id - id of residue
+        :param type: int
+        :param name: chain - chain id of residue
+        :param type: int
+        :return: list - list of the current residues
+        """
+        self._id_list.append(id)
+        self._chain_list.append(chain)
+    
+    def get_res_info(self):
+        """
+        :return: list - list of the current residues
+        :return: int - padding for bounding box
+        """
+        return self._id_list, self._chain_list, self._pad
+    
                                     
 def main():
-    name =  "data/2fd7" #  "1a3n" #
+    name =   "data/1a3n" # "data/2fd7" #
     density = 3.0
     solvent = 0
     bash = 0
     show_box = 1
 
     dh = DataHandler(name)
-    # calculate COM for given residue
-#    dh.get_residue_info('LEU2','ch')
+    ## for given residue (ID) calculate COM or Charge
+#   (dh.get_residue_info(3,'com'))
+    # TODO: change from name to residue id DONE
+    # TODO: add bounding box to residue DONE
+    # TODO: use Charlotte surface color code
     
-    # plot stick point
+    ## plot stick point
     sp = StickPoint(name)
-    struct = dh.load_structure()
-    atom_data = dh.get_atoms(struct) # second arg: 1 = showsolvent
+    atom_data = dh.get_atoms() # second arg: 1 = showsolvent
+    ## return list of spheres (meshes) and colors for the spheres
     atoms, colors = sp.pre_plot_atoms(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
+    ## return list of lines (meshes)
 #    bonds = sp.pre_plot_bonds(name)
-    # bonds = sp.pre_plot_bonds(struct)
-    res_data = dh.get_residues(struct)
+    ## return list of spheres (meshes) and colors for the spheres
+    res_data = dh.get_residues()
     ress, colors_r = sp.pre_plot_residues(res_data)
-#    sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=bonds, res=0, col_r=0)
+    ## Create residue for plotting with bounding box
+    r = Residue(60)
+    ## plot stick and balls model
+    sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=0, residues=0, col_r=0, res=r)
 #
 #
-#    # plot surface
+#    ## plot surface
 #    fc = FileConverter(name, density, solvent, bash)
     s = Surface(name)
-#    out_name = name + "_out_" + str(int(density))
+    out_name = name + "_out_" + str(int(density))
 #    s.plot_surface(out_name)
-    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
-    s.new_surface(atom_data, atmsurf, col)
+#    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
+#    s.new_surface(atom_data, atmsurf, col)
 
 if __name__ == "__main__":
     main()

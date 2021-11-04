@@ -1,27 +1,28 @@
 import csv
   
-def import_atm_info(vw):
+def import_atm_size_info(vw=0):
     """
-    Funtion to load atomic radii from atmsizeinfo.csv, to be used in main
+    Funtion to load atomic radii from atmsize.csv, to be used in main
     :param name: vw - option to return vanderwaals radius
     :param type: bool - returns if true
     :return: dict - dictionary of atomic radius by atom name
     :return: dict - dictionary of color by atom name
+    :return: dict - !optional! return dictionary of vw rdius by atom name
     """
-    filename_size ="atmsizeinfo.csv"
-    filename_vw ="atmvwinfo.csv"
+    filename_size ="data/atmsize.csv"
+    filename_vw ="data/atmvw.csv"
     
     # opening the file using "with" 
     # statement
 
     firstline = []
-    newdict = {}
+    sizedict = {}
     with open(filename_size, newline='') as data:
         firstline = data.readline().rstrip().split(",")
         secondline = data.readline().rstrip().split(",")
         l = len(firstline)
         for i in range(0,l):
-            newdict[firstline[i]] = float(secondline[i])
+            sizedict[firstline[i]] = float(secondline[i])
 
     color = {  'H': '#FFFFFF',
                         'C': '#333333',
@@ -55,7 +56,6 @@ def import_atm_info(vw):
                         'TI': '#999999',
                         'FE': '#DD7700'
                     }
-
     if vw:
         firstline = []
         vwdict = {}
@@ -65,10 +65,9 @@ def import_atm_info(vw):
             l = len(firstline)
             for i in range(0,l):
                 vwdict[firstline[i]] = float(secondline[i])
-        return newdict, color, vwdict
-
-
-    return newdict, color
+        return sizedict, color, vwdict
+        
+    return sizedict, color
 
 # original dictionary used
 # atoms_size_dict = {'C': pv.Sphere(radius=0.67, phi_resolution=phi_res, theta_resolution=theta_res),
@@ -83,3 +82,22 @@ def import_atm_info(vw):
 
 # if __name__ == "__main__":
 #     main()
+
+  
+def import_atm_mass_info():
+    """
+    Funtion to load atomic mass from atmmass.csv, to be used in main
+    :return: dict - dictionary of atomic mass by atom name
+    """
+    filename_mass = "data/atmmass.csv"
+    
+    firstline = []
+    massdict = {}
+    with open(filename_mass, newline='') as data:
+        firstline = data.readline().rstrip().split(",")
+        secondline = data.readline().rstrip().split(",")
+        l = len(firstline)
+        for i in range(0,l):
+            massdict[firstline[i].upper()] = float(secondline[i])
+
+    return massdict
