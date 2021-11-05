@@ -169,6 +169,10 @@ class DataHandler:
         pmol = PandasMol2().read_mol2(fname)
         my = pmol.df[pmol.df['subst_id'] == res]
         
+        if len(my) == 0:
+            print("ERROR: No such residue: ", res)
+            return 1
+        
         fid = my.iloc[0]['atom_id'] -1
         curr_chain = 0
         actual = pd.DataFrame(columns = list(my))
@@ -182,20 +186,16 @@ class DataHandler:
         # if com option calculate Centre of mass
         if option.upper() == "COM":
             COM_sum = [0.0, 0.0, 0.0]
-            a = 0
             mass_dict = import_atm_mass_info()
+            a = 0
             for i in range(len(actual)):
                 m = mass_dict[actual.iloc[i]['atom_type'][0]]
                 COM_sum[0] += actual.iloc[i]['x'] * m
                 COM_sum[1] += actual.iloc[i]['y'] * m
                 COM_sum[2] += actual.iloc[i]['z'] * m
                 a += m
-            COM = COM_sum
             
-            if a != 0:
-                COM = [i/a for i in COM_sum]
-            else:
-                print("No such residue: ", res)
+            COM = [i/a for i in COM_sum]
             return COM
             
         # if charge option calculate residue charge
@@ -203,10 +203,6 @@ class DataHandler:
             charge = 0.0
             for i in range(len(my)):
                 charge += my.iloc[i]['charge']
-                
-            a = len(my['charge'])
-            if a == 0:
-                print("No such residue: ", res)
 
             return charge
     
@@ -300,7 +296,7 @@ class StickPoint:
             if not vw:
                 sphere = pv.Sphere(radius=self._atoms_size_dict[atoms_type], phi_resolution=phi_res, theta_resolution=theta_res)
             else:
-                sphere = pv.Sphere(radius=(vw_dict[atoms_type] + rad), phi_resolution=phi_res, theta_resolution=theta_res)
+                sphere = pv.Sphere(radius=(self._vw_dict[atoms_type] + rad), phi_resolution=phi_res, theta_resolution=theta_res)
             glyphs = mesh.glyph(geom=sphere)
             atoms_spheres.append(glyphs)
 
@@ -516,16 +512,16 @@ class Surface:
 
     def new_surface(self, atoms, atmsrf, col):
         
-        by_type = list(atoms.values())
-        points_ = []
-        for i in range(len(by_type)):
-            points_.extend(by_type[i])
-        points = np.array(points_)
-        hull = Delaunay(points)
-        indices = hull.simplices
-        faces = np.hstack(indices)
-        vertices = points[indices]
-        vertices_ = vertices.squeeze()
+#        by_type = list(atoms.values())
+#        points_ = []
+#        for i in range(len(by_type)):
+#            points_.extend(by_type[i])
+#        points = np.array(points_)
+#        hull = Delaunay(points)
+#        indices = hull.simplices
+#        faces = np.hstack(indices)
+#        vertices = points[indices]
+#        vertices_ = vertices.squeeze()
 
         #############======================
 
@@ -678,7 +674,7 @@ class Residue():
     
                                     
 def main():
-    name =   "data/1a3n" # "data/2fd7" #
+    name = "data/2fd7" # "data/1a3n" #
     density = 3.0
     solvent = 0
     bash = 0
@@ -702,15 +698,15 @@ def main():
     res_data = dh.get_residues()
     ress, colors_r = sp.pre_plot_residues(res_data)
     ## Create residue for plotting with bounding box
-    r = Residue(60)
+    r = Residue(6)
     ## plot stick and balls model
     sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=0, residues=0, col_r=0, res=r)
 #
 #
 #    ## plot surface
 #    fc = FileConverter(name, density, solvent, bash)
-    s = Surface(name)
-    out_name = name + "_out_" + str(int(density))
+#    s = Surface(name)
+#    out_name = name + "_out_" + str(int(density))
 #    s.plot_surface(out_name)
 #    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
 #    s.new_surface(atom_data, atmsurf, col)
