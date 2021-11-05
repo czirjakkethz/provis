@@ -16,9 +16,9 @@ def pdb_to_xyzr_script(name, solv, bash=0):
     """
     # print("python pdb_to_xyz.py %1s %4s.pdb > %4s.xyzr" % (str(int(solv)), name, name))
     if not bash:
-        ac = subprocess.call("python pdb_to_xyzr.py %1s %4s.pdb > ../data/%4s.xyzr" % (str(int(solv)), name, name), shell=True)
+        ac = subprocess.call("python scripts/pdb_to_xyzr.py %1s %4s.pdb > %4s.xyzr" % (str(int(solv)), name, name), shell=True)
     else:
-        ac = subprocess.call("./pdb_to_xyzr %4s.pdb > ../data/%4s.xyzr" % (name, name), shell=True)
+        ac = subprocess.call("./scripts/pdb_to_xyzr %4s.pdb > %4s.xyzr" % (name, name), shell=True)
 
 
 # def main():

@@ -52,14 +52,17 @@ h_select=5
 
 # read radius table and patterns from supplied file
 npats=0
-atm_file = "../data/atmtypenumbers"
+atm_file = "/data/atmtypenumbers"
+import os
+new_path = os.getcwd() + atm_file
+
 explicit_rad = [None] * 100
 united_rad = [None] * 100
 respat = [None] * 1000
 atmpat = [None] * 1000
 atmnum = [None] * 1000
 # open file
-with open(atm_file) as atm_f:
+with open(new_path) as atm_f:
 	# for (line number, line) in file
 	tempstr = ""
 	for nr, line in enumerate(atm_f):

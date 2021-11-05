@@ -61,7 +61,7 @@ class FileConverter():
         :param type: str
         :return: void - xyzr file
         """
-        pdb_to_xyzr_script.pdb_to_xyzr_script(name, solvent, bash)
+        pdb_to_xyzr_script(name, solvent, bash)
 
     def msms(self, name, dest):
         """
@@ -74,7 +74,7 @@ class FileConverter():
         :param type: float
         :return: void - face and vert files
         """
-        msms_script.msms_script(name, dest)
+        msms_script(name, dest)
 
     def pdb_to_mol2(self, name):
         ac = subprocess.call("obabel %4s.pdb -O %4s.mol2" % (name, name), shell=True)
@@ -674,7 +674,7 @@ class Residue():
     
                                     
 def main():
-    name = "data/2fd7" # "data/1a3n" #
+    name =  "data/7nkd" # "data/2fd7" # "data/1a3n" #
     density = 3.0
     solvent = 0
     bash = 0
@@ -700,16 +700,16 @@ def main():
     ## Create residue for plotting with bounding box
     r = Residue(6)
     ## plot stick and balls model
-    sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=0, residues=0, col_r=0, res=r)
+#    sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=0, residues=0, col_r=0, res=r)
 #
 #
-#    ## plot surface
-#    fc = FileConverter(name, density, solvent, bash)
-#    s = Surface(name)
-#    out_name = name + "_out_" + str(int(density))
-#    s.plot_surface(out_name)
-#    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
-#    s.new_surface(atom_data, atmsurf, col)
+    ## plot surface
+    fc = FileConverter(name, density, solvent, bash)
+    s = Surface(name)
+    out_name = name + "_out_" + str(int(density))
+    s.plot_surface(out_name)
+    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
+    s.new_surface(atom_data, atmsurf, col)
 
 if __name__ == "__main__":
     main()
