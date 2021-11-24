@@ -1,5 +1,5 @@
 """
-This file was created by Kristof Czirjak as part of his Bachelor's Thesis
+This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
 
 from Bio.PDB import *
@@ -17,29 +17,17 @@ import re
 import pandas as pd
 from os.path import exists
 import subprocess
-
-
-def bond_parser(filename):
-    f = open(filename,'r')
-    f_text = f.read()
-    f.close()
-    bond_start = f_text.find('@<TRIPOS>BOND')
-    bond_end = f_text[bond_start:].replace('@<TRIPOS>BOND','').find('@')
-    l = int(len(f_text[bond_start:bond_end].replace('@<TRIPOS>BOND\n','').replace('\n',' ').strip().split())/4)
-    df_bonds = pd.DataFrame(np.array(f_text[bond_start:bond_end].replace('@<TRIPOS>BOND\n','').replace('\n',' ').strip().split()).reshape((l,4)), # 
-            columns=['bond_id', 'atom1', 'atom2', 'bond_type'])
-    df_bonds.set_index(['bond_id'], inplace=True)
-    return df_bonds
-
+from scripts.bond_parser import bond_parser
 
 class FileConverter():
     def __init__(self, *args):
         """
-        Can be constructed empty. If called with arguments conversion instant
-        :param name: args[0] - name of file
-        :param type: str
-        :param name: args[1] - density of triangles
-        :param type: float
+        :Can be constructed empty. If called with arguments conversion instant:
+        
+        :param args[0]: name of file
+        :args[0] type: str
+        :param args[1]: density of triangles
+        :args[1] type: float
         :return: void - converted files
         """
         if len(args) > 0:
@@ -57,8 +45,10 @@ class FileConverter():
         Run the pdb_to_xyzr script for given filename
         Works only on linux
         (could easily be extended with other parameters)
+        
         :param name: name - Name of file
         :param type: str
+        
         :return: void - xyzr file
         """
         pdb_to_xyzr_script(name, solvent, bash)
@@ -77,6 +67,9 @@ class FileConverter():
         msms_script(name, dest)
 
     def pdb_to_mol2(self, name):
+        """
+        Run openbabel, to convert pdb to mol2
+        """
         ac = subprocess.call("obabel %4s.pdb -O %4s.mol2" % (name, name), shell=True)
 
 
@@ -205,40 +198,6 @@ class DataHandler:
                 charge += my.iloc[i]['charge']
 
             return charge
-    
-    def load_fv(self, file_name, end, vorf):
-        """
-        Load surface information from face or vert file
-        :param name: file_name - Name of input file
-        :param type: str
-        :param name: end - Type of input file
-        :param type: str
-        :param name: vorf - Specify face or vertex
-        :param type: bool
-        :return: list - list of data
-        """
-        
-        outfile = open(file_name + end,"r")
-        data = outfile.readlines()
-        l3 = str.split(data[2])
-        numlines = int(l3[0])
-        numspheres = int(l3[1])
-        density = float(l3[2])
-        probe = float(l3[3])
-        ret = [[] for x in range(numlines)]
-        i = 0
-        for line in data[3:]:
-            line_split = str.split(line)
-            k = 0
-            for entry in line_split[:3]:
-                if vorf:
-                    ret[i].append(float(entry))
-                else:
-                    ret[i].append(int(entry)-1)
-            i+=1
-
-        outfile.close()
-        return ret
         
     def get_structure(self):
         """
@@ -351,38 +310,38 @@ class StickPoint:
         # return list of spheres and colors representing each res
         return res_spheres, colors_spheres
 
-    def pre_plot_bonds_old(self, struct):
-        """
-        Determine bonds from 3D information
-        :param name: struct - Biopython structure object of desired molecule
-        :param type: structure
-        :return: list - List of pyvista lines representing each bond 
-        """
-        # create a list of non-solvent atoms
-        residues = struct.get_residues()
-        residues_list = list(residues)
-        atom_list = []
-        for residue in residues_list:
-            if residue.get_resname() == "HOH":
-                continue
-            for atom in residue:
-                atom_list.append(atom)
-
-        ns = NeighborSearch(atom_list)
-        _cutoff_dist = 3 # not sure how to choose this number
-
-        bonds = []
-        for target in atom_list:
-            close_atoms = ns.search(target.coord, _cutoff_dist)
-            my_coord = target.get_coord()
-            for close_atom in close_atoms:
-                # cylinder = pyvista.Cylinder(center=[1, 2, 3], direction=[1, 1, 1], 
-                #     radius=1, height=2)
-                c_coord = close_atom.get_coord()
-                line = pv.Line(my_coord, c_coord, resolution=5)
-                bonds.append(line)
-        
-        return bonds
+#    def pre_plot_bonds_old(self, struct):
+#        """
+#        Determine bonds from 3D information
+#        :param name: struct - Biopython structure object of desired molecule
+#        :param type: structure
+#        :return: list - List of pyvista lines representing each bond
+#        """
+#        # create a list of non-solvent atoms
+#        residues = struct.get_residues()
+#        residues_list = list(residues)
+#        atom_list = []
+#        for residue in residues_list:
+#            if residue.get_resname() == "HOH":
+#                continue
+#            for atom in residue:
+#                atom_list.append(atom)
+#
+#        ns = NeighborSearch(atom_list)
+#        _cutoff_dist = 3 # not sure how to choose this number
+#
+#        bonds = []
+#        for target in atom_list:
+#            close_atoms = ns.search(target.coord, _cutoff_dist)
+#            my_coord = target.get_coord()
+#            for close_atom in close_atoms:
+#                # cylinder = pyvista.Cylinder(center=[1, 2, 3], direction=[1, 1, 1],
+#                #     radius=1, height=2)
+#                c_coord = close_atom.get_coord()
+#                line = pv.Line(my_coord, c_coord, resolution=5)
+#                bonds.append(line)
+#
+#        return bonds
 
     def pre_plot_bonds(self, name):
         """
@@ -415,7 +374,7 @@ class StickPoint:
         
         return bonds
 
-    def plot_stick_ball(self, atoms, col_s, box=0, bonds=0, vw=0, residues=0, col_r=0, res=0):
+    def plot(self, atoms, col_s, box=0, bonds=0, vw=0, residues=0, col_r=0, res=0):
         """
         Plot stick and point model
         :param name: atoms - List of pyvista Shperes representing each atom 
@@ -470,13 +429,65 @@ class StickPoint:
                 pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5)
         # save a screenshot
         pl.show(screenshot='data/test.png')
+#
+#    def plot_stick_ball(self, r=0):
+#        """
+#        Plot stick and point model
+#        """
+#        # Prepare atoms
+#        # second arg: 1 = showsolvent
+#        atom_data = self._dh.get_atoms()
+#        # return list of spheres (meshes) and colors for the spheres
+#        # second arg: 1 = showvw spheres instead of "normal" radius
+#        atoms, colors = sp.pre_plot_atoms(atom_data, vw=0)
+#
+#        # return list of lines/bonds (meshes)
+#        bonds = sp.pre_plot_bonds(name)
+#
+#        # plot stick and balls model
+#        sp.plot(atoms=atoms, col_s=colors, box=0, vw=0, bonds=bonds, residues=0, col_r=0, res=r)
 
 class Surface:
     def __init__(self, name):
-        self._dh = DataHandler(name)
+        self._name = name
+        
+        
+    def load_forv(self, file_name, end, vorf):
+        """
+        Load surface information from face or vert file
+        :param name: file_name - Name of input file
+        :param type: str
+        :param name: end - Type of input file
+        :param type: str
+        :param name: vorf - Specify face or vertex
+        :param type: bool
+        :return: list - list of data
+        """
+        
+        outfile = open(file_name + end,"r")
+        data = outfile.readlines()
+        l3 = str.split(data[2])
+        numlines = int(l3[0])
+        numspheres = int(l3[1])
+        density = float(l3[2])
+        probe = float(l3[3])
+        ret = [[] for x in range(numlines)]
+        i = 0
+        for line in data[3:]:
+            line_split = str.split(line)
+            k = 0
+            for entry in line_split[:3]:
+                if vorf:
+                    ret[i].append(float(entry))
+                else:
+                    ret[i].append(int(entry)-1)
+            i+=1
+
+        outfile.close()
+        return ret
         
 
-    def load(self, file_name):
+    def load_fv(self, file_name):
         """
         Load surface information from both face and vert files
         :param name: file_name - Name of input files
@@ -485,8 +496,8 @@ class Surface:
         :return: list - list of vert data
         """
         
-        face = self._dh.load_fv(file_name, ".face", 0)
-        vert = self._dh.load_fv(file_name, ".vert", 1)
+        face = self.load_forv(file_name, ".face", 0)
+        vert = self.load_forv(file_name, ".vert", 1)
         return face, vert
 
 
@@ -499,7 +510,7 @@ class Surface:
         :param type: str
         :return: void - plot
         """
-        face, vertice = self.load(filename)
+        face, vertice = self.load_fv(filename)
         vertices = np.array(vertice)
         faces = np.hstack(face)
         pl = pv.Plotter(lighting=None)
@@ -537,13 +548,13 @@ class Surface:
             mesh_ = mesh_ + (mesh)
             
         vol = mesh_.delaunay_3d(alpha=1.4)
-        shell = vol.extract_surface().reconstruct_surface()
+        shell = vol.extract_surface().reconstruct_surface(sample_spacing=1.2)
         # Compute the normals in-place and use them to warp the globe
 #        shell.compute_normals(inplace=True)  # this activates the normals as well
 #
 #        # Now use those normals to warp the surface
 #        warp = shell.warp_by_scalar(factor=0.5e-5)
-        pl.add_mesh(shell, color="white", smooth_shading=True, style=style, show_edges=True)#, culling='back')
+        pl.add_mesh(shell, color="white", smooth_shading=True, style=style, show_edges=False)#, culling='back')
 #        # save a screenshot
 ##        pl.show(screenshot='test.png')
 ##
@@ -674,7 +685,7 @@ class Residue():
     
                                     
 def main():
-    name =  "data/7nkd" # "data/2fd7" # "data/1a3n" #
+    name =  "data/2fd7" # "data/1a3n" # "data/7nkd" #
     density = 3.0
     solvent = 0
     bash = 0
@@ -685,6 +696,7 @@ def main():
 #   (dh.get_residue_info(3,'com'))
     # TODO: change from name to residue id DONE
     # TODO: add bounding box to residue DONE
+    # TODO: refine surface DONE
     # TODO: use Charlotte surface color code
     
     ## plot stick point
@@ -693,23 +705,23 @@ def main():
     ## return list of spheres (meshes) and colors for the spheres
     atoms, colors = sp.pre_plot_atoms(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
     ## return list of lines (meshes)
-#    bonds = sp.pre_plot_bonds(name)
+    bonds = sp.pre_plot_bonds(name)
     ## return list of spheres (meshes) and colors for the spheres
     res_data = dh.get_residues()
     ress, colors_r = sp.pre_plot_residues(res_data)
     ## Create residue for plotting with bounding box
     r = Residue(6)
     ## plot stick and balls model
-#    sp.plot_stick_ball(atoms=atoms, col_s=colors, box=0, vw=0, bonds=0, residues=0, col_r=0, res=r)
+    sp.plot(atoms=atoms, col_s=colors, box=0, vw=0, bonds=bonds, residues=0, col_r=0, res=r)
 #
 #
-    ## plot surface
-    fc = FileConverter(name, density, solvent, bash)
-    s = Surface(name)
-    out_name = name + "_out_" + str(int(density))
-    s.plot_surface(out_name)
-    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=1)
-    s.new_surface(atom_data, atmsurf, col)
+#    ## plot surface
+#    fc = FileConverter(name, density, solvent, bash)
+#    s = Surface(name)
+#    out_name = name + "_out_" + str(int(density))
+#    s.plot_surface(out_name)
+#    atmsurf, col = sp.pre_plot_atoms(atom_data, vw=1, probe=0.1)
+#    s.new_surface(atom_data, atmsurf, col)
 
 if __name__ == "__main__":
     main()
