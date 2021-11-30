@@ -1,7 +1,7 @@
 import subprocess
 
-from scripts.msms_script import msms_script
-from scripts.pdb_to_xyzr_script import pdb_to_xyzr_script
+from provis.utils.msms_caller import msms_script
+from provis.utils.pdb_to_xyzr_caller import pdb_to_xyzr_script
 
 class FileConverter():
     """

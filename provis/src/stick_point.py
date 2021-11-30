@@ -1,6 +1,6 @@
 import pyvista as pv
 
-from src.data_handler import DataHandler
+from provis.src.data_handler import DataHandler
 
 class StickPoint:
     def __init__(self, name):

@@ -1,7 +1,10 @@
-Provis - Protein Visualisation Library
+provis
 ======
 
 .. toctree::
    :maxdepth: 4
 
+   main
    provis
+   scripts
+   setup

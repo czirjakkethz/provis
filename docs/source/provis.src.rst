@@ -1,6 +1,8 @@
-Provis source code
+provis.src package
 ==================
 
+Submodules
+----------
 
 provis.src.data\_handler module
 -------------------------------

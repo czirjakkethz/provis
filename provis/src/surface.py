@@ -3,7 +3,7 @@ import numpy as np
 import trimesh
 
 
-from src.data_handler import DataHandler
+from provis.src.data_handler import DataHandler
 
 class Surface:
     def __init__(self, name):

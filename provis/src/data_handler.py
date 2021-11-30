@@ -7,9 +7,10 @@ import pandas as pd
 from biopandas.mol2 import PandasMol2
 
 
-from scripts.atminfo import import_atm_size_info, import_atm_mass_info
-from src.file_converter import FileConverter
-from scripts.bond_parser import bond_parser
+from provis.utils.atminfo import import_atm_size_info, import_atm_mass_info
+from provis.utils.bond_parser import bond_parser
+from provis.src.file_converter import FileConverter
+
 
 class DataHandler:
     """

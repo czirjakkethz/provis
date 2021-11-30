@@ -1,2 +1,7 @@
 docs/build
 provis/holoprot
+.DS_Store
+Initial_coding
+__pychache__
+provis/__pycache__
+provis/src/__pycache__
