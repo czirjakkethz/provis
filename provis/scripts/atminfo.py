@@ -3,8 +3,10 @@ import csv
 def import_atm_size_info(vw=0):
     """
     Funtion to load atomic radii from atmsize.csv, to be used in main
+    
     :param name: vw - option to return vanderwaals radius
     :param type: bool - returns if true
+    
     :return: dict - dictionary of atomic radius by atom name
     :return: dict - dictionary of color by atom name
     :return: dict - !optional! return dictionary of vw rdius by atom name
@@ -87,6 +89,7 @@ def import_atm_size_info(vw=0):
 def import_atm_mass_info():
     """
     Funtion to load atomic mass from atmmass.csv, to be used in main
+    
     :return: dict - dictionary of atomic mass by atom name
     """
     filename_mass = "data/atmmass.csv"

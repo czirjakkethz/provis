@@ -1,4 +1,4 @@
-Provis - Protein Visualisation Library
+provis
 ======
 
 .. toctree::

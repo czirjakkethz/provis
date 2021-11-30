@@ -1,27 +1,27 @@
 #!/usr/bin/python
-# Python script based on msms pdb_to_xyzr  bash nawk script by Mike Pique
-# File written by: Kristof Czirjak
-#
-# Extract x,y,z coordinates from PDB file and
-# generate radius of for atom from atmtypenumbers.
-# Hydrogens are presumed to be missing ("united atom" approach) unless -h given
-# later: options for alternate radius and pattern files
-# --- Mike Pique, The Scripps Research Institute
-#
-# input: bool: 1 to show solvent 0 to emit (HETATM)
-# input: pdb file as argument or stdin
-# output: new xyzr file to stdout
-#
-# Options:
-#
-# NOT SURE HOW THIS PART WORKS ####, from original file
-# -h: use explicit hydrogen radii instead of default united atom radii
-#
-# examples:
-#   python pdb_to_xyzr 1 crambin.pdb > crambin.xyzr
-#	python pdb_to_xyzr 0 crambin.pdb > crambin.xyzr
-#	
-#
+"""
+ Python script based on msms pdb_to_xyzr  bash nawk script by Mike Pique
+ File written by: Kristof Czirjak
+
+ Extract x,y,z coordinates from PDB file and
+ generate radius of for atom from atmtypenumbers.
+ Hydrogens are presumed to be missing ("united atom" approach) unless -h given
+ later: options for alternate radius and pattern files
+ --- Mike Pique, The Scripps Research Institute
+
+ input: bool: 1 to show solvent 0 to emit (HETATM)
+ input: pdb file as argument or stdin
+ output: new xyzr file to stdout
+
+ Options:
+
+ NOT SURE HOW THIS PART WORKS, Not implemented, from original file
+ -h: use explicit hydrogen radii instead of default united atom radii
+
+ examples:
+   python pdb_to_xyzr 1 crambin.pdb > crambin.xyzr
+	python pdb_to_xyzr 0 crambin.pdb > crambin.xyzr
+"""
 
 import sys
 from linecache import getline

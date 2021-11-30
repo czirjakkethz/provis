@@ -1,5 +1,5 @@
-# python script to convert csv formatted atomic radii data from wikipedia to dict
-# stores atomic names and radii in two lines of a csv file
+""" This is a python script to convert csv formatted atomic radii data from wikipedia to dict.
+Stores atomic names and radii in two lines of a csv file."""
 import csv
 
 # from https://en.wikipedia.org/wiki/Atomic_radii_of_the_elements_%28data_page%29

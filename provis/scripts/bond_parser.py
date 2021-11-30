@@ -3,7 +3,7 @@ import pandas as pd
 
 def bond_parser(filename):
     """
-    :Test file header:
+    Calculates bond information from mol2 file.
     
     :param filename: str
         Name of file to open

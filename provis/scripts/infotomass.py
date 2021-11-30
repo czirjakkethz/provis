@@ -1,5 +1,7 @@
-# python script to convert csv formatted atomic mass data to dict
-# stores atomic names and mass in two lines of a csv file
+"""
+This is a python script to convert csv formatted atomic mass data to a dict.
+Stores atomic names and mass in two lines of a csv file """
+
 import csv
 
 # from https://www.angelo.edu/faculty/kboudrea/periodic/structure_mass.htm
