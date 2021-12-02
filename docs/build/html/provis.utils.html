@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>provis.utils &mdash; provis 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Helper scripts" href="scripts.html" />
+    <link rel="prev" title="provis.src" href="provis.src.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> provis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Requirements for Provis</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">provis</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">Example - main module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="provis.html">Provis source code</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="provis.src.html">provis.src</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">provis.utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.utils.atminfo">provis.utils.atminfo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.utils.bond_parser">provis.utils.bond_parser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.utils.msms_caller">provis.utils.msms_caller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.utils.pdb_to_xyzr_caller">provis.utils.pdb_to_xyzr_caller module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.utils">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html">Helper scripts</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Author(s)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">provis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">provis</a> &raquo;</li>
+          <li><a href="provis.html">Provis source code</a> &raquo;</li>
+      <li>provis.utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/provis.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="provis-utils">
+<h1>provis.utils<a class="headerlink" href="#provis-utils" title="Permalink to this headline"></a></h1>
+<section id="module-provis.utils.atminfo">
+<span id="provis-utils-atminfo-module"></span><h2>provis.utils.atminfo module<a class="headerlink" href="#module-provis.utils.atminfo" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.atminfo.import_atm_mass_info">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.atminfo.</span></span><span class="sig-name descname"><span class="pre">import_atm_mass_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.atminfo.import_atm_mass_info" title="Permalink to this definition"></a></dt>
+<dd><p>Funtion to load atomic mass from atmmass.csv, to be used in main</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict - dictionary of atomic mass by atom name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.atminfo.import_atm_size_info">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.atminfo.</span></span><span class="sig-name descname"><span class="pre">import_atm_size_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.atminfo.import_atm_size_info" title="Permalink to this definition"></a></dt>
+<dd><p>Funtion to load atomic radii from atmsize.csv, to be used in main</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – vw - option to return vanderwaals radius</p></li>
+<li><p><strong>type</strong> – bool - returns if true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict - dictionary of atomic radius by atom name</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict - dictionary of color by atom name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict - !optional! return dictionary of vw rdius by atom name</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils.bond_parser">
+<span id="provis-utils-bond-parser-module"></span><h2>provis.utils.bond_parser module<a class="headerlink" href="#module-provis.utils.bond_parser" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.bond_parser.bond_parser">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.bond_parser.</span></span><span class="sig-name descname"><span class="pre">bond_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.bond_parser.bond_parser" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates bond information from mol2 file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – str
+Name of file to open</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataFrame
+Pandas df with bonds</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils.msms_caller">
+<span id="provis-utils-msms-caller-module"></span><h2>provis.utils.msms_caller module<a class="headerlink" href="#module-provis.utils.msms_caller" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.msms_caller.msms_script">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.msms_caller.</span></span><span class="sig-name descname"><span class="pre">msms_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.msms_caller.msms_script" title="Permalink to this definition"></a></dt>
+<dd><p>Run the msms script for given filename and density
+Works on both linux and windows
+(could easily be extended with other parameters)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name - Name of file</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – dens - Density of triangulation</p></li>
+<li><p><strong>type</strong> – float</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>void - face and vert files</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils.pdb_to_xyzr_caller">
+<span id="provis-utils-pdb-to-xyzr-caller-module"></span><h2>provis.utils.pdb_to_xyzr_caller module<a class="headerlink" href="#module-provis.utils.pdb_to_xyzr_caller" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.pdb_to_xyzr_caller.pdb_to_xyzr_script">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.pdb_to_xyzr_caller.</span></span><span class="sig-name descname"><span class="pre">pdb_to_xyzr_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.pdb_to_xyzr_caller.pdb_to_xyzr_script" title="Permalink to this definition"></a></dt>
+<dd><p>Run the pdb_to_xyzr script for given filename
+Works on both linux and windows
+(could easily be extended with other parameters)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name - Name of file</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – solv - If True also convert solvent atoms, False only structural atoms</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – bash - If you want to run original script, set to 1</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>void - xyzr file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-provis.utils" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="provis.src.html" class="btn btn-neutral float-left" title="provis.src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scripts.html" class="btn btn-neutral float-right" title="Helper scripts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kristof Czirjak.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
