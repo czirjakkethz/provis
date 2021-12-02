@@ -1,5 +1,5 @@
 Example - main module
-===========
+=======================
 
 .. automodule:: main
    :members:
