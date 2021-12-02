@@ -21,6 +21,12 @@ You can find installation instructions as well as the documentation of the sourc
 
    modules
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Author(s)
+
+   authors
+
 Indices and tables
 ==================
 

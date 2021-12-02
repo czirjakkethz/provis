@@ -1,8 +1,6 @@
-provis.src package
+provis.src
 ==================
 
-Submodules
-----------
 
 provis.src.data\_handler module
 -------------------------------

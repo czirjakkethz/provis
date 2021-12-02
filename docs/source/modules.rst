@@ -7,4 +7,3 @@ provis
    main
    provis
    scripts
-   setup

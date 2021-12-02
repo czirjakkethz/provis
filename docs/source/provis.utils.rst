@@ -1,8 +1,6 @@
-provis.utils package
+provis.utils
 ====================
 
-Submodules
-----------
 
 provis.utils.atminfo module
 ---------------------------

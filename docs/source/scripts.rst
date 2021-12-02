@@ -1,8 +1,6 @@
-scripts package
-===============
+Helper scripts
+======================
 
-Submodules
-----------
 
 scripts.infotomass module
 -------------------------

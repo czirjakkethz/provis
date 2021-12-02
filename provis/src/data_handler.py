@@ -14,7 +14,7 @@ from provis.src.file_converter import FileConverter
 
 class DataHandler:
     """
-    Class that does most computation.
+    The 'brain' of provis. This class loads information from a variety of files and creates meshes to be plotted. Upper level classes - eg. Surface - have their own DataHandler objects to do all the work.
     """
     def __init__(self, name):
         """
@@ -290,4 +290,39 @@ class DataHandler:
             bonds.append(line)
         
         return bonds
+        
+    def load_forv(self, file_name, end, vorf):
+        """
+        Load surface information from face or vert file
+        
+        :param name: file_name - Name of input file
+        :param type: str
+        :param name: end - Type of input file
+        :param type: str
+        :param name: vorf - Vertex or face file. "v" for vertex, "f" for face
+        :param type: str
+        
+        :return: list - list of data
+        """
+        
+        outfile = open(file_name + end,"r")
+        data = outfile.readlines()
+        l3 = str.split(data[2])
+        numlines = int(l3[0])
+        numspheres = int(l3[1])
+        density = float(l3[2])
+        probe = float(l3[3])
+        ret = [[] for x in range(numlines)]
+        i = 0
+        for line in data[3:]:
+            line_split = str.split(line)
+            k = 0
+            for entry in line_split[:3]:
+                if vorf == "v":
+                    ret[i].append(float(entry))
+                elif vorf == "f":
+                    ret[i].append(int(entry)-1)
+            i+=1
 
+        outfile.close()
+        return ret

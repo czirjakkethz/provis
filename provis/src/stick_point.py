@@ -3,10 +3,13 @@ import pyvista as pv
 from provis.src.data_handler import DataHandler
 
 class StickPoint:
+    """
+    The StickPoint class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.
+    """
     def __init__(self, name):
         """
         Initializes StickPoint class with given filename.
-        Creates internal DataHandler class instance and loads all the atomic information required for plotting.
+        Creates internal data structures; a DataHandler class instance and loads all the atomic information required for plotting.
         
         :param name: name - name of file, without extension
         :param type: str
