@@ -27,7 +27,7 @@ class StickPoint:
         self._atoms_vw, self._col_vw = self._dh.get_atom_mesh(atom_data, vw=1)
         
 
-    def manual_plot(self, atoms=0, col_a=0, box=0, bonds=0, vw=0, residues=0, col_r=0, res=0):
+    def manual_plot(self, atoms=0, col_a=0, box=0, bonds=0, vw=0, residues=0, col_r=0, res=0, outname=0):
         """
         Plot stick and point model
         
@@ -46,6 +46,8 @@ class StickPoint:
         :param type: list
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
+        :param name: outname - save image of plot to specified filename. Will appear in data/output directory. default: data/output/{self._name}_stick_point
+        :param type: string
         
         :return: void - Window with interactive plot
         """
@@ -86,10 +88,16 @@ class StickPoint:
                 d = (self._dh._res_size_dict[res_name] + pad) * 2
                 x, y, z = d,d,d
                 pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5)
+        
         # save a screenshot
-        pl.show(screenshot='data/test.png')
+        if not outname:
+            new_name = self._name.split('/')
+            new_name = new_name[-1].split('.')[0]
+            outname = 'data/output/' + new_name + '_stick_point.png'
+        pl.show(screenshot=outname)
 
-    def plot(self, atoms=0, box=0, bonds=0, vw=0, residues=0, res=0):
+
+    def plot(self, atoms=0, box=0, bonds=0, vw=0, residues=0, res=0, outname=0):
         """
         Plot stick and point model
         
@@ -105,6 +113,8 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
+        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param type: string
         
         :return: void - Window with interactive plot
         """
@@ -152,10 +162,14 @@ class StickPoint:
                 pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5)
 
         # save a screenshot
-        pl.show(screenshot='data/test.png')
+        if not outname:
+            new_name = self._name.split('/')
+            new_name = new_name[-1].split('.')[0]
+            outname = 'data/output/' + new_name + '_stick_point.png'
+        pl.show(screenshot=outname)
 
 
-    def plot_stick_point(self, box=0, r=0):
+    def plot_stick_point(self, box=0, r=0, outname=0):
         """
         Plot stick and point model
         
@@ -163,11 +177,13 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
+        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param type: string
         """
 
-        self.plot(atoms=1, box=box, vw=0, bonds=1, residues=0, res=r)
+        self.plot(atoms=1, box=box, vw=0, bonds=1, residues=0, res=r, outname=outname)
         
-    def plot_atoms(self, box=0, r=0):
+    def plot_atoms(self, box=0, r=0, outname=0):
         """
         Plot stick and point model
         
@@ -175,9 +191,11 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
+        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param type: string
         """
 
-        self.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=r)
+        self.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=r, outname=outname)
         
     def plot_vw(self, box=0, r=0):
         """
@@ -187,11 +205,13 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
+        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param type: string
         """
 
         self.plot(atoms=1, box=box, vw=1, bonds=0, residues=0, res=r)
         
-    def plot_bonds(self, box=0, r=0):
+    def plot_bonds(self, box=0, r=0, outname=0):
         """
         Plot bonds only
         
@@ -199,7 +219,9 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
+        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param type: string
         """
 
-        self.plot(atoms=0, box=box, vw=0, bonds=1, residues=0, res=r)
+        self.plot(atoms=0, box=box, vw=0, bonds=1, residues=0, res=r, outname=outname)
 

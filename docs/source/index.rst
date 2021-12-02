@@ -3,9 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to provis's documentation!
+Welcome to provis's Wiki!
 ==================================
 
+You can find installation instructions as well as the documentation of the source code.
 
 .. toctree::
    :maxdepth: 2

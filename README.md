@@ -1,12 +1,6 @@
 # provis - A python based PROtein VISualization toolkit
 
-Loads PDB files using BioPython: https://biopython.org/
-Basic 3D visualizations with PyVista: https://www.pyvista.org/
+Welcome to the repository of Provis - a python based protein visualization library.
 
-Requirements:
-python 3.9
-numpy
-biopython
-pyvista
-msms
-trimesh
+The easiest way to install is with ``` pip install provis ```, but the library has a few dependencies that have to be installed seperately.
+Please visit the [documentation]() for [installation instructions]().

@@ -4,22 +4,6 @@ scripts package
 Submodules
 ----------
 
-scripts.atminfo module
-----------------------
-
-.. automodule:: scripts.atminfo
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-scripts.bond\_parser module
----------------------------
-
-.. automodule:: scripts.bond_parser
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 scripts.infotomass module
 -------------------------
 
@@ -36,26 +20,10 @@ scripts.infotosize module
    :undoc-members:
    :show-inheritance:
 
-scripts.msms\_script module
----------------------------
-
-.. automodule:: scripts.msms_script
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 scripts.pdb\_to\_xyzr module
 ----------------------------
 
 .. automodule:: scripts.pdb_to_xyzr
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-scripts.pdb\_to\_xyzr\_script module
-------------------------------------
-
-.. automodule:: scripts.pdb_to_xyzr_script
    :members:
    :undoc-members:
    :show-inheritance:

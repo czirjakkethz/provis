@@ -13,22 +13,21 @@ def main():
     bash = 0
     show_box = 1
     
-#    fc = FileConverter(name, density, solvent, bash)
+    fc = FileConverter(name, density, solvent, bash)
     
-    ## plot stick point
-    sp = StickPoint(name)
-    sp.plot_atoms()
-    sp.plot_bonds()
-    sp.plot_vw()
-    sp.plot_stick_point()
-    r = Residue(1)
-    sp.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=0)
-    
+#    ## plot stick point
+#    sp = StickPoint(name)
+#    sp.plot_atoms()
+#    sp.plot_bonds()
+#    sp.plot_vw()
+#    sp.plot_stick_point()
+#    r = Residue(1)
+#    sp.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=0)
+#
 
     ## plot surface
     s = Surface(name)
-    out_name = name + "_out_" + str(int(density))
-    s.plot_msms_surface(out_name)
+    s.plot_msms_surface(dens=density)
     s.plot_surface()
 
 if __name__ == "__main__":

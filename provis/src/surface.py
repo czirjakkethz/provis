@@ -66,15 +66,17 @@ class Surface:
         return face, vert
 
 
-    def plot_msms_surface(self, filename):
+    def plot_msms_surface(self, dens=0, outname=0):
         """
         Plot surface from face and vert files
         
-        :param name: file_name - Name of face and vertex input file(s) without extension. Need to have the same name
-        :param type: str
+        :param name: dens - sampling density used in msms binary. Needed to load the face and vert files, as their names include the density
+        :param name: outname - save image of plot to specified filename. Will appear in data/output/ directory. default: data/output/{self._name}_surface
+        :param type: string
         
         :return: void - plot
         """
+        filename = self._name + '_out_' + str(int(dens))
         face, vertice = self.load_fv(filename)
         vertices = np.array(vertice)
         faces = np.hstack(face)
@@ -84,11 +86,20 @@ class Surface:
         tmesh = trimesh.Trimesh(vertice, faces=face, process=False)
         mesh = pv.wrap(tmesh)
         pl.add_mesh(mesh)
-        pl.show()
+        
+        # save a screenshot
+        if not outname:
+            new_name = self._name.split('/')
+            new_name = new_name[-1].split('.')[0]
+            outname = 'data/output/' + new_name + '_msms_surf.png'
+        pl.show(screenshot=outname)
 
-    def plot_surface(self):
+    def plot_surface(self, outname=0):
         """
         Plot surface natively, without binaries.
+        
+        :param name: outname - save image of plot to specified filename. Will appear in data/output/ directory. default: data/output/{self._name}_surface
+        :param type: string
         
         :returns: plot
         """
@@ -111,5 +122,9 @@ class Surface:
 
         pl.add_mesh(shell, color="white", smooth_shading=True, style=style, show_edges=False)#, culling='back')
         # save a screenshot
-        pl.show(screenshot='test.png')
+        if not outname:
+            new_name = self._name.split('/')
+            new_name = new_name[-1].split('.')[0]
+            outname = 'data/output/' + new_name + '_surface.png'
+        pl.show(screenshot=outname)
 

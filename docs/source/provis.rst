@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    provis.src
+   provis.utils
 
 Submodules
 ----------
