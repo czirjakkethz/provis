@@ -37,3 +37,12 @@ MSMS
 
  This tutorial might help:
  http://biskit.pasteur.fr/install/applications/deprecated/msms
+
+Jupyter Notebook
+---------------------
+
+If you want to run a fully interactive provis in the Jupyter Notebook environment you will have to install the following additional packages. Failing to do so will simply produce snapshot images instead of 3D plots.
+
+.. code-block:: bash
+
+    pip install ipyvtklink
