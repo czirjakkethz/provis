@@ -285,8 +285,10 @@ class DataHandler:
             
             my_coord = my.values.tolist()
             c_coord = c.values.tolist()
-            if bonds_in.iloc[i]['bond_type'] == '1':
-                line = pv.Line(my_coord, c_coord, resolution=5)
+            # if bonds_in.iloc[i]['bond_type'] == '1':
+            line = pv.Line(my_coord, c_coord, resolution=5)
+            # elif bonds_in.iloc[i]['bond_type'] != '1':
+            #     line = pv.Text3D('||')
             bonds.append(line)
         
         return bonds

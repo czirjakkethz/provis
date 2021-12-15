@@ -3,8 +3,8 @@ import platform
 
 def pdb_to_xyzr_script(name, solv, bash=0):
     """
-    Run the pdb_to_xyzr script for given filename
-    Works on both linux and windows
+    Run the pdb_to_xyzr script for given filename.
+    Works on all operating systems, as it is a python script.
     (could easily be extended with other parameters)
     
     :param name: name - Name of file

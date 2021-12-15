@@ -4,9 +4,9 @@ import os.path
 
 def msms_script(name, dens):
     """
-    Run the msms script for given filename and density
-    Works on both linux and windows
-    (could easily be extended with other parameters)
+    Run the msms script for given filename and density.
+    Can work on all operating systems if you have msms.exe binary installed.
+    (could easily be extended with other parameters for binary, currently only dens)
     
     :param name: name - Name of file
     :param type: str

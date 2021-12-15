@@ -141,7 +141,7 @@ class StickPoint:
         # adding the bonds one at a time
         if bonds:
             for b in self._bonds:
-                pl.add_mesh(b, color='w', line_width=5)
+                pl.add_mesh(b, color='w', line_width=5, render_lines_as_tubes=True)
                 # TODO: figure out why  render_lines_as_tubes=True, crashes
         # adding the spheres (by residue) one at a time
         # only executes if residue information provided
