@@ -1,5 +1,7 @@
 #!/usr/bin/python
 """
+DOES NOT WORK PROPERLY, SOME SPECIAL ATOMS (C, N) ACCIDENTALLY MARKED AS H
+
  Python script based on msms pdb_to_xyzr  bash nawk script by Mike Pique
  File written by: Kristof Czirjak
 
@@ -66,9 +68,9 @@ else:
 
     explicit_rad = [None] * 100
     united_rad = [None] * 100
-    respat = [None] * 1000
-    atmpat = [None] * 1000
-    atmnum = [None] * 1000
+    respat = [None] * 300
+    atmpat = [None] * 300
+    atmnum = [None] * 300
     # open file
     with open(new_path) as atm_f:
         # for (line number, line) in file
@@ -115,6 +117,17 @@ else:
             npats += 1
             # the above part runs the same as on linux (at least while testing)
             
+    print("explicit_rad")
+    print(explicit_rad)
+    print("united_rad")
+    print(united_rad)
+    print("respat")
+    print(respat)
+    print("atmpat")
+    print(atmpat)
+    print("atmnum") 
+    print(atmnum) 
+
     with open(pdb_file) as pdb_f:
         for nr, line in enumerate(pdb_f):
             line_list = line.split()
@@ -128,6 +141,7 @@ else:
 
                 # try to figure out the atom type
                 aname = line_list[2]
+                print(aname)
                 # special handling needed for hydrogens in PDB files: they start with
                 # digits not the letter "H"
                 A = line_list[2]
@@ -149,6 +163,7 @@ else:
                 # trim any blanks
                 resname = re.sub(" ", "", resname)
                 aname = re.sub(" ", "", aname)
+                print(aname)
                 # check for each atom and residue
                 for pat in range(0, npats):
                     # that we have a record for given atom in given residue

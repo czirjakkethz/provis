@@ -16,17 +16,17 @@ Provis is based on the idea of not to reinvent the wheel, so it requires quite a
 Binaries
 ----------------------
 
-DSSP
-^^^^^^^^^^^^^^^^^^^^^^
+OpenBabel
+^^^^^^^^^^^^^^^
 
- DSSP is **required**. It is used to extract surface information. 
-
- One can easily downloaded using the `conda
- <https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html>`_ installer.
+Easiest to install by calling:
 
  .. code-block:: bash
 
-   conda install -c salilab dssp
+   sudo apt install openbabel
+
+Alterantively: http://openbabel.org/wiki/Main_Page
+
 
 MSMS
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -38,6 +38,25 @@ MSMS
  This tutorial might help:
  http://biskit.pasteur.fr/install/applications/deprecated/msms
 
+PDB2PQR and APBS
+^^^^^^^^^^^^^^^^^^^^^
+
+These binaries are **required**, as they are used to extract surface inforamtion.
+
+Download from: https://www.poissonboltzmann.org/
+
+
+DSSP
+^^^^^^^^^^^^^^^^^^^^^^
+
+ One can easily downloaded using the `conda
+ <https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html>`_ installer.
+
+ .. code-block:: bash
+
+   conda install -c salilab dssp
+   
+   
 Jupyter Notebook
 ---------------------
 

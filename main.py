@@ -16,18 +16,19 @@ def main():
     fc = FileConverter(name, density, solvent, bash)
     
     ## plot stick point
-    sp = StickPoint(name)
+    # sp = StickPoint(name)
 #    sp.plot_atoms()
-    sp.plot_bonds()
+    # sp.plot_bonds()
 #    sp.plot_vw()
 #    sp.plot_stick_point()
 #    r = Residue(1)
 #    sp.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=0)
 #
 
-    # ## plot surface
-    # s = Surface(name)
-    # s.plot_msms_surface(dens=density)
+    ## plot surface
+    s = Surface(name, dens=density)
+    s.plot_hydrophob(outname="hydrophob", patch=0)
+    # s.plot_msms_surface()
     # s.plot_surface()
 
 if __name__ == "__main__":

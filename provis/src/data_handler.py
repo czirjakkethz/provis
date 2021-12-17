@@ -14,7 +14,10 @@ from provis.src.file_converter import FileConverter
 
 class DataHandler:
     """
-    The 'brain' of provis. This class loads information from a variety of files and creates meshes to be plotted. Upper level classes - eg. Surface - have their own DataHandler objects to do all the work.
+    The 'brain' of provis, when it comes to handling atomic positions. 
+    
+    This class loads information from a variety of files and creates meshes to be plotted. 
+    Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.
     """
     def __init__(self, name):
         """
