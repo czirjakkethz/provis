@@ -212,7 +212,6 @@ def compute_charges(vertices: np.ndarray, pdb_file: str, pdb_id: str) -> np.ndar
     # dirname = os.path.dirname(pdb_file)
     # removed from next line: {dirname}/
     charge_file = f"{pdb_id}_out.pqr"
-    print(charge_file)
     if not os.path.exists(charge_file):
         raise ValueError(f"Charges cannot be computed. Missing file {pdb_id}_out.pqr. {pdb_id}")
 

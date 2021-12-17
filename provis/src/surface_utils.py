@@ -179,14 +179,14 @@ def get_surface(pdb_file: str, density: float = 0.5,
         fields = line.split()
         areas[fields[3]] = fields[1]
 
-    files_to_remove = [
-        xyzrn_file, file_base + ".vert", file_base + ".area",
-        file_base + ".face"
-    ]
+    # files_to_remove = [
+    #     xyzrn_file, file_base + ".vert", file_base + ".area",
+    #     file_base + ".face"
+    # ]
 
-    for file in files_to_remove:
-        if os.path.exists(file):
-            os.remove(file)
+    # for file in files_to_remove:
+    #     if os.path.exists(file):
+    #         os.remove(file)
     return vertices, faces, normals, names, areas
 
 

@@ -23,13 +23,13 @@ class FileConverter():
         self._bash = bash
         if name:
             self._name = name
-            # self.pdb_to_mol2(self._name)
-            # self.pdb_to_pqr(self._name)
-            # self.pdb_to_xyzr(self._name, self._solv, self._bash)
+            self.pdb_to_mol2(self._name)
+            self.pdb_to_pqr(self._name)
+            self.pdb_to_xyzr(self._name, self._solv, self._bash)
         if dens:
             self._dens = dens
-        # if name and dens:
-            # self.msms(self._name, self._dens)
+        if name and dens:
+            self.msms(self._name, self._dens)
         pass
     
     @staticmethod
@@ -83,7 +83,7 @@ class FileConverter():
 
         FNULL = open(os.devnull, 'w')
         args = [MSMS_BIN, "-density", f"{dens}", "-hdensity", "3.0", "-probe",\
-                        "1.5", "-if", f"{name}.xyzr", "-of", f"{name}_out_{int(dens)}", "-af", f"{name}_out_{int(dens)}"]
+                        "1.5", "-if", f"{name}.xyzrn", "-of", f"{name}_out_{int(dens)}", "-af", f"{name}_out_{int(dens)}"]
         #print msms_bin+" "+`args`
         # p2 = Popen(args, stdout=PIPE, stderr=PIPE)
         # stdout, stderr = p2.communicate()
@@ -114,5 +114,5 @@ class FileConverter():
         :param type: str
         """
         print("Converting pqr file...")
-        ac = subprocess.call("binaries/pdb2pqr --clean %4s.pdb %4s_out.pqr" % (name, name), shell=True)
+        ac = subprocess.call("binaries/pdb2pqr/pdb2pqr --clean %4s.pdb %4s_out.pqr" % (name, name), shell=True)
 

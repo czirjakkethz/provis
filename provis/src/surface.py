@@ -101,4 +101,4 @@ class Surface:
         pl.add_mesh(mesh, scalars=cas, cmap='RdBu')
         pl.background_color = 'white'
         pl.camera_position = 'xy'
-        pl.show(screenshot=outname + '.jpeg')
+        pl.show(screenshot=outname + '2.jpeg')

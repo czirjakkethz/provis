@@ -36,6 +36,7 @@ class SurfaceHandler:
                 triangle_values=None):
         """
         Saves a point cloud or triangle mesh as a .vtk file.
+        Not actually needed in the normal operation of provis, but kept as it can be useful.
 
         Files can be opened with Paraview or displayed using the PyVista library.
         Args:
@@ -94,18 +95,8 @@ class SurfaceHandler:
 
         #  write to hard drive
         vtk = VtkData(*data)
+        print(fname)
         vtk.tofile(fname)
-
-
-    def load_mesh_from_file(self, mesh_file: str):
-
-        mesh = trimesh.load(mesh_file)
-        tmp_mesh = trimesh.Trimesh(mesh.vertices, mesh.faces)
-        
-        normals = compute_normal(tmp_mesh.vertices, tmp_mesh.faces)
-
-        mesh = trimesh.Trimesh(tmp_mesh.vertices, tmp_mesh.faces, vertex_normals=normals)
-        return mesh
 
     def get_assignments(self, pdb):
         # set data path
@@ -119,39 +110,19 @@ class SurfaceHandler:
 
         return assigment
 
-
-    def get_mesh(self, pdb):
-        # set data path
-        # packagedir = holoprot.__path__[0]
-        # filename = os.path.join(ROOT_DIR,
-        #                         'datasets/surface_mesh/processed/pdbbind',
-        #                         pdb + '.obj')
-
-        filename = pdb + '.obj'
-        # load file
-        mesh = self.load_mesh_from_file(filename)
-        return mesh
-
-
-    def get_pdb_file(self, pdb):
-        # set data path
-        # packagedir = holoprot.__path__[0]
-        # filename = os.path.join(ROOT_DIR,
-        #                         f'datasets/raw/pdbbind/pdb_files/{pdb}',
-        #                         pdb + '.pdb')
-        filename = pdb + '.pdb'
-        return filename
-
-
-    def get_surface_features(self, pdb, feature):
+    def get_surface_features(self, pdb, mesh, feature):
 
         # get surface
-        pdb_file = self.get_pdb_file(pdb)
+        pdb_file = pdb + '.pdb'
         surface = get_surface(pdb_file, msms_bin=MSMS_BIN)
 
-        # get mesh
-        mesh = self.get_mesh(pdb)
-        
+        # # get mesh from file
+        # obj_file = pdb + '.obj'
+        # mesh = trimesh.load(obj_file)
+        # tmp_mesh = trimesh.Trimesh(mesh.vertices, mesh.faces)
+        # normals = compute_normal(tmp_mesh.vertices, tmp_mesh.faces)
+        # mesh = trimesh.Trimesh(tmp_mesh.vertices, tmp_mesh.faces, vertex_normals=normals)
+
         # compute features of surface
         features = compute_surface_features(surface, pdb_file, mesh, pdb_id = pdb)
 
@@ -169,12 +140,15 @@ class SurfaceHandler:
         surface = get_surface(pdb_file=self._name, msms_bin=MSMS_BIN, density=self._density)
         mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
                         resolution=1.5, apply_fixes=True)
+        
+        # # save mesh to obj file
+        # obj_file = self._name + '.obj'
+        # mesh.export(obj_file)
+
         if patch:
             cas = self.get_assignments(self._name)
         if not patch:
-            cas = self.get_surface_features(self._name, feature)
+            cas = self.get_surface_features(self._name, mesh, feature)
 
-        self.save_vtk('tmp.vtk', mesh.vertices, mesh.faces.astype(int))
-        mesh = pv.PolyData('tmp.vtk')
         return mesh, cas
 
