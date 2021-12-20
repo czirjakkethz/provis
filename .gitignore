@@ -7,5 +7,6 @@ provis/__pycache__
 provis/src/.DS_Store
 provis/src/__pycache__
 datasets
+provis/data/tmp
 
 *.pyc

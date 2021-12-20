@@ -7,7 +7,7 @@ from provis.src.surface import Surface
 from provis.src.residue import Residue
                                     
 def main():
-    name =  "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
+    name = "data/pdb/1a3n" # "data/pdb/2fd7" # "data/pdb/7nkd" #
     density = 3.0
     solvent = 0
     bash = 0
@@ -34,7 +34,7 @@ def main():
     # s.plot_msms_surface()
     s.plot_surface()
 
-    fc.cleanup(delete_img=1)
+    # fc.cleanup(delete_img=1)
 
 if __name__ == "__main__":
     main()

@@ -10,7 +10,7 @@ import pyvista as pv
 from pyvtk import PolyData, PointData, CellData, Scalars, Vectors, VtkData
 from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh
 from provis.src.surface_feat import compute_surface_features
-import trimesh
+from trimesh import util
 from subprocess import PIPE, Popen
 import open3d as o3d
 
@@ -38,71 +38,6 @@ class SurfaceHandler:
             self._density = dens
         self._features = None
         self._mesh = None
-
-
-    def save_vtk(self, fname, xyz, triangles=None, values=None, vectors=None,
-                triangle_values=None):
-        """
-        Saves a point cloud or triangle mesh as a .vtk file.
-
-        Files can be opened with Paraview or displayed using the PyVista library.
-        Args:
-            fname (string): filename.
-            xyz (Tensor): (N,3) point cloud or vertices.
-            triangles (integer Tensor, optional): (T,3) mesh connectivity.
-            values (Tensor, optional): (N,D) values, supported by the vertices.
-            vectors (Tensor, optional): (N,3) vectors, supported by the vertices.
-            triangle_values (Tensor, optional): (T,D) values, supported by triangles.
-        """
-
-        # encode the points/vertices as a VTK structure:
-        if triangles is None:
-            # point cloud
-            structure = PolyData(points=xyz)
-        else:
-            # surface mesh
-            structure = PolyData(points=xyz, polygons=triangles)
-
-        data = [structure]
-        pointdata, celldata = [], []
-
-        # point values - one channel per column of the `values` array
-        if values is not None:
-            values = values
-            if len(values.shape) == 1:
-                values = values[:, None]
-            features = values.T
-            pointdata += [
-                Scalars(f,
-                        name=f"features_{i:02d}") for i, f in enumerate(features)
-            ]
-
-        # point vectors - one vector per point
-        if vectors is not None:
-            pointdata += [Vectors(vectors, name="vectors")]
-
-        # store in the VTK object:
-        if pointdata != []:
-            pointdata = PointData(*pointdata)
-            data.append(pointdata)
-
-        # triangle values - one channel per column of the `triangle_values` array
-        if triangle_values is not None:
-            triangle_values = triangle_values
-            if len(triangle_values.shape) == 1:
-                triangle_values = triangle_values[:, None]
-            features = triangle_values.T
-            celldata += [
-                Scalars(f,
-                        name=f"features_{i:02d}") for i, f in enumerate(features)
-            ]
-
-            celldata = CellData(*celldata)
-            data.append(celldata)
-
-        #  write to hard drive
-        vtk = VtkData(*data)
-        vtk.tofile(fname)
         
     def get_assignments(self):
         # set data path
@@ -142,16 +77,13 @@ class SurfaceHandler:
         else:
             raise NotImplementedError
 
-    def return_mesh_and_color(self, feature="", patch=0, save=0):
+    def return_mesh_and_color(self, feature="", patch=0):
         
         if not self._mesh:
             surface = get_surface(out_path=self._out_path, density=self._density)
             self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
                             resolution=1.5, apply_fixes=True)
         
-        if save:
-            vtk = self._out_path + '.vtk'
-            self.save_vtk(vtk, self._mesh.vertices, self._mesh.faces.astype(int))
     
         if patch:
             cas = self.get_assignments()
@@ -223,6 +155,34 @@ class SurfaceHandler:
         for mesh in self._atmsurf[1:]:
             mesh_ = mesh_ + (mesh)
 
+
+        # shell = mesh_
+        # # shell = trimesh.smoothing.filter_taubin(mesh_)
+        # pcd = mesh_.sample_points_poisson_disk(750)
+        # o3d.visualization.draw_geometries([pcd])
+        # alpha = 0.03
+        # print(f"alpha={alpha:.3f}")
+        # mesh = o3d.geometry.TriangleMesh.create_from_point_cloud_alpha_shape(pcd, alpha)
+        # mesh.compute_vertex_normals()
+        # o3d.visualization.draw_geometries([mesh], mesh_show_back_face=True)
+       
+        # self._atmsurf, col = self._dh.get_atom_trimesh(atom_data, vw=1, probe=0.1)
+        # mesh_ = util.concatenate(self._atmsurf)
+        # cloud = o3d.geometry.PointCloud()
+        # poly_pc = mesh_.vertices[mesh_.edges_unique]
+        # # poly_pc = pc.extract_all_edges()
+        # cloud.points = o3d.utility.Vector3dVector(mesh_.vertices)
+        # cloud.normals = o3d.utility.Vector3dVector(mesh_.vertex_normals)
+        # radii = [ 0.2]
+        # trimesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
+        # v = np.asarray(trimesh.vertices)
+        # f = np.array(trimesh.triangles)
+        # f = np.c_[np.full(len(f), 3), f]
+        # mesh = pv.PolyData(v, f)
+        # shell =  mesh.clean()#.reconstruct_surface()
+
+        # shell = self.poisson_mesh(mesh_) 
+
         
         # my_tubes = dict()
         # for i in range(len(self._atmsurf)):
@@ -231,15 +191,17 @@ class SurfaceHandler:
         # blocks = pv.MultiBlock(my_tubes)
         # merged = blocks.combine()
         # merged # this is now a single unstructured grid containing all geometry
+        # shell = merged#mesh_.extract_surface().extract_all_edges()
 
         # prepare_trimesh()
             
         # create one mesh out of many spheres
-        vol = mesh_.delaunay_3d(alpha=1.4)
+        vol = mesh_.delaunay_3d(alpha=1.5)
         # extract surface from new mesh
         # # shell = self.poisson_mesh(vol)
-        shell = vol.extract_surface().reconstruct_surface(sample_spacing=1.2)
+        shell = vol.extract_feature_edges().reconstruct_surface()
+        # shell = shell.reconstruct_surface(sample_spacing=1.3)
+        # shell = vol.extract_surface().reconstruct_surface(sample_spacing=1.2)
         # shell = shell.extract_all_edges().delaunay_3d(alpha=1.4)
 
-        # shell = merged#mesh_.extract_surface().extract_all_edges()
         return shell

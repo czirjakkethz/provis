@@ -3,7 +3,7 @@ https://github.com/bunnech/holoprot/blob/main/holoprot/feat/surface.py is the ba
 
 Functions to compute features for a patch on the protein surface.
 
-Some of these are borrowed from https://github.com/LPDI-EPFL/masif
+Some of these are borrowed from https://github.com/LPDI-EPFL/masif under the https://github.com/LPDI-EPFL/masif/blob/master/LICENSE license
 """
 import numpy as np
 from Bio.PDB import Selection
@@ -215,7 +215,6 @@ def compute_charges(vertices: np.ndarray, pdb_file: str, pdb_id: str, out_path: 
         raise ValueError(f"Charges cannot be computed. Missing file {pdb_id}_out.pqr. {pdb_id}")
 
     chargefile = open(charge_file)
-    print(charge_file)
     charges = np.array([0.0] * len(vertices))
     for ix, line in enumerate(chargefile.readlines()):
         try:
@@ -239,7 +238,7 @@ def compute_surface_features(surface: Surface,
     ----------
     surface: Surface,
         Tuple of attributes characterizing the surface. These include vertices,
-        faces, normals to each vertex, areas, residue identifiers for vertices.
+        faces, normals to each vertex, areas, fdue identifiers for vertices.
     pdb_file: str,
         PDB File containing the atomic coordinates
     fix_mesh: bool (default False),

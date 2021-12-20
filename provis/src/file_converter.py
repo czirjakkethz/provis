@@ -51,8 +51,9 @@ class FileConverter():
         # create filepath+filename.xyzrn for output file
         xyzrn = output + ".xyzrn"
         name = path + ".pdb"
-        
-        output_pdb_as_xyzrn(name, xyzrn)
+
+        if not os.path.exists(xyzrn):
+            output_pdb_as_xyzrn(name, xyzrn)
         
     @staticmethod
     def msms(path, dens):
@@ -79,7 +80,8 @@ class FileConverter():
         FNULL = open(os.devnull, 'w')
         args = [MSMS_BIN, "-density", f"{dens}", "-hdensity", "3.0", "-probe",\
                         "1.5", "-if", f"{path}.xyzrn", "-of", file_base, "-af", file_base]
-        if os.path.isfile(MSMS_BIN):
+        output_exists = os.path.exists(file_base + ".vert") and os.path.exists(file_base + ".face") + os.path.exists(file_base + ".area")
+        if os.path.isfile(MSMS_BIN) and not output_exists:
             ac = subprocess.call(args) 
         else:
             print("MSMS Binary not found under: ", MSMS_BIN)
@@ -95,7 +97,8 @@ class FileConverter():
         :param type: str
         """
         print("Converting mol2 file...")
-        ac = subprocess.call("obabel %4s.pdb -O %4s.mol2" % (path,  outpath), shell=True)
+        if not os.path.exists(outpath + ".mol2"):
+            ac = subprocess.call("obabel %s.pdb -O %s.mol2" % (path,  outpath), shell=True)
 
     @staticmethod
     def pdb_to_pqr(path, outpath):
@@ -110,12 +113,21 @@ class FileConverter():
         print("Converting pqr file...")
 
         PDB2PQR_BIN  = os.environ['PDB2PQR_BIN']
+        print(PDB2PQR_BIN)
+        print(os.path.isfile(PDB2PQR_BIN))
+        binary_found = os.path.isfile(PDB2PQR_BIN)
+        print(binary_found)
+        #possibilities: amber, charmm, parse, tyl06, peoepb and swanson
+        args = [PDB2PQR_BIN , "--ff=swanson", f"{path}.pdb", f"{outpath}_out.pqr"]
 
-        args = [PDB2PQR_BIN , "--clean", f"{path}.pdb", f"{outpath}_out.pqr"]
+        
+        if binary_found:
+            if os.path.exists(f"{outpath}_out.pqr"):
 
-        if os.path.isfile(PDB2PQR_BIN ):
-            ac = subprocess.call(args)
-        else:
+                print("File already present, no conversion needed.")
+            else:
+                ac = subprocess.call(args)
+        elif not binary_found:
             print("MSMS Binary not found under: ", PDB2PQR_BIN )
 
     @staticmethod

@@ -222,6 +222,59 @@ class DataHandler:
         # return list of spheres and colors representing each atom
         return atoms_spheres, colors_spheres
 
+    def get_atom_trimesh(self, atom_data, vw=0, probe=0, phi_res=10, theta_res = 10):
+        """
+        Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.
+        
+        :param name: atom_data - Dictionary of atoms and their coordinates, by atom type
+        :param type: dict
+        :param name: vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false
+        :param type: bool
+        :param name: probe - size of probe (representing the solvent size) needed for surface calculation
+        :param type: int
+        :param name: phi_res - pyvista phi_resolution for Sphere objects representing atoms
+        :param type: int
+        :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms
+        :param type: int
+        
+        :return: list - List of pyvista Shperes representing each atom
+        :return: list - List of colors for each atom
+        """
+        # these two dictionaries have to be manually created
+        # also, if more/other atoms present in protein it will not work
+
+        # create glyphs (spherical) to represent each atom
+        atoms_spheres = []
+        colors_spheres = []
+        rad = probe / 2.0
+
+        import trimesh
+        for atoms_type in atom_data:
+
+            # create a mesh with each atoms position
+            # mesh = trimesh.points.PointCloud()#np.array(atom_data[atoms_type]))
+            # print(mesh)
+            # place a specific sphere at given position
+
+            spheres = []
+            for atom in atom_data[atoms_type]:
+                if not vw:
+                    spheres.append(trimesh.primitives.Sphere(radius=self._atoms_size_dict[atoms_type], center=atom))
+                else:
+                    spheres.append(trimesh.primitives.Sphere(radius=(self._vw_dict[atoms_type] + rad), center=atom))
+
+            mesh = trimesh.util.concatenate(spheres)
+            atoms_spheres.append(mesh)
+
+            try:
+                # color the sphere according to 'CPK' standard
+                colors_spheres.append(self._atoms_color_dict[atoms_type])
+            except KeyError:
+                # if atom is unrecognized, color it pink
+                colors_spheres.append('#DD77FF')
+
+        # return list of spheres and colors representing each atom
+        return atoms_spheres, colors_spheres
 
     def get_residue_mesh(self, res_data, phi_res = 25, theta_res = 25):
         """
