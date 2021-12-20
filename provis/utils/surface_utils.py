@@ -9,6 +9,7 @@ from numpy.matlib import repmat
 from Bio.PDB import PDBParser, Selection
 from subprocess import Popen, PIPE
 from typing import Tuple, List, Dict
+import trimesh 
 
 from holoprot.utils import RADII, POLAR_HYDROGENS
 
@@ -17,7 +18,7 @@ Surface = Tuple[np.ndarray, np.ndarray, np.ndarray, List[str], Dict[str, str]]
 
 
 def read_msms(
-        file_root: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[str]]:
+        file_root: str, dens: float) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[str]]:
     """Read surface constituents from output files generated using MSMS.
 
     Parameters
@@ -81,30 +82,24 @@ def read_msms(
     return vertices, faces, normalv, res_id
 
 
-def output_pdb_as_xyzrn(pdb_file: str) -> None:
+def output_pdb_as_xyzrn(pdb_file: str, xyzrn_file: str) -> None:
     """Converts a .pdb file to a .xyzrn file.
 
     Parameters
     ----------
     pdb_file: str,
-        PDB File to convert
+        path to PDB File to convert (with extension)
+    xyzrn_file: str,
+        path to the xyzrn File (with extension)
     """
-    base_file = pdb_file.split("/")[-1]  # Remove any full path prefixes
-    pdb_id = base_file.split(".")[0]
-    pdb_path = os.path.abspath(pdb_file)
-    # add pdb extension, as we just pass the path
-    if base_file == pdb_id:
-        pdb_path += ".pdb"
-    # create filepath+filename.xyzrn for output file
-    xyzrn_file = pdb_path.split(".")[0] + ".xyzrn"
+    # get absolute path for xyzrn_file, needed for open
+    xyzrn_file = os.path.join(os.getcwd(), xyzrn_file)
 
-    # import glob
-    # text_files = glob.glob( f"/data/{pdb_id}.pdb", recursive = True)
-    # print(text_files)
-
+    filename = pdb_file.split("/")[-1]
+    pdb_id = filename.split(".")[0]
 
     parser = PDBParser()
-    struct = parser.get_structure(id=pdb_id, file=pdb_path)
+    struct = parser.get_structure(id=pdb_id, file=pdb_file)
     outfile = open(xyzrn_file, "w")
 
     for atom in struct.get_atoms():
@@ -143,35 +138,25 @@ def output_pdb_as_xyzrn(pdb_file: str) -> None:
                           "\n")
 
 
-def get_surface(pdb_file: str, density: float = 0.5,
-                msms_bin: str = None, remove_files: bool = True):
+def get_surface(out_path: str, density: float = 0.5,
+                remove_files: bool = True):
     """
     Wrapper function that calls the MSMS executable to build the protein surface.
 
     Parameters
     ----------
-    pdb_file: str,
-        PDB file to extract surface from
-    msms_bin: str,
-        Path to the MSMSBIN file
+    out_path: str,
+        path to output (output path from namechecker) directory. Usually data/tmp
     remove_files: bool, (default True)
         Whether to remove the intermediate output files
     """
-    pdb_path = os.path.abspath(pdb_file)
-    file_base = pdb_path.split(".")[0]
+    file_base = os.path.abspath(out_path)
+    file_base = f"{file_base}_out_{int(density * 10)}"
 
-    xyzrn_file = pdb_path.split(".")[0] + ".xyzrn"
-    output_pdb_as_xyzrn(pdb_file)
+    # file_base = pdb_path.split(".")[0]
+    # file_base = f"{pdb_path}_out_{int(density * 10)}"
 
-    # Now run MSMS on xyzrn file
-    FNULL = open(os.devnull, 'w')
-    args = [msms_bin, "-density", f"{density}", "-hdensity", "3.0", "-probe",\
-                    "1.5", "-if", xyzrn_file, "-of", file_base, "-af", file_base]
-    #print msms_bin+" "+`args`
-    p2 = Popen(args, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = p2.communicate()
-
-    vertices, faces, normals, names = read_msms(file_base)
+    vertices, faces, normals, names = read_msms(file_base, density)
     areas = {}
     ses_file = open(file_base + ".area")
     next(ses_file)  # ignore header line
@@ -179,14 +164,6 @@ def get_surface(pdb_file: str, density: float = 0.5,
         fields = line.split()
         areas[fields[3]] = fields[1]
 
-    # files_to_remove = [
-    #     xyzrn_file, file_base + ".vert", file_base + ".area",
-    #     file_base + ".face"
-    # ]
-
-    # for file in files_to_remove:
-    #     if os.path.exists(file):
-    #         os.remove(file)
     return vertices, faces, normals, names, areas
 
 
@@ -234,38 +211,6 @@ def crossp(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     z[2, :] = np.multiply(x[0, :], y[1, :]) - np.multiply(x[1, :], y[0, :])
     return z
 
-def save_mesh(save_file: str, vertices: np.ndarray, faces: np.ndarray,
-              normals: np.ndarray = None, charges: np.ndarray = None,
-              hbonds: np.ndarray = None, hydrophob: np.ndarray = None,
-              normalize_charges: bool = False):
-    """Saves mesh in .ply format."""
-    import pymesh
-    mesh = pymesh.form_mesh(vertices, faces)
-    if normals is not None:
-        n1 = normals[:, 0]
-        n2 = normals[:, 1]
-        n3 = normals[:, 2]
-        mesh.add_attribute("vertex_nx")
-        mesh.set_attribute("vertex_nx", n1)
-        mesh.add_attribute("vertex_ny")
-        mesh.set_attribute("vertex_ny", n2)
-        mesh.add_attribute("vertex_nz")
-        mesh.set_attribute("vertex_nz", n3)
-    if charges is not None:
-        mesh.add_attribute("charge")
-        if normalize_charges:
-            charges = charges / 10
-        mesh.set_attribute("charge", charges)
-    if hbonds is not None:
-        mesh.add_attribute("hbonds")
-        mesh.set_attribute("hbonds", hbonds)
-    if hydrophob is not None:
-        mesh.add_attribute("vertex_hphob")
-        mesh.set_attribute("vertex_hphob", hydrophob)
-    pymesh.save_mesh(
-        save_file, mesh, *mesh.get_attribute_names(), use_float=True, ascii=True
-    )
-
 def prepare_trimesh(vertices: np.ndarray,
                  faces: np.ndarray,
                  normals: np.ndarray = None,
@@ -291,7 +236,6 @@ def prepare_trimesh(vertices: np.ndarray,
     mesh: Mesh,
         Pymesh.Mesh.Mesh instance
     """
-    import trimesh
     tmp_mesh = trimesh.Trimesh(vertices, faces)
     
     if apply_fixes:
@@ -322,7 +266,6 @@ def fix_trimesh(mesh, resolution: float = 1.0):
     mesh: Mesh,
         Pymesh.Mesh.Mesh object with all fixes applied
     """
-    import trimesh
     target_len = resolution
     mesh, _ = trimesh.remove_duplicated_vertices(mesh, 0.001)
 

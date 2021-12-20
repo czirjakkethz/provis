@@ -11,8 +11,8 @@ def import_atm_size_info(vw=0):
     :return: dict - dictionary of color by atom name
     :return: dict - !optional! return dictionary of vw rdius by atom name
     """
-    filename_size ="data/atmsize.csv"
-    filename_vw ="data/atmvw.csv"
+    filename_size ="data/data/atmsize.csv"
+    filename_vw ="data/data/atmvw.csv"
     
     # opening the file using "with" 
     # statement
@@ -92,7 +92,7 @@ def import_atm_mass_info():
     
     :return: dict - dictionary of atomic mass by atom name
     """
-    filename_mass = "data/atmmass.csv"
+    filename_mass = "data/data/atmmass.csv"
     
     firstline = []
     massdict = {}

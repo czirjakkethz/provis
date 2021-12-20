@@ -1,6 +1,7 @@
 import pyvista as pv
 
 from provis.src.data_handler import DataHandler
+from provis.utils.name_checker import check_name
 
 class StickPoint:
     """
@@ -14,7 +15,7 @@ class StickPoint:
         :param name: name - name of file, without extension
         :param type: str
         """
-        self._name = name
+        self._id, self._name = check_name(name)
         # create "brain" of plotting class
         self._dh = DataHandler(name)
           

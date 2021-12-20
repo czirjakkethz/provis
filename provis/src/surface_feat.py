@@ -45,7 +45,6 @@ def compute_shape_index(mesh) -> np.ndarray:
     # n2 = mesh.get_attribute("vertex_ny")
     # n3 = mesh.get_attribute("vertex_nz")
     # normals = np.stack([n1, n2, n3], axis=1)
-    print(mesh)
     import trimesh
     # mesh.add_attribute("vertex_mean_curvature")
     # H = mesh.get_attribute("vertex_mean_curvature")
@@ -186,7 +185,7 @@ def compute_hydrophobicity(names: List[str]) -> np.ndarray:
     return hp
 
 
-def compute_charges(vertices: np.ndarray, pdb_file: str, pdb_id: str) -> np.ndarray:
+def compute_charges(vertices: np.ndarray, pdb_file: str, pdb_id: str, out_path: str) -> np.ndarray:
     """
     Computes electrostatics for the surface vertices. The function first calls
     the PDB2PQR executable to prepare the pdb file for electrostatics. Poisson-
@@ -211,11 +210,12 @@ def compute_charges(vertices: np.ndarray, pdb_file: str, pdb_id: str) -> np.ndar
 
     # dirname = os.path.dirname(pdb_file)
     # removed from next line: {dirname}/
-    charge_file = f"{pdb_id}_out.pqr"
+    charge_file = f"{out_path}_out.pqr"
     if not os.path.exists(charge_file):
         raise ValueError(f"Charges cannot be computed. Missing file {pdb_id}_out.pqr. {pdb_id}")
 
     chargefile = open(charge_file)
+    print(charge_file)
     charges = np.array([0.0] * len(vertices))
     for ix, line in enumerate(chargefile.readlines()):
         try:
@@ -228,6 +228,7 @@ def compute_charges(vertices: np.ndarray, pdb_file: str, pdb_id: str) -> np.ndar
 
 def compute_surface_features(surface: Surface,
                              pdb_file: str,
+                             out_path: str,
                              mesh = None,
                              fix_mesh: bool = False,
                              return_mesh: bool = False,
@@ -279,7 +280,8 @@ def compute_surface_features(surface: Surface,
             old_props=hydrophob,
             feature_interpolation=True)
 
-    charges = compute_charges(mesh.vertices, pdb_file, pdb_id)
+    charges = compute_charges(mesh.vertices, pdb_file, pdb_id, out_path)
+    print(charges)
 
     if si is None or not np.isfinite(si).all():
         raise ValueError(f"{pdb_id}: Shape index failed nan check.")
