@@ -134,7 +134,6 @@ class SurfaceHandler:
         cloud = o3d.geometry.PointCloud()
         poly_pc = pc.extract_all_edges()
         cloud.points = o3d.utility.Vector3dVector(poly_pc.points)
-        print(poly_pc)
         cloud.normals = o3d.utility.Vector3dVector(poly_pc["norms"])
         trimesh, _ = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(cloud, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
         v = np.asarray(trimesh.vertices)

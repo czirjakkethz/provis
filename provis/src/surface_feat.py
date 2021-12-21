@@ -12,12 +12,12 @@ from subprocess import PIPE, Popen
 import os
 from scipy.spatial import KDTree
 from typing import List, Tuple, Dict
+import trimesh
 
-from holoprot.feat import KD_SCALE
-from holoprot.utils import get_residues
-from holoprot.utils.charges import (compute_hbond_helper, compute_satisfied_CO_HN,
+from provis.src import KD_SCALE, get_residues
+from provis.utils.charges_utils import (compute_hbond_helper, compute_satisfied_CO_HN,
                     normalize_electrostatics)
-from holoprot.utils.surface import prepare_mesh
+from provis.utils.surface_utils import prepare_trimesh
 
 
 Surface = Tuple[np.ndarray, np.ndarray, np.ndarray, List[str], Dict[str, str]]
@@ -45,7 +45,6 @@ def compute_shape_index(mesh) -> np.ndarray:
     # n2 = mesh.get_attribute("vertex_ny")
     # n3 = mesh.get_attribute("vertex_nz")
     # normals = np.stack([n1, n2, n3], axis=1)
-    import trimesh
     # mesh.add_attribute("vertex_mean_curvature")
     # H = mesh.get_attribute("vertex_mean_curvature")
     # mesh.add_attribute("vertex_gaussian_curvature")
@@ -264,7 +263,7 @@ def compute_surface_features(surface: Surface,
     hbonds = compute_hbonds(vertices, residues, names)
     hydrophob = compute_hydrophobicity(names)
     if mesh is None:
-        mesh = prepare_mesh(vertices, faces, normals=normals, apply_fixes=fix_mesh)
+        mesh = prepare_trimesh(vertices, faces, normals=normals, apply_fixes=fix_mesh)
     si = compute_shape_index(mesh)
     
     if fix_mesh or (len(mesh.vertices) != len(vertices)):
@@ -280,7 +279,6 @@ def compute_surface_features(surface: Surface,
             feature_interpolation=True)
 
     charges = compute_charges(mesh.vertices, pdb_file, pdb_id, out_path)
-    print(charges)
 
     if si is None or not np.isfinite(si).all():
         raise ValueError(f"{pdb_id}: Shape index failed nan check.")

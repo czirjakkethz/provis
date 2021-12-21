@@ -46,14 +46,16 @@ class FileConverter():
         
         :return: void - xyzrn file
         """
-        print("Converting xyzrn file...")
 
         # create filepath+filename.xyzrn for output file
         xyzrn = output + ".xyzrn"
         name = path + ".pdb"
 
         if not os.path.exists(xyzrn):
+            print("Converting xyzrn file...")
             output_pdb_as_xyzrn(name, xyzrn)
+        else:
+            print("xyzrn files already exist. No conversion needed")
         
     @staticmethod
     def msms(path, dens):
@@ -69,7 +71,6 @@ class FileConverter():
         
         :return: void - face and vert files
         """
-        print("Converting face and vert files...")
         # print("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)))
 
         # Now run MSMS on xyzrn file
@@ -80,9 +81,14 @@ class FileConverter():
         FNULL = open(os.devnull, 'w')
         args = [MSMS_BIN, "-density", f"{dens}", "-hdensity", "3.0", "-probe",\
                         "1.5", "-if", f"{path}.xyzrn", "-of", file_base, "-af", file_base]
+        
         output_exists = os.path.exists(file_base + ".vert") and os.path.exists(file_base + ".face") + os.path.exists(file_base + ".area")
-        if os.path.isfile(MSMS_BIN) and not output_exists:
-            ac = subprocess.call(args) 
+        if os.path.isfile(MSMS_BIN):# and not output_exists:
+            if not output_exists:
+                print("Converting face and vert files...")
+                ac = subprocess.call(args)
+            else:
+                print("face and vert files already exist. No conversion needed")
         else:
             print("MSMS Binary not found under: ", MSMS_BIN)
             
@@ -96,12 +102,15 @@ class FileConverter():
         :param name: outpath - Name of desired output file (without extension). It will add _out.pqr to the given path.
         :param type: str
         """
-        print("Converting mol2 file...")
+        
         if not os.path.exists(outpath + ".mol2"):
+            print("Converting mol2 file...")
             ac = subprocess.call("obabel %s.pdb -O %s.mol2" % (path,  outpath), shell=True)
+        else:
+            print("mol2 file already exist. No conversion needed")
 
     @staticmethod
-    def pdb_to_pqr(path, outpath):
+    def pdb_to_pqr(path, outpath, forcefield="swanson"):
         """
         Run pdb2pqr, to convert pdb to pqr
         
@@ -109,26 +118,25 @@ class FileConverter():
         :param type: str        
         :param name: outpath - Name of desired output file (without extension). It will add _out.pqr to the given path.
         :param type: str
+        :param name: forcefield - Force field used for charge computation, by binary. Default: swanson. Options: amber, charmm, parse, tyl06, peoepb and swanson
+        :param type: str
         """
-        print("Converting pqr file...")
 
         PDB2PQR_BIN  = os.environ['PDB2PQR_BIN']
-        print(PDB2PQR_BIN)
-        print(os.path.isfile(PDB2PQR_BIN))
-        binary_found = os.path.isfile(PDB2PQR_BIN)
-        print(binary_found)
         #possibilities: amber, charmm, parse, tyl06, peoepb and swanson
-        args = [PDB2PQR_BIN , "--ff=swanson", f"{path}.pdb", f"{outpath}_out.pqr"]
+        args = [PDB2PQR_BIN , f"--ff={forcefield}", f"{path}.pdb", f"{outpath}_out.pqr"]
 
+        output_exists = os.path.exists(f"{outpath}_out.pqr")        
         
-        if binary_found:
-            if os.path.exists(f"{outpath}_out.pqr"):
-
-                print("File already present, no conversion needed.")
+        if os.path.isfile(PDB2PQR_BIN):# and not output_exists:
+            if not output_exists:
+                print("Converting pqr file...")
+                ac = subprocess.call(args) 
             else:
-                ac = subprocess.call(args)
-        elif not binary_found:
-            print("MSMS Binary not found under: ", PDB2PQR_BIN )
+                print("pqr file already exist. No conversion needed")
+        else:
+            print("PDB2PQR Binary not found under: ", PDB2PQR_BIN)
+       
 
     @staticmethod
     def cleanup(delete_img: bool=False):
