@@ -91,7 +91,7 @@ class SurfaceHandler:
             cas = self.get_surface_features(self._mesh, feature)
 
         return self._mesh, cas
-
+    #TODO load_forv is redundant thanks to return_mesh_and_color -> get_surface -> read_msms
     def load_forv(self, file_name, end, vorf):
         """
         Load surface information from face or vert file
@@ -129,19 +129,6 @@ class SurfaceHandler:
         return ret
 
 
-    def poisson_mesh(self, pc, depth=8, width=0, scale=1.1, linear_fit=False):
-        """`pc` is a `pyvista.PolyData` point cloud. The default arguments are abitrary"""
-        cloud = o3d.geometry.PointCloud()
-        poly_pc = pc.extract_all_edges()
-        cloud.points = o3d.utility.Vector3dVector(poly_pc.points)
-        cloud.normals = o3d.utility.Vector3dVector(poly_pc["norms"])
-        trimesh, _ = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(cloud, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
-        v = np.asarray(trimesh.vertices)
-        f = np.array(trimesh.triangles)
-        f = np.c_[np.full(len(f), 3), f]
-        mesh = pv.PolyData(v, f)
-        return mesh.clean()
-
     def native_mesh(self):
 
         atom_data = self._dh.get_atoms()
@@ -155,23 +142,10 @@ class SurfaceHandler:
             mesh_ = mesh_ + (mesh)
 
 
-        # shell = mesh_
-        # # shell = trimesh.smoothing.filter_taubin(mesh_)
-        # pcd = mesh_.sample_points_poisson_disk(750)
-        # o3d.visualization.draw_geometries([pcd])
-        # alpha = 0.03
-        # print(f"alpha={alpha:.3f}")
-        # mesh = o3d.geometry.TriangleMesh.create_from_point_cloud_alpha_shape(pcd, alpha)
-        # mesh.compute_vertex_normals()
-        # o3d.visualization.draw_geometries([mesh], mesh_show_back_face=True)
-       
-        # FLIPPING WORKDSSSSSSSSSS
         mesh_ = mesh_.delaunay_3d(alpha=1.5).extract_feature_edges()
         # self._atmsurf, col = self._dh.get_atom_trimesh(atom_data, vw=1, probe=0.1)
         new = trimesh.Trimesh(mesh_.points)#trimesh.util.concatenate(mesh_)
         cloud = o3d.geometry.PointCloud()
-        poly_pc = new.vertices[new.edges_unique]
-        # poly_pc = pc.extract_all_edges()
         cloud.points = o3d.utility.Vector3dVector(new.vertices)
         cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
         radii = [0.1, 0.3, 0.45, 0.6, 0.75, 0.9,1.2, 1.5]
@@ -181,28 +155,5 @@ class SurfaceHandler:
         f = np.c_[np.full(len(f), 3), f]
         mesh = pv.PolyData(v, f)
         shell =  mesh.clean().reconstruct_surface()#.clean()
-
-        # shell = self.poisson_mesh(mesh_) 
-
-        
-        # my_tubes = dict()
-        # for i in range(len(self._atmsurf)):
-        #     my_tubes[i] = self._atmsurf[i]
-
-        # blocks = pv.MultiBlock(my_tubes)
-        # merged = blocks.combine()
-        # merged # this is now a single unstructured grid containing all geometry
-        # shell = merged#mesh_.extract_surface().extract_all_edges()
-
-        # prepare_trimesh()
-            
-        # create one mesh out of many spheres
-        # vol = mesh_.delaunay_3d(alpha=1.5)
-        # # extract surface from new mesh
-        # # # shell = self.poisson_mesh(vol)
-        # shell = vol.extract_feature_edges(12).reconstruct_surface().clean()
-        # shell = shell.reconstruct_surface(sample_spacing=1.3)
-        # shell = vol.extract_surface().reconstruct_surface(sample_spacing=1.2)
-        # shell = shell.extract_all_edges().delaunay_3d(alpha=1.4)
 
         return shell
