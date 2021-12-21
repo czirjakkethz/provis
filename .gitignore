@@ -10,3 +10,9 @@ datasets
 provis/data/tmp
 
 *.pyc
+*.vert
+*.face
+*.area
+*.pqr
+*.mol2
+*.xyzrn

@@ -10,7 +10,7 @@ import pyvista as pv
 from pyvtk import PolyData, PointData, CellData, Scalars, Vectors, VtkData
 from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh
 from provis.src.surface_feat import compute_surface_features
-from trimesh import util
+import trimesh
 from subprocess import PIPE, Popen
 import open3d as o3d
 
@@ -165,20 +165,22 @@ class SurfaceHandler:
         # mesh.compute_vertex_normals()
         # o3d.visualization.draw_geometries([mesh], mesh_show_back_face=True)
        
+        # FLIPPING WORKDSSSSSSSSSS
+        mesh_ = mesh_.delaunay_3d(alpha=1.5).extract_feature_edges()
         # self._atmsurf, col = self._dh.get_atom_trimesh(atom_data, vw=1, probe=0.1)
-        # mesh_ = util.concatenate(self._atmsurf)
-        # cloud = o3d.geometry.PointCloud()
-        # poly_pc = mesh_.vertices[mesh_.edges_unique]
-        # # poly_pc = pc.extract_all_edges()
-        # cloud.points = o3d.utility.Vector3dVector(mesh_.vertices)
-        # cloud.normals = o3d.utility.Vector3dVector(mesh_.vertex_normals)
-        # radii = [ 0.2]
-        # trimesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
-        # v = np.asarray(trimesh.vertices)
-        # f = np.array(trimesh.triangles)
-        # f = np.c_[np.full(len(f), 3), f]
-        # mesh = pv.PolyData(v, f)
-        # shell =  mesh.clean()#.reconstruct_surface()
+        new = trimesh.Trimesh(mesh_.points)#trimesh.util.concatenate(mesh_)
+        cloud = o3d.geometry.PointCloud()
+        poly_pc = new.vertices[new.edges_unique]
+        # poly_pc = pc.extract_all_edges()
+        cloud.points = o3d.utility.Vector3dVector(new.vertices)
+        cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
+        radii = [0.1, 0.3, 0.45, 0.6, 0.75, 0.9,1.2, 1.5]
+        tri_mesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
+        v = np.asarray(tri_mesh.vertices)
+        f = np.array(tri_mesh.triangles)
+        f = np.c_[np.full(len(f), 3), f]
+        mesh = pv.PolyData(v, f)
+        shell =  mesh.clean().reconstruct_surface()#.clean()
 
         # shell = self.poisson_mesh(mesh_) 
 
@@ -195,10 +197,10 @@ class SurfaceHandler:
         # prepare_trimesh()
             
         # create one mesh out of many spheres
-        vol = mesh_.delaunay_3d(alpha=1.5)
-        # extract surface from new mesh
-        # # shell = self.poisson_mesh(vol)
-        shell = vol.extract_feature_edges().reconstruct_surface()
+        # vol = mesh_.delaunay_3d(alpha=1.5)
+        # # extract surface from new mesh
+        # # # shell = self.poisson_mesh(vol)
+        # shell = vol.extract_feature_edges(12).reconstruct_surface().clean()
         # shell = shell.reconstruct_surface(sample_spacing=1.3)
         # shell = vol.extract_surface().reconstruct_surface(sample_spacing=1.2)
         # shell = shell.extract_all_edges().delaunay_3d(alpha=1.4)

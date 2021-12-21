@@ -29,10 +29,10 @@ class DataHandler:
         
         :return: structure - Biopython structure representation of the file
         """
-        self._id, self._name = check_name(name)
+        self._path, self._out_path = check_name(name)
         parser = PDBParser()
-        file_name = name + ".pdb"
-        self._structure = parser.get_structure(name, file_name)
+        file_name = self._path + ".pdb"
+        self._structure = parser.get_structure(self._path, file_name)
                 # these two dictionaries have to be manually created
         # could not find volume information for CYS, HIS, LYS, THR, TYR
         # for above mentioned apporximation by "closest" available
@@ -125,7 +125,7 @@ class DataHandler:
         """
         
         # load info for given residue
-        fname = self._name + ".mol2"
+        fname = self._out_path + ".mol2"
         pmol = PandasMol2().read_mol2(fname)
         my = pmol.df[pmol.df['subst_id'] == res]
         
@@ -324,13 +324,13 @@ class DataHandler:
         
         :return: list - List of pyvista lines representing each bond
         """
-        fname = self._name + ".mol2"
+        fname = self._out_path + ".mol2"
 
         # Check if mol2 file exists. If not convert it from pdb
         file_exists = exists(fname)
         fc = FileConverter()
         if not file_exists:
-            fc.pdb_to_mol2(name)
+            fc.pdb_to_mol2(self._path)
         pmol = PandasMol2().read_mol2(fname)
         bonds_in = bond_parser(fname)
 

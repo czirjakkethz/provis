@@ -50,7 +50,7 @@ class StickPoint:
         :param type: list
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
-        :param name: outname - save image of plot to specified filename. Will appear in data/output directory. default: data/output/{self._name}_stick_point
+        :param name: outname - save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._name}_stick_point
         :param type: string
         
         :return: void - Window with interactive plot
@@ -97,7 +97,7 @@ class StickPoint:
         if not outname:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
-            outname = 'data/output/' + new_name + '_stick_point.png'
+            outname = 'data/img/' + new_name + '_stick_point.png'
         pl.show(screenshot=outname)
 
 
@@ -117,7 +117,7 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
-        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param name: outname - save image of plot to specified filename. Will appear in data/img directory
         :param type: string
         
         :return: void - Window with interactive plot
@@ -169,7 +169,7 @@ class StickPoint:
         if not outname:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
-            outname = 'data/output/' + new_name + '_stick_point.png'
+            outname = 'data/img/' + new_name + '_stick_point.png'
         pl.show(screenshot=outname)
 
 
@@ -181,7 +181,7 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
-        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param name: outname - save image of plot to specified filename. Will appear in data/img directory
         :param type: string
         """
 
@@ -195,7 +195,7 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
-        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param name: outname - save image of plot to specified filename. Will appear in data/img directory
         :param type: string
         """
 
@@ -209,7 +209,7 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
-        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param name: outname - save image of plot to specified filename. Will appear in data/img directory
         :param type: string
         """
 
@@ -223,7 +223,7 @@ class StickPoint:
         :param type: bool
         :param name: res - specified residues will be plotted with a bounding box around them
         :param type: Residue
-        :param name: outname - save image of plot to specified filename. Will appear in data/output directory
+        :param name: outname - save image of plot to specified filename. Will appear in data/img directory
         :param type: string
         """
 

@@ -7,7 +7,7 @@ from provis.src.surface import Surface
 from provis.src.residue import Residue
                                     
 def main():
-    name = "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
+    name = "1a3n" # "2fd7" # "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
     density = 3.0
     solvent = 0
     bash = 0
@@ -30,7 +30,7 @@ def main():
     s = Surface(name, dens=density)
     # s.plot_hydrophob(outname="hydrophob", patch=0)
     # s.plot_shape()
-    s.plot_charge()
+    # s.plot_charge()
     # s.plot_msms_surface()
     s.plot_surface()
 

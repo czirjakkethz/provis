@@ -21,10 +21,11 @@ def check_name(name):
     id = unkown_name.split(".")[0]
 
     if not (exists(name) or exists(name_pdb)):
-        print("File not found. Looking in default location")
-        default_file = "data/pdb/" + id + ".pdb"
+        print("Looking for file in default location")
+        default = "data/pdb/" + id
+        default_file = default + ".pdb"
         if exists(default_file):
-            name = default_file
+            name = default
         else:
             print("The provided pdb file could not be found. Please make sure you have it downloaded and provided the correct file path.")
 
