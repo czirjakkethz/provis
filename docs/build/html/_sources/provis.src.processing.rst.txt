@@ -1,9 +1,6 @@
 provis.src.processing package
 =============================
 
-Submodules
-----------
-
 provis.src.processing.data\_handler module
 ------------------------------------------
 
@@ -24,14 +21,6 @@ provis.src.processing.residue module
 ------------------------------------
 
 .. automodule:: provis.src.processing.residue
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-provis.src.processing.surface\_feat module
-------------------------------------------
-
-.. automodule:: provis.src.processing.surface_feat
    :members:
    :undoc-members:
    :show-inheritance:

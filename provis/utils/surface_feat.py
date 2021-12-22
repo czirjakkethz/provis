@@ -83,7 +83,6 @@ def compute_hbonds(vertices: np.ndarray, residues: List[Residue],
 
     hbond = np.array([0.0] * len(vertices))
     # Go over every vertex
-    print(names)
     for ix, name in enumerate(names):
         fields = name.split("_")
         chain_id = fields[0]

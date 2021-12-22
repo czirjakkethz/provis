@@ -1,8 +1,5 @@
-provis.utils package
+Utilities for provis
 ====================
-
-Submodules
-----------
 
 provis.utils.atminfo module
 ---------------------------
@@ -32,6 +29,14 @@ provis.utils.name\_checker module
 ---------------------------------
 
 .. automodule:: provis.utils.name_checker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+provis.utils.surface\_feat module
+---------------------------------
+
+.. automodule:: provis.utils.surface_feat
    :members:
    :undoc-members:
    :show-inheritance:

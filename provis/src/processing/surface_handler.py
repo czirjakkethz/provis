@@ -15,7 +15,7 @@ import open3d as o3d
 from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh, fix_trimesh
 from provis.utils.name_checker import check_name
 from provis.src.processing.data_handler import DataHandler
-from provis.src.processing.surface_feat import compute_surface_features
+from provis.utils.surface_feat import compute_surface_features
 
 class SurfaceHandler:
     """
@@ -57,8 +57,8 @@ class SurfaceHandler:
         filename = self._out_path.upper() + '.pth'
         assigment = torch.load(filename)
         
-        print(assigment)
-        print(type(assigment))
+        # print(assigment)
+        # print(type(assigment))
         return assigment
 
     def get_surface_features(self, mesh, feature):

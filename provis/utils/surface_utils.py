@@ -24,10 +24,10 @@ def read_msms(
     :param name: file_root - Root name for loading .face and .vert files (produced by MSMS). Default location is data/tmp/{pdb_id}s
     :param type: str
    
-    :returns: vertices - # TODO
-    :returns: faces -  #TODO
-    :returns: normalv -
-    :returns: res_id- 
+    :returns: numpy.ndarray - vertices
+    :returns: numpy.ndarray - faces
+    :returns: numpy.ndarray - vertex normals
+    :returns: list - List of res_id's from output_pdb_as_xyzrn()
     """
     vertfile = open(file_root + ".vert")
     meshdata = (vertfile.read().rstrip()).split("\n")
@@ -145,11 +145,11 @@ def get_surface(out_path: str, density: float = 0.5,
     :param name: remove_files - Whether to remove the intermediate output files. Default: True.
     :param type: bool
         
-    :returns: vertices - #TODO
-    :returns: faces - #TODO
-    :returns: normalv - 
-    :returns: names - 
-    :returns: areas -
+    :returns: numpy.ndarray - vertices
+    :returns: numpy.ndarray - faces
+    :returns: numpy.ndarray - vertex normals
+    :returns: list - List of res_id's from output_pdb_as_xyzrn()
+    :returns: dict - Dictionary: residues as keys, areas as values
     """
     file_base = os.path.abspath(out_path)
     file_base = f"{file_base}_out_{int(density * 10)}"

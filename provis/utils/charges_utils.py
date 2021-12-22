@@ -14,6 +14,18 @@ from provis.utils import ACCEPTOR_PLANES, RADII, DONOR_ATOMS
 
 
 def compute_hbond_helper(atom_name: str, res: Residue, v: np.ndarray) -> float:
+    """
+    Helper function. Computes the charge of the vertex
+    
+    :param name: atom_name - Name of atom
+    :param type: str
+    :param name: res - Residue corresponding to atom
+    :param type: Residue
+    :param name: v - vertices
+    :param type: np.ndarray
+
+    :returns: float - charge of the vertex
+    """
     # Check if it is a polar hydrogen.
     if is_polar_hydrogen(atom_name, res.get_resname()):
         donor_atom_name = DONOR_ATOMS[atom_name]
@@ -53,20 +65,16 @@ def compute_angle_deviation(a: np.ndarray, b: np.ndarray, c: np.ndarray,
     Computes the absolute angle deviation from theta. a, b, c form the three
     points that define the angle.
 
-    Parameters
-    ----------
-    a: np.ndarray,
-        Coordinate vector of the first point
-    b: np.ndarray,
-        Coordinate vector of the second point
-    c: np.ndarray,
-        Coordinate vector of the third point
-    theta: float,
-        Angle to compute deviation with respect to.
-
-    Returns
-    -------
-    (float) absolute deviation of the angle formed by a, b, c with theta
+    :param name: a - Coordinate vector of the first point
+    :param type: np.ndarray,
+    :param name: b - Coordinate vector of the second point
+    :param type: np.ndarray,
+    :param name: c - Coordinate vector of the third point
+    :param type: np.ndarray,
+    :param name: theta - Angle to compute deviation with respect to.
+    :param type: float
+    
+    :returns: float - absolute deviation of the angle formed by a, b, c with theta
     """
     return abs(calc_angle(Vector(a), Vector(b), Vector(c)) - theta)
 
@@ -74,23 +82,20 @@ def compute_angle_deviation(a: np.ndarray, b: np.ndarray, c: np.ndarray,
 def compute_plane_deviation(a: np.ndarray, b: np.ndarray, c: np.ndarray,
                             d: np.ndarray) -> float:
     """
-    Computes the absolute angle deviation from theta. a, b, c form the three
+    Computes the absolute plane deviation from theta. a, b, c form the three
     points that define the angle.
 
-    Parameters
-    ----------
-    a: np.ndarray,
-        Coordinate vector of the first point
-    b: np.ndarray,
-        Coordinate vector of the second point
-    c: np.ndarray,
-        Coordinate vector of the third point
-    d: np.ndarray,
-        Coordinate vector of the fourth point
-
-    Returns
-    -------
-    (float) absolute deviation of the angle formed by a, b, c with theta
+ 
+    :param name: a - Coordinate vector of the first point
+    :param type: np.ndarray,
+    :param name: b - Coordinate vector of the second point
+    :param type: np.ndarray,
+    :param name: c - Coordinate vector of the third point
+    :param type: np.ndarray,
+    :param name: theta - Angle to compute deviation with respect to.
+    :param type: float
+    
+    :returns: float - absolute deviation of the angle formed by a, b, c with theta
     """
     dih = calc_dihedral(Vector(a), Vector(b), Vector(c), Vector(d))
     dev1 = abs(dih)
@@ -107,12 +112,10 @@ def compute_angle_penalty(angle_deviation: float) -> float:
 def is_polar_hydrogen(atom_name: str, res_name: str) -> bool:
     """Check if the atom in a given residue has polar hydrogens.
 
-    Parameters
-    ----------
-    atom_name: str,
-        Name of the atom
-    res_name: str,
-        Residue the
+    :param name: atom_name - Name of the atom
+    :param type: str
+    :param name: res_name - Residue name
+    :param type: str
     """
     if atom_name in POLAR_HYDROGENS[res_name]:
         return True
@@ -121,6 +124,16 @@ def is_polar_hydrogen(atom_name: str, res_name: str) -> bool:
 
 
 def is_acceptor_atom(atom_name: str, res: Residue) -> bool:
+    """
+    Check if atom is acceptor atom.
+
+    :param name: atom_name - Name of the atom
+    :param type: str
+    :param name: res - The corresponding residue
+    :param type: Residue
+    
+    :returns: bool - True if conditions met
+    """
     if atom_name.startswith("O"):
         return True
     else:
@@ -132,8 +145,16 @@ def is_acceptor_atom(atom_name: str, res: Residue) -> bool:
     return False
 
 
-# Compute the list of backbone C=O:H-N that are satisfied. These will be ignored.
 def compute_satisfied_CO_HN(atoms):
+    """
+    Compute the list of backbone C=O:H-N that are satisfied. These will be ignored.
+    
+    :param name: atoms - list of atoms to be checked.
+    :param type: BioPython atoms
+    
+    :returns: set - set of C=O bonds
+    :returns: set - set of H-N bonds
+    """
     ns = NeighborSearch(atoms)
     satisfied_CO = set()
     satisfied_HN = set()
@@ -175,15 +196,11 @@ def normalize_electrostatics(in_elec: np.ndarray) -> np.ndarray:
     Normalizing charges on the surface, by clipping to upper and lower thresholds
     and converting all values to a -1/1 scale.
 
-    Parameters
-    ----------
-    in_elec: np.ndarray,
-        Input charges for all surface vertices
+    :param name: in_elec - Input charges for all surface vertices
+    :param type: np.ndarray
+        
 
-    Returns
-    -------
-    elec: np.ndarray,
-        Normalized surface vertex charges
+    :returns: np.ndarray - Normalized surface vertex charges
     """
     elec = np.copy(in_elec)
     upper_threshold = 3

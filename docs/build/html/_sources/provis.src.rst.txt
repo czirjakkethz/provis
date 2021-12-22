@@ -1,12 +1,10 @@
-provis.src package
+Source code
 ==================
-
-Subpackages
------------
 
 .. toctree::
    :maxdepth: 4
 
+   provis.src.plotting
    provis.src.processing
 
 Module contents

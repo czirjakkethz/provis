@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>provis.src.plotting package &mdash; provis 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="provis.src.processing package" href="provis.src.processing.html" />
+    <link rel="prev" title="Source code" href="provis.src.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> provis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Requirements for Provis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="provis.html">Provis</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="provis.src.html">Source code</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">provis.src.plotting package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.plotting.stick_point">provis.src.plotting.stick_point module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.plotting.surface">provis.src.plotting.surface module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.plotting">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="provis.src.processing.html">provis.src.processing package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="provis.src.html#module-provis.src">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="provis.utils.html">Utilities for provis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">provis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="provis.html">Provis</a> &raquo;</li>
+          <li><a href="provis.src.html">Source code</a> &raquo;</li>
+      <li>provis.src.plotting package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/provis.src.plotting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="provis-src-plotting-package">
+<h1>provis.src.plotting package<a class="headerlink" href="#provis-src-plotting-package" title="Permalink to this headline"></a></h1>
+<section id="module-provis.src.plotting.stick_point">
+<span id="provis-src-plotting-stick-point-module"></span><h2>provis.src.plotting.stick_point module<a class="headerlink" href="#module-provis.src.plotting.stick_point" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.stick_point.</span></span><span class="sig-name descname"><span class="pre">StickPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The StickPoint class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.manual_plot">
+<span class="sig-name descname"><span class="pre">manual_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.manual_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plot stick and point model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – atoms - List of pyvista Shperes representing each atom, default 0</p></li>
+<li><p><strong>type</strong> – list</p></li>
+<li><p><strong>name</strong> – col_a - List of colors for each atom, default 0</p></li>
+<li><p><strong>type</strong> – list</p></li>
+<li><p><strong>name</strong> – box - If True bounding box also visualized, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – bonds - List of pyvista Lines representing each bond, default 0</p></li>
+<li><p><strong>type</strong> – list</p></li>
+<li><p><strong>name</strong> – vw - If True styling for Van-der-Waals plotting set. Vw atomic objects still have to be passed under ‘atoms’ variable</p></li>
+<li><p><strong>name</strong> – res - List of pyvista Shperes representing each residue, default 0</p></li>
+<li><p><strong>type</strong> – list</p></li>
+<li><p><strong>name</strong> – col_r - List of colors for each residue, default 0</p></li>
+<li><p><strong>type</strong> – list</p></li>
+<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
+<li><p><strong>type</strong> – Residue</p></li>
+<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._name}_stick_point</p></li>
+<li><p><strong>type</strong> – string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>void - Window with interactive plot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plot stick and point model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – atoms - Plot atoms, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – bonds, optional - Plot bond, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – vw - Plot Wan-der-Waals radii instead of atomic radii</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – residues, optional - Plot residue, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
+<li><p><strong>type</strong> – Residue</p></li>
+<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory</p></li>
+<li><p><strong>type</strong> – string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>void - Window with interactive plot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_atoms">
+<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Plot stick and point model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
+<li><p><strong>type</strong> – Residue</p></li>
+<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory</p></li>
+<li><p><strong>type</strong> – string</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_bonds">
+<span class="sig-name descname"><span class="pre">plot_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_bonds" title="Permalink to this definition"></a></dt>
+<dd><p>Plot bonds only</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
+<li><p><strong>type</strong> – Residue</p></li>
+<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory</p></li>
+<li><p><strong>type</strong> – string</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_stick_point">
+<span class="sig-name descname"><span class="pre">plot_stick_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_stick_point" title="Permalink to this definition"></a></dt>
+<dd><p>Plot stick and point model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
+<li><p><strong>type</strong> – Residue</p></li>
+<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory</p></li>
+<li><p><strong>type</strong> – string</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_vw">
+<span class="sig-name descname"><span class="pre">plot_vw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_vw" title="Permalink to this definition"></a></dt>
+<dd><p>Plot Van-der-Waals atoms</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
+<li><p><strong>type</strong> – Residue</p></li>
+<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory</p></li>
+<li><p><strong>type</strong> – string</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-provis.src.plotting.surface">
+<span id="provis-src-plotting-surface-module"></span><h2>provis.src.plotting.surface module<a class="headerlink" href="#module-provis.src.plotting.surface" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.src.plotting.surface.Surface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.surface.</span></span><span class="sig-name descname"><span class="pre">Surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The Surface class is used to visualize the surface information of the given molecule.</p>
+<p>All member functions of the class are a “two in one” function:
+- plot the surface created by the MSMS binary. 
+- create a good approximation of the surface natively with o3d and trimesh and plot it. MSMS does not have to be installed for this option. (It is slightly slower and less precise)</p>
+<p>Choose between the two by setting the msms Boolean variable (True corresponding to the MSMS binary option is default)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_charge">
+<span class="sig-name descname"><span class="pre">plot_charge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'charge'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_charge" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the charge features of a protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – outname - Name of output file. Defaults to “charge”.</p></li>
+<li><p><strong>type</strong> – str, optional</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_hydrophob">
+<span class="sig-name descname"><span class="pre">plot_hydrophob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hydrophob'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_hydrophob" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the hydrophobic features of a protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – outname - Name of output file. Defaults to “hydrophob”.</p></li>
+<li><p><strong>type</strong> – str, optional</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_shape">
+<span class="sig-name descname"><span class="pre">plot_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'shape'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_shape" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the shape features of a protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – outname - Name of output file. Defaults to “shape”.</p></li>
+<li><p><strong>type</strong> – str, optional</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_surface">
+<span class="sig-name descname"><span class="pre">plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_surface" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the surface of protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img/ directory. default: data/img/{self._out_path}_surface</p></li>
+<li><p><strong>type</strong> – string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>void - plot</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-provis.src.plotting">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-provis.src.plotting" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="provis.src.html" class="btn btn-neutral float-left" title="Source code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="provis.src.processing.html" class="btn btn-neutral float-right" title="provis.src.processing package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kristof Czirjak.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
