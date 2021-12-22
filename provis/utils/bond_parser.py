@@ -5,11 +5,10 @@ def bond_parser(filename):
     """
     Calculates bond information from mol2 file.
     
-    :param filename: str
-        Name of file to open
-
-    :returns: dataFrame
-        Pandas df with bonds
+    :param name: filename - Name of file to open
+    :param type: str
+    
+    :returns: dataFrame - Pandas df with bonds
     """
     f = open(filename,'r')
     f_text = f.read()

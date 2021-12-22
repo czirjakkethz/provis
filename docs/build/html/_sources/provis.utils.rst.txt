@@ -1,6 +1,8 @@
-provis.utils
+provis.utils package
 ====================
 
+Submodules
+----------
 
 provis.utils.atminfo module
 ---------------------------
@@ -18,18 +20,26 @@ provis.utils.bond\_parser module
    :undoc-members:
    :show-inheritance:
 
-provis.utils.msms\_caller module
---------------------------------
+provis.utils.charges\_utils module
+----------------------------------
 
-.. automodule:: provis.utils.msms_caller
+.. automodule:: provis.utils.charges_utils
    :members:
    :undoc-members:
    :show-inheritance:
 
-provis.utils.pdb\_to\_xyzr\_caller module
------------------------------------------
+provis.utils.name\_checker module
+---------------------------------
 
-.. automodule:: provis.utils.pdb_to_xyzr_caller
+.. automodule:: provis.utils.name_checker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+provis.utils.surface\_utils module
+----------------------------------
+
+.. automodule:: provis.utils.surface_utils
    :members:
    :undoc-members:
    :show-inheritance:

@@ -34,15 +34,16 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Getting started:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Requirements for Provis</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Documentation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Author(s)</span></p>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
 </ul>
@@ -76,12 +77,14 @@
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -90,7 +93,11 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.residue.Residue.add_residue">add_residue() (provis.src.residue.Residue method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.residue.Residue.add_residue">add_residue() (provis.src.processing.residue.Residue method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_feat.assign_props_to_new_mesh">assign_props_to_new_mesh() (in module provis.src.processing.surface_feat)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -103,10 +110,46 @@
   </ul></td>
 </tr></table>
 
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.utils.html#provis.utils.name_checker.check_name">check_name() (in module provis.utils.name_checker)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.cleanup">cleanup() (provis.src.processing.file_converter.FileConverter static method)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.compute_angle_deviation">compute_angle_deviation() (in module provis.utils.charges_utils)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.compute_angle_penalty">compute_angle_penalty() (in module provis.utils.charges_utils)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_feat.compute_charges">compute_charges() (in module provis.src.processing.surface_feat)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.compute_hbond_helper">compute_hbond_helper() (in module provis.utils.charges_utils)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_feat.compute_hbonds">compute_hbonds() (in module provis.src.processing.surface_feat)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_feat.compute_hydrophobicity">compute_hydrophobicity() (in module provis.src.processing.surface_feat)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.compute_normal">compute_normal() (in module provis.utils.surface_utils)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.compute_plane_deviation">compute_plane_deviation() (in module provis.utils.charges_utils)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.compute_satisfied_CO_HN">compute_satisfied_CO_HN() (in module provis.utils.charges_utils)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_feat.compute_shape_index">compute_shape_index() (in module provis.src.processing.surface_feat)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_feat.compute_surface_features">compute_surface_features() (in module provis.src.processing.surface_feat)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.crossp">crossp() (in module provis.utils.surface_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler">DataHandler (class in provis.src.data_handler)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler">DataHandler (class in provis.src.processing.data_handler)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -114,7 +157,11 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.file_converter.FileConverter">FileConverter (class in provis.src.file_converter)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter">FileConverter (class in provis.src.processing.file_converter)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.fix_trimesh">fix_trimesh() (in module provis.utils.surface_utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -122,23 +169,37 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.get_atom_mesh">get_atom_mesh() (provis.src.data_handler.DataHandler method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_handler.SurfaceHandler.get_assignments">get_assignments() (provis.src.processing.surface_handler.SurfaceHandler method)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.get_atoms">get_atoms() (provis.src.data_handler.DataHandler method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_atom_mesh">get_atom_mesh() (provis.src.processing.data_handler.DataHandler method)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.get_bond_mesh">get_bond_mesh() (provis.src.data_handler.DataHandler method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_atom_trimesh">get_atom_trimesh() (provis.src.processing.data_handler.DataHandler method)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.residue.Residue.get_res_info">get_res_info() (provis.src.residue.Residue method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_atoms">get_atoms() (provis.src.processing.data_handler.DataHandler method)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_bond_mesh">get_bond_mesh() (provis.src.processing.data_handler.DataHandler method)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.residue.Residue.get_res_info">get_res_info() (provis.src.processing.residue.Residue method)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_residue_info">get_residue_info() (provis.src.processing.data_handler.DataHandler method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.get_residue_info">get_residue_info() (provis.src.data_handler.DataHandler method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_residue_mesh">get_residue_mesh() (provis.src.processing.data_handler.DataHandler method)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.get_residue_mesh">get_residue_mesh() (provis.src.data_handler.DataHandler method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.get_residues">get_residues() (in module provis.src.processing)</a>
+
+      <ul>
+        <li><a href="provis.utils.html#provis.utils.get_residues">(in module provis.utils)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.get_residues">get_residues() (provis.src.data_handler.DataHandler method)</a>
+        <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_residues">(provis.src.processing.data_handler.DataHandler method)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.get_structure">get_structure() (provis.src.data_handler.DataHandler method)</a>
+      </ul></li>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_structure">get_structure() (provis.src.processing.data_handler.DataHandler method)</a>
+</li>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.get_surface">get_surface() (in module provis.utils.surface_utils)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_handler.SurfaceHandler.get_surface_features">get_surface_features() (provis.src.processing.surface_handler.SurfaceHandler method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -148,21 +209,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="provis.utils.html#provis.utils.atminfo.import_atm_mass_info">import_atm_mass_info() (in module provis.utils.atminfo)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="provis.utils.html#provis.utils.atminfo.import_atm_size_info">import_atm_size_info() (in module provis.utils.atminfo)</a>
 </li>
   </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.data_handler.DataHandler.load_forv">load_forv() (provis.src.data_handler.DataHandler method)</a>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.is_acceptor_atom">is_acceptor_atom() (in module provis.utils.charges_utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.surface.Surface.load_fv">load_fv() (provis.src.surface.Surface method)</a>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.is_polar_hydrogen">is_polar_hydrogen() (in module provis.utils.charges_utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -179,8 +232,6 @@
       </ul></li>
       <li><a href="main.html#main.main">main() (in module main)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.stick_point.StickPoint.manual_plot">manual_plot() (provis.src.stick_point.StickPoint method)</a>
-</li>
       <li>
     module
 
@@ -191,15 +242,17 @@
 </li>
         <li><a href="provis.src.html#module-provis.src">provis.src</a>
 </li>
-        <li><a href="provis.src.html#module-provis.src.data_handler">provis.src.data_handler</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing">provis.src.processing</a>
 </li>
-        <li><a href="provis.src.html#module-provis.src.file_converter">provis.src.file_converter</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.data_handler">provis.src.processing.data_handler</a>
 </li>
-        <li><a href="provis.src.html#module-provis.src.residue">provis.src.residue</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.file_converter">provis.src.processing.file_converter</a>
 </li>
-        <li><a href="provis.src.html#module-provis.src.stick_point">provis.src.stick_point</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.residue">provis.src.processing.residue</a>
 </li>
-        <li><a href="provis.src.html#module-provis.src.surface">provis.src.surface</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.surface_feat">provis.src.processing.surface_feat</a>
+</li>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.surface_handler">provis.src.processing.surface_handler</a>
 </li>
         <li><a href="provis.utils.html#module-provis.utils">provis.utils</a>
 </li>
@@ -207,24 +260,36 @@
 </li>
         <li><a href="provis.utils.html#module-provis.utils.bond_parser">provis.utils.bond_parser</a>
 </li>
-        <li><a href="provis.utils.html#module-provis.utils.msms_caller">provis.utils.msms_caller</a>
+        <li><a href="provis.utils.html#module-provis.utils.charges_utils">provis.utils.charges_utils</a>
 </li>
-        <li><a href="provis.utils.html#module-provis.utils.pdb_to_xyzr_caller">provis.utils.pdb_to_xyzr_caller</a>
+        <li><a href="provis.utils.html#module-provis.utils.name_checker">provis.utils.name_checker</a>
 </li>
-        <li><a href="scripts.html#module-scripts">scripts</a>
-</li>
-        <li><a href="scripts.html#module-scripts.infotomass">scripts.infotomass</a>
-</li>
-        <li><a href="scripts.html#module-scripts.infotosize">scripts.infotosize</a>
-</li>
-        <li><a href="scripts.html#module-scripts.pdb_to_xyzr">scripts.pdb_to_xyzr</a>
+        <li><a href="provis.utils.html#module-provis.utils.surface_utils">provis.utils.surface_utils</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.file_converter.FileConverter.msms">msms() (provis.src.file_converter.FileConverter static method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.msms">msms() (provis.src.processing.file_converter.FileConverter static method)</a>
 </li>
-      <li><a href="provis.utils.html#provis.utils.msms_caller.msms_script">msms_script() (in module provis.utils.msms_caller)</a>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_handler.SurfaceHandler.native_mesh">native_mesh() (provis.src.processing.surface_handler.SurfaceHandler method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.utils.html#provis.utils.charges_utils.normalize_electrostatics">normalize_electrostatics() (in module provis.utils.charges_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.output_pdb_as_xyzrn">output_pdb_as_xyzrn() (in module provis.utils.surface_utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -232,25 +297,13 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.file_converter.FileConverter.pdb_to_mol2">pdb_to_mol2() (provis.src.file_converter.FileConverter static method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_mol2">pdb_to_mol2() (provis.src.processing.file_converter.FileConverter static method)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.file_converter.FileConverter.pdb_to_xyzr">pdb_to_xyzr() (provis.src.file_converter.FileConverter static method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_pqr">pdb_to_pqr() (provis.src.processing.file_converter.FileConverter static method)</a>
 </li>
-      <li><a href="provis.utils.html#provis.utils.pdb_to_xyzr_caller.pdb_to_xyzr_script">pdb_to_xyzr_script() (in module provis.utils.pdb_to_xyzr_caller)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn">pdb_to_xyzrn() (provis.src.processing.file_converter.FileConverter static method)</a>
 </li>
-      <li><a href="provis.src.html#provis.src.stick_point.StickPoint.plot">plot() (provis.src.stick_point.StickPoint method)</a>
-</li>
-      <li><a href="provis.src.html#provis.src.stick_point.StickPoint.plot_atoms">plot_atoms() (provis.src.stick_point.StickPoint method)</a>
-</li>
-      <li><a href="provis.src.html#provis.src.stick_point.StickPoint.plot_bonds">plot_bonds() (provis.src.stick_point.StickPoint method)</a>
-</li>
-      <li><a href="provis.src.html#provis.src.surface.Surface.plot_msms_surface">plot_msms_surface() (provis.src.surface.Surface method)</a>
-</li>
-      <li><a href="provis.src.html#provis.src.stick_point.StickPoint.plot_stick_point">plot_stick_point() (provis.src.stick_point.StickPoint method)</a>
-</li>
-      <li><a href="provis.src.html#provis.src.surface.Surface.plot_surface">plot_surface() (provis.src.surface.Surface method)</a>
-</li>
-      <li><a href="provis.src.html#provis.src.stick_point.StickPoint.plot_vw">plot_vw() (provis.src.stick_point.StickPoint method)</a>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.prepare_trimesh">prepare_trimesh() (in module provis.utils.surface_utils)</a>
 </li>
       <li>
     provis
@@ -267,40 +320,47 @@
 </li>
       </ul></li>
       <li>
-    provis.src.data_handler
+    provis.src.processing
 
       <ul>
-        <li><a href="provis.src.html#module-provis.src.data_handler">module</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing">module</a>
 </li>
       </ul></li>
       <li>
-    provis.src.file_converter
+    provis.src.processing.data_handler
 
       <ul>
-        <li><a href="provis.src.html#module-provis.src.file_converter">module</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.data_handler">module</a>
+</li>
+      </ul></li>
+      <li>
+    provis.src.processing.file_converter
+
+      <ul>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.file_converter">module</a>
+</li>
+      </ul></li>
+      <li>
+    provis.src.processing.residue
+
+      <ul>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.residue">module</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    provis.src.residue
+    provis.src.processing.surface_feat
 
       <ul>
-        <li><a href="provis.src.html#module-provis.src.residue">module</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.surface_feat">module</a>
 </li>
       </ul></li>
       <li>
-    provis.src.stick_point
+    provis.src.processing.surface_handler
 
       <ul>
-        <li><a href="provis.src.html#module-provis.src.stick_point">module</a>
-</li>
-      </ul></li>
-      <li>
-    provis.src.surface
-
-      <ul>
-        <li><a href="provis.src.html#module-provis.src.surface">module</a>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.surface_handler">module</a>
 </li>
       </ul></li>
       <li>
@@ -325,17 +385,24 @@
 </li>
       </ul></li>
       <li>
-    provis.utils.msms_caller
+    provis.utils.charges_utils
 
       <ul>
-        <li><a href="provis.utils.html#module-provis.utils.msms_caller">module</a>
+        <li><a href="provis.utils.html#module-provis.utils.charges_utils">module</a>
 </li>
       </ul></li>
       <li>
-    provis.utils.pdb_to_xyzr_caller
+    provis.utils.name_checker
 
       <ul>
-        <li><a href="provis.utils.html#module-provis.utils.pdb_to_xyzr_caller">module</a>
+        <li><a href="provis.utils.html#module-provis.utils.name_checker">module</a>
+</li>
+      </ul></li>
+      <li>
+    provis.utils.surface_utils
+
+      <ul>
+        <li><a href="provis.utils.html#module-provis.utils.surface_utils">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -344,7 +411,15 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.html#provis.src.residue.Residue">Residue (class in provis.src.residue)</a>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.read_msms">read_msms() (in module provis.utils.surface_utils)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.residue.Residue.remove_residue">remove_residue() (provis.src.processing.residue.Residue method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.src.processing.html#provis.src.processing.residue.Residue">Residue (class in provis.src.processing.residue)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">return_mesh_and_color() (provis.src.processing.surface_handler.SurfaceHandler method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -352,39 +427,11 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    scripts
-
-      <ul>
-        <li><a href="scripts.html#module-scripts">module</a>
+      <li><a href="provis.utils.html#provis.utils.str2bool">str2bool() (in module provis.utils)</a>
 </li>
-      </ul></li>
-      <li>
-    scripts.infotomass
-
-      <ul>
-        <li><a href="scripts.html#module-scripts.infotomass">module</a>
-</li>
-      </ul></li>
-      <li>
-    scripts.infotosize
-
-      <ul>
-        <li><a href="scripts.html#module-scripts.infotosize">module</a>
-</li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    scripts.pdb_to_xyzr
-
-      <ul>
-        <li><a href="scripts.html#module-scripts.pdb_to_xyzr">module</a>
-</li>
-      </ul></li>
-      <li><a href="provis.src.html#provis.src.stick_point.StickPoint">StickPoint (class in provis.src.stick_point)</a>
-</li>
-      <li><a href="provis.src.html#provis.src.surface.Surface">Surface (class in provis.src.surface)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.surface_handler.SurfaceHandler">SurfaceHandler (class in provis.src.processing.surface_handler)</a>
 </li>
   </ul></td>
 </tr></table>

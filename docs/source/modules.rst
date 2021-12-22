@@ -1,9 +1,0 @@
-provis
-======
-
-.. toctree::
-   :maxdepth: 4
-
-   main
-   provis
-   scripts

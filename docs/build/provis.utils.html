@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>provis.utils package &mdash; provis 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="scripts package" href="scripts.html" />
+    <link rel="prev" title="provis.src.processing package" href="provis.src.processing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> provis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">provis</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="md.html">md module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="provis.html">provis package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="provis.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="provis.src.html">provis.src package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">provis.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html">scripts package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">provis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">provis</a> &raquo;</li>
+          <li><a href="provis.html">provis package</a> &raquo;</li>
+      <li>provis.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/provis.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="provis-utils-package">
+<h1>provis.utils package<a class="headerlink" href="#provis-utils-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-provis.utils.atminfo">
+<span id="provis-utils-atminfo-module"></span><h2>provis.utils.atminfo module<a class="headerlink" href="#module-provis.utils.atminfo" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.atminfo.import_atm_mass_info">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.atminfo.</span></span><span class="sig-name descname"><span class="pre">import_atm_mass_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.atminfo.import_atm_mass_info" title="Permalink to this definition"></a></dt>
+<dd><p>Funtion to load atomic mass from atmmass.csv, to be used in main</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict - dictionary of atomic mass by atom name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.atminfo.import_atm_size_info">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.atminfo.</span></span><span class="sig-name descname"><span class="pre">import_atm_size_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.atminfo.import_atm_size_info" title="Permalink to this definition"></a></dt>
+<dd><p>Funtion to load atomic radii from atmsize.csv, to be used in main</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – vw - option to return vanderwaals radius</p></li>
+<li><p><strong>type</strong> – bool - returns if true</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict - dictionary of atomic radius by atom name</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict - dictionary of color by atom name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict - !optional! return dictionary of vw rdius by atom name</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils.bond_parser">
+<span id="provis-utils-bond-parser-module"></span><h2>provis.utils.bond_parser module<a class="headerlink" href="#module-provis.utils.bond_parser" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.bond_parser.bond_parser">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.bond_parser.</span></span><span class="sig-name descname"><span class="pre">bond_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.bond_parser.bond_parser" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates bond information from mol2 file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – str
+Name of file to open</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataFrame
+Pandas df with bonds</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils.charges_utils">
+<span id="provis-utils-charges-utils-module"></span><h2>provis.utils.charges_utils module<a class="headerlink" href="#module-provis.utils.charges_utils" title="Permalink to this headline"></a></h2>
+<p>Utility functions for computing hydrogen bonds and electrostatics on protein surface.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.compute_angle_deviation">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_angle_deviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.compute_angle_deviation" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the absolute angle deviation from theta. a, b, c form the three
+points that define the angle.</p>
+<dl class="simple">
+<dt>a: np.ndarray,</dt><dd><p>Coordinate vector of the first point</p>
+</dd>
+<dt>b: np.ndarray,</dt><dd><p>Coordinate vector of the second point</p>
+</dd>
+<dt>c: np.ndarray,</dt><dd><p>Coordinate vector of the third point</p>
+</dd>
+<dt>theta: float,</dt><dd><p>Angle to compute deviation with respect to.</p>
+</dd>
+</dl>
+<p>(float) absolute deviation of the angle formed by a, b, c with theta</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.compute_angle_penalty">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_angle_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle_deviation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.compute_angle_penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.compute_hbond_helper">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_hbond_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Bio.PDB.Residue.Residue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.compute_hbond_helper" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.compute_plane_deviation">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_plane_deviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.compute_plane_deviation" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the absolute angle deviation from theta. a, b, c form the three
+points that define the angle.</p>
+<dl class="simple">
+<dt>a: np.ndarray,</dt><dd><p>Coordinate vector of the first point</p>
+</dd>
+<dt>b: np.ndarray,</dt><dd><p>Coordinate vector of the second point</p>
+</dd>
+<dt>c: np.ndarray,</dt><dd><p>Coordinate vector of the third point</p>
+</dd>
+<dt>d: np.ndarray,</dt><dd><p>Coordinate vector of the fourth point</p>
+</dd>
+</dl>
+<p>(float) absolute deviation of the angle formed by a, b, c with theta</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.compute_satisfied_CO_HN">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_satisfied_CO_HN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.charges_utils.compute_satisfied_CO_HN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.is_acceptor_atom">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">is_acceptor_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Bio.PDB.Residue.Residue</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.is_acceptor_atom" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.is_polar_hydrogen">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">is_polar_hydrogen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.is_polar_hydrogen" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the atom in a given residue has polar hydrogens.</p>
+<dl class="simple">
+<dt>atom_name: str,</dt><dd><p>Name of the atom</p>
+</dd>
+<dt>res_name: str,</dt><dd><p>Residue the</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.charges_utils.normalize_electrostatics">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">normalize_electrostatics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_elec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.normalize_electrostatics" title="Permalink to this definition"></a></dt>
+<dd><p>Normalizing charges on the surface, by clipping to upper and lower thresholds
+and converting all values to a -1/1 scale.</p>
+<dl class="simple">
+<dt>in_elec: np.ndarray,</dt><dd><p>Input charges for all surface vertices</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>elec: np.ndarray,</dt><dd><p>Normalized surface vertex charges</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils.name_checker">
+<span id="provis-utils-name-checker-module"></span><h2>provis.utils.name_checker module<a class="headerlink" href="#module-provis.utils.name_checker" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.name_checker.check_name">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.name_checker.</span></span><span class="sig-name descname"><span class="pre">check_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.name_checker.check_name" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the provided name corresponds to an existing pdb file.
+Works if “name” points to a pdb file in the working directory or a pdb file in the default pdb file location: provis/data/pdb.
+Always sets “out_path” to default output location: provis/data/tmp.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name - Name and path to location of the pdb file. If simply pdb id (file name without .pdb extension) is provided the default directory - provis/data/pdb - will be searched for the file. If no file found the input is returned.</p></li>
+<li><p><strong>type</strong> – str</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>str - path to the input pdb id (file without the extension)</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>str - path to the output pdb id - data/tmp/{pdb_id}</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils.surface_utils">
+<span id="provis-utils-surface-utils-module"></span><h2>provis.utils.surface_utils module<a class="headerlink" href="#module-provis.utils.surface_utils" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://github.com/bunnech/holoprot/blob/main/holoprot/utils/surface.py">https://github.com/bunnech/holoprot/blob/main/holoprot/utils/surface.py</a> is the base for this file. Modifications were made.</p>
+<p>Utilities for preparing and computing features on molecular surfaces.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.surface_utils.compute_normal">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">compute_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faces</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.utils.surface_utils.compute_normal" title="Permalink to this definition"></a></dt>
+<dd><p>Compute normals for the vertices and faces</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>vertices (np.ndarray): Vertices of the mesh
+faces (np.ndarray): Faces of the mesh</p>
+</dd>
+<dt>Returns:</dt><dd><p>np.ndarray: Normals of the mesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.surface_utils.crossp">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">crossp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.utils.surface_utils.crossp" title="Permalink to this definition"></a></dt>
+<dd><p>Creates the cross product of two numpy arrays</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>x (np.ndarray): Array 1
+y (np.ndarray): Array 2</p>
+</dd>
+<dt>Returns:</dt><dd><p>np.ndarray: (Array 1) x (Array 2)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.surface_utils.fix_trimesh">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">fix_trimesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.surface_utils.fix_trimesh" title="Permalink to this definition"></a></dt>
+<dd><p>Applies a predefined set of fixes to the mesh, and converts it to a
+specified resolution. These fixes include removing duplicated vertices wihin
+a certain threshold, removing degenerate triangles, splitting longer edges to
+a given target length, and collapsing shorter edges.</p>
+<dl class="simple">
+<dt>mesh: Mesh,</dt><dd><p>trimesh.Trimesh object</p>
+</dd>
+<dt>resolution: float,</dt><dd><p>Maximum size of edge in the mesh</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>mesh: Mesh,</dt><dd><p>trimesh.Trimesh object with all fixes applied</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.surface_utils.get_surface">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">get_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_files</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.surface_utils.get_surface" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper function that reads in the output from the MSMS executable to build the protein surface.</p>
+<dl class="simple">
+<dt>out_path: str,</dt><dd><p>path to output (output path from namechecker) directory. Usually data/tmp</p>
+</dd>
+<dt>remove_files: bool, (default True)</dt><dd><p>Whether to remove the intermediate output files</p>
+</dd>
+</dl>
+<p>vertices: #TODO
+faces: #TODO
+normalv: 
+names: 
+areas:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.surface_utils.output_pdb_as_xyzrn">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">output_pdb_as_xyzrn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xyzrn_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#provis.utils.surface_utils.output_pdb_as_xyzrn" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a .pdb file to a .xyzrn file.</p>
+<dl class="simple">
+<dt>pdb_file: str,</dt><dd><p>path to PDB File to convert (with extension)</p>
+</dd>
+<dt>xyzrn_file: str,</dt><dd><p>path to the xyzrn File (with extension)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.surface_utils.prepare_trimesh">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">prepare_trimesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faces</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normals</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_fixes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.surface_utils.prepare_trimesh" title="Permalink to this definition"></a></dt>
+<dd><p>Prepare the mesh surface given vertices and faces. Optionally, compute
+normals and apply fixes to mesh.</p>
+<dl class="simple">
+<dt>vertices: np.ndarray,</dt><dd><p>Surface vertices</p>
+</dd>
+<dt>faces: np.ndarray,</dt><dd><p>Triangular faces on the mesh</p>
+</dd>
+<dt>normals: np.ndarray, default None,</dt><dd><p>Normals for each vertex</p>
+</dd>
+<dt>apply_fixes: bool, default False,</dt><dd><p>Optional application of fixes to mesh. Check fix_mesh for details on fixes.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>mesh: Mesh,</dt><dd><p>trimesh.Trimesh instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.surface_utils.read_msms">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">read_msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_root</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#provis.utils.surface_utils.read_msms" title="Permalink to this definition"></a></dt>
+<dd><p>Read surface constituents from output files generated using MSMS.</p>
+<dl class="simple">
+<dt>file_root: str,</dt><dd><p>Root name for loading .face and .vert files (produced by MSMS). Default location is data/tmp/{pdb_id}s</p>
+</dd>
+</dl>
+<p>vertices: # TODO
+faces:  #TODO
+normalv: 
+res_id:</p>
+</dd></dl>
+
+</section>
+<section id="module-provis.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-provis.utils" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.get_residues">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.</span></span><span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.get_residues" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.utils.str2bool">
+<span class="sig-prename descclassname"><span class="pre">provis.utils.</span></span><span class="sig-name descname"><span class="pre">str2bool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#provis.utils.str2bool" title="Permalink to this definition"></a></dt>
+<dd><p>Converts str to bool.</p>
+<dl class="simple">
+<dt>v: str,</dt><dd><p>String element</p>
+</dd>
+</dl>
+<p>boolean version of v</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="provis.src.processing.html" class="btn btn-neutral float-left" title="provis.src.processing package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scripts.html" class="btn btn-neutral float-right" title="scripts package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kristof Czirjak.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,42 +1,51 @@
 """
 This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
-from provis.src.file_converter import FileConverter
-from provis.src.stick_point import StickPoint
-from provis.src.surface import Surface
-from provis.src.residue import Residue
-                                    
+from provis.src.processing.file_converter import FileConverter
+from provis.src.processing.residue import Residue
+from provis.src.plotting.stick_point import StickPoint
+from provis.src.plotting.surface import Surface
+
+# TODO: RUN Sphinx and push                                    
 def main():
-    name = "1a3n" # "2fd7" # "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
+    """
+    This is an example file to showcase all functionalities of provis.
+    
+    Provis has two main functionalities. Plotting the atoms and bonds as a stick and point model as well as plotting the surface information of the protein.
+    """
+    
+    # define variables needed later
+    name = "2fd7" # "1a3n" # "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
     density = 3.0
     solvent = 0
     bash = 0
-    show_box = 1
     
+    # Create all the necessary files from the .pdb file
     fc = FileConverter(name, density, solvent, bash)
     
-    # # plot stick point
+    # Plot stick point
     # sp = StickPoint(name)
     # sp.plot_atoms()
     # sp.plot_bonds()
     # sp.plot_vw()
     # sp.plot_stick_point()
     # r = Residue(1)
-    # r.add_residue(3)
+    ## r.add_residue(3)
+    ## r. add_residue(1, 1)
+    ## r.remove_residue(1, 1)
     # sp.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r)
 
 
-    # plot surface
+    # Plot surface
     s = Surface(name, dens=density)
-    # s.plot_hydrophob(outname="hydrophob", patch=0)
-    # s.plot_shape()
-    # s.plot_charge()
-    # s.plot_msms_surface()
-    s.plot_surface()
+    s.plot_surface(msms=False)
+    s.plot_hydrophob(outname="hydrophob")
+    s.plot_shape()
+    s.plot_charge()
 
-    # fc.cleanup(delete_img=1)
+    # Clean up directories
+    fc.cleanup(delete_img=1)
 
 if __name__ == "__main__":
     main()
 
-# https://github.com/pv/pv-support/issues/374

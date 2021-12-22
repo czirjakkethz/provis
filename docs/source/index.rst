@@ -16,10 +16,11 @@ You can find installation instructions as well as the documentation of the sourc
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Documentation:
 
-   modules
+   main
+   provis
 
 .. toctree::
    :maxdepth: 2

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Requirements for Provis &mdash; provis 0.0.1 documentation</title>
@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="provis" href="modules.html" />
+    <link rel="next" title="main module" href="main.html" />
     <link rel="prev" title="Welcome to provis’s Wiki!" href="index.html" /> 
 </head>
 
@@ -37,24 +37,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Getting started:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Requirements for Provis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#binaries">Binaries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dssp">DSSP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openbabel">OpenBabel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#msms">MSMS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pdb2pqr-and-apbs">PDB2PQR and APBS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dssp">DSSP</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#jupyter-notebook">Jupyter Notebook</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Documentation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">provis package</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Author(s)</span></p>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
 </ul>
@@ -99,15 +102,15 @@
 </section>
 <section id="binaries">
 <h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
-<section id="dssp">
-<h3>DSSP<a class="headerlink" href="#dssp" title="Permalink to this headline"></a></h3>
+<section id="openbabel">
+<h3>OpenBabel<a class="headerlink" href="#openbabel" title="Permalink to this headline"></a></h3>
+<p>Easiest to install by calling:</p>
 <blockquote>
-<div><p>DSSP is <strong>required</strong>. It is used to extract surface information.</p>
-<p>One can easily downloaded using the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html">conda</a> installer.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c salilab dssp
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt install openbabel
 </pre></div>
 </div>
 </div></blockquote>
+<p>Alterantively: <a class="reference external" href="http://openbabel.org/wiki/Main_Page">http://openbabel.org/wiki/Main_Page</a></p>
 </section>
 <section id="msms">
 <h3>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h3>
@@ -117,6 +120,20 @@
 <a class="reference external" href="https://ccsb.scripps.edu/mgltools/downloads/">https://ccsb.scripps.edu/mgltools/downloads/</a></p>
 <p>This tutorial might help:
 <a class="reference external" href="http://biskit.pasteur.fr/install/applications/deprecated/msms">http://biskit.pasteur.fr/install/applications/deprecated/msms</a></p>
+</div></blockquote>
+</section>
+<section id="pdb2pqr-and-apbs">
+<h3>PDB2PQR and APBS<a class="headerlink" href="#pdb2pqr-and-apbs" title="Permalink to this headline"></a></h3>
+<p>These binaries are <strong>required</strong>, as they are used to extract surface inforamtion.</p>
+<p>Download from: <a class="reference external" href="https://www.poissonboltzmann.org/">https://www.poissonboltzmann.org/</a></p>
+</section>
+<section id="dssp">
+<h3>DSSP<a class="headerlink" href="#dssp" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><p>One can easily downloaded using the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html">conda</a> installer.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c salilab dssp
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 </section>
@@ -134,7 +151,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to provis’s Wiki!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="modules.html" class="btn btn-neutral float-right" title="provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="main.html" class="btn btn-neutral float-right" title="main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

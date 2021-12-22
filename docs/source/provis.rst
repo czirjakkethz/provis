@@ -1,12 +1,11 @@
-Provis source code
-===================
+Provis
+==============
 
 .. toctree::
    :maxdepth: 4
 
    provis.src
    provis.utils
-
 
 Module contents
 ---------------

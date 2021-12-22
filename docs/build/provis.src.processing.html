@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>provis.src.processing package &mdash; provis 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="provis.utils package" href="provis.utils.html" />
+    <link rel="prev" title="provis.src package" href="provis.src.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> provis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">provis</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="md.html">md module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="provis.html">provis package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="provis.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="provis.src.html">provis.src package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provis.utils.html">provis.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scripts.html">scripts package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">provis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">provis</a> &raquo;</li>
+          <li><a href="provis.html">provis package</a> &raquo;</li>
+          <li><a href="provis.src.html">provis.src package</a> &raquo;</li>
+      <li>provis.src.processing package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/provis.src.processing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="provis-src-processing-package">
+<h1>provis.src.processing package<a class="headerlink" href="#provis-src-processing-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-provis.src.processing.data_handler">
+<span id="provis-src-processing-data-handler-module"></span><h2>provis.src.processing.data_handler module<a class="headerlink" href="#module-provis.src.processing.data_handler" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.data_handler.</span></span><span class="sig-name descname"><span class="pre">DataHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The ‘brain’ of provis, when it comes to handling atomic positions.</p>
+<p>This class loads information from a variety of files and creates meshes to be plotted. 
+Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atom_mesh">
+<span class="sig-name descname"><span class="pre">get_atom_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atom_mesh" title="Permalink to this definition"></a></dt>
+<dd><p>Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – atom_data - Dictionary of atoms and their coordinates, by atom type</p></li>
+<li><p><strong>type</strong> – dict</p></li>
+<li><p><strong>name</strong> – vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – probe - size of probe (representing the solvent size) needed for surface calculation</p></li>
+<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
+<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
+<li><p><strong>type</strong> – int</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - List of pyvista Shperes representing each atom</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - List of colors for each atom</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atom_trimesh">
+<span class="sig-name descname"><span class="pre">get_atom_trimesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atom_trimesh" title="Permalink to this definition"></a></dt>
+<dd><p>Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – atom_data - Dictionary of atoms and their coordinates, by atom type</p></li>
+<li><p><strong>type</strong> – dict</p></li>
+<li><p><strong>name</strong> – vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – probe - size of probe (representing the solvent size) needed for surface calculation</p></li>
+<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
+<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
+<li><p><strong>type</strong> – int</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - List of pyvista Shperes representing each atom</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - List of colors for each atom</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atoms">
+<span class="sig-name descname"><span class="pre">get_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a dictionary of atomic coordinates from structure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – show_solvent - If True solvent molecules also added to retrun dictionary</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict - Dictionary of atomic coordinates by atom type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_bond_mesh">
+<span class="sig-name descname"><span class="pre">get_bond_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_bond_mesh" title="Permalink to this definition"></a></dt>
+<dd><p>Determine bonds from 3D information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - List of pyvista lines representing each bond</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_residue_info">
+<span class="sig-name descname"><span class="pre">get_residue_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residue_info" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates information about specified residue from mol2 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – res - Residue number of specified residue be looked at</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – chain - Chain number of corresponding to residue be looked at</p></li>
+<li><p><strong>name</strong> – option - choose what property of residue you want</p></li>
+<li><p><strong>type</strong> – str - com for Centre Of Mass, ch for charge</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - list of COM coords of given (exact) residue</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_residue_mesh">
+<span class="sig-name descname"><span class="pre">get_residue_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residue_mesh" title="Permalink to this definition"></a></dt>
+<dd><p>Create a list of Shperes and colors representing each residue for plotting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – res_data - Dictionary of residues and their coordinates, by residue type</p></li>
+<li><p><strong>type</strong> – dict</p></li>
+<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
+<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
+<li><p><strong>type</strong> – int</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - List of pyvista Shperes representing each residue</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - List of colors for each residue</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_residues">
+<span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residues" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a dictionary of coordinates by residues from structure object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict - Dictionary of atomic coordinates by residue type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_structure">
+<span class="sig-name descname"><span class="pre">get_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_structure" title="Permalink to this definition"></a></dt>
+<dd><p>Return the loaded structure object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>structure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-provis.src.processing.file_converter">
+<span id="provis-src-processing-file-converter-module"></span><h2>provis.src.processing.file_converter module<a class="headerlink" href="#module-provis.src.processing.file_converter" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to create and destroy necessary files required in other parts of code.
+It has a bunch of staticmethod functions to call the binaries and scripts to convert the files.</p>
+<p>Best practice is to initialize a FileConverter in a given file before calling any function of provis and call the cleanup method after the last plotting function is called. This will keep your directories decluttered. 
+However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.cleanup">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.cleanup" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes all files from data/tmp (and data/img) directories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – delete_img - If True data/img directory also cleared, else just the data/tmp</p></li>
+<li><p><strong>type</strong> – bool</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.msms">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.msms" title="Permalink to this definition"></a></dt>
+<dd><p>Run the msms binary for given filename.</p>
+<p>It takes the {path}.xyzrn file as input and output is written to {path}_out_{dens}
+Binary path is read in from environment variable: MSMS_BIN. If environment variable does not exist binary will be looked up in provis/binaries/msms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – path - Path to the/Name of the .xyzrn file to be converted.</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – dens - Density of triangulation</p></li>
+<li><p><strong>type</strong> – float</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>void - face and vert files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_mol2">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_mol2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_mol2" title="Permalink to this definition"></a></dt>
+<dd><p>Run openbabel, to convert pdb to mol2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – path - Name of input (pdb) file (without extension)</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – outpath - Name of desired output file (without extension). It will add .mol2 to the given path.</p></li>
+<li><p><strong>type</strong> – str</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_pqr">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_pqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcefield</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'swanson'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_pqr" title="Permalink to this definition"></a></dt>
+<dd><p>Run pdb2pqr, to convert pdb to pqr</p>
+<p>Binary path is read in from environment variable: PDB2PQR_BIN. If environment variable does not exist binary will be looked up in binaries/pdb2pqr/pdb2pqr.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – path - Name of input (pdb) file (without extension)</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – outpath - Name of desired output file (without extension). It will add .pqr to the given path.</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – forcefield - Force field used for charge computation, by binary. Default: swanson. Options: amber, charmm, parse, tyl06, peoepb and swanson</p></li>
+<li><p><strong>type</strong> – str</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_xyzrn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn" title="Permalink to this definition"></a></dt>
+<dd><p>Converts .pdb to .xyzrn file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – path - Name of input (pdb) file (without extension)</p></li>
+<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – output - Name of output (xyzrn) file (without extension)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>void - xyzrn file</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-provis.src.processing.residue">
+<span id="provis-src-processing-residue-module"></span><h2>provis.src.processing.residue module<a class="headerlink" href="#module-provis.src.processing.residue" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.src.processing.residue.Residue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.residue.</span></span><span class="sig-name descname"><span class="pre">Residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Residue class is mainly used for plotting a bounding box around the given residue.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.residue.Residue.add_residue">
+<span class="sig-name descname"><span class="pre">add_residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue.add_residue" title="Permalink to this definition"></a></dt>
+<dd><p>Add a new residue to the internal list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – id - id of residue</p></li>
+<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – chain - chain id of residue</p></li>
+<li><p><strong>type</strong> – int</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - list of the current residues</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.residue.Residue.get_res_info">
+<span class="sig-name descname"><span class="pre">get_res_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue.get_res_info" title="Permalink to this definition"></a></dt>
+<dd><p>Returns all internal information of class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - list of the current residues</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>int - padding for bounding box</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-provis.src.processing.surface_feat">
+<span id="provis-src-processing-surface-feat-module"></span><h2>provis.src.processing.surface_feat module<a class="headerlink" href="#module-provis.src.processing.surface_feat" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://github.com/bunnech/holoprot/blob/main/holoprot/feat/surface.py">https://github.com/bunnech/holoprot/blob/main/holoprot/feat/surface.py</a> is the base for this file. Modifications were made.</p>
+<p>Functions to compute features for a patch on the protein surface.</p>
+<p>Some of these are borrowed from <a class="reference external" href="https://github.com/LPDI-EPFL/masif">https://github.com/LPDI-EPFL/masif</a> under the <a class="reference external" href="https://github.com/LPDI-EPFL/masif/blob/master/LICENSE">https://github.com/LPDI-EPFL/masif/blob/master/LICENSE</a> license</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.src.processing.surface_feat.assign_props_to_new_mesh">
+<span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_feat.</span></span><span class="sig-name descname"><span class="pre">assign_props_to_new_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_vertices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_vertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_props</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_interpolation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.src.processing.surface_feat.assign_props_to_new_mesh" title="Permalink to this definition"></a></dt>
+<dd><p>Assign properties to vertices in modified mesh given the initial mesh. The
+assignment is carried using a KDTree data structure to query nearest points.</p>
+<dl class="simple">
+<dt>new_vertices: np.ndarray,</dt><dd><p>Vertices on the modified mesh</p>
+</dd>
+<dt>old_vertices: np.ndarray,</dt><dd><p>Vertices on the original mesh</p>
+</dd>
+<dt>old_props: np.ndarray,</dt><dd><p>Property values for each vertex on the original mesh</p>
+</dd>
+</dl>
+<p>feature_interpolation: bool, (default True)</p>
+<dl class="simple">
+<dt>new_props: np.ndarray,</dt><dd><p>Property values for vertices on the modified mesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.src.processing.surface_feat.compute_charges">
+<span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_charges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.src.processing.surface_feat.compute_charges" title="Permalink to this definition"></a></dt>
+<dd><p>Computes electrostatics for the surface vertices. The function first calls
+the PDB2PQR executable to prepare the pdb file for electrostatics. Poisson-
+Boltzmann electrostatics are computed using APSB executable. Multivalue,
+provided within APSB suite is used to assign charges to each vertex. The
+charges are further normalized.</p>
+<dl class="simple">
+<dt>vertices: np.ndarray,</dt><dd><p>Surface vertex coordinates</p>
+</dd>
+<dt>pdb_id: str,</dt><dd><p>PDB ID of the protein</p>
+</dd>
+<dt>path: str,</dt><dd><p>Path of the pqr file in the form {path}.pqr</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>charges: np.ndarray,</dt><dd><p>Charge values for each vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.src.processing.surface_feat.compute_hbonds">
+<span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_hbonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Bio.PDB.Residue.Residue</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.src.processing.surface_feat.compute_hbonds" title="Permalink to this definition"></a></dt>
+<dd><p>Compute H-bond (hydrogen-bond) induced charges at every vertex.</p>
+<p>vertices: np.ndarray</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.src.processing.surface_feat.compute_hydrophobicity">
+<span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_hydrophobicity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.src.processing.surface_feat.compute_hydrophobicity" title="Permalink to this definition"></a></dt>
+<dd><p>Compute hydrophobicity value for all vertices on the surface. Each surface
+vertex has a mapping to the corresponding residue from the original protein.
+This is used to assign a hydrophobicity value to each vertex using the Kyte-
+Doolittle scale.</p>
+<p>names: Identifier names for each vertex in the surface</p>
+<dl class="simple">
+<dt>hp: np.ndarray</dt><dd><p>Hydrophobicity values for each surface vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.src.processing.surface_feat.compute_shape_index">
+<span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_shape_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#provis.src.processing.surface_feat.compute_shape_index" title="Permalink to this definition"></a></dt>
+<dd><p>Computes shape index for the patches. Shape index characterizes the shape
+around a point on the surface, computed using the local curvature around each
+point. These values are derived using Trimesh’s available geometric
+processing functionality.</p>
+<dl class="simple">
+<dt>mesh: Mesh</dt><dd><p>Instance of the trimesh Trimesh type. The mesh is constructed by using
+information on vertices and faces.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>si: np.ndarray,</dt><dd><p>Shape index for each vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.src.processing.surface_feat.compute_surface_features">
+<span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#provis.src.processing.surface_feat.compute_surface_features" title="Permalink to this definition"></a></dt>
+<dd><p>Computes all patch features.</p>
+<dl class="simple">
+<dt>surface: Surface,</dt><dd><p>Tuple of attributes characterizing the surface. These include vertices,
+faces, normals to each vertex, areas, fdue identifiers for vertices.</p>
+</dd>
+<dt>pdb_file: str,</dt><dd><p>PDB File containing the atomic coordinates</p>
+</dd>
+<dt>fix_mesh: bool (default False),</dt><dd><p>Whether to fix the mesh by collapsing nodes and edges</p>
+</dd>
+<dt>return_mesh: bool (default False),</dt><dd><p>Whether to return the mesh</p>
+</dd>
+<dt>pdb_id: str (default None)</dt><dd><p>PDB id of the associated protein</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>si: np.ndarray,</dt><dd><p>Shape index</p>
+</dd>
+<dt>hbonds: np.ndarray,</dt><dd><p>Hydrogen bond induced charges</p>
+</dd>
+<dt>hydrophob: np.ndarray,</dt><dd><p>Hydrophobicity of each surface vertex</p>
+</dd>
+<dt>charges: np.ndarray,</dt><dd><p>Electrostatics of each surface vertex</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-provis.src.processing.surface_handler">
+<span id="provis-src-processing-surface-handler-module"></span><h2>provis.src.processing.surface_handler module<a class="headerlink" href="#module-provis.src.processing.surface_handler" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_handler.</span></span><span class="sig-name descname"><span class="pre">SurfaceHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The ‘brain’ of provis, when it comes to handling surface information.</p>
+<p>This class loads information from a variety of files and creates meshes to be plotted. 
+Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.get_assignments">
+<span class="sig-name descname"><span class="pre">get_assignments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_assignments" title="Permalink to this definition"></a></dt>
+<dd><p>Get assignments (coloring) for the mesh. File has to exist, no way to produce it with provis. 
+Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>[type]: [description] #TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.get_surface_features">
+<span class="sig-name descname"><span class="pre">get_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_surface_features" title="Permalink to this definition"></a></dt>
+<dd><p>Get the coloring corresponding to a specific feature.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>mesh (Trimesh): The mesh
+feature (str): Name of feature we are interested in. Options: hydrophob, shape, charge</p>
+</dd>
+<dt>Raises:</dt><dd><p>NotImplementedError: If unkown feature specified error is raised</p>
+</dd>
+<dt>Returns:</dt><dd><p>[type]: [description] # TODO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.native_mesh">
+<span class="sig-name descname"><span class="pre">native_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.native_mesh" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a mesh without the need for the MSMS binary.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>pyvista.PolyData: The mesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">
+<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
+<dd><p>Return the mesh and coloring ready for plotting.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>feature (str, optional): Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to “”.
+patch (bool, optional): Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
+simple (bool, optional): If set to True only mesh is returned without coloring. Used for surface plotting. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Trimesh: The mesh - always returned
+#TODO: Coloring map for mesh corresponding to the specified feature</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-provis.src.processing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-provis.src.processing" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="provis.src.processing.get_residues">
+<span class="sig-prename descclassname"><span class="pre">provis.src.processing.</span></span><span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.get_residues" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="provis.src.html" class="btn btn-neutral float-left" title="provis.src package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="provis.utils.html" class="btn btn-neutral float-right" title="provis.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kristof Czirjak.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

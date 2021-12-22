@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>provis.src &mdash; provis 0.0.1 documentation</title>
+  <title>provis.src package &mdash; provis 0.0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="provis.utils" href="provis.utils.html" />
-    <link rel="prev" title="Provis source code" href="provis.html" /> 
+    <link rel="next" title="provis.src.processing package" href="provis.src.processing.html" />
+    <link rel="prev" title="Provis" href="provis.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,33 +37,28 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Getting started:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Requirements for Provis</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Documentation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">provis</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="main.html">Example - main module</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="provis.html">Provis source code</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">provis.src</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.data_handler">provis.src.data_handler module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.file_converter">provis.src.file_converter module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.residue">provis.src.residue module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.stick_point">provis.src.stick_point module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.surface">provis.src.surface module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="provis.html">Provis</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">provis.src package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="provis.src.processing.html">provis.src.processing package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="provis.utils.html">provis.utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-provis.src">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="scripts.html">Helper scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.utils.html">provis.utils package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Author(s)</span></p>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
 </ul>
@@ -82,9 +77,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">provis</a> &raquo;</li>
-          <li><a href="provis.html">Provis source code</a> &raquo;</li>
-      <li>provis.src</li>
+          <li><a href="provis.html">Provis</a> &raquo;</li>
+      <li>provis.src package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/provis.src.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -94,475 +88,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="provis-src">
-<h1>provis.src<a class="headerlink" href="#provis-src" title="Permalink to this headline"></a></h1>
-<section id="module-provis.src.data_handler">
-<span id="provis-src-data-handler-module"></span><h2>provis.src.data_handler module<a class="headerlink" href="#module-provis.src.data_handler" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.data_handler.</span></span><span class="sig-name descname"><span class="pre">DataHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The ‘brain’ of provis. This class loads information from a variety of files and creates meshes to be plotted. Upper level classes - eg. Surface - have their own DataHandler objects to do all the work.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.get_atom_mesh">
-<span class="sig-name descname"><span class="pre">get_atom_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.get_atom_mesh" title="Permalink to this definition"></a></dt>
-<dd><p>Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atom_data - Dictionary of atoms and their coordinates, by atom type</p></li>
-<li><p><strong>type</strong> – dict</p></li>
-<li><p><strong>name</strong> – vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – probe - size of probe (representing the solvent size) needed for surface calculation</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
+  <section id="provis-src-package">
+<h1>provis.src package<a class="headerlink" href="#provis-src-package" title="Permalink to this headline"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="provis.src.processing.html">provis.src.processing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="provis.src.processing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.src.processing.html#module-provis.src.processing.data_handler">provis.src.processing.data_handler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.src.processing.html#module-provis.src.processing.file_converter">provis.src.processing.file_converter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.src.processing.html#module-provis.src.processing.residue">provis.src.processing.residue module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.src.processing.html#module-provis.src.processing.surface_feat">provis.src.processing.surface_feat module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.src.processing.html#module-provis.src.processing.surface_handler">provis.src.processing.surface_handler module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provis.src.processing.html#module-provis.src.processing">Module contents</a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - List of pyvista Shperes representing each atom</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of colors for each atom</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.get_atoms">
-<span class="sig-name descname"><span class="pre">get_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.get_atoms" title="Permalink to this definition"></a></dt>
-<dd><p>Creates a dictionary of atomic coordinates from structure</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – show_solvent - If True solvent molecules also added to retrun dictionary</p></li>
-<li><p><strong>type</strong> – bool</p></li>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dict - Dictionary of atomic coordinates by atom type</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.get_bond_mesh">
-<span class="sig-name descname"><span class="pre">get_bond_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.get_bond_mesh" title="Permalink to this definition"></a></dt>
-<dd><p>Determine bonds from 3D information</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of pyvista lines representing each bond</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.get_residue_info">
-<span class="sig-name descname"><span class="pre">get_residue_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.get_residue_info" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates information about specified residue from mol2 file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – res - Residue number of specified residue be looked at</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – chain - Chain number of corresponding to residue be looked at</p></li>
-<li><p><strong>name</strong> – option - choose what property of residue you want</p></li>
-<li><p><strong>type</strong> – str - com for Centre Of Mass, ch for charge</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - list of COM coords of given (exact) residue</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.get_residue_mesh">
-<span class="sig-name descname"><span class="pre">get_residue_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.get_residue_mesh" title="Permalink to this definition"></a></dt>
-<dd><p>Create a list of Shperes and colors representing each residue for plotting</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – res_data - Dictionary of residues and their coordinates, by residue type</p></li>
-<li><p><strong>type</strong> – dict</p></li>
-<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - List of pyvista Shperes representing each residue</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of colors for each residue</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.get_residues">
-<span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.get_residues" title="Permalink to this definition"></a></dt>
-<dd><p>Creates a dictionary of coordinates by residues from structure object</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>dict - Dictionary of atomic coordinates by residue type</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.get_structure">
-<span class="sig-name descname"><span class="pre">get_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.get_structure" title="Permalink to this definition"></a></dt>
-<dd><p>Return the loaded structure object</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>structure</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.data_handler.DataHandler.load_forv">
-<span class="sig-name descname"><span class="pre">load_forv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vorf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.data_handler.DataHandler.load_forv" title="Permalink to this definition"></a></dt>
-<dd><p>Load surface information from face or vert file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – file_name - Name of input file</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – end - Type of input file</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – vorf - Vertex or face file. “v” for vertex, “f” for face</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - list of data</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-provis.src.file_converter">
-<span id="provis-src-file-converter-module"></span><h2>provis.src.file_converter module<a class="headerlink" href="#module-provis.src.file_converter" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="provis.src.file_converter.FileConverter">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class to create necessary files required in other parts of code.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.file_converter.FileConverter.msms">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.file_converter.FileConverter.msms" title="Permalink to this definition"></a></dt>
-<dd><p>Run the msms script for given filename and density
-Works on both linux and windows
-(could easily be extended with other parameters)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – name - Name of file</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – dens - Density of triangulation</p></li>
-<li><p><strong>type</strong> – float</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>void - face and vert files</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.file_converter.FileConverter.pdb_to_mol2">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">pdb_to_mol2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.file_converter.FileConverter.pdb_to_mol2" title="Permalink to this definition"></a></dt>
-<dd><p>Run openbabel, to convert pdb to mol2</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – name - name of file (without extension)</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.file_converter.FileConverter.pdb_to_xyzr">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">pdb_to_xyzr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solvent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.file_converter.FileConverter.pdb_to_xyzr" title="Permalink to this definition"></a></dt>
-<dd><p>Run the pdb_to_xyzr script for given filename</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – name - Name of file</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – bash - set to True if you want to run binary version of pdb_to_xyzr (comes with msms). Default: false</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>void - xyzr file</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-provis.src.residue">
-<span id="provis-src-residue-module"></span><h2>provis.src.residue module<a class="headerlink" href="#module-provis.src.residue" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="provis.src.residue.Residue">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.residue.</span></span><span class="sig-name descname"><span class="pre">Residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.residue.Residue" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Residue class is mainly used for plotting a bounding box around the given residue.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.residue.Residue.add_residue">
-<span class="sig-name descname"><span class="pre">add_residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.residue.Residue.add_residue" title="Permalink to this definition"></a></dt>
-<dd><p>Add a new residue to the internal list</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – id - id of residue</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – chain - chain id of residue</p></li>
-<li><p><strong>type</strong> – int</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - list of the current residues</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.residue.Residue.get_res_info">
-<span class="sig-name descname"><span class="pre">get_res_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.residue.Residue.get_res_info" title="Permalink to this definition"></a></dt>
-<dd><p>Returns all internal information of class</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - list of the current residues</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>int - padding for bounding box</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-provis.src.stick_point">
-<span id="provis-src-stick-point-module"></span><h2>provis.src.stick_point module<a class="headerlink" href="#module-provis.src.stick_point" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="provis.src.stick_point.StickPoint">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.stick_point.</span></span><span class="sig-name descname"><span class="pre">StickPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.stick_point.StickPoint" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The StickPoint class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.stick_point.StickPoint.manual_plot">
-<span class="sig-name descname"><span class="pre">manual_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.stick_point.StickPoint.manual_plot" title="Permalink to this definition"></a></dt>
-<dd><p>Plot stick and point model</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atoms - List of pyvista Shperes representing each atom, default 0</p></li>
-<li><p><strong>type</strong> – list</p></li>
-<li><p><strong>name</strong> – col_a - List of colors for each atom, default 0</p></li>
-<li><p><strong>type</strong> – list</p></li>
-<li><p><strong>name</strong> – box - If True bounding box also visualized, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – bonds - List of pyvista Lines representing each bond, default 0</p></li>
-<li><p><strong>type</strong> – list</p></li>
-<li><p><strong>name</strong> – vw - If True styling for Van-der-Waals plotting set. Vw atomic objects still have to be passed under ‘atoms’ variable</p></li>
-<li><p><strong>name</strong> – res - List of pyvista Shperes representing each residue, default 0</p></li>
-<li><p><strong>type</strong> – list</p></li>
-<li><p><strong>name</strong> – col_r - List of colors for each residue, default 0</p></li>
-<li><p><strong>type</strong> – list</p></li>
-<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output directory. default: data/output/{self._name}_stick_point</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>void - Window with interactive plot</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.stick_point.StickPoint.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.stick_point.StickPoint.plot" title="Permalink to this definition"></a></dt>
-<dd><p>Plot stick and point model</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atoms - Plot atoms, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – bonds, optional - Plot bond, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – vw - Plot Wan-der-Waals radii instead of atomic radii</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – residues, optional - Plot residue, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output directory</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>void - Window with interactive plot</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.stick_point.StickPoint.plot_atoms">
-<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.stick_point.StickPoint.plot_atoms" title="Permalink to this definition"></a></dt>
-<dd><p>Plot stick and point model</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output directory</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.stick_point.StickPoint.plot_bonds">
-<span class="sig-name descname"><span class="pre">plot_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.stick_point.StickPoint.plot_bonds" title="Permalink to this definition"></a></dt>
-<dd><p>Plot bonds only</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output directory</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.stick_point.StickPoint.plot_stick_point">
-<span class="sig-name descname"><span class="pre">plot_stick_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.stick_point.StickPoint.plot_stick_point" title="Permalink to this definition"></a></dt>
-<dd><p>Plot stick and point model</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output directory</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.stick_point.StickPoint.plot_vw">
-<span class="sig-name descname"><span class="pre">plot_vw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.stick_point.StickPoint.plot_vw" title="Permalink to this definition"></a></dt>
-<dd><p>Plot Van-der-Waals atoms</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default 0</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – res - specified residues will be plotted with a bounding box around them</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output directory</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-provis.src.surface">
-<span id="provis-src-surface-module"></span><h2>provis.src.surface module<a class="headerlink" href="#module-provis.src.surface" title="Permalink to this headline"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="provis.src.surface.Surface">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.surface.</span></span><span class="sig-name descname"><span class="pre">Surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.surface.Surface" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The Surface class is used to visualize the surface information of the given molecule.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.surface.Surface.load_fv">
-<span class="sig-name descname"><span class="pre">load_fv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.surface.Surface.load_fv" title="Permalink to this definition"></a></dt>
-<dd><p>Load surface information from both face and vert files</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – file_name - Name of input files</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - list of face data</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - list of vert data</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.surface.Surface.plot_msms_surface">
-<span class="sig-name descname"><span class="pre">plot_msms_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.surface.Surface.plot_msms_surface" title="Permalink to this definition"></a></dt>
-<dd><p>Plot surface from face and vert files</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – dens - sampling density used in msms binary. Needed to load the face and vert files, as their names include the density</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output/ directory. default: data/output/{self._name}_surface</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>void - plot</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.surface.Surface.plot_surface">
-<span class="sig-name descname"><span class="pre">plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.surface.Surface.plot_surface" title="Permalink to this definition"></a></dt>
-<dd><p>Plot surface natively, without binaries.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/output/ directory. default: data/output/{self._name}_surface</p></li>
-<li><p><strong>type</strong> – string</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>plot</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+</div>
 </section>
 <section id="module-provis.src">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-provis.src" title="Permalink to this headline"></a></h2>
@@ -573,8 +116,8 @@ Works on both linux and windows
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="provis.html" class="btn btn-neutral float-left" title="Provis source code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="provis.utils.html" class="btn btn-neutral float-right" title="provis.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="provis.html" class="btn btn-neutral float-left" title="Provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="provis.src.processing.html" class="btn btn-neutral float-right" title="provis.src.processing package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
