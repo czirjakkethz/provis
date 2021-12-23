@@ -100,7 +100,7 @@
 <span id="provis-src-processing-data-handler-module"></span><h2>provis.src.processing.data_handler module<a class="headerlink" href="#module-provis.src.processing.data_handler" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.data_handler.</span></span><span class="sig-name descname"><span class="pre">DataHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.data_handler.</span></span><span class="sig-name descname"><span class="pre">DataHandler</span></span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The ‘brain’ of provis, when it comes to handling atomic positions.</p>
 <p>This class loads information from a variety of files and creates meshes to be plotted. 
@@ -112,44 +112,40 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atom_data - Dictionary of atoms and their coordinates, by atom type</p></li>
+<li><p><strong>name</strong> – atom_data - Dictionary of atoms and their coordinates, by atom type.</p></li>
 <li><p><strong>type</strong> – dict</p></li>
-<li><p><strong>name</strong> – vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – probe - size of probe (representing the solvent size) needed for surface calculation</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – probe - size of probe (representing the solvent size) needed for surface calculation. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms. Default: 10.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default: 10.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>list - List of pyvista Shperes representing each atom</p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of colors for each atom</p>
+<dd class="field-odd"><p>list - List of colors corresponding to each atom</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atom_trimesh">
-<span class="sig-name descname"><span class="pre">get_atom_trimesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atom_trimesh" title="Permalink to this definition"></a></dt>
-<dd><p>Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.</p>
+<span class="sig-name descname"><span class="pre">get_atom_trimesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atom_trimesh" title="Permalink to this definition"></a></dt>
+<dd><p>Create a list of shperes and colors representing each atom for plotting in a Trimesh format. Used for feature computation in the surface_handler class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atom_data - Dictionary of atoms and their coordinates, by atom type</p></li>
+<li><p><strong>name</strong> – atom_data - Dictionary of atoms and their coordinates, by atom type.</p></li>
 <li><p><strong>type</strong> – dict</p></li>
-<li><p><strong>name</strong> – vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – probe - size of probe (representing the solvent size) needed for surface calculation</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – probe - size of probe (representing the solvent size) needed for surface calculation. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -168,12 +164,12 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – show_solvent - If True solvent molecules also added to retrun dictionary</p></li>
-<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dict - Dictionary of atomic coordinates by atom type</p>
+<dd class="field-even"><p>dict - Dictionary of atomic coordinates by atom type.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -184,7 +180,7 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dd><p>Determine bonds from 3D information</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of pyvista lines representing each bond</p>
+<dd class="field-odd"><p>list - List of pyvista lines representing each bond.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -196,15 +192,15 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – res - Residue number of specified residue be looked at</p></li>
+<li><p><strong>name</strong> – res - Residue number of specified residue be looked at.</p></li>
 <li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – chain - Chain number of corresponding to residue be looked at</p></li>
-<li><p><strong>name</strong> – option - choose what property of residue you want</p></li>
-<li><p><strong>type</strong> – str - com for Centre Of Mass, ch for charge</p></li>
+<li><p><strong>name</strong> – chain - Chain number of corresponding to residue be looked at.</p></li>
+<li><p><strong>name</strong> – option - choose what property of residue you want. com for Centre Of Mass, ch for charge</p></li>
+<li><p><strong>type</strong> – str - options: com, ch</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - list of COM coords of given (exact) residue</p>
+<dd class="field-even"><p>list - List of COM coords of given (exact) residue.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -216,12 +212,12 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – res_data - Dictionary of residues and their coordinates, by residue type</p></li>
+<li><p><strong>name</strong> – res_data - Dictionary of residues and their coordinates by residue type.</p></li>
 <li><p><strong>type</strong> – dict</p></li>
-<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
-<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms</p></li>
-<li><p><strong>type</strong> – int</p></li>
+<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms. Defaul: 25.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default:25.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -239,7 +235,7 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dd><p>Creates a dictionary of coordinates by residues from structure object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>dict - Dictionary of atomic coordinates by residue type</p>
+<dd class="field-odd"><p>dict - Dictionary of atomic coordinates by residue type.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -262,21 +258,21 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <span id="provis-src-processing-file-converter-module"></span><h2>provis.src.processing.file_converter module<a class="headerlink" href="#module-provis.src.processing.file_converter" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to create and destroy necessary files required in other parts of code.
-It has a bunch of staticmethod functions to call the binaries and scripts to convert the files.</p>
+It has a bunch of classmethod functions to call the binaries and scripts to convert the files.</p>
 <p>Best practice is to initialize a FileConverter in a given file before calling any function of provis and call the cleanup method after the last plotting function is called. This will keep your directories decluttered. 
 However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.cleanup">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.cleanup" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.cleanup" title="Permalink to this definition"></a></dt>
 <dd><p>Deletes all files from data/tmp (and data/img) directories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – delete_img - If True data/img directory also cleared, else just the data/tmp</p></li>
-<li><p><strong>type</strong> – bool</p></li>
+<li><p><strong>name</strong> – delete_img - If True data/img directory also cleared, else just the data/tmp. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
 </dl>
@@ -284,7 +280,7 @@ However if you want to plot the same protein many times, then it is benificial t
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.msms">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.msms" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.msms" title="Permalink to this definition"></a></dt>
 <dd><p>Run the msms binary for given filename.</p>
 <p>It takes the {path}.xyzrn file as input and output is written to {path}_out_{dens}
 Binary path is read in from environment variable: MSMS_BIN. If environment variable does not exist binary will be looked up in provis/binaries/msms.</p>
@@ -305,7 +301,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_mol2">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_mol2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_mol2" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_mol2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_mol2" title="Permalink to this definition"></a></dt>
 <dd><p>Run openbabel, to convert pdb to mol2</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -321,7 +317,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_pqr">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_pqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcefield</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'swanson'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_pqr" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_pqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcefield</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'swanson'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_pqr" title="Permalink to this definition"></a></dt>
 <dd><p>Run pdb2pqr, to convert pdb to pqr</p>
 <p>Binary path is read in from environment variable: PDB2PQR_BIN. If environment variable does not exist binary will be looked up in binaries/pdb2pqr/pdb2pqr.</p>
 <dl class="field-list simple">
@@ -332,7 +328,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <li><p><strong>name</strong> – outpath - Name of desired output file (without extension). It will add .pqr to the given path.</p></li>
 <li><p><strong>type</strong> – str</p></li>
 <li><p><strong>name</strong> – forcefield - Force field used for charge computation, by binary. Default: swanson. Options: amber, charmm, parse, tyl06, peoepb and swanson</p></li>
-<li><p><strong>type</strong> – str</p></li>
+<li><p><strong>type</strong> – str, optional</p></li>
 </ul>
 </dd>
 </dl>
@@ -340,7 +336,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_xyzrn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_xyzrn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn" title="Permalink to this definition"></a></dt>
 <dd><p>Converts .pdb to .xyzrn file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -348,6 +344,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <li><p><strong>name</strong> – path - Name of input (pdb) file (without extension)</p></li>
 <li><p><strong>type</strong> – str</p></li>
 <li><p><strong>name</strong> – output - Name of output (xyzrn) file (without extension)</p></li>
+<li><p><strong>type</strong> – str</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -370,10 +367,14 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <dt class="sig sig-object py" id="provis.src.processing.residue.Residue.add_residue">
 <span class="sig-name descname"><span class="pre">add_residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue.add_residue" title="Permalink to this definition"></a></dt>
 <dd><p>Add a new residue to the internal list of residues.</p>
-<dl class="simple">
-<dt>id: int,</dt><dd><p>Residue id. Count starting at 0.</p>
-</dd>
-<dt>chain: int, </dt><dd><p>Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – id - Residue id. Count starting at 0. Default: None.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – chain - Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain). Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -382,12 +383,15 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <dt class="sig sig-object py" id="provis.src.processing.residue.Residue.get_res_info">
 <span class="sig-name descname"><span class="pre">get_res_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue.get_res_info" title="Permalink to this definition"></a></dt>
 <dd><p>Returns all internal information of class</p>
-<dl class="simple">
-<dt>id_list: list,</dt><dd><p>list of the current residues</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - list of the current residues</p>
 </dd>
-<dt>chain_list: list,</dt><dd><p>list of chain ID’s corresponding to residues</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - list of chain ID’s corresponding to residues</p>
 </dd>
-<dt>pad: int,</dt><dd><p>padding for bounding box</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>int - padding for bounding box</p>
 </dd>
 </dl>
 </dd></dl>
@@ -396,13 +400,14 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <dt class="sig sig-object py" id="provis.src.processing.residue.Residue.remove_residue">
 <span class="sig-name descname"><span class="pre">remove_residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue.remove_residue" title="Permalink to this definition"></a></dt>
 <dd><p>Remove speciefied residue from internal list.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="simple">
-<dt>id: int,</dt><dd><p>Residue id. Count starting at 0.</p>
-</dd>
-<dt>chain: int, </dt><dd><p>Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain)</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – id - Residue id. Count starting at 0. Default: None.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – chain - Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain). Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -414,7 +419,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <span id="provis-src-processing-surface-handler-module"></span><h2>provis.src.processing.surface_handler module<a class="headerlink" href="#module-provis.src.processing.surface_handler" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_handler.</span></span><span class="sig-name descname"><span class="pre">SurfaceHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_handler.</span></span><span class="sig-name descname"><span class="pre">SurfaceHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The ‘brain’ of provis, when it comes to handling surface information.</p>
 <p>This class loads information from a variety of files and creates meshes to be plotted. 
@@ -426,7 +431,7 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>[type] - [description] #TODO</p>
+<dd class="field-odd"><p>PyTourch object - Coloring of surface.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -435,15 +440,20 @@ Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.get_surface_features">
 <span class="sig-name descname"><span class="pre">get_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_surface_features" title="Permalink to this definition"></a></dt>
 <dd><p>Get the coloring corresponding to a specific feature.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>mesh (Trimesh): The mesh
-feature (str): Name of feature we are interested in. Options: hydrophob, shape, charge</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – mesh - The mesh</p></li>
+<li><p><strong>type</strong> – Trimesh</p></li>
+<li><p><strong>name</strong> – feature - Name of feature we are interested in. Options: hydrophob, shape, charge.</p></li>
+<li><p><strong>type</strong> – str</p></li>
+</ul>
 </dd>
-<dt>Raises:</dt><dd><p>NotImplementedError: If unkown feature specified error is raised</p>
-</dd>
-<dt>Returns:</dt><dd><p>[type]: [description] # TODO</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>NotImplementedError - If unkown feature specified error is raised</p>
 </dd>
 </dl>
+<p>returns: numpy.ndarray - Array of coloring corresponding to surface.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -473,8 +483,10 @@ feature (str): Name of feature we are interested in. Options: hydrophob, shape, 
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Trimesh - The mesh, always returned
-#TODO: Coloring map for mesh corresponding to the specified feature</p>
+<dd class="field-even"><p>Trimesh - The mesh, always returned</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>numpy.ndarray - Coloring map for mesh corresponding to the specified feature</p>
 </dd>
 </dl>
 </dd></dl>

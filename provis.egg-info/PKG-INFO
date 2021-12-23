@@ -1,10 +1,13 @@
-Metadata-Version: 1.0
+Metadata-Version: 2.1
 Name: provis
-Version: 1.0
-Summary: Proximal Optimal Transport Modeling of Population Dynamics
-Home-page: https://github.com/bunnech/jkoflows
-Author: Charlotte Bunne
-Author-email: bunnec@ethz.ch
+Version: 0.0.1
+Summary: Protein Visualization Library in Python
+Home-page: https://github.com/czirjakkethz/provis
+Author: Kristof Czirjak
+Author-email: czirjakk@student.ethz.ch
 License: MIT
-Description: UNKNOWN
 Platform: UNKNOWN
+License-File: LICENSE.md
+
+UNKNOWN
+

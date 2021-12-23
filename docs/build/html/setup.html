@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Requirements for Provis &mdash; provis 0.0.1 documentation</title>
+  <title>Setting up Provis &mdash; provis 0.0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="main module" href="main.html" />
-    <link rel="prev" title="Welcome to provis’s Wiki!" href="index.html" /> 
+    <link rel="next" title="Examples" href="main.html" />
+    <link rel="prev" title="Requirements for Provis" href="req.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,23 +39,20 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Requirements for Provis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#binaries">Binaries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#openbabel">OpenBabel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#msms">MSMS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pdb2pqr-and-apbs">PDB2PQR and APBS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dssp">DSSP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up Provis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#directory-structure">Directory structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#easy-option">Easy option</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#more-versitile-option">More versitile option</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#jupyter-notebook">Jupyter Notebook</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="provis.html">provis package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -76,7 +73,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Requirements for Provis</li>
+      <li>Setting up Provis</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -86,63 +83,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="requirements-for-provis">
-<h1>Requirements for Provis<a class="headerlink" href="#requirements-for-provis" title="Permalink to this headline"></a></h1>
-<section id="pip">
-<h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline"></a></h2>
-<p>Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip</p>
-<ul class="simple">
-<li><p>BioPython</p></li>
-<li><p>PyVista</p></li>
-<li><p>Pandas</p></li>
-<li><p>Numpy (included in Pandas)</p></li>
-<li><p>Biopandas</p></li>
-<li><p>Trimesh</p></li>
-</ul>
+  <section id="setting-up-provis">
+<h1>Setting up Provis<a class="headerlink" href="#setting-up-provis" title="Permalink to this headline"></a></h1>
+<p>Once you have every library and binary installed you will need to create a directory structure where provis feels at home. Once this is set up and of course provis is installed (either pip or with the setup.py in the root directory) you are ready to use provis and run it from anywhere.</p>
+<section id="directory-structure">
+<h2>Directory structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline"></a></h2>
+<p>You will need a directory with some specifics in folder structure.</p>
+<p>This way your directories will remain uncluttered and it makes it easy to create a pipline around provis.</p>
+<section id="easy-option">
+<h3>Easy option<a class="headerlink" href="#easy-option" title="Permalink to this headline"></a></h3>
+<p>The easiest is if you clone provis from <a class="reference external" href="https://github.com/czirjakkethz/provis">github</a> and simply use this github directory as your base directory.</p>
 </section>
-<section id="binaries">
-<h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
-<section id="openbabel">
-<h3>OpenBabel<a class="headerlink" href="#openbabel" title="Permalink to this headline"></a></h3>
-<p>Easiest to install by calling:</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt install openbabel
+<section id="more-versitile-option">
+<h3>More versitile option<a class="headerlink" href="#more-versitile-option" title="Permalink to this headline"></a></h3>
+<p>You will need a data/ and potentially a binaries/ directory as well.</p>
+<p>If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed, but otherwise it is and the binaries from the Requirements section will all have to be copied into there.</p>
+<p>The data/ directory needs the following subdirectiories:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data
+├── data
+├── pdb
+├── img
+└── tmp
 </pre></div>
 </div>
-</div></blockquote>
-<p>Alterantively: <a class="reference external" href="http://openbabel.org/wiki/Main_Page">http://openbabel.org/wiki/Main_Page</a></p>
+<p>The data directory needs to include the same files as it has in the git repo.</p>
+<p>The pdb directory is the location to store the pdb files to convert, as if a pdb file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the pdb file.</p>
+<p>The img directory stores all the screenshots of the outputted plots.</p>
+<p>The tmp directory stores all temporary files created by provis, such as the .face and .vert files of MSMS or the .mol2 files needed for the bonds.</p>
 </section>
-<section id="msms">
-<h3>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h3>
-<blockquote>
-<div><p>MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis.</p>
-<p>Download MSMS form:
-<a class="reference external" href="https://ccsb.scripps.edu/mgltools/downloads/">https://ccsb.scripps.edu/mgltools/downloads/</a></p>
-<p>This tutorial might help:
-<a class="reference external" href="http://biskit.pasteur.fr/install/applications/deprecated/msms">http://biskit.pasteur.fr/install/applications/deprecated/msms</a></p>
-</div></blockquote>
-</section>
-<section id="pdb2pqr-and-apbs">
-<h3>PDB2PQR and APBS<a class="headerlink" href="#pdb2pqr-and-apbs" title="Permalink to this headline"></a></h3>
-<p>These binaries are <strong>required</strong>, as they are used to extract surface inforamtion.</p>
-<p>Download from: <a class="reference external" href="https://www.poissonboltzmann.org/">https://www.poissonboltzmann.org/</a></p>
-</section>
-<section id="dssp">
-<h3>DSSP<a class="headerlink" href="#dssp" title="Permalink to this headline"></a></h3>
-<blockquote>
-<div><p>One can easily downloaded using the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html">conda</a> installer.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c salilab dssp
-</pre></div>
-</div>
-</div></blockquote>
-</section>
-</section>
-<section id="jupyter-notebook">
-<h2>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline"></a></h2>
-<p>If you want to run a fully interactive provis in the Jupyter Notebook environment you will have to install the following additional packages. Failing to do so will simply produce snapshot images instead of 3D plots.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ipyvtklink
-</pre></div>
-</div>
 </section>
 </section>
 
@@ -150,8 +118,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to provis’s Wiki!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="main.html" class="btn btn-neutral float-right" title="main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="req.html" class="btn btn-neutral float-left" title="Requirements for Provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="main.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

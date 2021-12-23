@@ -28,7 +28,7 @@ class Surface:
             self._density = dens
         self._sh = SurfaceHandler(dens=dens)
 
-    def plot_surface(self, msms=True, outname=0):
+    def plot_surface(self, msms=True, outname=None):
         """
         Plot the surface of protein.
         
@@ -110,7 +110,7 @@ class Surface:
             outname = self._base_path + 'data/img/' + new_name + '_shape.png'
         pl.show(screenshot=outname, title="Shape")
 
-    def plot_charge(self, outname="charge"):
+    def plot_charge(self, outname=None):
         """
         Plot the charge features of a protein.
 

@@ -1,67 +1,39 @@
-Requirements for Provis
+Setting up Provis
 =========================
 
-Pip
-----------------------
+Once you have every library and binary installed you will need to create a directory structure where provis feels at home. Once this is set up and of course provis is installed (either pip or with the setup.py in the root directory) you are ready to use provis and run it from anywhere.
 
-Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip
+Directory structure
+--------------------
+You will need a directory with some specifics in folder structure.
 
-* BioPython
-* PyVista
-* Pandas
-* Numpy (included in Pandas)
-* Biopandas
-* Trimesh
+This way your directories will remain uncluttered and it makes it easy to create a pipline around provis.
 
-Binaries
-----------------------
+Easy option
+^^^^^^^^^^^^
+The easiest is if you clone provis from `github <https://github.com/czirjakkethz/provis>`_ and simply use this github directory as your base directory.
 
-OpenBabel
-^^^^^^^^^^^^^^^
+More versitile option
+^^^^^^^^^^^^^^^^^^^^^^^
+You will need a data/ and potentially a binaries/ directory as well.
 
-Easiest to install by calling:
+If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed, but otherwise it is and the binaries from the Requirements section will all have to be copied into there.
 
- .. code-block:: bash
+The data/ directory needs the following subdirectiories:
 
-   sudo apt install openbabel
+::
 
-Alterantively: http://openbabel.org/wiki/Main_Page
+    data
+    ├── data
+    ├── pdb
+    ├── img        
+    └── tmp
+    
+The data directory needs to include the same files as it has in the git repo.
 
+The pdb directory is the location to store the pdb files to convert, as if a pdb file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the pdb file. 
 
-MSMS
-^^^^^^^^^^^^^^^^^^^^^^
- MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis.
+The img directory stores all the screenshots of the outputted plots.
 
- Download MSMS form:
- https://ccsb.scripps.edu/mgltools/downloads/
+The tmp directory stores all temporary files created by provis, such as the .face and .vert files of MSMS or the .mol2 files needed for the bonds.
 
- This tutorial might help:
- http://biskit.pasteur.fr/install/applications/deprecated/msms
-
-PDB2PQR and APBS
-^^^^^^^^^^^^^^^^^^^^^
-
-These binaries are **required**, as they are used to extract surface inforamtion.
-
-Download from: https://www.poissonboltzmann.org/
-
-
-DSSP
-^^^^^^^^^^^^^^^^^^^^^^
-
- One can easily downloaded using the `conda
- <https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html>`_ installer.
-
- .. code-block:: bash
-
-   conda install -c salilab dssp
-   
-   
-Jupyter Notebook
----------------------
-
-If you want to run a fully interactive provis in the Jupyter Notebook environment you will have to install the following additional packages. Failing to do so will simply produce snapshot images instead of 3D plots.
-
-.. code-block:: bash
-
-    pip install ipyvtklink

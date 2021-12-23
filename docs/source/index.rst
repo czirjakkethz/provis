@@ -6,12 +6,13 @@
 Welcome to provis's Wiki!
 ==================================
 
-You can find installation instructions as well as the documentation of the source code.
+You can find installation instructions as well as the documentation of the `source code <https://github.com/czirjakkethz/provis>`_.
 
 .. toctree::
    :maxdepth: 2
    :caption: Getting started:
    
+   req
    setup
 
 

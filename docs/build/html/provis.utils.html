@@ -112,8 +112,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – vw - option to return vanderwaals radius</p></li>
-<li><p><strong>type</strong> – bool - returns if true</p></li>
+<li><p><strong>name</strong> – vw - Option to return vanderwaals radius.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -143,7 +143,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dataFrame - Pandas df with bonds</p>
+<dd class="field-even"><p>pandas.dataFrame - Pandas df with bonds</p>
 </dd>
 </dl>
 </dd></dl>
@@ -160,11 +160,11 @@ points that define the angle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – a - Coordinate vector of the first point</p></li>
+<li><p><strong>name</strong> – a - Coordinate vector of the first point.</p></li>
 <li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – b - Coordinate vector of the second point</p></li>
+<li><p><strong>name</strong> – b - Coordinate vector of the second point.</p></li>
 <li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – c - Coordinate vector of the third point</p></li>
+<li><p><strong>name</strong> – c - Coordinate vector of the third point.</p></li>
 <li><p><strong>type</strong> – np.ndarray,</p></li>
 <li><p><strong>name</strong> – theta - Angle to compute deviation with respect to.</p></li>
 <li><p><strong>type</strong> – float</p></li>
@@ -179,7 +179,19 @@ points that define the angle.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="provis.utils.charges_utils.compute_angle_penalty">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_angle_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle_deviation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#provis.utils.charges_utils.compute_angle_penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Compute the angle penalty corresponding to angle of deviation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – angle_deviation - Angle of deviation.</p></li>
+<li><p><strong>type</strong> – float</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>float - Angle penalty.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="provis.utils.charges_utils.compute_hbond_helper">
@@ -188,11 +200,11 @@ points that define the angle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atom_name - Name of atom</p></li>
+<li><p><strong>name</strong> – atom_name - Name of atom.</p></li>
 <li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – res - Residue corresponding to atom</p></li>
+<li><p><strong>name</strong> – res - Residue corresponding to atom.</p></li>
 <li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – v - vertices</p></li>
+<li><p><strong>name</strong> – v - Vertices.</p></li>
 <li><p><strong>type</strong> – np.ndarray</p></li>
 </ul>
 </dd>
@@ -210,11 +222,11 @@ points that define the angle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – a - Coordinate vector of the first point</p></li>
+<li><p><strong>name</strong> – a - Coordinate vector of the first point.</p></li>
 <li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – b - Coordinate vector of the second point</p></li>
+<li><p><strong>name</strong> – b - Coordinate vector of the second point.</p></li>
 <li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – c - Coordinate vector of the third point</p></li>
+<li><p><strong>name</strong> – c - Coordinate vector of the third point.</p></li>
 <li><p><strong>type</strong> – np.ndarray,</p></li>
 <li><p><strong>name</strong> – theta - Angle to compute deviation with respect to.</p></li>
 <li><p><strong>type</strong> – float</p></li>
@@ -302,26 +314,48 @@ and converting all values to a -1/1 scale.</p>
 </section>
 <section id="module-provis.utils.name_checker">
 <span id="provis-utils-name-checker-module"></span><h2>provis.utils.name_checker module<a class="headerlink" href="#module-provis.utils.name_checker" title="Permalink to this headline"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="provis.utils.name_checker.check_name">
-<span class="sig-prename descclassname"><span class="pre">provis.utils.name_checker.</span></span><span class="sig-name descname"><span class="pre">check_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.name_checker.check_name" title="Permalink to this definition"></a></dt>
-<dd><p>Checks if the provided name corresponds to an existing pdb file.
-Works if “name” points to a pdb file in the working directory or a pdb file in the default pdb file location: provis/data/pdb.
-Always sets “out_path” to default output location: provis/data/tmp.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.utils.name_checker.NameChecker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.utils.name_checker.</span></span><span class="sig-name descname"><span class="pre">NameChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.name_checker.NameChecker" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The point of this class is to provide uniform naming and path locations to all the other classes of provis.
+NameChecker has class variables and a class method to return these variables.</p>
+<p>Variables: 
+pdb_name - Full path to the pdb file without the .pdb extension. Usually PROVIS_PATH/data/pdb/{pdb_id}.
+out_path - Full path to the temporary files. The names of all temporary files are derived from this variable. Usually PROVIS_PATH/data/tmp/{pdb_id}.
+base_path - Full path of the provis directory or any directory that has the following directory structure within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="provis.utils.name_checker.NameChecker.base_path">
+<span class="sig-name descname"><span class="pre">base_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#provis.utils.name_checker.NameChecker.base_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="provis.utils.name_checker.NameChecker.out_path">
+<span class="sig-name descname"><span class="pre">out_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#provis.utils.name_checker.NameChecker.out_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="provis.utils.name_checker.NameChecker.pdb_name">
+<span class="sig-name descname"><span class="pre">pdb_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#provis.utils.name_checker.NameChecker.pdb_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.utils.name_checker.NameChecker.return_all">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">return_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.name_checker.NameChecker.return_all" title="Permalink to this definition"></a></dt>
+<dd><p>Return all class variables.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – name - Name and path to location of the pdb file. If simply pdb id (file name without .pdb extension) is provided the default directory - provis/data/pdb - will be searched for the file. If no file found the input is returned.</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>str - path to the input pdb id (file without the extension)</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>str - path to the input pdb id (file without the extension)</p>
+<dd class="field-even"><p>str - path to the output pdb id - data/tmp/{pdb_id}</p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>str - path to the output pdb id - data/tmp/{pdb_id}</p>
+<dd class="field-odd"><p>str - path to the root of the provis directory. Following file structure HAS TO exist within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.</p>
 </dd>
 </dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -442,7 +476,7 @@ processing functionality.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="provis.utils.surface_feat.compute_surface_features">
-<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#provis.utils.surface_feat.compute_surface_features" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mesh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#provis.utils.surface_feat.compute_surface_features" title="Permalink to this definition"></a></dt>
 <dd><p>Computes all patch features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -452,12 +486,16 @@ faces, normals to each vertex, areas, fdue identifiers for vertices.</p></li>
 <li><p><strong>type</strong> – Surface</p></li>
 <li><p><strong>name</strong> – pdb_file - PDB File containing the atomic coordinates</p></li>
 <li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – fix_mesh - Whether to fix the mesh by collapsing nodes and edges. Default: False.</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – return_mesh - Whether to return the mesh. Default: False.</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-<li><p><strong>name</strong> – pdb_id - PDB id of the associated protein. Default: None</p></li>
+<li><p><strong>name</strong> – path - Path to files without extensions. Usually data/tmp/{pdb_id}</p></li>
 <li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – mesh - The mesh.</p></li>
+<li><p><strong>type</strong> – trimesh.Trimesh</p></li>
+<li><p><strong>name</strong> – fix_mesh - Whether to fix the mesh by collapsing nodes and edges. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – return_mesh - Whether to return the mesh. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – pdb_id - PDB id of the associated protein. Default: None</p></li>
+<li><p><strong>type</strong> – str, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

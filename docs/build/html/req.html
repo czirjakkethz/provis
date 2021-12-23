@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requirements for Provis &mdash; provis 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setting up Provis" href="setup.html" />
+    <link rel="prev" title="Welcome to provis’s Wiki!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> provis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Requirements for Provis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binaries">Binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#openbabel">OpenBabel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pdb2pqr-and-apbs">PDB2PQR and APBS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#msms">MSMS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dssp">DSSP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#jupyter-notebook">Jupyter Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">provis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Requirements for Provis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/req.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="requirements-for-provis">
+<h1>Requirements for Provis<a class="headerlink" href="#requirements-for-provis" title="Permalink to this headline"></a></h1>
+<section id="pip">
+<h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline"></a></h2>
+<p>Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip</p>
+<ul class="simple">
+<li><p>BioPython</p></li>
+<li><p>PyVista</p></li>
+<li><p>Pandas</p></li>
+<li><p>Numpy (included in Pandas)</p></li>
+<li><p>Biopandas</p></li>
+<li><p>Trimesh</p></li>
+</ul>
+</section>
+<section id="binaries">
+<h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
+<section id="openbabel">
+<h3>OpenBabel<a class="headerlink" href="#openbabel" title="Permalink to this headline"></a></h3>
+<p>Easiest to install by calling:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt install openbabel
+</pre></div>
+</div>
+</div></blockquote>
+<p>Alterantively: <a class="reference external" href="http://openbabel.org/wiki/Main_Page">http://openbabel.org/wiki/Main_Page</a></p>
+</section>
+<section id="pdb2pqr-and-apbs">
+<h3>PDB2PQR and APBS<a class="headerlink" href="#pdb2pqr-and-apbs" title="Permalink to this headline"></a></h3>
+<p>These binaries are <strong>required</strong>, as they are used to extract surface inforamtion.</p>
+<p>Download from: <a class="reference external" href="https://www.poissonboltzmann.org/">https://www.poissonboltzmann.org/</a></p>
+</section>
+<section id="msms">
+<h3>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><p>MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis.</p>
+<p>Download MSMS form:
+<a class="reference external" href="https://ccsb.scripps.edu/mgltools/downloads/">https://ccsb.scripps.edu/mgltools/downloads/</a></p>
+<p>This tutorial might help:
+<a class="reference external" href="http://biskit.pasteur.fr/install/applications/deprecated/msms">http://biskit.pasteur.fr/install/applications/deprecated/msms</a></p>
+</div></blockquote>
+</section>
+<section id="dssp">
+<h3>DSSP<a class="headerlink" href="#dssp" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><p>One can easily downloaded using the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html">conda</a> installer.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c salilab dssp
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="jupyter-notebook">
+<h2>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline"></a></h2>
+<p>If you want to run a fully interactive provis in the Jupyter Notebook environment you will have to install the following additional packages. Failing to do so will simply produce snapshot images instead of 3D plots.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ipyvtklink
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to provis’s Wiki!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-right" title="Setting up Provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kristof Czirjak.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
