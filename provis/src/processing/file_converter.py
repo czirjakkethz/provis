@@ -1,34 +1,38 @@
 import subprocess
 import os.path
-from provis.utils.name_checker import check_name
+from provis.utils.name_checker import NameChecker
 from provis.utils.surface_utils import output_pdb_as_xyzrn
 
 class FileConverter():
     """
     Class to create and destroy necessary files required in other parts of code.
-    It has a bunch of staticmethod functions to call the binaries and scripts to convert the files.
+    It has a bunch of classmethod functions to call the binaries and scripts to convert the files.
     
     Best practice is to initialize a FileConverter in a given file before calling any function of provis and call the cleanup method after the last plotting function is called. This will keep your directories decluttered. 
     However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.
     """
-    def __init__(self, name=None, dens=None, solv=0, bash=0):
+    
+    _base_path = ""
+    def __init__(self, name=None, dens=None, solv=0, bash=0, base_path=None):
         """
         Can be constructed empty. If called with arguments conversions instant. Creates xyzr and mol2 files in every case and face and vert files if msms binary exists.
 
-        :param name: name - name of file. With or without .pdb extension. Assumes it to be in one of the following directories: /provis or /provis/data/pdb
-        :param type: str
-        :param name: dens - density of triangles
-        :param type: float
-        :param name: solv - set to True if you want to plot solvent atoms as well. Default: false
-        :param type: bool
-        :param name: bash - set to True if you want to run binary version of pdb_to_xyzr (comes with msms). Default: false
-        :param type: bool
+        :param name: name - Name of file to be loaded. Passed to NameChecker() to get usable paths. Default: None.
+        :param type: str, optional
+        :param type: float, optional
+        :param name: solv - set to True if you want to plot solvent atoms as well. Default: False.
+        :param type: bool, optional
+        :param name: bash - set to True if you want to run binary version of pdb_to_xyzr (comes with msms). Default: False.
+        :param type: bool, optional
+        :param name: base_path - Path to "working directory" according to the rules of NameChecker().
+        :param name: dens - Density of triangles. Default: None.
         """
 
         self._solv = solv
         self._bash = bash
         if name:
-            self._path, self._out_path = check_name(name)
+            NameChecker(name, base_path)
+            self._path, self._out_path, FileConverter._base_path = NameChecker.return_all()
             self.pdb_to_mol2(self._path, self._out_path)
             self.pdb_to_pqr(self._path, self._out_path)
             self.pdb_to_xyzrn(self._path, self._out_path)
@@ -38,14 +42,15 @@ class FileConverter():
             self.msms(self._out_path, self._dens)
         pass
     
-    @staticmethod
-    def pdb_to_xyzrn(path, output):
+    @classmethod
+    def pdb_to_xyzrn(cls, path, output):
         """
         Converts .pdb to .xyzrn file.
         
         :param name: path - Name of input (pdb) file (without extension)
         :param type: str
         :param name: output - Name of output (xyzrn) file (without extension)
+        :param type: str
         
         :return: void - xyzrn file
         """
@@ -60,8 +65,8 @@ class FileConverter():
         else:
             print("xyzrn files already exist. No conversion needed")
         
-    @staticmethod
-    def msms(path, dens):
+    @classmethod
+    def msms(cls, path, dens):
         """
         Run the msms binary for given filename.
         
@@ -80,7 +85,7 @@ class FileConverter():
         # Now run MSMS on xyzrn file
         MSMS_BIN = os.environ['MSMS_BIN']
         if not os.path.exists(MSMS_BIN):
-            MSMS_BIN = 'binaries/msms'
+            MSMS_BIN = FileConverter._base_path + 'binaries/msms'
 
         file_base = f"{path}_out_{int(dens * 10)}"
 
@@ -98,8 +103,8 @@ class FileConverter():
         else:
             print("MSMS Binary not found under: ", MSMS_BIN)
             
-    @staticmethod
-    def pdb_to_mol2(path, outpath):
+    @classmethod
+    def pdb_to_mol2(cls, path, outpath):
         """
         Run openbabel, to convert pdb to mol2
         
@@ -115,8 +120,8 @@ class FileConverter():
         else:
             print("mol2 file already exist. No conversion needed")
 
-    @staticmethod
-    def pdb_to_pqr(path, outpath, forcefield="swanson"):
+    @classmethod
+    def pdb_to_pqr(cls, path, outpath, forcefield="swanson"):
         """
         Run pdb2pqr, to convert pdb to pqr
         
@@ -127,13 +132,13 @@ class FileConverter():
         :param name: outpath - Name of desired output file (without extension). It will add .pqr to the given path.
         :param type: str
         :param name: forcefield - Force field used for charge computation, by binary. Default: swanson. Options: amber, charmm, parse, tyl06, peoepb and swanson
-        :param type: str
+        :param type: str, optional
         """
 
         PDB2PQR_BIN  = os.environ['PDB2PQR_BIN']
         
         if not os.path.exists(PDB2PQR_BIN):
-            PDB2PQR_BIN = "binaries/pdb2pqr/pdb2pqr"
+            PDB2PQR_BIN = FileConverter._base_path + "binaries/pdb2pqr/pdb2pqr"
             
         #possibilities: amber, charmm, parse, tyl06, peoepb and swanson
         args = [PDB2PQR_BIN , f"--ff={forcefield}", f"{path}.pdb", f"{outpath}.pqr"]
@@ -150,19 +155,21 @@ class FileConverter():
             print("PDB2PQR Binary not found under: ", PDB2PQR_BIN)
        
 
-    @staticmethod
-    def cleanup(delete_img: bool=False):
+    @classmethod
+    def cleanup(cls, delete_img: bool=False):
         """
         Deletes all files from data/tmp (and data/img) directories.
 
-        :param name: delete_img - If True data/img directory also cleared, else just the data/tmp
-        :param type: bool
+        :param name: delete_img - If True data/img directory also cleared, else just the data/tmp. Default: False.
+        :param type: bool, optional
         """
 
         import os, shutil
-        folders = ["data/tmp/"]
+        tmp = FileConverter._base_path + "data/tmp/"
+        folders = [tmp]
         if delete_img:
-            folders.append("data/img/")
+            img = FileConverter._base_path + "data/img/"
+            folders.append(img)
         for folder in folders:
             for filename in os.listdir(folder):
                 file_path = os.path.join(folder, filename)

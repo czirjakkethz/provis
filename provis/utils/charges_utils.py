@@ -17,11 +17,11 @@ def compute_hbond_helper(atom_name: str, res: Residue, v: np.ndarray) -> float:
     """
     Helper function. Computes the charge of the vertex
     
-    :param name: atom_name - Name of atom
+    :param name: atom_name - Name of atom.
     :param type: str
-    :param name: res - Residue corresponding to atom
+    :param name: res - Residue corresponding to atom.
     :param type: Residue
-    :param name: v - vertices
+    :param name: v - Vertices.
     :param type: np.ndarray
 
     :returns: float - charge of the vertex
@@ -65,11 +65,11 @@ def compute_angle_deviation(a: np.ndarray, b: np.ndarray, c: np.ndarray,
     Computes the absolute angle deviation from theta. a, b, c form the three
     points that define the angle.
 
-    :param name: a - Coordinate vector of the first point
+    :param name: a - Coordinate vector of the first point.
     :param type: np.ndarray,
-    :param name: b - Coordinate vector of the second point
+    :param name: b - Coordinate vector of the second point.
     :param type: np.ndarray,
-    :param name: c - Coordinate vector of the third point
+    :param name: c - Coordinate vector of the third point.
     :param type: np.ndarray,
     :param name: theta - Angle to compute deviation with respect to.
     :param type: float
@@ -86,11 +86,11 @@ def compute_plane_deviation(a: np.ndarray, b: np.ndarray, c: np.ndarray,
     points that define the angle.
 
  
-    :param name: a - Coordinate vector of the first point
+    :param name: a - Coordinate vector of the first point.
     :param type: np.ndarray,
-    :param name: b - Coordinate vector of the second point
+    :param name: b - Coordinate vector of the second point.
     :param type: np.ndarray,
-    :param name: c - Coordinate vector of the third point
+    :param name: c - Coordinate vector of the third point.
     :param type: np.ndarray,
     :param name: theta - Angle to compute deviation with respect to.
     :param type: float
@@ -105,6 +105,14 @@ def compute_plane_deviation(a: np.ndarray, b: np.ndarray, c: np.ndarray,
 
 # angle_deviation from ideal value. TODO: do a more data-based solution
 def compute_angle_penalty(angle_deviation: float) -> float:
+    """
+    Compute the angle penalty corresponding to angle of deviation.
+
+    :param name: angle_deviation - Angle of deviation.
+    :param type: float
+
+    :returns: float - Angle penalty.
+    """
     # Standard deviation: HBOND_STD_DEV
     return max(0.0, 1.0 - (angle_deviation / (HBOND_STD_DEV))**2)
 
@@ -199,7 +207,6 @@ def normalize_electrostatics(in_elec: np.ndarray) -> np.ndarray:
     :param name: in_elec - Input charges for all surface vertices
     :param type: np.ndarray
         
-
     :returns: np.ndarray - Normalized surface vertex charges
     """
     elec = np.copy(in_elec)

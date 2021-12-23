@@ -7,14 +7,12 @@ class Residue():
         """
         Initialize class. Can be empty, but better initialized with residue id and chain id.
         
-        Parameters
-        ----------
-        id: int,
-            Residue id. Count starting at 0.
-        chain: int, 
-            Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain)
-        padding: int,
-            Optional padding to bounding box.
+        :param name: id - Residue id. Count starting at 0. Default: None.
+        :param type: int, optional
+        :param name: chain - Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain). Default: 0.
+        :param type: int, optional
+        :param name: padding - Optional padding to bounding box. Default: 0.
+        :param type: int, optional
         """
         if id == None:
             self._id_list = []
@@ -28,12 +26,10 @@ class Residue():
         """
         Add a new residue to the internal list of residues.
         
-        Parameters
-        ----------
-        id: int,
-            Residue id. Count starting at 0.
-        chain: int, 
-            Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain)
+        :param name: id - Residue id. Count starting at 0. Default: None.
+        :param type: int, optional
+        :param name: chain - Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain). Default: 0.
+        :param type: int, optional
         """
         self._id_list.append(id)
         self._chain_list.append(chain)
@@ -42,14 +38,9 @@ class Residue():
         """
         Returns all internal information of class
         
-        Returns
-        --------
-        id_list: list,
-            list of the current residues
-        chain_list: list,
-            list of chain ID's corresponding to residues
-        pad: int,
-            padding for bounding box
+        :returns: list - list of the current residues
+        :returns: list - list of chain ID's corresponding to residues
+        :returns: int - padding for bounding box
         """
         return self._id_list, self._chain_list, self._pad
     
@@ -57,11 +48,10 @@ class Residue():
         """
         Remove speciefied residue from internal list.
 
-        Args:
-            id: int,
-                Residue id. Count starting at 0.
-            chain: int, 
-                Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain)
+        :param name: id - Residue id. Count starting at 0. Default: None.
+        :param type: int, optional
+        :param name: chain - Chain id. Count starting at 0. Specify which chain the residue is on. Default 0 (in case of single chain). Default: 0.
+        :param type: int, optional
         """
         
         

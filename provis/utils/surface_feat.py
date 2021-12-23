@@ -209,7 +209,7 @@ def compute_charges(vertices: np.ndarray, pdb_id: str, path: str) -> np.ndarray:
 
 def compute_surface_features(surface: Surface,
                              pdb_file: str,
-                             out_path: str,
+                             path: str,
                              mesh = None,
                              fix_mesh: bool = False,
                              return_mesh: bool = False,
@@ -221,12 +221,16 @@ def compute_surface_features(surface: Surface,
     :param type: Surface
     :param name: pdb_file - PDB File containing the atomic coordinates
     :param type: str
-    :param name: fix_mesh - Whether to fix the mesh by collapsing nodes and edges. Default: False.
-    :param type: bool
-    :param name: return_mesh - Whether to return the mesh. Default: False.
-    :param type: bool
-    :param name: pdb_id - PDB id of the associated protein. Default: None
+    :param name: path - Path to files without extensions. Usually data/tmp/{pdb_id}
     :param type: str
+    :param name: mesh - The mesh.
+    :param type: trimesh.Trimesh
+    :param name: fix_mesh - Whether to fix the mesh by collapsing nodes and edges. Default: False.
+    :param type: bool, optional
+    :param name: return_mesh - Whether to return the mesh. Default: False.
+    :param type: bool, optional
+    :param name: pdb_id - PDB id of the associated protein. Default: None
+    :param type: str, optional
 
     :returns: np.ndarray - Shape index
     :returns: np.ndarray - Hydrogen bond induced charges
@@ -253,7 +257,7 @@ def compute_surface_features(surface: Surface,
             old_props=hydrophob,
             feature_interpolation=True)
 
-    charges = compute_charges(mesh.vertices, pdb_id, out_path)
+    charges = compute_charges(mesh.vertices, pdb_id, path)
 
     if si is None or not np.isfinite(si).all():
         raise ValueError(f"{pdb_id}: Shape index failed nan check.")

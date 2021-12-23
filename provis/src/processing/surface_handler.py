@@ -13,7 +13,7 @@ from subprocess import PIPE, Popen
 import open3d as o3d
 
 from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh, fix_trimesh
-from provis.utils.name_checker import check_name
+from provis.utils.name_checker import NameChecker
 from provis.src.processing.data_handler import DataHandler
 from provis.utils.surface_feat import compute_surface_features
 
@@ -25,23 +25,21 @@ class SurfaceHandler:
     Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.    
     """
   
-    def __init__(self, name, dens=None):
+    def __init__(self, dens=None):
         """
         Initializes SurfaceHandler class memeber variables: 
         _dh: DataHandler - needed for native mesh creation
         _path: str - path to pdb file (without extension)
         _out_path: str - path to output files (without extension)
         _density: float - density of surface mesh
-        _features: #TODO
+        _features: tuple(numpy.ndarray) - A collection of arrays representing the feature information for the surface of the protein, saved in a tuple.
         _mesh: Mesh - Surface mesh of protein
 
-        :param name: name - name to be passed to name_checker.check_name()
-        :param type: str
         :param name: dens - Density needed for msms. Defaults to None.
         :param type: float, optional
         """
-        self._dh = DataHandler(name)
-        self._path, self._out_path = check_name(name)
+        self._dh = DataHandler()
+        self._path, self._out_path, self._base_path = NameChecker.return_all()
         if dens:
             self._density = dens
         self._features = None
@@ -52,28 +50,25 @@ class SurfaceHandler:
         Get assignments (coloring) for the mesh. File has to exist, no way to produce it with provis. 
         Loads provis/data/tmp/{pdb_id}.pth and returns it.
 
-        :returns: [type] - [description] #TODO
+        :returns: PyTourch object - Coloring of surface.
         """
         filename = self._out_path.upper() + '.pth'
         assigment = torch.load(filename)
         
-        # print(assigment)
-        # print(type(assigment))
         return assigment
 
     def get_surface_features(self, mesh, feature):
         """
         Get the coloring corresponding to a specific feature.
 
-        Args:
-            mesh (Trimesh): The mesh
-            feature (str): Name of feature we are interested in. Options: hydrophob, shape, charge
+        :param name: mesh - The mesh
+        :param type: Trimesh
+        :param name: feature - Name of feature we are interested in. Options: hydrophob, shape, charge.
+        :param type: str
+        
+        :raises: NotImplementedError - If unkown feature specified error is raised
 
-        Raises:
-            NotImplementedError: If unkown feature specified error is raised
-
-        Returns:
-            [type]: [description] # TODO
+        returns: numpy.ndarray - Array of coloring corresponding to surface.
         """
 
         # get surface
@@ -105,7 +100,7 @@ class SurfaceHandler:
         :param type: bool, optional
 
         :returns: Trimesh - The mesh, always returned
-            #TODO: Coloring map for mesh corresponding to the specified feature 
+        :returns: numpy.ndarray - Coloring map for mesh corresponding to the specified feature 
         """
         
         if not self._mesh:

@@ -1,18 +1,25 @@
 import csv
-  
+import os
+import provis
+
 def import_atm_size_info(vw=0):
     """
     Funtion to load atomic radii from atmsize.csv, to be used in main
     
-    :param name: vw - option to return vanderwaals radius
-    :param type: bool - returns if true
+    :param name: vw - Option to return vanderwaals radius.
+    :param type: bool, optional
     
     :return: dict - dictionary of atomic radius by atom name
     :return: dict - dictionary of color by atom name
     :return: dict - !optional! return dictionary of vw rdius by atom name
     """
-    filename_size ="data/data/atmsize.csv"
-    filename_vw ="data/data/atmvw.csv"
+    
+    path = os.path.dirname(provis.__file__)
+    # path points to provis/provis, we only want provis/
+    outer_path = path[0:-6]
+    
+    filename_size = outer_path + "data/data/atmsize.csv"
+    filename_vw = outer_path + "data/data/atmvw.csv"
     
     # opening the file using "with" 
     # statement
@@ -92,7 +99,11 @@ def import_atm_mass_info():
     
     :return: dict - dictionary of atomic mass by atom name
     """
-    filename_mass = "data/data/atmmass.csv"
+    path = os.path.dirname(provis.__file__)
+    # path points to provis/provis, we only want provis/
+    base_path = path[0:-6]
+    
+    filename_mass = base_path + "data/data/atmmass.csv"
     
     firstline = []
     massdict = {}

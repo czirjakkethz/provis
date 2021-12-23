@@ -8,7 +8,7 @@ def bond_parser(filename):
     :param name: filename - Name of file to open
     :param type: str
     
-    :returns: dataFrame - Pandas df with bonds
+    :returns: pandas.dataFrame - Pandas df with bonds
     """
     f = open(filename,'r')
     f_text = f.read()

@@ -9,7 +9,7 @@ import trimesh
 
 from provis.utils.atminfo import import_atm_size_info, import_atm_mass_info
 from provis.utils.bond_parser import bond_parser
-from provis.utils.name_checker import check_name
+from provis.utils.name_checker import NameChecker
 from provis.src.processing.file_converter import FileConverter
 
 
@@ -20,16 +20,14 @@ class DataHandler:
     This class loads information from a variety of files and creates meshes to be plotted. 
     Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.
     """
-    def __init__(self, name):
+    def __init__(self):
         """
-        Load structure form pdb file (by parsing file) and return structure. Load all size and color helper dictionaries.
+        Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein. Load all size and color helper dictionaries.
         
-        :param name: file_name - Name of file (without filetype) to be loaded
+        :param name: name - Name of file to be loaded. Passed to name_checker.check_name() to get usable paths.
         :param type: str
-        
-        :return: structure - Biopython structure representation of the file
         """
-        self._path, self._out_path = check_name(name)
+        self._path, self._out_path, self._base_path = NameChecker.return_all()
         parser = PDBParser()
         file_name = self._path + ".pdb"
         self._structure = parser.get_structure(self._path, file_name)
@@ -55,10 +53,10 @@ class DataHandler:
         """
         Creates a dictionary of atomic coordinates from structure
         
-        :param name: show_solvent - If True solvent molecules also added to retrun dictionary
-        :param type: bool
+        :param name: show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.
+        :param type: bool, optional
         
-        :return: dict - Dictionary of atomic coordinates by atom type
+        :return: dict - Dictionary of atomic coordinates by atom type.
         """
         # load file into a python list
         residues = self._structure.get_residues()
@@ -86,7 +84,7 @@ class DataHandler:
         """
         Creates a dictionary of coordinates by residues from structure object
         
-        :return: dict - Dictionary of atomic coordinates by residue type
+        :return: dict - Dictionary of atomic coordinates by residue type.
         """
 
         # load file into a python list
@@ -115,13 +113,13 @@ class DataHandler:
         """
         Calculates information about specified residue from mol2 file
         
-        :param name: res - Residue number of specified residue be looked at
+        :param name: res - Residue number of specified residue be looked at.
         :param type: str
-        :param name: chain - Chain number of corresponding to residue be looked at
-        :param name: option - choose what property of residue you want
-        :param type: str - com for Centre Of Mass, ch for charge
+        :param name: chain - Chain number of corresponding to residue be looked at.
+        :param name: option - choose what property of residue you want. com for Centre Of Mass, ch for charge
+        :param type: str - options: com, ch
         
-        :return: list - list of COM coords of given (exact) residue
+        :return: list - List of COM coords of given (exact) residue.
         """
         
         # load info for given residue
@@ -179,19 +177,19 @@ class DataHandler:
         """
         Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.
         
-        :param name: atom_data - Dictionary of atoms and their coordinates, by atom type
+        :param name: atom_data - Dictionary of atoms and their coordinates, by atom type.
         :param type: dict
-        :param name: vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false
-        :param type: bool
-        :param name: probe - size of probe (representing the solvent size) needed for surface calculation
-        :param type: int
-        :param name: phi_res - pyvista phi_resolution for Sphere objects representing atoms
-        :param type: int
-        :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms
-        :param type: int
+        :param name: vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii. Default: False.
+        :param type: bool, optional
+        :param name: probe - size of probe (representing the solvent size) needed for surface calculation. Default: 0.
+        :param type: int, optional
+        :param name: phi_res - pyvista phi_resolution for Sphere objects representing atoms. Default: 10.
+        :param type: int, optional
+        :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default: 10.
+        :param type: int, optional
         
         :return: list - List of pyvista Shperes representing each atom
-        :return: list - List of colors for each atom
+        :return: list - List of colors corresponding to each atom
         """
         # these two dictionaries have to be manually created
         # also, if more/other atoms present in protein it will not work
@@ -222,20 +220,16 @@ class DataHandler:
         # return list of spheres and colors representing each atom
         return atoms_spheres, colors_spheres
 
-    def get_atom_trimesh(self, atom_data, vw=0, probe=0, phi_res=10, theta_res = 10):
+    def get_atom_trimesh(self, atom_data, vw=False, probe=0):
         """
-        Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.
+        Create a list of shperes and colors representing each atom for plotting in a Trimesh format. Used for feature computation in the surface_handler class.
         
-        :param name: atom_data - Dictionary of atoms and their coordinates, by atom type
+        :param name: atom_data - Dictionary of atoms and their coordinates, by atom type.
         :param type: dict
-        :param name: vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii; default false
-        :param type: bool
-        :param name: probe - size of probe (representing the solvent size) needed for surface calculation
-        :param type: int
-        :param name: phi_res - pyvista phi_resolution for Sphere objects representing atoms
-        :param type: int
-        :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms
-        :param type: int
+        :param name: vw, optional - When set to True Van-der-Waals atomic radii used instead of empirical radii. Default: False.
+        :param type: bool, optional
+        :param name: probe - size of probe (representing the solvent size) needed for surface calculation. Default: 0.
+        :param type: int, optional
         
         :return: list - List of pyvista Shperes representing each atom
         :return: list - List of colors for each atom
@@ -279,12 +273,12 @@ class DataHandler:
         """
         Create a list of Shperes and colors representing each residue for plotting
         
-        :param name: res_data - Dictionary of residues and their coordinates, by residue type
+        :param name: res_data - Dictionary of residues and their coordinates by residue type.
         :param type: dict
-        :param name: phi_res - pyvista phi_resolution for Sphere objects representing atoms
-        :param type: int
-        :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms
-        :param type: int
+        :param name: phi_res - pyvista phi_resolution for Sphere objects representing atoms. Defaul: 25.
+        :param type: int, optional
+        :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default:25.
+        :param type: int, optional
         
         :return: list - List of pyvista Shperes representing each residue
         :return: list - List of colors for each residue
@@ -321,7 +315,7 @@ class DataHandler:
         """
         Determine bonds from 3D information
         
-        :return: list - List of pyvista lines representing each bond
+        :return: list - List of pyvista lines representing each bond.
         """
         fname = self._out_path + ".mol2"
 
