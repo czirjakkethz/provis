@@ -43,7 +43,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up Provis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#directory-structure">Directory structure</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#easy-option">Easy option</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#more-versitile-option">More versitile option</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#more-versitile-option">More versitile option</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-data-directory-needs-the-following-subdirectiories">The data/ directory needs the following subdirectiories:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-binaries-directory-needs-the-following-executables-and-subdirectiories">The binaries/ directory needs the following executables and subdirectiories:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -85,20 +89,24 @@
              
   <section id="setting-up-provis">
 <h1>Setting up Provis<a class="headerlink" href="#setting-up-provis" title="Permalink to this headline"></a></h1>
-<p>Once you have every library and binary installed you will need to create a directory structure where provis feels at home. Once this is set up and of course provis is installed (either pip or with the setup.py in the root directory) you are ready to use provis and run it from anywhere.</p>
+<p>Once you have every library installed, binary downloaded and of course provis installed (either pip or with the setup.py in the root directory) you will need to create a directory structure where provis feels at home. When this is set up you are ready to use provis and run it from anywhere.</p>
 <section id="directory-structure">
 <h2>Directory structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline"></a></h2>
-<p>You will need a directory with some specifics in folder structure.</p>
-<p>This way your directories will remain uncluttered and it makes it easy to create a pipline around provis.</p>
+<p>You will need a directory with a specific folder structure.
+This way your directories will remain uncluttered and it makes it easy to create a pipline around provis.</p>
+<p>The directories are needed as some parts of file loading is hard coded in provis and if the directory structure is not present errors will occur.</p>
 <section id="easy-option">
 <h3>Easy option<a class="headerlink" href="#easy-option" title="Permalink to this headline"></a></h3>
 <p>The easiest is if you clone provis from <a class="reference external" href="https://github.com/czirjakkethz/provis">github</a> and simply use this github directory as your base directory.</p>
 </section>
 <section id="more-versitile-option">
 <h3>More versitile option<a class="headerlink" href="#more-versitile-option" title="Permalink to this headline"></a></h3>
-<p>You will need a data/ and potentially a binaries/ directory as well.</p>
-<p>If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed, but otherwise it is and the binaries from the Requirements section will all have to be copied into there.</p>
-<p>The data/ directory needs the following subdirectiories:</p>
+<p>You will need a data/ and (potentially) a binaries/ directory as well.</p>
+<blockquote>
+<div><p>– If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed, but otherwise it is and the binaries from the Requirements section will all have to be copied into there. –</p>
+</div></blockquote>
+<section id="the-data-directory-needs-the-following-subdirectiories">
+<h4>The data/ directory needs the following subdirectiories:<a class="headerlink" href="#the-data-directory-needs-the-following-subdirectiories" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data
 ├── data
 ├── pdb
@@ -106,10 +114,20 @@
 └── tmp
 </pre></div>
 </div>
-<p>The data directory needs to include the same files as it has in the git repo.</p>
 <p>The pdb directory is the location to store the pdb files to convert, as if a pdb file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the pdb file.</p>
 <p>The img directory stores all the screenshots of the outputted plots.</p>
 <p>The tmp directory stores all temporary files created by provis, such as the .face and .vert files of MSMS or the .mol2 files needed for the bonds.</p>
+</section>
+<section id="the-binaries-directory-needs-the-following-executables-and-subdirectiories">
+<h4>The binaries/ directory needs the following executables and subdirectiories:<a class="headerlink" href="#the-binaries-directory-needs-the-following-executables-and-subdirectiories" title="Permalink to this headline"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data
+├── apbs
+├── msms
+└── pdb2pqr
+</pre></div>
+</div>
+<p>Where apbs and msms are executables/binaries and the pdb2pqr is the directory downloaded from the official website, containing the pdb2pqr binary.</p>
+</section>
 </section>
 </section>
 </section>

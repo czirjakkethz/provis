@@ -39,7 +39,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Requirements for Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
@@ -170,6 +171,17 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>dict - Dictionary of atomic coordinates by atom type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atoms_IDs">
+<span class="sig-name descname"><span class="pre">get_atoms_IDs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms_IDs" title="Permalink to this definition"></a></dt>
+<dd><p>Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
 </dd>
 </dl>
 </dd></dl>
@@ -457,28 +469,15 @@ Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.native_mesh">
-<span class="sig-name descname"><span class="pre">native_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.native_mesh" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a mesh without the need for the MSMS binary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>pyvista.PolyData - The mesh</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">
-<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color">
+<span class="sig-name descname"><span class="pre">msms_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color" title="Permalink to this definition"></a></dt>
 <dd><p>Return the mesh and coloring ready for plotting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to “”.</p></li>
+<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.</p></li>
 <li><p><strong>type</strong> – str, optional</p></li>
-<li><p><strong>name</strong> – patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – simple - If set to True only mesh is returned without coloring. Used for surface plotting. Defaults to False.</p></li>
+<li><p><strong>name</strong> – patch - Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
@@ -486,7 +485,53 @@ Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
 <dd class="field-even"><p>Trimesh - The mesh, always returned</p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>numpy.ndarray - Coloring map for mesh corresponding to the specified feature</p>
+<dd class="field-odd"><p>numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the ‘scalars’ argument to get the encoded coloring.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color">
+<span class="sig-name descname"><span class="pre">native_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a mesh without the need for the MSMS binary.
+Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to “”.</p></li>
+<li><p><strong>type</strong> – str, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pyvista.PolyData - The mesh, always returned</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the ‘scalars’ argument to get the encoded coloring.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">
+<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
+<dd><p>Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
+If you could not download the MSMS binary leave this variable false and you will not run into problems.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – msms - If true, surface generated by msms binary is returned, else the native mesh. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.</p></li>
+<li><p><strong>type</strong> – str, optional</p></li>
+<li><p><strong>name</strong> – patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>trimesh.Trimesh - The mesh corresponding to the surface of the protein.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>numpy.ndarray - Coloring map corresponding to specified feature.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -78,7 +78,40 @@ class DataHandler:
 
         # return the 3D positions of atoms organized by atom type
         return atom_data
+        
+            
+    def get_atoms_IDs(self):
+        """
+        Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.
 
+        :returns: 
+        """
+        xyzrnfile = open(self._out_path + ".xyzrn")
+        meshdata = (xyzrnfile.read().rstrip()).split("\n")
+        xyzrnfile.close()
+        
+        lenm = len(meshdata)
+        res_id = [""] * lenm
+        
+        atom_data = dict()
+        for vi in range(lenm):
+            fields = meshdata[vi].split()
+            vertices = [None] * 3
+            vertices[0] = float(fields[0])
+            vertices[1] = float(fields[1])
+            vertices[2] = float(fields[2])
+            res_id[vi] = fields[5]
+            res = res_id[vi].split("_")
+            atmtype = res[4][0]
+            if atmtype not in atom_data:
+                atom_data[atmtype] = [vertices]
+            # If atom already in dictionary, append its coordinates to list
+            else:
+                atom_data[atmtype].append(vertices)
+
+
+        # return the 3D positions of atoms organized by atom type
+        return atom_data, res_id
 
     def get_residues(self):
         """
@@ -241,6 +274,7 @@ class DataHandler:
         atoms_spheres = []
         colors_spheres = []
         rad = probe / 2.0
+        
 
         for atoms_type in atom_data:
 

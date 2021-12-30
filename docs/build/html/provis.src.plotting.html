@@ -266,11 +266,13 @@
 <p>Choose between the two by setting the msms Boolean variable (True corresponding to the MSMS binary option is default)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_charge">
-<span class="sig-name descname"><span class="pre">plot_charge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_charge" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_charge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_charge" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the charge features of a protein.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_charge.png.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>
 </ul>
@@ -283,11 +285,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_hydrophob">
-<span class="sig-name descname"><span class="pre">plot_hydrophob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_hydrophob" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_hydrophob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_hydrophob" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the hydrophobic features of a protein.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_hydrophob.png.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>
 </ul>
@@ -300,11 +304,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_shape">
-<span class="sig-name descname"><span class="pre">plot_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_shape" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_shape" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the shape features of a protein.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_shape.png.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>
 </ul>
@@ -317,12 +323,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_surface">
-<span class="sig-name descname"><span class="pre">plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_surface" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_surface" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the surface of protein.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – msms - Used to plot msms binary version of surface vs the native surface. Default: True.</p></li>
+<li><p><strong>name</strong> – msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>

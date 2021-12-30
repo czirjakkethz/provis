@@ -34,6 +34,7 @@ class SurfaceHandler:
         _density: float - density of surface mesh
         _features: tuple(numpy.ndarray) - A collection of arrays representing the feature information for the surface of the protein, saved in a tuple.
         _mesh: Mesh - Surface mesh of protein
+        _col: numpy.ndarray - Coloring map of surface. To be passed to pyvista.PolyData.add_mesh(scalars=).
 
         :param name: dens - Density needed for msms. Defaults to None.
         :param type: float, optional
@@ -44,6 +45,7 @@ class SurfaceHandler:
             self._density = dens
         self._features = None
         self._mesh = None
+        self._col = None
         
     def get_assignments(self):
         """
@@ -77,6 +79,8 @@ class SurfaceHandler:
 
         # compute features of surface
         if not self._features:
+            # print(surface)
+            # print(mesh)
             self._features = compute_surface_features(surface, pdb_file, self._out_path, mesh, pdb_id = self._path)
 
         if feature == 'hydrophob':
@@ -88,19 +92,17 @@ class SurfaceHandler:
         else:
             raise NotImplementedError
 
-    def return_mesh_and_color(self, feature="", patch=False, simple=False):
+    def msms_mesh_and_color(self, feature=None, patch=False):
         """
         Return the mesh and coloring ready for plotting.
 
-        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to "".
+        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.
         :param type: str, optional
-        :param name: patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
-        :param type: bool, optional
-        :param name: simple - If set to True only mesh is returned without coloring. Used for surface plotting. Defaults to False.
+        :param name: patch - Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.
         :param type: bool, optional
 
         :returns: Trimesh - The mesh, always returned
-        :returns: numpy.ndarray - Coloring map for mesh corresponding to the specified feature 
+        :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
         
         if not self._mesh:
@@ -108,34 +110,34 @@ class SurfaceHandler:
             self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
                             resolution=1.5, apply_fixes=True)
         
-        if not simple:    
+        if feature:    
             if patch:
-                cas = self.get_assignments()
+                self._col = self.get_assignments()
             if not patch:
-                cas = self.get_surface_features(self._mesh, feature)
-            
-            return self._mesh, cas
+                self._col = self.get_surface_features(self._mesh, feature)
 
-        else:
-            return self._mesh
-
-    def native_mesh(self):
+    def native_mesh_and_color(self, feature=None):
         """
         Returns a mesh without the need for the MSMS binary.
+        Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.
 
-        :returns: pyvista.PolyData - The mesh
+        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to "".
+        :param type: str, optional
+
+        :returns: pyvista.PolyData - The mesh, always returned
+        :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
-
+        #old      
         atom_data = self._dh.get_atoms()
-        # change vw and probe to get a finer/better/differently refined mesh
         self._atmsurf, col = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
+        #old
 
+        # WORKING
         # adding the spheres (by atom type) one at a time
         j = 0
         mesh_ = pv.wrap(self._atmsurf[0])
         for mesh in self._atmsurf[1:]:
             mesh_ = mesh_ + (mesh)
-
 
         mesh_ = mesh_.delaunay_3d(alpha=1.5).extract_feature_edges()
         # self._atmsurf, col = self._dh.get_atom_trimesh(atom_data, vw=1, probe=0.1)
@@ -150,13 +152,53 @@ class SurfaceHandler:
         f = np.c_[np.full(len(f), 3), f]
         mesh = pv.PolyData(v, f)
         shell =  mesh.clean().reconstruct_surface()#.clean()
-        
+        # WORKING
         shell.compute_normals(inplace=True)
         
-        # Work in progress; trying to figure out how to plot features with native mesh
-        # tri_mesh = trimesh.Trimesh(shell.points, shell.faces)
-        # fix_trimesh(tri_mesh)
+        # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
+        len_f = len(shell.faces)
+        faces_ = []
+        i = 0
+        while(i < len_f):
+            curr = shell.faces[i]
+            temp = [None] * curr
+            idxx = 0
+            j = i + 1
+            while(curr):
+                temp[idxx] = shell.faces[j + idxx]
+                idxx += 1
+                curr -= 1
+            faces_.append(temp)
+            i += idxx + 1
         
-        # self._mesh = prepare_trimesh(tri_mesh.vertices, tri_mesh.faces)
+        tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
 
-        return shell
+        # only needed if feature is specified (-> color map needs to be calculated)
+        if feature:
+            self._col = self.get_surface_features(tri_mesh, feature)
+
+        self._mesh = tri_mesh
+    
+    def return_mesh_and_color(self, msms=False, feature=None, patch=False):
+        """
+        Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
+        If you could not download the MSMS binary leave this variable false and you will not run into problems.
+        
+        :param name: msms - If true, surface generated by msms binary is returned, else the native mesh. Default: False.
+        :param type: bool, optional
+        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.
+        :param type: str, optional
+        :param name: patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
+        :param type: bool, optional
+        
+        :returns: trimesh.Trimesh - The mesh corresponding to the surface of the protein.
+        :returns: numpy.ndarray - Coloring map corresponding to specified feature.
+        """
+        
+        # run appropriate function to compute the mesh and the coloring
+        if msms:
+            self.msms_mesh_and_color(feature, patch)
+        else:
+            self.native_mesh_and_color(feature)
+          
+        return self._mesh, self._col

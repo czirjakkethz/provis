@@ -39,7 +39,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Requirements for Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
@@ -580,14 +581,14 @@ a given target length, and collapsing shorter edges.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="provis.utils.surface_utils.get_surface">
-<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">get_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.surface_utils.get_surface" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">get_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.surface_utils.get_surface" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper function that reads in the output from the MSMS executable to build the protein surface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – out_path - path to output (output path from namechecker) directory. Usually data/tmp</p></li>
 <li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – remove_files - Whether to remove the intermediate output files. Default: True.</p></li>
+<li><p><strong>name</strong> – density - Need to pass same density as used by the MSMS binary, as the face and vert files have the density included in their names. The variable is needed for loading these files.</p></li>
 <li><p><strong>type</strong> – bool</p></li>
 </ul>
 </dd>

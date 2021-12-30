@@ -11,7 +11,7 @@ from subprocess import Popen, PIPE
 from typing import Tuple, List, Dict
 import trimesh 
 
-from holoprot.utils import RADII, POLAR_HYDROGENS
+from provis.utils import RADII, POLAR_HYDROGENS
 
 eps = 1e-6
 Surface = Tuple[np.ndarray, np.ndarray, np.ndarray, List[str], Dict[str, str]]
@@ -135,14 +135,13 @@ def output_pdb_as_xyzrn(pdb_file: str, xyzrn_file: str) -> None:
                           "\n")
 
 
-def get_surface(out_path: str, density: float = 0.5,
-                remove_files: bool = True):
+def get_surface(out_path: str, density: float):
     """
     Wrapper function that reads in the output from the MSMS executable to build the protein surface.
 
     :param name: out_path - path to output (output path from namechecker) directory. Usually data/tmp
     :param type: str
-    :param name: remove_files - Whether to remove the intermediate output files. Default: True.
+    :param name: density - Need to pass same density as used by the MSMS binary, as the face and vert files have the density included in their names. The variable is needed for loading these files.
     :param type: bool
         
     :returns: numpy.ndarray - vertices

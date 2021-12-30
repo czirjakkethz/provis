@@ -30,16 +30,16 @@ def main():
     sp.plot_vw()
     sp.plot_stick_point()
     r = Residue(1)
-    # r.add_residue(3)
-    # r. add_residue(1, 1)
-    # r.remove_residue(1, 1)
+    r.add_residue(3)
+    r. add_residue(1, 1)
+    r.remove_residue(1, 1)
     sp.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r)
 
 
     # Plot surface
     s = Surface(dens=density)
-    s.plot_surface(msms=False)
-    s.plot_hydrophob(outname="hydrophob")
+    s.plot_hydrophob()
+    s.plot_surface(msms=False)    
     s.plot_shape()
     s.plot_charge()
 

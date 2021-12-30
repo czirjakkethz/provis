@@ -4,14 +4,15 @@ Requirements for Provis
 Pip
 ----------------------
 
-Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip
+Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip:
 
 * BioPython
-* PyVista
-* Pandas
-* Numpy (included in Pandas)
-* Biopandas
 * Trimesh
+* PyVista
+* Biopandas
+* Torch
+* Pyvtk
+* Open3d
 
 Binaries
 ----------------------
@@ -19,7 +20,7 @@ Binaries
 OpenBabel
 ^^^^^^^^^^^^^^^
 
-Easiest to install by calling:
+Easiest to install on Linux is by calling:
 
  .. code-block:: bash
 
@@ -45,17 +46,6 @@ MSMS
 
  This tutorial might help:
  http://biskit.pasteur.fr/install/applications/deprecated/msms
-
-
-DSSP
-^^^^^^^^^^^^^^^^^^^^^^
-
- One can easily downloaded using the `conda
- <https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html>`_ installer.
-
- .. code-block:: bash
-
-   conda install -c salilab dssp
    
    
 Jupyter Notebook

@@ -45,7 +45,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#openbabel">OpenBabel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pdb2pqr-and-apbs">PDB2PQR and APBS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#msms">MSMS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dssp">DSSP</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#jupyter-notebook">Jupyter Notebook</a></li>
@@ -91,21 +90,22 @@
 <h1>Requirements for Provis<a class="headerlink" href="#requirements-for-provis" title="Permalink to this headline"></a></h1>
 <section id="pip">
 <h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline"></a></h2>
-<p>Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip</p>
+<p>Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip:</p>
 <ul class="simple">
 <li><p>BioPython</p></li>
-<li><p>PyVista</p></li>
-<li><p>Pandas</p></li>
-<li><p>Numpy (included in Pandas)</p></li>
-<li><p>Biopandas</p></li>
 <li><p>Trimesh</p></li>
+<li><p>PyVista</p></li>
+<li><p>Biopandas</p></li>
+<li><p>Torch</p></li>
+<li><p>Pyvtk</p></li>
+<li><p>Open3d</p></li>
 </ul>
 </section>
 <section id="binaries">
 <h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
 <section id="openbabel">
 <h3>OpenBabel<a class="headerlink" href="#openbabel" title="Permalink to this headline"></a></h3>
-<p>Easiest to install by calling:</p>
+<p>Easiest to install on Linux is by calling:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt install openbabel
 </pre></div>
@@ -126,15 +126,6 @@
 <a class="reference external" href="https://ccsb.scripps.edu/mgltools/downloads/">https://ccsb.scripps.edu/mgltools/downloads/</a></p>
 <p>This tutorial might help:
 <a class="reference external" href="http://biskit.pasteur.fr/install/applications/deprecated/msms">http://biskit.pasteur.fr/install/applications/deprecated/msms</a></p>
-</div></blockquote>
-</section>
-<section id="dssp">
-<h3>DSSP<a class="headerlink" href="#dssp" title="Permalink to this headline"></a></h3>
-<blockquote>
-<div><p>One can easily downloaded using the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html">conda</a> installer.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c salilab dssp
-</pre></div>
-</div>
 </div></blockquote>
 </section>
 </section>
