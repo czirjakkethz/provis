@@ -1,18 +1,7 @@
 Requirements for Provis
 =========================
 
-Pip
-----------------------
-
-Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages. All of the following should be downloadable with pip:
-
-* BioPython
-* Trimesh
-* PyVista
-* Biopandas
-* Torch
-* Pyvtk
-* Open3d
+Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages and binaries.
 
 Binaries
 ----------------------
@@ -46,7 +35,19 @@ MSMS
 
  This tutorial might help:
  http://biskit.pasteur.fr/install/applications/deprecated/msms
-   
+
+Pip
+----------------------
+
+ All of the following can be dowloaded using pip and should be automatically installed when installing pip with provis:
+
+* BioPython
+* Trimesh
+* PyVista
+* Biopandas
+* Torch
+* Pyvtk
+* Open3d
    
 Jupyter Notebook
 ---------------------
@@ -56,3 +57,5 @@ If you want to run a fully interactive provis in the Jupyter Notebook environmen
 .. code-block:: bash
 
     pip install ipyvtklink
+    
+
