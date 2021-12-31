@@ -1,0 +1,9 @@
+$ conda activate my-rdkit-env
+(my-rdkit-env) $ conda env export
+name: my-rdkit-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+prefix: /home/kczi/anaconda3/envs/my-rdkit-env

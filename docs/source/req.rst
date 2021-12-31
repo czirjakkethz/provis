@@ -48,6 +48,7 @@ Pip
 * Torch
 * Pyvtk
 * Open3d
+* rTree
    
 Jupyter Notebook
 ---------------------

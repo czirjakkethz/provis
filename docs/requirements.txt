@@ -75,7 +75,7 @@ prometheus-client==0.12.0
 prompt-toolkit==3.0.24
 -e git+https://github.com/czirjakkethz/provis.git@597b2a63c0583e59258ca7fec196354cedb09a12#egg=provis
 ptyprocess==0.7.0
-#pycairo==1.20.1
+pycairo==1.20.1
 pycparser==2.21
 Pygments==2.10.0
 pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1636757021002/work

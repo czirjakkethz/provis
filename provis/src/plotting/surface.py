@@ -16,10 +16,12 @@ class Surface:
     Choose between the two by setting the msms Boolean variable (True corresponding to the MSMS binary option is default)
     
     """
-    def __init__(self, dens=None):
+    def __init__(self, dens=None, msms=False):
         """
         Initialize Surface class with given filename. Creates internal data structures; a DataHandler to extract basic surface information and stores it in self._atmsurf (this is a list of Spheres for each atom roughly equating the Van-der-Waals radius).
         
+        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
+        :param type: bool, optional
         :param name: dens - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
         :param type: float, optional
         """
@@ -27,19 +29,18 @@ class Surface:
         if dens:
             self._density = dens
         self._sh = SurfaceHandler(dens=dens)
+        self._msms = msms
 
-    def plot_surface(self, msms=False, outname=None, feature=None, patch=None):
+    def plot_surface(self, outname=None, feature=None, patch=None):
         """
         Plot the surface of protein.
         
-        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
-        :param type: bool, optional
         :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        mesh, cas = self._sh.return_mesh_and_color(msms, feature, patch)
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature, patch)
         
         #plot
         pl = pv.Plotter(lighting=None)
@@ -56,18 +57,16 @@ class Surface:
             outname = self._base_path + 'data/img/' + new_name + '_surface.png'
         pl.show(screenshot=outname, title="Surface")
 
-    def plot_hydrophob(self, msms=False, outname=None):
+    def plot_hydrophob(self, outname=None):
         """
         Plot the hydrophobic features of a protein.
 
-        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
-        :param type: bool, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_hydrophob.png.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        mesh, cas = self._sh.return_mesh_and_color(msms, feature="hydrophob")
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="hydrophob")
 
         # plot surface with feature visualization
         pl = pv.Plotter()
@@ -82,19 +81,17 @@ class Surface:
             outname = self._base_path + 'data/img/' + new_name + '_hydrophob.png'
         pl.show(screenshot=outname, title="Hydrophob")
 
-    def plot_shape(self, msms=False, outname=None):
+    def plot_shape(self, outname=None):
         """
         Plot the shape features of a protein.
 
-        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
-        :param type: bool, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_shape.png.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
         
-        mesh, cas = self._sh.return_mesh_and_color(msms, feature="shape")
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="shape")
 
         # plot surface with feature visualization
         pl = pv.Plotter()
@@ -109,19 +106,17 @@ class Surface:
             outname = self._base_path + 'data/img/' + new_name + '_shape.png'
         pl.show(screenshot=outname, title="Shape")
 
-    def plot_charge(self, msms=False, outname=None):
+    def plot_charge(self, outname=None):
         """
         Plot the charge features of a protein.
 
-        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
-        :param type: bool, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_charge.png.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
         
-        mesh, cas = self._sh.return_mesh_and_color(msms, feature="charge")
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="charge")
 
         # plot surface with feature visualization
         pl = pv.Plotter()
