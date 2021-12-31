@@ -4,6 +4,4 @@ name: my-rdkit-env
 channels:
   - defaults
   - conda-forge
-dependencies:
-  - python=3.9
 prefix: /home/kczi/anaconda3/envs/my-rdkit-env
