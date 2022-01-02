@@ -1,5 +1,5 @@
 $ conda activate my-rdkit-env
-(my-rdkit-env) $ conda env export
+(my-rdkit-env) $ conda env export --from-history | tee environment.yml
 name: my-rdkit-env
 channels:
   - defaults
