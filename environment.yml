@@ -1,7 +1,6 @@
-$ conda activate my-rdkit-env
-(my-rdkit-env) $ conda env export --from-history | tee environment.yml
 name: my-rdkit-env
 channels:
   - defaults
-  - conda-forge
+dependencies:
+  - rdkit
 prefix: /home/kczi/anaconda3/envs/my-rdkit-env
