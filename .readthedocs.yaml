@@ -29,5 +29,5 @@ python:
    - requirements: docs/requirements.txt
 
 # Need this, as provis uses rdkit, that can only be downloaded with conda
-conda:
-  environment: environment.yml
+#conda:
+#  environment: environment.yml
