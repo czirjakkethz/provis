@@ -26,7 +26,6 @@ entrypoints==0.3
 fonttools #@ file:///home/conda/feedstock_root/build_artifacts/fonttools_1638544268393/work
 frozenlist==1.2.0
 greenlet #@ file:///home/conda/feedstock_root/build_artifacts/greenlet_1635836790477/work
--e git+https://github.com/bunnech/holoprot.git@572f9be52b89eb83bf7351d049bf4ee4dc0f9439#egg=holoprot
 idna==3.3
 imageio==2.13.3
 imagesize==1.3.0
