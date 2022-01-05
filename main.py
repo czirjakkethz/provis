@@ -6,7 +6,6 @@ from provis.src.processing.residue import Residue
 from provis.src.plotting.stick_point import StickPoint
 from provis.src.plotting.surface import Surface
 
-# TODO: RUN Sphinx and push                                    
 def main():
     """
     This is an example file to showcase all functionalities of provis.
@@ -15,7 +14,7 @@ def main():
     """
     
     # define variables needed later
-    name = "2fd7" # "1a3n" # "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
+    name = "selected_prediction" # "1a3n" # "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
     density = 3.0
     solvent = 0
     bash = 0

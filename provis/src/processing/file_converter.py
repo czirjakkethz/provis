@@ -82,8 +82,12 @@ class FileConverter():
         """
         # print("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)))
 
-        # Now run MSMS on xyzrn file
-        MSMS_BIN = os.environ['MSMS_BIN']
+        # Now run MSMS on xyzrn file       
+        try:
+            MSMS_BIN = os.environ['MSMS_BIN']
+        except:
+            pass
+        
         if not os.path.exists(MSMS_BIN):
             MSMS_BIN = FileConverter._base_path + 'binaries/msms'
 
@@ -135,8 +139,11 @@ class FileConverter():
         :param type: str, optional
         """
 
-        PDB2PQR_BIN  = os.environ['PDB2PQR_BIN']
-        
+        try:
+            PDB2PQR_BIN  = os.environ['PDB2PQR_BIN']
+        except:
+            pass
+            
         if not os.path.exists(PDB2PQR_BIN):
             PDB2PQR_BIN = FileConverter._base_path + "binaries/pdb2pqr/pdb2pqr"
             
