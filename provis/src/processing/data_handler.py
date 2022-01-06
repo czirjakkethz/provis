@@ -47,6 +47,7 @@ class DataHandler:
             "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D',
             "VAL": '#128033', "HOH": 'w', "HEM": 'r'}
         self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(1)
+        self.get_backbone_mesh()
 
 
     def get_atoms(self, show_solvent=False):
@@ -347,9 +348,18 @@ class DataHandler:
 
     def get_bond_mesh(self):
         """
-        Determine bonds from 3D information
+        Determine bonds from 3D information.
+        
+        The color information is as follows:
+            White for all single bonds, 
+            Blue for all double bonds,
+            Green for all triple bonds,
+            Red for all amide bonds,
+            Purple for all aromatic bonds,
+            Black for everything else.
         
         :return: list - List of pyvista lines representing each bond.
+        :retrun: list - List of colors corresponding to the lines in the above list
         """
         fname = self._out_path + ".mol2"
 
@@ -363,17 +373,55 @@ class DataHandler:
 
         # Find endpoints of bonds, create Line() and add to list of lines
         bonds = []
+        col = []
         for i in range(len(bonds_in)):
             my = pmol.df.iloc[int(bonds_in.iloc[i]['atom1'])-1][['x', 'y', 'z']]
             c = pmol.df.iloc[int(bonds_in.iloc[i]['atom2'])-1][['x', 'y', 'z']]
             
             my_coord = my.values.tolist()
             c_coord = c.values.tolist()
-            # if bonds_in.iloc[i]['bond_type'] == '1': #TODO: differentiate between different bonds.
-            line = pv.Line(my_coord, c_coord, resolution=5)
-            # elif bonds_in.iloc[i]['bond_type'] != '1':
-            #     line = pv.Text3D('||')
+            if bonds_in.iloc[i]['bond_type'] == '1': #TODO: differentiate between different bonds.
+                line = pv.Line(my_coord, c_coord, resolution=5)
+                col.append('w')
+            elif bonds_in.iloc[i]['bond_type'] == '2':
+                line = pv.Line(my_coord, c_coord, resolution=1)
+                col.append('b')
+            elif bonds_in.iloc[i]['bond_type'] == '3':
+                line = pv.Line(my_coord, c_coord, resolution=1)
+                col.append('g')
+            # amide bond in red
+            elif bonds_in.iloc[i]['bond_type'] == 'am':
+                line = pv.Line(my_coord, c_coord, resolution=1)
+                col.append('r')
+            # aromatic bond in purple
+            elif bonds_in.iloc[i]['bond_type'] == 'ar':
+                line = pv.Line(my_coord, c_coord, resolution=1)
+                col.append('m')
+            else:
+                line = pv.Line(my_coord, c_coord, resolution=1)
+                col.append('k')
             bonds.append(line)
         
-        return bonds
+        return bonds, col
+    
+    def get_backbone_mesh(self):
+        """
+        Creates and returns a Spline object representing the backbone of the protein.
         
+        :returns: numpy.ndarray - List of coordinates representing the centre of mass of each residue. To be used in stick_point to create a Spline.
+        """
+        
+        residues = self._structure.get_residues()
+        
+        res_list = []
+        for res in residues:
+            if res.get_resname() != "HOH":
+                com = [0, 0, 0]
+                count = 0
+                for atom in res: 
+                    coords = atom.get_coord()
+                    com += coords
+                    count += 1
+                com /= count
+                res_list.append(com)
+        return np.array(res_list)

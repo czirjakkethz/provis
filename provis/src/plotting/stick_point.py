@@ -20,7 +20,7 @@ class StickPoint:
         ## return list of spheres (meshes) and colors for the spheres
         self._atoms, self._col_a = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
         ## return list of lines (meshes)
-        self._bonds = self._dh.get_bond_mesh()
+        self._bonds, self._bond_col = self._dh.get_bond_mesh()
         ## return list of spheres (meshes) and colors for the spheres
         res_data = self._dh.get_residues()
         self._residues, self._col_r = self._dh.get_residue_mesh(res_data)
@@ -99,7 +99,7 @@ class StickPoint:
         pl.show(screenshot=outname)
 
 
-    def plot(self, atoms=0, box=0, bonds=0, vw=0, residues=0, res=None, outname=0, title=None):
+    def plot(self, atoms=0, box=0, bonds=0, vw=0, residues=0, res=None, bb=0, outname=0, title=None):
         """
         Plot stick and point model
         
@@ -107,14 +107,16 @@ class StickPoint:
         :param type: bool, optional
         :param name: box, optional - If True bounding box also visualized, default: 0.
         :param type: bool, optional
-        :param name: bonds, optional - Plot bond, default: 0.
-        :param type: bool, optional
+        :param name: bonds, optional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: 0.
+        :param type: int, optional
         :param name: vw - Plot Wan-der-Waals radii instead of atomic radii.
         :param type: bool, optional
         :param name: residues, optional - Plot residue, default: 0.
         :param type: bool, optional
         :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
         :param type: Residue, optional
+        :param name: bb - If True backbone of protein is plotted. Default: False.
+        :param type: bool, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
         :param type: string, optional
         :param name: title - Title of the plot window. Defaults to None.
@@ -140,10 +142,15 @@ class StickPoint:
                     pl.add_mesh(mesh, color=self._col_a[j], opacity=opacity, smooth_shading=True, style=style)
 
         # adding the bonds one at a time
-        if bonds:
+        if bonds == 1:
             for b in self._bonds:
-                pl.add_mesh(b, color='w', line_width=5, render_lines_as_tubes=True)
+                pl.add_mesh(b, color="w", line_width=5, render_lines_as_tubes=True)
                 # TODO: figure out why  render_lines_as_tubes=True, crashes
+        if bonds == 2:
+            for b, c in zip(self._bonds, self._bond_col):
+                pl.add_mesh(b, color=c, line_width=5, render_lines_as_tubes=True)
+                # TODO: figure out why  render_lines_as_tubes=True, crashes
+                
         # adding the spheres (by residue) one at a time
         # only executes if residue information provided
         if residues:
@@ -165,11 +172,15 @@ class StickPoint:
                 x, y, z = d,d,d
                 pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5)
 
+        if bb:
+            bb_mesh = self._dh.get_backbone_mesh()
+            pl.add_mesh(pv.Spline(bb_mesh))
         # save a screenshot
         if not outname:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
+            
         pl.show(screenshot=outname, title=title)
 
 
@@ -229,11 +240,35 @@ class StickPoint:
             outname = self._base_path + 'data/img/' + new_name + '_vw.png'
         self.plot(atoms=1, box=box, vw=1, bonds=0, residues=0, res=r, title="Van-der-Waals")
         
-    def plot_bonds(self, box=0, r=0, outname=0):
+    def plot_bonds(self, colorful=False, box=0, r=0, outname=0):
         """
         Plot bonds only
         
-        :param name: box, optional - If True bounding box also visualized, default: 0.
+        :param name: colorful - If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False
+        :param type: bool, optional
+        :param name: box - If True bounding box also visualized, default: 0.
+        :param type: bool, optional
+        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+        :param type: Residue, optional
+        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
+        :param type: string, optional
+        
+        :return: Pyvista.Plotter window - Window with interactive plot.
+        """
+        b = bool(colorful) * 1 + 1
+        # save a screenshot
+        if not outname:
+            new_name = self._name.split('/')
+            new_name = new_name[-1].split('.')[0]
+            outname = self._base_path + 'data/img/' + new_name + '_bonds.png'
+        self.plot(atoms=0, box=box, vw=0, bonds=b, residues=0, res=r, outname=outname, title="Bonds")
+        
+        
+    def plot_backbone(self, box=0, r=0, outname=0):
+        """
+        Plot bonds only
+        
+        :param name: box - If True bounding box also visualized, default: 0.
         :param type: bool, optional
         :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
         :param type: Residue, optional
@@ -247,5 +282,5 @@ class StickPoint:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_bonds.png'
-        self.plot(atoms=0, box=box, vw=0, bonds=1, residues=0, res=r, outname=outname, title="Bonds")
+        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=0, res=r, bb=1, outname=outname, title="Bonds")
 
