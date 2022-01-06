@@ -33,6 +33,7 @@ class FileConverter():
         if name:
             NameChecker(name, base_path)
             self._path, self._out_path, FileConverter._base_path = NameChecker.return_all()
+            print(self._out_path)
             self.pdb_to_mol2(self._path, self._out_path)
             self.pdb_to_pqr(self._path, self._out_path)
             self.pdb_to_xyzrn(self._path, self._out_path)

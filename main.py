@@ -14,13 +14,18 @@ def main():
     """
     
     # define variables needed later
-    name = "selected_prediction" # "1a3n" # "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
+    # you can either just run the main inside the provis directory and simply set the name as the pdb filename and not specify a base path
+    # eg name = "2fd7" or "2fd7.pdb"
+    # OR
+    # you can specify the full paht to the pdb file and the working directory (where the needed folder structure is set up) and run it like follows:
+    name = "/home/kczi/Documents/provis/data/pdb/selected_prediction" # "2fd7" #"1a3n" # "data/pdb/2fd7" # "data/pdb/1a3n" # "data/pdb/7nkd" #
+    base_path='/home/kczi/Documents/provis/'
     density = 3.0
     solvent = 0
     bash = 0
     
     # Create all the necessary files from the .pdb file
-    fc = FileConverter(name, density, solvent, bash)
+    fc = FileConverter(name, density, solvent, bash, base_path)
     
     # Plot stick point
     # sp = StickPoint()
