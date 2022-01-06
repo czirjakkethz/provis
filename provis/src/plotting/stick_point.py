@@ -174,7 +174,7 @@ class StickPoint:
 
         if bb:
             bb_mesh = self._dh.get_backbone_mesh()
-            pl.add_mesh(pv.Spline(bb_mesh))
+            pl.add_mesh(pv.Spline(bb_mesh), render_lines_as_tubes=True, line_width=10,)
         # save a screenshot
         if not outname:
             new_name = self._name.split('/')
