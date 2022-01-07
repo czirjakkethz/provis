@@ -83,13 +83,13 @@ class FileConverter():
         """
         # print("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)))
 
-        MSMS_BIN = None
         # Now run MSMS on xyzrn file       
         try:
             MSMS_BIN = os.environ['MSMS_BIN']
         except:
             pass
         
+        MSMS_BIN = ""
         if not os.path.exists(MSMS_BIN):
             MSMS_BIN = FileConverter._base_path + 'binaries/msms'
 
@@ -140,12 +140,13 @@ class FileConverter():
         :param name: forcefield - Force field used for charge computation, by binary. Default: swanson. Options: amber, charmm, parse, tyl06, peoepb and swanson
         :param type: str, optional
         """
-        PDB2PQR_BIN = None
+        
         try:
             PDB2PQR_BIN  = os.environ['PDB2PQR_BIN']
         except:
             pass
             
+        PDB2PQR_BIN = ""
         if not os.path.exists(PDB2PQR_BIN):
             PDB2PQR_BIN = FileConverter._base_path + "binaries/pdb2pqr/pdb2pqr"
             
