@@ -41,7 +41,7 @@ The binaries/ directory needs the following executables and subdirectiories:
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ::
 
-    data
+    binaries
     ├── apbs
     ├── msms       
     └── pdb2pqr

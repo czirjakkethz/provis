@@ -1,6 +1,6 @@
 import subprocess
 import os.path
-from provis.utils.name_checker import NameChecker
+from provis.src.processing.name_checker import NameChecker
 from provis.utils.surface_utils import output_pdb_as_xyzrn
 
 class FileConverter():

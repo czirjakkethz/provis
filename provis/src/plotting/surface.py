@@ -3,7 +3,7 @@ import numpy as np
 import trimesh
 
 from provis.src.processing.surface_handler import SurfaceHandler
-from provis.utils.name_checker import NameChecker
+from provis.src.processing.name_checker import NameChecker
 
 class Surface:
     """

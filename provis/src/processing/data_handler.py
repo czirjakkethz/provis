@@ -9,7 +9,7 @@ import trimesh
 
 from provis.utils.atminfo import import_atm_size_info, import_atm_mass_info
 from provis.utils.bond_parser import bond_parser
-from provis.utils.name_checker import NameChecker
+from provis.src.processing.name_checker import NameChecker
 from provis.src.processing.file_converter import FileConverter
 
 

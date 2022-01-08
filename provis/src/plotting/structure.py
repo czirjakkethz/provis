@@ -1,7 +1,7 @@
 import pyvista as pv
 
 from provis.src.processing.data_handler import DataHandler
-from provis.utils.name_checker import NameChecker
+from provis.src.processing.name_checker import NameChecker
 
 class Structure:
     """

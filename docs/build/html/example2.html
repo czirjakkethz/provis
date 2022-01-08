@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>provis &mdash; provis 0.0.1 documentation</title>
+  <title>Example 2 &mdash; provis 0.0.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,7 +17,9 @@
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contact and motivation" href="authors.html" />
+    <link rel="prev" title="Example 1" href="example1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,12 +44,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="provis.html">provis package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">Source code</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="example1.html">Example 1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example2.html">Example 2</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example 2</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -68,9 +70,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>provis</li>
+      <li>Example 2</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/example2.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -78,40 +80,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="provis">
-<h1>provis<a class="headerlink" href="#provis" title="Permalink to this headline"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="provis.html">provis package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="provis.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="provis.src.html">provis.src package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="provis.src.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="provis.src.html#module-provis.src">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="provis.utils.html">provis.utils package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="provis.utils.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="provis.utils.html#module-provis.utils.atminfo">provis.utils.atminfo module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="provis.utils.html#module-provis.utils.bond_parser">provis.utils.bond_parser module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="provis.utils.html#module-provis.utils.charges_utils">provis.utils.charges_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="provis.utils.html#module-provis.utils.surface_feat">provis.utils.surface_feat module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="provis.utils.html#module-provis.utils.surface_utils">provis.utils.surface_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="provis.utils.html#module-provis.utils">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+  <section id="example-2">
+<h1>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline"></a></h1>
+<p>This is an example file to showcase some functionalities of provis.</p>
+<p>We showcase how to run provis when you are outside the special directroy structure specified in the setup section of the documentation.
+The full path to the pdb file has to be passed, as well as the full path to the above mentioned special directory structure.</p>
+<p>First:
+Define variables needed later:</p>
+<p>Second:
+Initializing the NameChecker class will store the name of the pdb file and output path.
+This class is usually initialized when by the FileConverter class, but if you have the necessairy files you do not need to call the FileConverter class at all.</p>
+<p>Third:
+Surface is a class that handles all plotting related to surfaces. This includes basic surface visualization as well as the surface properties.</p>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="example1.html" class="btn btn-neutral float-left" title="Example 1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="authors.html" class="btn btn-neutral float-right" title="Contact and motivation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

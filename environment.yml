@@ -1,0 +1,6 @@
+name: my-rdkit-env
+channels:
+  - defaults
+dependencies:
+  - rdkit
+prefix: /home/kczi/anaconda3/envs/my-rdkit-env

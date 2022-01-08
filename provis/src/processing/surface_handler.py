@@ -13,9 +13,9 @@ from subprocess import PIPE, Popen
 import open3d as o3d
 
 from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh, fix_trimesh
-from provis.utils.name_checker import NameChecker
-from provis.src.processing.data_handler import DataHandler
 from provis.utils.surface_feat import compute_surface_features
+from provis.src.processing.name_checker import NameChecker
+from provis.src.processing.data_handler import DataHandler
 
 class SurfaceHandler:
     """

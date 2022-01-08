@@ -28,6 +28,10 @@ def main():
     """
     nc = NameChecker(name, base_path)
     
+    """
+    Third:
+    Surface is a class that handles all plotting related to surfaces. This includes basic surface visualization as well as the surface properties.
+    """
     s = Surface(dens=density)
     s.plot_surface()    
     s.plot_hydrophob()

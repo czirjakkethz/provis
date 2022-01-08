@@ -24,9 +24,15 @@ You can find `installation instructions <setup.html>`_ as well as the documentat
    :maxdepth: 3
    :caption: Documentation:
 
-   main
    provis
 
+.. toctree::
+   :maxdepth: 3
+   :caption: Examples:
+   
+   example1
+   example2
+   
 .. toctree::
    :maxdepth: 2
    :caption: Author(s)

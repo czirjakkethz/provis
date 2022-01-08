@@ -1,8 +1,10 @@
 provis.src.plotting package
 ===========================
 
-Submodules
-----------
+The plotting package includes the two classes that handle plotting.
+
+One can simply call the member functions of these classes to plot and everything will be done automatically.
+
 
 provis.src.plotting.structure module
 ------------------------------------
