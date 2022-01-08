@@ -1,5 +1,8 @@
-Source code
+provis.src package
 ==================
+
+Subpackages
+-----------
 
 .. toctree::
    :maxdepth: 4

@@ -28,6 +28,7 @@ class DataHandler:
         :param type: str
         """
         self._path, self._out_path, self._base_path = NameChecker.return_all()
+        
         parser = PDBParser()
         file_name = self._path + ".pdb"
         self._structure = parser.get_structure(self._path, file_name)
@@ -46,7 +47,7 @@ class DataHandler:
             "ILE": '#0CAFF9', "LEU": '#806769', "LYS": '#8B7928', "MET": '#68D139', "PHE": '#8BA695',
             "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D',
             "VAL": '#128033', "HOH": 'w', "HEM": 'r'}
-        self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(1)
+        self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(self._base_path, 1)
         self.get_backbone_mesh()
 
 
@@ -363,11 +364,12 @@ class DataHandler:
         """
         fname = self._out_path + ".mol2"
 
-        # Check if mol2 file exists. If not convert it from pdb
-        file_exists = exists(fname)
-        fc = FileConverter()
-        if not file_exists:
-            fc.pdb_to_mol2(self._path)
+        # # Check if mol2 file exists. If not convert it from pdb
+        # file_exists = exists(fname)
+        # fc = FileConverter()
+        # fc.pdb_to_mol2(self._path, self._out_path)
+        # if not file_exists:
+        #     fc.pdb_to_mol2(self._path, self._out_path)
         pmol = PandasMol2().read_mol2(fname)
         bonds_in = bond_parser(fname)
 

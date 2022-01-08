@@ -16,7 +16,7 @@ class Surface:
     Choose between the two by setting the msms Boolean variable (True corresponding to the MSMS binary option is default)
     
     """
-    def __init__(self, dens=None, msms=False):
+    def __init__(self, dens=None, msms=False, notebook=False):
         """
         Initialize Surface class with given filename. Creates internal data structures; a DataHandler to extract basic surface information and stores it in self._atmsurf (this is a list of Spheres for each atom roughly equating the Van-der-Waals radius).
         
@@ -24,12 +24,17 @@ class Surface:
         :param type: bool, optional
         :param name: dens - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
         :param type: float, optional
+        :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
+        :param type: bool, optional 
         """
         self._path, self._out_path, self._base_path = NameChecker.return_all()
         if dens:
             self._density = dens
         self._sh = SurfaceHandler(dens=dens)
         self._msms = msms
+        self._notebook = notebook
+        self._shading = not self._notebook
+
 
     def plot_surface(self, outname=None, feature=None, patch=None):
         """
@@ -43,11 +48,11 @@ class Surface:
         mesh, cas = self._sh.return_mesh_and_color(self._msms, feature, patch)
         
         #plot
-        pl = pv.Plotter(lighting=None)
+        pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
 
-        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=True, show_edges=False)
+        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
         # pl.add_mesh(mesh, color="white", smooth_shading=True, style=style, show_edges=False)        
         
         # save a screenshot
@@ -69,8 +74,8 @@ class Surface:
         mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="hydrophob")
 
         # plot surface with feature visualization
-        pl = pv.Plotter()
-        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=True, show_edges=False)
+        pl = pv.Plotter(notebook=self._notebook)
+        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
         pl.background_color = 'grey'
         pl.camera_position = 'xy'
         
@@ -94,8 +99,8 @@ class Surface:
         mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="shape")
 
         # plot surface with feature visualization
-        pl = pv.Plotter()
-        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=True, show_edges=False)
+        pl = pv.Plotter(notebook=self._notebook)
+        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
         pl.background_color = 'grey'
         pl.camera_position = 'xy'
         
@@ -119,8 +124,8 @@ class Surface:
         mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="charge")
 
         # plot surface with feature visualization
-        pl = pv.Plotter()
-        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=True, show_edges=False)
+        pl = pv.Plotter(notebook=self._notebook)
+        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
         pl.background_color = 'grey'
         pl.camera_position = 'xy'
         

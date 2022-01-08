@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Utilities for provis" href="provis.utils.html" />
+    <link rel="next" title="provis.utils package" href="provis.utils.html" />
     <link rel="prev" title="provis.src.plotting package" href="provis.src.plotting.html" /> 
 </head>
 
@@ -45,21 +45,16 @@
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="provis.html">Provis</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="provis.src.html">Source code</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="provis.src.plotting.html">provis.src.plotting package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">provis.src.processing package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.data_handler">provis.src.processing.data_handler module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.file_converter">provis.src.processing.file_converter module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.residue">provis.src.processing.residue module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.surface_handler">provis.src.processing.surface_handler module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing">Module contents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="provis.html">provis package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="provis.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="provis.src.html">provis.src package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="provis.src.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provis.src.html#module-provis.src">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="provis.src.html#module-provis.src">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="provis.utils.html">provis.utils package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="provis.utils.html">Utilities for provis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
 </ul>
 </li>
@@ -83,8 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="provis.html">Provis</a> &raquo;</li>
-          <li><a href="provis.src.html">Source code</a> &raquo;</li>
+          <li><a href="provis.html">provis package</a> &raquo;</li>
+          <li><a href="provis.src.html">provis.src package</a> &raquo;</li>
       <li>provis.src.processing package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/provis.src.processing.rst.txt" rel="nofollow"> View page source</a>
@@ -97,6 +92,9 @@
              
   <section id="provis-src-processing-package">
 <h1>provis.src.processing package<a class="headerlink" href="#provis-src-processing-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
 <section id="module-provis.src.processing.data_handler">
 <span id="provis-src-processing-data-handler-module"></span><h2>provis.src.processing.data_handler module<a class="headerlink" href="#module-provis.src.processing.data_handler" title="Permalink to this headline"></a></h2>
 <dl class="py class">
@@ -187,12 +185,35 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_backbone_mesh">
+<span class="sig-name descname"><span class="pre">get_backbone_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_backbone_mesh" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and returns a Spline object representing the backbone of the protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>numpy.ndarray - List of coordinates representing the centre of mass of each residue. To be used in stick_point to create a Spline.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_bond_mesh">
 <span class="sig-name descname"><span class="pre">get_bond_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_bond_mesh" title="Permalink to this definition"></a></dt>
-<dd><p>Determine bonds from 3D information</p>
+<dd><p>Determine bonds from 3D information.</p>
+<dl class="simple">
+<dt>The color information is as follows:</dt><dd><p>White for all single bonds, 
+Blue for all double bonds,
+Green for all triple bonds,
+Red for all amide bonds,
+Purple for all aromatic bonds,
+Black for everything else.</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>list - List of pyvista lines representing each bond.</p>
+</dd>
+<dt class="field-even">Retrun</dt>
+<dd class="field-even"><p>list - List of colors corresponding to the lines in the above list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -270,7 +291,7 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <span id="provis-src-processing-file-converter-module"></span><h2>provis.src.processing.file_converter module<a class="headerlink" href="#module-provis.src.processing.file_converter" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to create and destroy necessary files required in other parts of code.
 It has a bunch of classmethod functions to call the binaries and scripts to convert the files.</p>
@@ -554,7 +575,7 @@ If you could not download the MSMS binary leave this variable false and you will
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="provis.src.plotting.html" class="btn btn-neutral float-left" title="provis.src.plotting package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="provis.utils.html" class="btn btn-neutral float-right" title="Utilities for provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="provis.utils.html" class="btn btn-neutral float-right" title="provis.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

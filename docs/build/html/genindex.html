@@ -42,7 +42,7 @@
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">provis package</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -182,6 +182,8 @@
 </li>
       <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_atoms_IDs">get_atoms_IDs() (provis.src.processing.data_handler.DataHandler method)</a>
 </li>
+      <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_backbone_mesh">get_backbone_mesh() (provis.src.processing.data_handler.DataHandler method)</a>
+</li>
       <li><a href="provis.src.processing.html#provis.src.processing.data_handler.DataHandler.get_bond_mesh">get_bond_mesh() (provis.src.processing.data_handler.DataHandler method)</a>
 </li>
       <li><a href="provis.src.processing.html#provis.src.processing.residue.Residue.get_res_info">get_res_info() (provis.src.processing.residue.Residue method)</a>
@@ -228,30 +230,19 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    main
-
-      <ul>
-        <li><a href="main.html#module-main">module</a>
-</li>
-      </ul></li>
-      <li><a href="main.html#main.main">main() (in module main)</a>
-</li>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.stick_point.StickPoint.manual_plot">manual_plot() (provis.src.plotting.stick_point.StickPoint method)</a>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.manual_plot">manual_plot() (provis.src.plotting.structure.Structure method)</a>
 </li>
       <li>
     module
 
       <ul>
-        <li><a href="main.html#module-main">main</a>
-</li>
         <li><a href="provis.html#module-provis">provis</a>
 </li>
         <li><a href="provis.src.html#module-provis.src">provis.src</a>
 </li>
         <li><a href="provis.src.plotting.html#module-provis.src.plotting">provis.src.plotting</a>
 </li>
-        <li><a href="provis.src.plotting.html#module-provis.src.plotting.stick_point">provis.src.plotting.stick_point</a>
+        <li><a href="provis.src.plotting.html#module-provis.src.plotting.structure">provis.src.plotting.structure</a>
 </li>
         <li><a href="provis.src.plotting.html#module-provis.src.plotting.surface">provis.src.plotting.surface</a>
 </li>
@@ -326,11 +317,13 @@
 </li>
       <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn">pdb_to_xyzrn() (provis.src.processing.file_converter.FileConverter class method)</a>
 </li>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.stick_point.StickPoint.plot">plot() (provis.src.plotting.stick_point.StickPoint method)</a>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot">plot() (provis.src.plotting.structure.Structure method)</a>
 </li>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.stick_point.StickPoint.plot_atoms">plot_atoms() (provis.src.plotting.stick_point.StickPoint method)</a>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_atoms">plot_atoms() (provis.src.plotting.structure.Structure method)</a>
 </li>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.stick_point.StickPoint.plot_bonds">plot_bonds() (provis.src.plotting.stick_point.StickPoint method)</a>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_backbone">plot_backbone() (provis.src.plotting.structure.Structure method)</a>
+</li>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_bonds">plot_bonds() (provis.src.plotting.structure.Structure method)</a>
 </li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.surface.Surface.plot_charge">plot_charge() (provis.src.plotting.surface.Surface method)</a>
 </li>
@@ -338,11 +331,11 @@
 </li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.surface.Surface.plot_shape">plot_shape() (provis.src.plotting.surface.Surface method)</a>
 </li>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.stick_point.StickPoint.plot_stick_point">plot_stick_point() (provis.src.plotting.stick_point.StickPoint method)</a>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_stick_point">plot_stick_point() (provis.src.plotting.structure.Structure method)</a>
 </li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.surface.Surface.plot_surface">plot_surface() (provis.src.plotting.surface.Surface method)</a>
 </li>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.stick_point.StickPoint.plot_vw">plot_vw() (provis.src.plotting.stick_point.StickPoint method)</a>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_vw">plot_vw() (provis.src.plotting.structure.Structure method)</a>
 </li>
       <li><a href="provis.utils.html#provis.utils.surface_utils.prepare_trimesh">prepare_trimesh() (in module provis.utils.surface_utils)</a>
 </li>
@@ -368,10 +361,10 @@
 </li>
       </ul></li>
       <li>
-    provis.src.plotting.stick_point
+    provis.src.plotting.structure
 
       <ul>
-        <li><a href="provis.src.plotting.html#module-provis.src.plotting.stick_point">module</a>
+        <li><a href="provis.src.plotting.html#module-provis.src.plotting.structure">module</a>
 </li>
       </ul></li>
       <li>
@@ -491,9 +484,9 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.stick_point.StickPoint">StickPoint (class in provis.src.plotting.stick_point)</a>
-</li>
       <li><a href="provis.utils.html#provis.utils.str2bool">str2bool() (in module provis.utils)</a>
+</li>
+      <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure">Structure (class in provis.src.plotting.structure)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>

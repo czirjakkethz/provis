@@ -13,7 +13,7 @@ class FileConverter():
     """
     
     _base_path = ""
-    def __init__(self, name=None, dens=None, solv=0, bash=0, base_path=None):
+    def __init__(self, name=None, dens=None, solv=0, base_path=None):
         """
         Can be constructed empty. If called with arguments conversions instant. Creates xyzr and mol2 files in every case and face and vert files if msms binary exists.
 
@@ -22,18 +22,14 @@ class FileConverter():
         :param type: float, optional
         :param name: solv - set to True if you want to plot solvent atoms as well. Default: False.
         :param type: bool, optional
-        :param name: bash - set to True if you want to run binary version of pdb_to_xyzr (comes with msms). Default: False.
-        :param type: bool, optional
         :param name: base_path - Path to "working directory" according to the rules of NameChecker().
         :param name: dens - Density of triangles. Default: None.
         """
 
         self._solv = solv
-        self._bash = bash
         if name:
             NameChecker(name, base_path)
             self._path, self._out_path, FileConverter._base_path = NameChecker.return_all()
-            print(self._out_path)
             self.pdb_to_mol2(self._path, self._out_path)
             self.pdb_to_pqr(self._path, self._out_path)
             self.pdb_to_xyzrn(self._path, self._out_path)

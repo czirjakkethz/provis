@@ -10,7 +10,7 @@ provis.egg-info/requires.txt
 provis.egg-info/top_level.txt
 provis/src/__init__.py
 provis/src/plotting/__init__.py
-provis/src/plotting/stick_point.py
+provis/src/plotting/structure.py
 provis/src/plotting/surface.py
 provis/src/processing/__init__.py
 provis/src/processing/data_handler.py

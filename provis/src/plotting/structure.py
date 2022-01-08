@@ -3,19 +3,24 @@ import pyvista as pv
 from provis.src.processing.data_handler import DataHandler
 from provis.utils.name_checker import NameChecker
 
-class StickPoint:
+class Structure:
     """
-    The StickPoint class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.
+    The Structure class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.
     """
-    def __init__(self):
+    def __init__(self, notebook=False):
         """
-        Initializes StickPoint class with given filename.
+        Initializes Structure class with given filename.
         Creates internal data structures; a DataHandler class instance and loads all the atomic information required for plotting.
+        
+        :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
+        :param type: bool, optional 
         """
+        self._notebook = notebook
+        self._shading = not self._notebook
+
         self._id, self._name, self._base_path = NameChecker.return_all()
         # create "brain" of plotting class
         self._dh = DataHandler()
-          
         atom_data = self._dh.get_atoms() # second arg: 1 = showsolvent
         ## return list of spheres (meshes) and colors for the spheres
         self._atoms, self._col_a = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
@@ -28,7 +33,7 @@ class StickPoint:
         self._atoms_vw, self._col_vw = self._dh.get_atom_mesh(atom_data, vw=1)
         
 
-    def manual_plot(self, atoms=0, col_a=0, box=0, bonds=0, vw=0, residues=0, col_r=0, res=0, outname=0):
+    def manual_plot(self, atoms=0, col_a=0, box=0, bonds=0, vw=0, residues=0, col_r=0, res=0, bb=0, outname=0):
         """
         Plot stick and point model
         
@@ -48,13 +53,15 @@ class StickPoint:
         :param type: list, optional
         :param name: res - Specified residues will be plotted with a bounding box around them.
         :param type: Residue, optional
+        :param name: bb - List of coordinates describing the back-bone of the protein, default: 0.
+        :param type: bool, optional
         :param name: outname - save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._name}_stick_point.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot
         """
-        # Use 3 lights because it's a bit brighter
-        pl = pv.Plotter(lighting=None)
+        
+        pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
 
@@ -65,7 +72,7 @@ class StickPoint:
             if vw:
                 style='wireframe'
             for j, mesh in enumerate(atoms):
-                pl.add_mesh(mesh, color=col_a[j], opacity=opacity, smooth_shading=True, style=style)
+                pl.add_mesh(mesh, color=col_a[j], opacity=opacity, smooth_shading=self._shading, style=style)
 
         # adding the bonds one at a time
         if bonds != 0:
@@ -91,12 +98,16 @@ class StickPoint:
                 x, y, z = d,d,d
                 pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5)
         
+        
+        if bb:
+            pl.add_mesh(pv.Spline(bb), render_lines_as_tubes=True, smooth_shading=self._shading, line_width=10)
+        
         # save a screenshot
         if not outname:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
-        pl.show(screenshot=outname)
+        pl.show(screenshot=outname, title='Provis')
 
 
     def plot(self, atoms=0, box=0, bonds=0, vw=0, residues=0, res=None, bb=0, outname=0, title=None):
@@ -124,8 +135,7 @@ class StickPoint:
         
         :return: Pyvista.Plotter window - Window with interactive plot
         """
-        # Use 3 lights because it's a bit brighter
-        pl = pv.Plotter(lighting=None)
+        pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
 
@@ -136,10 +146,10 @@ class StickPoint:
             if vw:
                 style='wireframe'
                 for j, mesh in enumerate(self._atoms_vw):
-                    pl.add_mesh(mesh, color=self._col_vw[j], opacity=opacity, smooth_shading=True, style=style)
+                    pl.add_mesh(mesh, color=self._col_vw[j], opacity=opacity, smooth_shading=self._shading, style=style)
             else:
                 for j, mesh in enumerate(self._atoms):
-                    pl.add_mesh(mesh, color=self._col_a[j], opacity=opacity, smooth_shading=True, style=style)
+                    pl.add_mesh(mesh, color=self._col_a[j], opacity=opacity, smooth_shading=self._shading, style=style)
 
         # adding the bonds one at a time
         if bonds == 1:
@@ -170,7 +180,7 @@ class StickPoint:
                 res_name = residues_list[r + 1].get_resname()
                 d = (self._dh._res_size_dict[res_name] + pad) * 2
                 x, y, z = d,d,d
-                pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5)
+                pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading)
 
         if bb:
             bb_mesh = self._dh.get_backbone_mesh()
@@ -180,6 +190,7 @@ class StickPoint:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
+            
             
         pl.show(screenshot=outname, title=title)
 

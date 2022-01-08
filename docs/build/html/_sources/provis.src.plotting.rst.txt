@@ -1,11 +1,13 @@
 provis.src.plotting package
 ===========================
 
+Submodules
+----------
 
-provis.src.plotting.stick\_point module
----------------------------------------
+provis.src.plotting.structure module
+------------------------------------
 
-.. automodule:: provis.src.plotting.stick_point
+.. automodule:: provis.src.plotting.structure
    :members:
    :undoc-members:
    :show-inheritance:

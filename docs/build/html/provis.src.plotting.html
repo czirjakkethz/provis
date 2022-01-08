@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="provis.src.processing package" href="provis.src.processing.html" />
-    <link rel="prev" title="Source code" href="provis.src.html" /> 
+    <link rel="prev" title="provis.src package" href="provis.src.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,19 +45,16 @@
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="main.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="provis.html">Provis</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="provis.src.html">Source code</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">provis.src.plotting package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.plotting.stick_point">provis.src.plotting.stick_point module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.plotting.surface">provis.src.plotting.surface module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.plotting">Module contents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="provis.html">provis package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="provis.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="provis.src.html">provis.src package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="provis.src.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="provis.src.html#module-provis.src">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="provis.src.processing.html">provis.src.processing package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="provis.src.html#module-provis.src">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="provis.utils.html">provis.utils package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="provis.utils.html">Utilities for provis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="provis.html#module-provis">Module contents</a></li>
 </ul>
 </li>
@@ -81,8 +78,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="provis.html">Provis</a> &raquo;</li>
-          <li><a href="provis.src.html">Source code</a> &raquo;</li>
+          <li><a href="provis.html">provis package</a> &raquo;</li>
+          <li><a href="provis.src.html">provis.src package</a> &raquo;</li>
       <li>provis.src.plotting package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/provis.src.plotting.rst.txt" rel="nofollow"> View page source</a>
@@ -95,16 +92,19 @@
              
   <section id="provis-src-plotting-package">
 <h1>provis.src.plotting package<a class="headerlink" href="#provis-src-plotting-package" title="Permalink to this headline"></a></h1>
-<section id="module-provis.src.plotting.stick_point">
-<span id="provis-src-plotting-stick-point-module"></span><h2>provis.src.plotting.stick_point module<a class="headerlink" href="#module-provis.src.plotting.stick_point" title="Permalink to this headline"></a></h2>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-provis.src.plotting.structure">
+<span id="provis-src-plotting-structure-module"></span><h2>provis.src.plotting.structure module<a class="headerlink" href="#module-provis.src.plotting.structure" title="Permalink to this headline"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.stick_point.</span></span><span class="sig-name descname"><span class="pre">StickPoint</span></span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.structure.</span></span><span class="sig-name descname"><span class="pre">Structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The StickPoint class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.</p>
+<p>The Structure class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.manual_plot">
-<span class="sig-name descname"><span class="pre">manual_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.manual_plot" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.manual_plot">
+<span class="sig-name descname"><span class="pre">manual_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.manual_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plot stick and point model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -125,6 +125,8 @@
 <li><p><strong>type</strong> – list, optional</p></li>
 <li><p><strong>name</strong> – res - Specified residues will be plotted with a bounding box around them.</p></li>
 <li><p><strong>type</strong> – Residue, optional</p></li>
+<li><p><strong>name</strong> – bb - List of coordinates describing the back-bone of the protein, default: 0.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._name}_stick_point.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>
 </ul>
@@ -136,8 +138,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plot stick and point model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -146,14 +148,16 @@
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – bonds, optional - Plot bond, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – bonds, optional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
 <li><p><strong>name</strong> – vw - Plot Wan-der-Waals radii instead of atomic radii.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – residues, optional - Plot residue, default: 0.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
 <li><p><strong>type</strong> – Residue, optional</p></li>
+<li><p><strong>name</strong> – bb - If True backbone of protein is plotted. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>
 <li><p><strong>name</strong> – title - Title of the plot window. Defaults to None.</p></li>
@@ -167,8 +171,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_atoms">
-<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_atoms" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_atoms">
+<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_atoms" title="Permalink to this definition"></a></dt>
 <dd><p>Plot stick and point model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -188,13 +192,13 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_bonds">
-<span class="sig-name descname"><span class="pre">plot_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_bonds" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_backbone">
+<span class="sig-name descname"><span class="pre">plot_backbone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_backbone" title="Permalink to this definition"></a></dt>
 <dd><p>Plot bonds only</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
+<li><p><strong>name</strong> – box - If True bounding box also visualized, default: 0.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
 <li><p><strong>type</strong> – Residue, optional</p></li>
@@ -209,8 +213,31 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_stick_point">
-<span class="sig-name descname"><span class="pre">plot_stick_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_stick_point" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_bonds">
+<span class="sig-name descname"><span class="pre">plot_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">colorful</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_bonds" title="Permalink to this definition"></a></dt>
+<dd><p>Plot bonds only</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – colorful - If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – box - If True bounding box also visualized, default: 0.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
+<li><p><strong>type</strong> – Residue, optional</p></li>
+<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p></li>
+<li><p><strong>type</strong> – string, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_stick_point">
+<span class="sig-name descname"><span class="pre">plot_stick_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_stick_point" title="Permalink to this definition"></a></dt>
 <dd><p>Plot stick and point model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -230,8 +257,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.plotting.stick_point.StickPoint.plot_vw">
-<span class="sig-name descname"><span class="pre">plot_vw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.stick_point.StickPoint.plot_vw" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_vw">
+<span class="sig-name descname"><span class="pre">plot_vw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_vw" title="Permalink to this definition"></a></dt>
 <dd><p>Plot Van-der-Waals atoms</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -257,7 +284,7 @@
 <span id="provis-src-plotting-surface-module"></span><h2>provis.src.plotting.surface module<a class="headerlink" href="#module-provis.src.plotting.surface" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.surface.</span></span><span class="sig-name descname"><span class="pre">Surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.surface.</span></span><span class="sig-name descname"><span class="pre">Surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The Surface class is used to visualize the surface information of the given molecule.</p>
 <p>All member functions of the class are a “two in one” function:
@@ -344,7 +371,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="provis.src.html" class="btn btn-neutral float-left" title="Source code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="provis.src.html" class="btn btn-neutral float-left" title="provis.src package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="provis.src.processing.html" class="btn btn-neutral float-right" title="provis.src.processing package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
