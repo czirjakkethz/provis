@@ -3,7 +3,7 @@
 Welcome to the repository of Provis - a python based protein visualization library.
 
 The easiest way to install is with ``` pip install provis ```, but the library has a few dependencies that have to be installed seperately.
-Please visit the  [documentation]() for [installation instructions]() or continue reading below.
+Please visit the  [documentation](https://pro-vis.readthedocs.io/en/latest/) for [installation instructions](https://pro-vis.readthedocs.io/en/latest/req.html) or continue reading below.
 
 Requirements for Provis
 =========================
