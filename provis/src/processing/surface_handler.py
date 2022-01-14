@@ -25,7 +25,7 @@ class SurfaceHandler:
     Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.    
     """
   
-    def __init__(self, dens=None):
+    def __init__(self, nc, dh=None, dens=None):
         """
         Initializes SurfaceHandler class memeber variables: 
         _dh: DataHandler - needed for native mesh creation
@@ -36,13 +36,19 @@ class SurfaceHandler:
         _mesh: Mesh - Surface mesh of protein
         _col: numpy.ndarray - Coloring map of surface. To be passed to pyvista.PolyData.add_mesh(scalars=).
 
+        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
+        :param type: NameChecker
+        :param name: dh - Instance of a DataHandler class. Used to retrieve atom-positional information when calculating the surface of the protein natively. Default: None. If None a new DataHandler variable will be initialized with "nc".
+        :param type: DataHandler, optional
         :param name: dens - Density needed for msms. Defaults to None.
         :param type: float, optional
         """
-        self._dh = DataHandler()
-        self._path, self._out_path, self._base_path = NameChecker.return_all()
-        if dens:
-            self._density = dens
+        if not dh:
+            self._dh = DataHandler(nc)
+        else:
+            self._dh = dh
+        self._path, self._out_path, self._base_path = nc.return_all()
+        self._density = dens
         self._features = None
         self._mesh = None
         self._col = None

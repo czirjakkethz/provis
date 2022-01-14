@@ -20,14 +20,14 @@ class DataHandler:
     This class loads information from a variety of files and creates meshes to be plotted. 
     Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.
     """
-    def __init__(self):
+    def __init__(self, nc):
         """
         Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein. Load all size and color helper dictionaries.
         
-        :param name: name - Name of file to be loaded. Passed to name_checker.check_name() to get usable paths.
-        :param type: str
+        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
+        :param type: NameChecker
         """
-        self._path, self._out_path, self._base_path = NameChecker.return_all()
+        self._path, self._out_path, self._base_path = nc.return_all()
         
         parser = PDBParser()
         file_name = self._path + ".pdb"

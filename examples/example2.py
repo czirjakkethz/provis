@@ -1,7 +1,7 @@
 """
 This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
-from provis.utils.name_checker import NameChecker
+from provis.src.processing.name_checker import NameChecker
 from provis.src.processing.residue import Residue
 from provis.src.plotting.surface import Surface
 
@@ -15,7 +15,7 @@ def main():
     First:
     Define variables needed later:
     """
-    name = "/home/kczi/Documents/provis/data/pdb/selected_prediction"
+    name = "/home/kczi/Documents/provis/data/pdb/2fd7"
     base_path='/home/kczi/Documents/provis/'
     density = 3.0
     solvent = 0
@@ -32,7 +32,7 @@ def main():
     Third:
     Surface is a class that handles all plotting related to surfaces. This includes basic surface visualization as well as the surface properties.
     """
-    s = Surface(dens=density)
+    s = Surface(nc, dens=density)
     s.plot_surface()    
     s.plot_hydrophob()
     s.plot_shape()

@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Source code" href="provis.html" />
+    <link rel="next" title="How to use Provis" href="tutorial.html" />
     <link rel="prev" title="Requirements for Provis" href="req.html" /> 
 </head>
 
@@ -41,6 +41,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up Provis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#binaries">Binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binaries-directory">Binaries directory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-environment-variables">Setting environment variables</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#directory-structure">Directory structure</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#easy-option">Easy option</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#more-versitile-option">More versitile option</a><ul>
@@ -52,10 +57,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="provis.html">Source code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
 <ul>
@@ -92,22 +98,53 @@
            <div itemprop="articleBody">
              
   <section id="setting-up-provis">
-<h1>Setting up Provis<a class="headerlink" href="#setting-up-provis" title="Permalink to this headline"></a></h1>
-<p>Once you have every library installed, binary downloaded and of course provis installed (either pip or with the setup.py in the root directory) you will need to create a directory structure where provis feels at home. When this is set up you are ready to use provis and run it from anywhere.</p>
+<span id="setup"></span><h1>Setting up Provis<a class="headerlink" href="#setting-up-provis" title="Permalink to this headline"></a></h1>
+<p>Once you have every library installed, binary downloaded - and of course provis installed (either pip or with the setup.py in the root directory) - you will need to create an environment where provis feels at home. When this is set up you are ready to use provis and run it from anywhere.</p>
+<section id="binaries">
+<h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
+<p>After installing the binaries you can either set environment variables to specify the path or you can manually move the binaries to where provis can find them.</p>
+<section id="binaries-directory">
+<h3>Binaries directory<a class="headerlink" href="#binaries-directory" title="Permalink to this headline"></a></h3>
+<p>If you are running Ubuntu (20.04.3 LTS) and installed provis by cloning the github repository then you are all set.</p>
+<p>Otherwise you should move your binary files to the ‘binaries’ directory as explained below ::refMore versitile option.</p>
+</section>
+<section id="setting-environment-variables">
+<h3>Setting environment variables<a class="headerlink" href="#setting-environment-variables" title="Permalink to this headline"></a></h3>
+<p>Alternatively you can simply set the environment variables to point to the binary files.</p>
+<p>You should set MSMS_BIN, PDB2PQR_BIN and APBS_BIN to the location where the appropriate binary files are located.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">MSMS_BIN</span><span class="o">=</span><span class="s1">&#39;/home/username/Downloads/msms&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="directory-structure">
 <h2>Directory structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline"></a></h2>
-<p>You will need a directory with a specific folder structure.
-This way your directories will remain uncluttered and it makes it easy to create a pipline around provis.</p>
-<p>The directories are needed as some parts of file loading is hard coded in provis and if the directory structure is not present errors will occur.</p>
+<p>In order to keep your directories uncluttered and make it easy to create a pipline, provis requires a specific directory structure.See below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>provis
+   ├── data
+   │   ├── data/
+   │   ├── pdb/
+   │   ├── img/
+   │   └── tmp/
+   └── binaries
+       ├── apbs
+       ├── msms
+       └── pdb2pqr
+            └── pdb2pqr
+</pre></div>
+</div>
+<p>The directories are needed as some parts of file loading is hard coded so if the directory structure is not present errors will occur.</p>
 <section id="easy-option">
 <h3>Easy option<a class="headerlink" href="#easy-option" title="Permalink to this headline"></a></h3>
-<p>The easiest is if you clone provis from <a class="reference external" href="https://github.com/czirjakkethz/provis">github</a> and simply use this github directory as your base directory.</p>
+<p>If you clone provis from <a class="reference external" href="https://github.com/czirjakkethz/provis">github</a> and simply use this (provis) git directory as your base directory.</p>
 </section>
 <section id="more-versitile-option">
 <h3>More versitile option<a class="headerlink" href="#more-versitile-option" title="Permalink to this headline"></a></h3>
-<p>You will need a data/ and (potentially) a binaries/ directory as well.</p>
+<p>You will need to create a data/ and (potentially) a binaries/ directory within your root directory.</p>
 <blockquote>
-<div><p>– If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed, but otherwise it is and the binaries from the Requirements section will all have to be copied into there. –</p>
+<div><p>– If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed. Otherwise the binaries from the Requirements
+<a class="reference internal" href="req.html#req"><span class="std std-ref">Requirements for Provis</span></a> section will all have to be copied into the binaries/ directory. –</p>
 </div></blockquote>
 <section id="the-data-directory-needs-the-following-subdirectiories">
 <h4>The data/ directory needs the following subdirectiories:<a class="headerlink" href="#the-data-directory-needs-the-following-subdirectiories" title="Permalink to this headline"></a></h4>
@@ -128,6 +165,7 @@ This way your directories will remain uncluttered and it makes it easy to create
 ├── apbs
 ├── msms
 └── pdb2pqr
+     └── pdb2pqr
 </pre></div>
 </div>
 <p>Where apbs and msms are executables/binaries and the pdb2pqr is the directory downloaded from the official website, containing the pdb2pqr binary.</p>
@@ -141,7 +179,7 @@ This way your directories will remain uncluttered and it makes it easy to create
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="req.html" class="btn btn-neutral float-left" title="Requirements for Provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="provis.html" class="btn btn-neutral float-right" title="Source code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="How to use Provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -5,16 +5,13 @@ import provis
 class NameChecker:
     """
     The point of this class is to provide uniform naming and path locations to all the other classes of provis.
-    NameChecker has class variables and a class method to return these variables. 
+    NameChecker has internal variables and a method to return these variables. 
     
     Variables: 
-    pdb_name - Full path to the pdb file without the .pdb extension. Usually PROVIS_PATH/data/pdb/{pdb_id}.
-    out_path - Full path to the temporary files. The names of all temporary files are derived from this variable. Usually PROVIS_PATH/data/tmp/{pdb_id}.
-    base_path - Full path of the provis directory or any directory that has the following directory structure within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb. 
+    self._pdb_name - Full path to the pdb file without the .pdb extension. Usually PROVIS_PATH/data/pdb/{pdb_id}.
+    self._out_path - Full path to the temporary files. The names of all temporary files are derived from this variable. Usually PROVIS_PATH/data/tmp/{pdb_id}.
+    self._base_path - Full path of the provis directory or any directory that has the following directory structure within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb. 
     """
-    pdb_name = ""
-    out_path = ""
-    base_path = ""
     
     def __init__(self, name, base_path: str=None):
         """
@@ -33,6 +30,8 @@ class NameChecker:
             path = os.getcwd() #path.dirname(provis.__file__)
             # path points to provis/provis, we only want provis/
             base_path = path #[0:-6]
+            if base_path.split("/")[-1] == "examples":
+                base_path = base_path[0:-8]
             
         if base_path[-1] != "/":
             base_path += "/"
@@ -56,12 +55,11 @@ class NameChecker:
 
         out_path = base_path + "data/tmp/" 
         out_path += id 
-        NameChecker.pdb_name = name 
-        NameChecker.out_path = out_path
-        NameChecker.base_path = base_path
+        self._pdb_name = name 
+        self._out_path = out_path
+        self._base_path = base_path
     
-    @classmethod
-    def return_all(cls):
+    def return_all(self):
         """
         Return all class variables.
         
@@ -70,4 +68,4 @@ class NameChecker:
         :return: str - path to the root of the provis directory. Following file structure HAS TO exist within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.
         """
         
-        return NameChecker.pdb_name, NameChecker.out_path, NameChecker.base_path
+        return self._pdb_name, self._out_path, self._base_path

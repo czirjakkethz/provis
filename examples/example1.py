@@ -4,7 +4,7 @@ This file was created by Kristof Czirjak as part of his Bachelor's Thesis - prov
 from provis.src.processing.file_converter import FileConverter
 from provis.src.processing.residue import Residue
 from provis.src.plotting.structure import Structure
-from provis.src.plotting.surface import Surface
+from provis.src.processing.name_checker import NameChecker
 
 def main():
     """
@@ -18,10 +18,9 @@ def main():
     First:
     Define variables needed later:
     """
-    name = "selected_prediction"
+    name = "2fd7"
     density = 3.0
     solvent = 0
-    bash = 0
     
     """
     Second:
@@ -30,13 +29,14 @@ def main():
     
     The FileConverter class also initializes the NameChecker class, thus storing the name of the pdb file and output path to be used globally.
     """
-    fc = FileConverter(name, density, solvent, bash)
+    nc = NameChecker(name)
+    fc = FileConverter(nc, density, solvent) 
     
     """
     Third:
     Structure is a class that handles all plotting not related to surfaces. This includes simple stick and point plots, the visualization of the bonds or the backbone of the protein.
     """
-    sp = Structure()
+    sp = Structure(nc)
     sp.plot_backbone()
     sp.plot_atoms()
     sp.plot_bonds()
@@ -54,7 +54,7 @@ def main():
     It is worth to mention however, that sometimes it is worth to keep the temporary files if you want to visualize this protein later on.
     If you keep the temporary files they will not have to be computed again and visualization will be quicker.
     """
-    fc.cleanup(delete_img=0)
+    # fc.cleanup(delete_img=0)
 
 if __name__ == "__main__":
     main()

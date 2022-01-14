@@ -18,6 +18,7 @@ You can find `installation instructions <setup.html>`_ as well as the documentat
    
    req
    setup
+   tutorial
 
 
 .. toctree::

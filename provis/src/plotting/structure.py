@@ -7,20 +7,27 @@ class Structure:
     """
     The Structure class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.
     """
-    def __init__(self, notebook=False):
+    def __init__(self, nc, dh=None, notebook=False):
         """
         Initializes Structure class with given filename.
         Creates internal data structures; a DataHandler class instance and loads all the atomic information required for plotting.
         
+        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
+        :param type: NameChecker
+        :param name: dh - Instance of a DataHandler class. Used to retrieve atom-positional information. Default: None. If None a new DataHandler variable will be initialized with "nc".
+        :param type: DataHandler, optional
         :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
         :param type: bool, optional 
         """
         self._notebook = notebook
         self._shading = not self._notebook
 
-        self._id, self._name, self._base_path = NameChecker.return_all()
+        self._id, self._name, self._base_path = nc.return_all()
         # create "brain" of plotting class
-        self._dh = DataHandler()
+        if not dh:
+            self._dh = DataHandler(nc)
+        else:
+            self._dh = dh
         atom_data = self._dh.get_atoms() # second arg: 1 = showsolvent
         ## return list of spheres (meshes) and colors for the spheres
         self._atoms, self._col_a = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius

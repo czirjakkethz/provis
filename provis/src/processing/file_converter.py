@@ -12,35 +12,33 @@ class FileConverter():
     However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.
     """
     
-    _base_path = ""
-    def __init__(self, name=None, dens=None, solv=0, base_path=None):
+    def __init__(self, nc, density=None, plot_solv=0):
         """
         Can be constructed empty. If called with arguments conversions instant. Creates xyzr and mol2 files in every case and face and vert files if msms binary exists.
 
-        :param name: name - Name of file to be loaded. Passed to NameChecker() to get usable paths. Default: None.
+        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: str, optional
+        :param name: density - Density of triangles. Default: None.
         :param type: float, optional
-        :param name: solv - set to True if you want to plot solvent atoms as well. Default: False.
+        :param name: plot_solv - set to True if you want to plot solvent atoms as well. Default: False.
         :param type: bool, optional
         :param name: base_path - Path to "working directory" according to the rules of NameChecker().
-        :param name: dens - Density of triangles. Default: None.
+        :param type: str, optional
         """
 
-        self._solv = solv
-        if name:
-            NameChecker(name, base_path)
-            self._path, self._out_path, FileConverter._base_path = NameChecker.return_all()
+        self._solv = plot_solv
+        if nc:
+            self._path, self._out_path, self._base_path = nc.return_all()
             self.pdb_to_mol2(self._path, self._out_path)
             self.pdb_to_pqr(self._path, self._out_path)
             self.pdb_to_xyzrn(self._path, self._out_path)
-        if dens:
-            self._dens = dens
-        if name and dens:
+        if density:
+            self._dens = density
+        if nc and density:
             self.msms(self._out_path, self._dens)
         pass
     
-    @classmethod
-    def pdb_to_xyzrn(cls, path, output):
+    def pdb_to_xyzrn(self, path, output):
         """
         Converts .pdb to .xyzrn file.
         
@@ -62,8 +60,7 @@ class FileConverter():
         else:
             print("xyzrn files already exist. No conversion needed")
         
-    @classmethod
-    def msms(cls, path, dens):
+    def msms(self, path, dens):
         """
         Run the msms binary for given filename.
         
@@ -87,7 +84,7 @@ class FileConverter():
         
         MSMS_BIN = ""
         if not os.path.exists(MSMS_BIN):
-            MSMS_BIN = FileConverter._base_path + 'binaries/msms'
+            MSMS_BIN = self._base_path + 'binaries/msms'
 
         file_base = f"{path}_out_{int(dens * 10)}"
 
@@ -105,8 +102,7 @@ class FileConverter():
         else:
             print("MSMS Binary not found under: ", MSMS_BIN)
             
-    @classmethod
-    def pdb_to_mol2(cls, path, outpath):
+    def pdb_to_mol2(self, path, outpath):
         """
         Run openbabel, to convert pdb to mol2
         
@@ -122,8 +118,7 @@ class FileConverter():
         else:
             print("mol2 file already exist. No conversion needed")
 
-    @classmethod
-    def pdb_to_pqr(cls, path, outpath, forcefield="swanson"):
+    def pdb_to_pqr(self, path, outpath, forcefield="swanson"):
         """
         Run pdb2pqr, to convert pdb to pqr
         
@@ -144,7 +139,7 @@ class FileConverter():
             
         PDB2PQR_BIN = ""
         if not os.path.exists(PDB2PQR_BIN):
-            PDB2PQR_BIN = FileConverter._base_path + "binaries/pdb2pqr/pdb2pqr"
+            PDB2PQR_BIN = self._base_path + "binaries/pdb2pqr/pdb2pqr"
             
         #possibilities: amber, charmm, parse, tyl06, peoepb and swanson
         args = [PDB2PQR_BIN , f"--ff={forcefield}", f"{path}.pdb", f"{outpath}.pqr"]
@@ -161,8 +156,7 @@ class FileConverter():
             print("PDB2PQR Binary not found under: ", PDB2PQR_BIN)
        
 
-    @classmethod
-    def cleanup(cls, delete_img: bool=False):
+    def cleanup(self, delete_img: bool=False):
         """
         Deletes all files from data/tmp (and data/img) directories.
 
@@ -171,10 +165,10 @@ class FileConverter():
         """
 
         import os, shutil
-        tmp = FileConverter._base_path + "data/tmp/"
+        tmp = self._base_path + "data/tmp/"
         folders = [tmp]
         if delete_img:
-            img = FileConverter._base_path + "data/img/"
+            img = self._base_path + "data/img/"
             folders.append(img)
         for folder in folders:
             for filename in os.listdir(folder):
