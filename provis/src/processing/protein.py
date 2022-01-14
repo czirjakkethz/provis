@@ -22,7 +22,7 @@ class Protein:
         :param type: str
         :param name: base_path - Path to the root directory of the required directory structure (see: https://pro-vis.readthedocs.io/en/latest/setup.html#). Only needs to be specified if it is not the current working directory. Default: None.
         :param type: str, optional
-        :param name: density - 
+        :param name: density - Default: 3.0.
         :param type: float, optional
         :param name: solvent - TODO: Default: None.
         :param type: float, optional
