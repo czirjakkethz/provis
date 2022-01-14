@@ -18,25 +18,7 @@ def import_atm_size_info(path, vw=0):
     :return: dict - !optional! return dictionary of vw rdius by atom name
     """
     
-    # _path = os.path.dirname(provis.__file__)
-    # _path points to provis/provis, we only want provis/
-    # path = path[0:-6]
-    
-    
-    filename_size = path + "data/data/atmsize.csv"
-    filename_vw = path + "data/data/atmvw.csv"
-    
-    # opening the file using "with" 
-    # statement
 
-    firstline = []
-    sizedict = {}
-    with open(filename_size, newline='') as data:
-        firstline = data.readline().rstrip().split(",")
-        secondline = data.readline().rstrip().split(",")
-        l = len(firstline)
-        for i in range(0,l):
-            sizedict[firstline[i]] = float(secondline[i])
     sizedict = {'H': 0.53, 
                 'HE': 0.31, 
                 'LI': 1.67, 
@@ -321,19 +303,121 @@ def import_atm_mass_info():
     
     :return: dict - dictionary of atomic mass by atom name
     """
-    path = os.path.dirname(provis.__file__)
-    # path points to provis/provis, we only want provis/
-    base_path = path[0:-6]
     
-    filename_mass = base_path + "data/data/atmmass.csv"
-    
-    firstline = []
-    massdict = {}
-    with open(filename_mass, newline='') as data:
-        firstline = data.readline().rstrip().split(",")
-        secondline = data.readline().rstrip().split(",")
-        l = len(firstline)
-        for i in range(0,l):
-            massdict[firstline[i].upper()] = float(secondline[i])
+    massdict = {'H': 1.00797, 
+                'HE': 4.0026,
+                'LI': 6.941,
+                'BE': 9.01218, 
+                'B': 10.81,
+                'C': 12.011,
+                'N': 14.0067,
+                'O': 15.9994,
+                'F': 18.998403,
+                'NE': 20.179,
+                'NA': 22.98977,
+                'MG': 24.305,
+                'AL': 26.98154,
+                'SI': 28.0855,
+                'P': 30.97376,
+                'S': 32.06,
+                'CL': 35.453,
+                'K': 39.0983,
+                'AR': 39.948,
+                'CA': 40.08,
+                'SC': 44.9559,
+                'TI': 47.9,
+                'V': 50.9415,
+                'CR': 51.996,
+                'MN': 54.938,
+                'FE': 55.847,
+                'NI': 58.7, 
+                'CO': 58.9332, 
+                'CU': 63.546,
+                'ZN': 65.38,
+                'GA': 69.72,
+                'GE': 72.59, 
+                'AS': 74.9216,
+                'SE': 78.96, 
+                'BR': 79.904, 
+                'KR': 83.8, 
+                'RB': 85.4678,
+                'SR': 87.62, 
+                'Y': 88.9059,
+                'ZR': 91.22, 
+                'NB': 92.9064, 
+                'MO': 95.94, 
+                'TC': -98.0, 
+                'RU': 101.07,
+                'RH': 102.9055,
+                'PD': 106.4,
+                'AG': 107.868,
+                'CD': 112.41,
+                'IN': 114.82,
+                'SN': 118.69, 
+                'SB': 121.75, 
+                'I': 126.9045,
+                'TE': 127.6,
+                'XE': 131.3, 
+                'CS': 132.9054,
+                'BA': 137.33, 
+                'LA': 138.9055,
+                'CE': 140.12, 
+                'PR': 140.9077,
+                'ND': 144.24, 
+                'PM': -145.0, 
+                'SM': 150.4, 
+                'EU': 151.96,
+                'GD': 157.25,
+                'TB': 158.9254, 
+                'DY': 162.5, 
+                'HO': 164.9304,
+                'ER': 167.26, 
+                'TM': 168.9342,
+                'YB': 173.04,
+                'LU': 174.967,
+                'HF': 178.49, 
+                'TA': 180.9479,
+                'W': 183.85, 
+                'RE': 186.207,
+                'OS': 190.2, 
+                'IR': 192.22, 
+                'PT': 195.09, 
+                'AU': 196.9665,
+                'HG': 200.59,
+                'TL': 204.37,
+                'PB': 207.2, 
+                'BI': 208.9804,
+                'PO': -209.0,
+                'AT': -210.0, 
+                'RN': -222.0, 
+                'FR': -223.0, 
+                'RA': 226.0254,
+                'AC': 227.0278, 
+                'PA': 231.0359,
+                'TH': 232.0381,
+                'NP': 237.0482,
+                'U': 238.029,
+                'PU': -242.0,
+                'AM': -243.0, 
+                'BK': -247.0, 
+                'CM': -247.0, 
+                'NO': -250.0, 
+                'CF': -251.0, 
+                'ES': -252.0, 
+                'HS': -255.0, 
+                'MT': -256.0, 
+                'FM': -257.0, 
+                'MD': -258.0, 
+                'LR': -260.0, 
+                'RF': -261.0, 
+                'BH': -262.0, 
+                'DB': -262.0, 
+                'SG': -263.0, 
+                'UUN': -269.0,
+                'UUU': -272.0, 
+                'UUB': -277.0, 
+                '—': 0.0,
+                'UUQ': 0.0}
+
 
     return massdict
