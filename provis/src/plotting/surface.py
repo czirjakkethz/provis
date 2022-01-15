@@ -16,7 +16,7 @@ class Surface:
     Choose between the two by setting the msms Boolean variable (True corresponding to the MSMS binary option is default)
     
     """
-    def __init__(self, nc, dens=None, msms=False, notebook=False, dh=None):
+    def __init__(self, nc, sh=None, density=None, msms=False, notebook=False, dh=None):
         """
         Initialize Surface class with given filename. Creates internal data structures; a DataHandler to extract basic surface information and stores it in self._atmsurf (this is a list of Spheres for each atom roughly equating the Van-der-Waals radius).
         
@@ -24,7 +24,7 @@ class Surface:
         :param type: NameChecker
         :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
         :param type: bool, optional
-        :param name: dens - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
+        :param name: density - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
         :param type: float, optional
         :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
         :param type: bool, optional 
@@ -32,9 +32,12 @@ class Surface:
         """
         
         self._path, self._out_path, self._base_path = nc.return_all()
-        if dens:
-            self._density = dens
-        self._sh = SurfaceHandler(nc, dens=dens, dh=dh)
+        if density:
+            self._density = density
+        if not sh:
+            self._sh = SurfaceHandler(nc, density=density, dh=dh)
+        else:
+            self._sh = sh
         self._msms = msms
         self._notebook = notebook
         self._shading = not self._notebook

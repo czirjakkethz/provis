@@ -25,7 +25,7 @@ class SurfaceHandler:
     Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.    
     """
   
-    def __init__(self, nc, dh=None, dens=None):
+    def __init__(self, nc, fc=None, dh=None, density=None):
         """
         Initializes SurfaceHandler class memeber variables: 
         _dh: DataHandler - needed for native mesh creation
@@ -38,17 +38,20 @@ class SurfaceHandler:
 
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
+        :param name: fc - Instance of a FileConverter class. Used to create the necessairy files (face, vert, pqr, ...) if they do not exist yet. Default: None.
+        :param type: FileConverter
         :param name: dh - Instance of a DataHandler class. Used to retrieve atom-positional information when calculating the surface of the protein natively. Default: None. If None a new DataHandler variable will be initialized with "nc".
         :param type: DataHandler, optional
-        :param name: dens - Density needed for msms. Defaults to None.
+        :param name: density - Density needed for msms. Defaults to None.
         :param type: float, optional
         """
         if not dh:
             self._dh = DataHandler(nc)
         else:
             self._dh = dh
+        self._fc = fc
         self._path, self._out_path, self._base_path = nc.return_all()
-        self._density = dens
+        self._density = density
         self._features = None
         self._mesh = None
         self._col = None
@@ -81,6 +84,21 @@ class SurfaceHandler:
 
         # get surface
         pdb_file = self._path + '.pdb'
+        
+        face = self._out_path + '.face'
+        vert = self._out_path + '.vert'
+        face = self._out_path + '.face'
+        from os.path import exists
+        # Check if face file exists. If not convert it from pdb
+        file_exists = exists(face) and exists(vert)
+        print(self._fc)
+        if self._fc:
+            print("hi", file_exists)
+            if not file_exists:
+                self._fc.msms(self._out_path, self._density)
+        else:
+            print("Temporary files were not created! Please instantiate a FileConverter class with parameters.")
+        
         surface = get_surface(self._out_path, density=self._density)
 
         # compute features of surface

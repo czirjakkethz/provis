@@ -1,7 +1,10 @@
+import pyvista
 from provis.src.processing.file_converter import FileConverter
 from provis.src.plotting.structure import Structure
 from provis.src.plotting.surface import Surface
 from provis.src.processing.name_checker import NameChecker
+from provis.src.processing.data_handler import DataHandler
+from provis.src.processing.surface_handler import SurfaceHandler
 
 class Protein:
     """
@@ -28,7 +31,11 @@ class Protein:
         :param name: notebook - Set to True when using running in a Jupyter Notebook environment. Default: False.
         :param type: bool, optional
         """
-        self._name_checker = NameChecker(pdb_name)
-        self._file_converter = FileConverter(self._name_checker, density, plot_solv=plot_solvent) 
-        self.structure = Structure(self._name_checker, dh=None, notebook=notebook)
-        self.surface = Surface(self._name_checker, dens=density, msms=False, notebook=notebook, dh=None)
+        if notebook:
+            pyvista.set_jupyter_backend('panel')
+        self._name_checker = NameChecker(pdb_name, base_path)
+        self._file_converter = FileConverter(self._name_checker)#, density, plot_solv=plot_solvent) 
+        self._data_handler =  DataHandler(self._name_checker, self._file_converter)
+        self._surface_handler = SurfaceHandler( self._name_checker, fc=self._file_converter, dh=self._data_handler, density=density)
+        self.structure = Structure(self._name_checker, dh=self._data_handler, notebook=notebook)
+        self.surface = Surface(self._name_checker, density=density, msms=False, notebook=notebook, dh=None)

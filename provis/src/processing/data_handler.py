@@ -1,3 +1,4 @@
+from os import fchdir
 from Bio.PDB import *
 from Bio import SeqIO
 import pyvista as pv
@@ -20,14 +21,17 @@ class DataHandler:
     This class loads information from a variety of files and creates meshes to be plotted. 
     Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.
     """
-    def __init__(self, nc):
+    def __init__(self, nc, fc=None):
         """
         Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein. Load all size and color helper dictionaries.
         
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
+        :param name: fc - Instance of a FileConverter class. Needed if temporary files have not been created before instantiating this class. Default: None.
+        :param type: FileConverter, optional
         """
         self._path, self._out_path, self._base_path = nc.return_all()
+        self._fc = fc
         
         parser = PDBParser()
         file_name = self._path + ".pdb"
@@ -364,12 +368,14 @@ class DataHandler:
         """
         fname = self._out_path + ".mol2"
 
-        # # Check if mol2 file exists. If not convert it from pdb
-        # file_exists = exists(fname)
-        # fc = FileConverter()
-        # fc.pdb_to_mol2(self._path, self._out_path)
-        # if not file_exists:
-        #     fc.pdb_to_mol2(self._path, self._out_path)
+        # Check if mol2 file exists. If not convert it from pdb
+        file_exists = exists(fname)
+        if self._fc:
+            if not file_exists:
+                self._fc.pdb_to_mol2(self._path, self._out_path)
+        else:
+            print("Temporary files were not created! Please instantiate a FileConverter class with parameters.")
+            
         pmol = PandasMol2().read_mol2(fname)
         bonds_in = bond_parser(fname)
 

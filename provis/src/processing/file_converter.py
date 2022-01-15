@@ -29,9 +29,9 @@ class FileConverter():
         self._solv = plot_solv
         if nc:
             self._path, self._out_path, self._base_path = nc.return_all()
-            self.pdb_to_mol2(self._path, self._out_path)
-            self.pdb_to_pqr(self._path, self._out_path)
-            self.pdb_to_xyzrn(self._path, self._out_path)
+            # self.pdb_to_mol2(self._path, self._out_path)
+            # self.pdb_to_pqr(self._path, self._out_path)
+            # self.pdb_to_xyzrn(self._path, self._out_path)
         if density:
             self._dens = density
         if nc and density:
