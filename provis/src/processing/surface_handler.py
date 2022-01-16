@@ -66,7 +66,7 @@ class SurfaceHandler:
     def get_assignments(self):
         """
         Get assignments (coloring) for the mesh. File has to exist, no way to produce it with provis. 
-        Loads provis/data/tmp/{pdb_id}.pth and returns it.
+        Loads "root directory"/data/tmp/{pdb_id}.pth and returns it.
 
         :returns: PyTourch object - Coloring of surface.
         """
@@ -165,24 +165,24 @@ class SurfaceHandler:
         :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
         if not self._mesh:
-            #old      
+            # create rough surface by combining vw radii of each atom
             atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs()
             self._atmsurf, col = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
-            #old
 
-            # WORKING
             # adding the spheres (by atom type) one at a time
             j = 0
             mesh_ = pv.wrap(self._atmsurf[0])
             for mesh in self._atmsurf[1:]:
                 mesh_ = mesh_ + (mesh)
 
+            # blur the spheres and extract edges (pyvista)
             mesh_ = mesh_.delaunay_3d(alpha=1.5).extract_feature_edges()
-            # self._atmsurf, col = self._dh.get_atom_trimesh(atom_data, vw=1, probe=0.1)
-            new = trimesh.Trimesh(mesh_.points)#trimesh.util.concatenate(mesh_)
+            # create trimesh mesh
+            new = trimesh.Trimesh(mesh_.points)
             cloud = o3d.geometry.PointCloud()
             cloud.points = o3d.utility.Vector3dVector(new.vertices)
             cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
+            # reconstruct the surface mesh as a trimesh mesh
             radii = [0.1, 0.3, 0.45, 0.6, 0.75, 0.9,1.2, 1.5]
             tri_mesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
             v = np.asarray(tri_mesh.vertices)
@@ -190,8 +190,8 @@ class SurfaceHandler:
             f = np.c_[np.full(len(f), 3), f]
             mesh = pv.PolyData(v, f)
             shell =  mesh.clean().reconstruct_surface()#.clean()
-            # WORKING
             shell.compute_normals(inplace=True)
+
             # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
             len_f = len(shell.faces)
             faces_ = []

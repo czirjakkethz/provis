@@ -42,103 +42,117 @@ class Surface:
         self._notebook = notebook
         self._shading = not self._notebook
 
-
-    def plot_surface(self, outname=None, feature=None, patch=None):
+    def plot(self, feature=None, title=None, patch=False, box=None, res=None, outname=None):
         """
         Plot the surface of protein.
         
+        :param name: feature - Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).
+        :param type: str, optional
+        :param name: title - Title of the plot window. Defaults to None.
+        :param type: str, optional
+        :param name: patch - If True then coloring will be read in from "root directory"/data/tmp/{pdb_id}.pth file. Default: False.
+        :param type: bool, optional
+        :param name: box, optional - If True bounding box also visualized, default: 0.
+        :param type: bool, optional
+        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+        :param type: Residue, optional
         :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature, patch)
+        # get appropriate mesh and coloring
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch)
         
-        #plot
+        # plot
         pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
-
+        pl.camera_position = 'xy'
         pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
-        # pl.add_mesh(mesh, color="white", smooth_shading=True, style=style, show_edges=False)        
+        
+        # if specified add bounding box
+        if box:
+            pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
+        
+        if res:
+            res_list, chain_list, pad = res.get_res_info()
+            for i, r in enumerate(res_list):
+                chain = chain_list[i]
+                residues = self._dh.get_structure().get_residues()
+                residues_list = list(residues)
+                res_name = residues_list[r + 1].get_resname()
+                d = (self._dh._res_size_dict[res_name] + pad) * 2
+                x, y, z = d,d,d
+                pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
+
         
         # save a screenshot
         if not outname:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_surface.png'
-        pl.show(screenshot=outname, title="Surface")
+        pl.show(screenshot=outname, title=title)
 
-    def plot_hydrophob(self, outname=None):
+    def plot_hydrophob(self, box=None, res=None, outname=None):
         """
         Plot the hydrophobic features of a protein.
 
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_hydrophob.png.
+        :param name: box, optional - If True bounding box also visualized, default: 0.
+        :param type: bool, optional
+        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+        :param type: Residue, optional
+        :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="hydrophob")
 
-        # plot surface with feature visualization
-        pl = pv.Plotter(notebook=self._notebook)
-        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
-        pl.background_color = 'grey'
-        pl.camera_position = 'xy'
-        
         # save a screenshot
         if not outname:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_hydrophob.png'
-        pl.show(screenshot=outname, title="Hydrophob")
+        self.plot("hydrophob", "Hydrophob", box=box, res=res, outname=outname)
 
-    def plot_shape(self, outname=None):
+    def plot_shape(self, box=None, res=None, outname=None):
         """
         Plot the shape features of a protein.
 
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_shape.png.
+        :param name: box, optional - If True bounding box also visualized, default: 0.
+        :param type: bool, optional
+        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+        :param type: Residue, optional
+        :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        
-        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="shape")
-
-        # plot surface with feature visualization
-        pl = pv.Plotter(notebook=self._notebook)
-        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
-        pl.background_color = 'grey'
-        pl.camera_position = 'xy'
         
         # save a screenshot
         if not outname:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_shape.png'
-        pl.show(screenshot=outname, title="Shape")
+        self.plot("shape", "Shape", box=box, res=res, outname=outname)
 
-    def plot_charge(self, outname=None):
+    def plot_charge(self, box=None, res=None, outname=None):
         """
         Plot the charge features of a protein.
 
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_charge.png.
+        :param name: box, optional - If True bounding box also visualized, default: 0.
+        :param type: bool, optional
+        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+        :param type: Residue, optional
+        :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        
-        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature="charge")
-
-        # plot surface with feature visualization
-        pl = pv.Plotter(notebook=self._notebook)
-        pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
-        pl.background_color = 'grey'
-        pl.camera_position = 'xy'
-        
+    
         # save a screenshot
         if not outname:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_charge.png'
-        pl.show(screenshot=outname, title="Charge")
+        self.plot("charge", "Charge", box=box, res=res, outname=outname)

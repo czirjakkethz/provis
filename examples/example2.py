@@ -30,7 +30,7 @@ def main():
     Surface is a class that handles all plotting related to surfaces. This includes basic surface visualization as well as the surface properties.
     """
     s = Surface(nc, density=density)
-    s.plot_surface()    
+    s.plot()    
     s.plot_hydrophob()
     s.plot_shape()
     s.plot_charge()
