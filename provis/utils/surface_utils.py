@@ -5,6 +5,7 @@ Utilities for preparing and computing features on molecular surfaces.
 """
 import os
 import numpy as np
+from numpy.core.numeric import full
 from numpy.matlib import repmat
 from Bio.PDB import PDBParser, Selection
 from subprocess import Popen, PIPE
@@ -307,3 +308,19 @@ def fix_trimesh(mesh, resolution: float = 1.0):
     mesh, _ = trimesh.remove_duplicated_vertices(mesh, 0.001)
 
     return mesh
+
+def find_nearest_atom(coords, res_id, new_verts):
+    j = len(res_id)
+    el = res_id[j-1]
+    full_res_id = []
+    
+    from scipy import spatial
+    #airports = new_verts
+    tree = spatial.KDTree(coords)
+    
+    for i in range(len(new_verts)):
+        dist, loc = tree.query(new_verts[i])
+        lenr = len(res_id)
+        full_res_id.append(res_id[loc])
+        
+    return full_res_id

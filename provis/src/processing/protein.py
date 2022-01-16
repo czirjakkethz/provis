@@ -14,7 +14,7 @@ class Protein:
     For example: my_protein.structure.plot_atoms()
     """
   
-    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=True, notebook=False):
+    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False):
         """
         Initialize the class with the name of the pdb file and you are ready for plotting!
         

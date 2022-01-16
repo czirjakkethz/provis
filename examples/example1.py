@@ -30,7 +30,7 @@ def main():
     The FileConverter class also initializes the NameChecker class, thus storing the name of the pdb file and output path to be used globally.
     """
     nc = NameChecker(name)
-    fc = FileConverter(nc, density, solvent) 
+    fc = FileConverter(nc, density, solvent, convert_all=True) 
     
     """
     Third:
@@ -54,7 +54,7 @@ def main():
     It is worth to mention however, that sometimes it is worth to keep the temporary files if you want to visualize this protein later on.
     If you keep the temporary files they will not have to be computed again and visualization will be quicker.
     """
-    # fc.cleanup(delete_img=0)
+    fc.cleanup(delete_img=0)
 
 if __name__ == "__main__":
     main()

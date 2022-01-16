@@ -18,13 +18,10 @@ def main():
     name = "/home/kczi/Documents/provis/data/pdb/2fd7"
     base_path='/home/kczi/Documents/provis/'
     density = 3.0
-    solvent = 0
-    bash = 0
     
     """
     Second:
-    Initializing the NameChecker class will store the name of the pdb file and output path.
-    This class is usually initialized when by the FileConverter class, but if you have the necessairy files you do not need to call the FileConverter class at all.
+    Initializing the NameChecker class will find and store the path of the pdb file and output path.
     """
     nc = NameChecker(name, base_path)
     
@@ -32,7 +29,7 @@ def main():
     Third:
     Surface is a class that handles all plotting related to surfaces. This includes basic surface visualization as well as the surface properties.
     """
-    s = Surface(nc, dens=density)
+    s = Surface(nc, density=density)
     s.plot_surface()    
     s.plot_hydrophob()
     s.plot_shape()

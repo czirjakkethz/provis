@@ -11,8 +11,10 @@ from pyvtk import PolyData, PointData, CellData, Scalars, Vectors, VtkData
 import trimesh
 from subprocess import PIPE, Popen
 import open3d as o3d
+import enum
+from os.path import exists
 
-from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh, fix_trimesh
+from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh, fix_trimesh, find_nearest_atom
 from provis.utils.surface_feat import compute_surface_features
 from provis.src.processing.file_converter import FileConverter
 from provis.src.processing.data_handler import DataHandler
@@ -50,7 +52,7 @@ class SurfaceHandler:
         else:
             self._dh = dh
         if not fc:
-            self._fc = FileConverter(fc)
+            self._fc = FileConverter(nc)
         else:
             self._fc = fc
         self._path, self._out_path, self._base_path = nc.return_all()
@@ -58,6 +60,8 @@ class SurfaceHandler:
         self._features = None
         self._mesh = None
         self._col = None
+        self._res_id = None
+        self._atom_coords = None
         
     def get_assignments(self):
         """
@@ -71,7 +75,7 @@ class SurfaceHandler:
         
         return assigment
 
-    def get_surface_features(self, mesh, feature):
+    def get_surface_features(self, mesh, feature,  res_id=None):
         """
         Get the coloring corresponding to a specific feature.
 
@@ -79,6 +83,8 @@ class SurfaceHandler:
         :param type: Trimesh
         :param name: feature - Name of feature we are interested in. Options: hydrophob, shape, charge.
         :param type: str
+        :param name: native - Set to True when using native mesh computation. Default: False.
+        :param type: bool, optional
         
         :raises: NotImplementedError - If unkown feature specified error is raised
 
@@ -88,26 +94,19 @@ class SurfaceHandler:
         # get surface
         pdb_file = self._path + '.pdb'
         
-        path = f"{self._out_path}_out_{int(self._density * 10)}"
-        face = path + '.face'
-        vert = path + '.vert'
-        face = path + '.face'
-        from os.path import exists
-        # Check if face file exists. If not convert it from pdb
-        file_exists = exists(face) and exists(vert)
-        if self._fc:
-            if not file_exists:
-                self._fc.msms(self._out_path, self._density)
-                self._fc.pdb_to_pqr(self._path, self._out_path)
-        else:
-            print("Temporary files were not created! Please instantiate a FileConverter class with parameters.")
+        pqr_file = self._out_path + '.pqr'
+        if not exists(pqr_file):
+            self._fc.pdb_to_pqr(self._path, self._out_path)
         
-        surface = get_surface(self._out_path, density=self._density)
-
+        if not res_id:
+            surface = get_surface(self._out_path, density=self._density)
+        else:
+            full_res_id = find_nearest_atom(self._atom_coords, res_id, mesh.vertices)
+            
+            surface = [mesh.vertices, mesh.faces, mesh.face_normals, full_res_id, mesh.area_faces]
+            
         # compute features of surface
         if not self._features:
-            # print(surface)
-            # print(mesh)
             self._features = compute_surface_features(surface, pdb_file, self._out_path, mesh, pdb_id = self._path)
 
         if feature == 'hydrophob':
@@ -131,6 +130,15 @@ class SurfaceHandler:
         :returns: Trimesh - The mesh, always returned
         :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
+        
+        path = f"{self._out_path}_out_{int(self._density * 10)}"
+        face = path + '.face'
+        vert = path + '.vert'
+        from os.path import exists
+        # Check if face file exists. If not convert it from pdb
+        file_exists = exists(face) and exists(vert)
+        if not file_exists:
+            self._fc.msms(self._out_path, self._density)
         
         if not self._mesh:
             surface = get_surface(out_path=self._out_path, density=self._density)
@@ -158,7 +166,7 @@ class SurfaceHandler:
         """
         if not self._mesh:
             #old      
-            atom_data = self._dh.get_atoms()
+            atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs()
             self._atmsurf, col = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
             #old
 
@@ -184,7 +192,6 @@ class SurfaceHandler:
             shell =  mesh.clean().reconstruct_surface()#.clean()
             # WORKING
             shell.compute_normals(inplace=True)
-            
             # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
             len_f = len(shell.faces)
             faces_ = []
@@ -206,7 +213,7 @@ class SurfaceHandler:
 
         # only needed if feature is specified (-> color map needs to be calculated)
         if feature:
-            self._col = self.get_surface_features(self._mesh, feature)
+            self._col = self.get_surface_features(self._mesh, feature, self._res_id)
         else:
             self._col = None
 

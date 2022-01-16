@@ -32,9 +32,10 @@ class DataHandler:
         """
         self._path, self._out_path, self._base_path = nc.return_all()
         if not fc:
-            self._fc = FileConverter(fc)
+            self._fc = FileConverter(nc)
         else:
             self._fc = fc
+        
         self._fc.pdb_to_xyzrn(self._path, self._out_path)
         
         parser = PDBParser()
@@ -66,7 +67,7 @@ class DataHandler:
         :param name: show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.
         :param type: bool, optional
         
-        :return: dict - Dictionary of atomic coordinates by atom type.
+        :returns: dict - Dictionary of atomic coordinates by atom type.
         """
         # load file into a python list
         residues = self._structure.get_residues()
@@ -94,7 +95,9 @@ class DataHandler:
         """
         Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.
 
-        :returns: 
+        :returns: dict - Dictionary of atomic coordinates by atom type.
+        :returns: list - List of unique residue IDs (format from output_pdb_as_xyzrn())
+        :returns: list - Atomic coordinates (in same order as the residue IDs)
         """
         xyzrnfile = open(self._out_path + ".xyzrn")
         meshdata = (xyzrnfile.read().rstrip()).split("\n")
@@ -104,6 +107,7 @@ class DataHandler:
         res_id = [""] * lenm
         
         atom_data = dict()
+        atom_coords = []
         for vi in range(lenm):
             fields = meshdata[vi].split()
             vertices = [None] * 3
@@ -118,16 +122,17 @@ class DataHandler:
             # If atom already in dictionary, append its coordinates to list
             else:
                 atom_data[atmtype].append(vertices)
+            atom_coords.append(vertices)
 
 
         # return the 3D positions of atoms organized by atom type
-        return atom_data, res_id
+        return atom_data, res_id, atom_coords
 
     def get_residues(self):
         """
         Creates a dictionary of coordinates by residues from structure object
         
-        :return: dict - Dictionary of atomic coordinates by residue type.
+        :returns: dict - Dictionary of atomic coordinates by residue type.
         """
 
         # load file into a python list
@@ -162,7 +167,7 @@ class DataHandler:
         :param name: option - choose what property of residue you want. com for Centre Of Mass, ch for charge
         :param type: str - options: com, ch
         
-        :return: list - List of COM coords of given (exact) residue.
+        :returns: list - List of COM coords of given (exact) residue.
         """
         
         # load info for given residue
@@ -211,7 +216,7 @@ class DataHandler:
         """
         Return the loaded structure object
         
-        :return: structure
+        :returns: structure
         """
         return self._structure
         
@@ -231,8 +236,8 @@ class DataHandler:
         :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default: 10.
         :param type: int, optional
         
-        :return: list - List of pyvista Shperes representing each atom
-        :return: list - List of colors corresponding to each atom
+        :returns: list - List of pyvista Shperes representing each atom
+        :returns: list - List of colors corresponding to each atom
         """
         # these two dictionaries have to be manually created
         # also, if more/other atoms present in protein it will not work
@@ -274,8 +279,8 @@ class DataHandler:
         :param name: probe - size of probe (representing the solvent size) needed for surface calculation. Default: 0.
         :param type: int, optional
         
-        :return: list - List of pyvista Shperes representing each atom
-        :return: list - List of colors for each atom
+        :returns: list - List of pyvista Shperes representing each atom
+        :returns: list - List of colors for each atom
         """
         # these two dictionaries have to be manually created
         # also, if more/other atoms present in protein it will not work
@@ -324,8 +329,8 @@ class DataHandler:
         :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default:25.
         :param type: int, optional
         
-        :return: list - List of pyvista Shperes representing each residue
-        :return: list - List of colors for each residue
+        :returns: list - List of pyvista Shperes representing each residue
+        :returns: list - List of colors for each residue
         """
 
         # create glyphs (spherical) to represent each res
@@ -367,18 +372,15 @@ class DataHandler:
             Purple for all aromatic bonds,
             Black for everything else.
         
-        :return: list - List of pyvista lines representing each bond.
-        :retrun: list - List of colors corresponding to the lines in the above list
+        :returns: list - List of pyvista lines representing each bond.
+        :retruns: list - List of colors corresponding to the lines in the above list
         """
         fname = self._out_path + ".mol2"
 
         # Check if mol2 file exists. If not convert it from pdb
         file_exists = exists(fname)
-        if self._fc:
-            if not file_exists:
-                self._fc.pdb_to_mol2(self._path, self._out_path)
-        else:
-            print("Temporary files were not created! Please instantiate a FileConverter class with parameters.")
+        if not file_exists:
+            self._fc.pdb_to_mol2(self._path, self._out_path)
             
         pmol = PandasMol2().read_mol2(fname)
         bonds_in = bond_parser(fname)
