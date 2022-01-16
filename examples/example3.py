@@ -20,7 +20,7 @@ def main():
     density = 3.0
     solvent = 0
     
-    prot = Protein(name, density=density, plot_solvent=solvent)
+    prot = Protein(name, base_path=None, density=density, plot_solvent=solvent, msms=False, notebook=False)
     
     # prot.structure.plot_backbone()
     # prot.structure.plot_atoms()
@@ -33,12 +33,12 @@ def main():
     # r.remove_residue(1, 1)
     # prot.structure.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
     
-    prot.surface.plot_surface()    
+    # prot.surface.plot_surface()    
     prot.surface.plot_hydrophob()
     prot.surface.plot_shape()
     prot.surface.plot_charge()
 
-    prot._file_converter.cleanup()
+    # prot._file_converter.cleanup()
 
 if __name__ == "__main__":
     main()

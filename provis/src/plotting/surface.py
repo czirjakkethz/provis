@@ -16,7 +16,7 @@ class Surface:
     Choose between the two by setting the msms Boolean variable (True corresponding to the MSMS binary option is default)
     
     """
-    def __init__(self, nc, sh=None, density=None, msms=False, notebook=False, dh=None):
+    def __init__(self, nc, dh=None, sh=None, density=None, msms=False, notebook=False):
         """
         Initialize Surface class with given filename. Creates internal data structures; a DataHandler to extract basic surface information and stores it in self._atmsurf (this is a list of Spheres for each atom roughly equating the Van-der-Waals radius).
         

@@ -12,7 +12,7 @@ class FileConverter():
     However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.
     """
     
-    def __init__(self, nc, density=None, plot_solv=0):
+    def __init__(self, nc, density=None, plot_solvent=0):
         """
         Can be constructed empty. If called with arguments conversions instant. Creates xyzr and mol2 files in every case and face and vert files if msms binary exists.
 
@@ -20,23 +20,16 @@ class FileConverter():
         :param type: str, optional
         :param name: density - Density of triangles. Default: None.
         :param type: float, optional
-        :param name: plot_solv - set to True if you want to plot solvent atoms as well. Default: False.
+        :param name: plot_solvent - set to True if you want to plot solvent atoms as well. Default: False.
         :param type: bool, optional
         :param name: base_path - Path to "working directory" according to the rules of NameChecker().
         :param type: str, optional
         """
 
-        self._solv = plot_solv
-        if nc:
-            self._path, self._out_path, self._base_path = nc.return_all()
-            # self.pdb_to_mol2(self._path, self._out_path)
-            # self.pdb_to_pqr(self._path, self._out_path)
-            # self.pdb_to_xyzrn(self._path, self._out_path)
+        self._solv = plot_solvent
+        self._path, self._out_path, self._base_path = nc.return_all()
         if density:
             self._dens = density
-        if nc and density:
-            self.msms(self._out_path, self._dens)
-        pass
     
     def pdb_to_xyzrn(self, path, output):
         """
