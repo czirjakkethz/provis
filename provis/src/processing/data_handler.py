@@ -31,7 +31,11 @@ class DataHandler:
         :param type: FileConverter, optional
         """
         self._path, self._out_path, self._base_path = nc.return_all()
-        self._fc = fc
+        if not fc:
+            self._fc = FileConverter(fc)
+        else:
+            self._fc = fc
+        self._fc.pdb_to_xyzrn(self._path, self._out_path)
         
         parser = PDBParser()
         file_name = self._path + ".pdb"

@@ -14,7 +14,7 @@ import open3d as o3d
 
 from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh, fix_trimesh
 from provis.utils.surface_feat import compute_surface_features
-from provis.src.processing.name_checker import NameChecker
+from provis.src.processing.file_converter import FileConverter
 from provis.src.processing.data_handler import DataHandler
 
 class SurfaceHandler:
@@ -49,7 +49,10 @@ class SurfaceHandler:
             self._dh = DataHandler(nc)
         else:
             self._dh = dh
-        self._fc = fc
+        if not fc:
+            self._fc = FileConverter(fc)
+        else:
+            self._fc = fc
         self._path, self._out_path, self._base_path = nc.return_all()
         self._density = density
         self._features = None
@@ -85,17 +88,17 @@ class SurfaceHandler:
         # get surface
         pdb_file = self._path + '.pdb'
         
-        face = self._out_path + '.face'
-        vert = self._out_path + '.vert'
-        face = self._out_path + '.face'
+        path = f"{self._out_path}_out_{int(self._density * 10)}"
+        face = path + '.face'
+        vert = path + '.vert'
+        face = path + '.face'
         from os.path import exists
         # Check if face file exists. If not convert it from pdb
         file_exists = exists(face) and exists(vert)
-        print(self._fc)
         if self._fc:
-            print("hi", file_exists)
             if not file_exists:
                 self._fc.msms(self._out_path, self._density)
+                self._fc.pdb_to_pqr(self._path, self._out_path)
         else:
             print("Temporary files were not created! Please instantiate a FileConverter class with parameters.")
         

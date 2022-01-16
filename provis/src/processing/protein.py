@@ -38,4 +38,4 @@ class Protein:
         self._data_handler =  DataHandler(self._name_checker, self._file_converter)
         self._surface_handler = SurfaceHandler( self._name_checker, fc=self._file_converter, dh=self._data_handler, density=density)
         self.structure = Structure(self._name_checker, dh=self._data_handler, notebook=notebook)
-        self.surface = Surface(self._name_checker, density=density, msms=False, notebook=notebook, dh=None)
+        self.surface = Surface(self._name_checker, sh=self._surface_handler, density=density, msms=False, notebook=notebook, dh=None)
