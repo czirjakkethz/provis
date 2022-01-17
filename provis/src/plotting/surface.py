@@ -22,13 +22,14 @@ class Surface:
         
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
-        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
-        :param type: bool, optional
+        :param name: dh - Instance of DataHandler. To be passed to self._sh (SurfaceHandler), not needed otherwise. Default: None.
+        :param type: DataHandler
         :param name: density - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
         :param type: float, optional
+        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
+        :param type: bool, optional
         :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
         :param type: bool, optional 
-        :param name: dh - Instance of DataHandler. To be passed to self._sh (SurfaceHandler), not needed otherwise. Default: None.
         """
         
         self._path, self._out_path, self._base_path = nc.return_all()
@@ -42,13 +43,13 @@ class Surface:
         self._notebook = notebook
         self._shading = not self._notebook
 
-    def plot(self, feature=None, title=None, patch=False, box=None, res=None, outname=None):
+    def plot(self, feature=None, title="Surface", patch=False, box=None, res=None, outname=None, camera=None):
         """
         Plot the surface of protein.
         
         :param name: feature - Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).
         :param type: str, optional
-        :param name: title - Title of the plot window. Defaults to None.
+        :param name: title - Title of the plot window. Default: Surface.
         :param type: str, optional
         :param name: patch - If True then coloring will be read in from "root directory"/data/tmp/{pdb_id}.pth file. Default: False.
         :param type: bool, optional
@@ -58,6 +59,8 @@ class Surface:
         :param type: Residue, optional
         :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -68,7 +71,6 @@ class Surface:
         pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
-        pl.camera_position = 'xy'
         pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
         
         # if specified add bounding box
@@ -92,9 +94,14 @@ class Surface:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_surface.png'
+            
+        if camera: 
+            pl.camera = camera
+        else:
+            pl.camera_position = 'xy'
         pl.show(screenshot=outname, title=title)
 
-    def plot_hydrophob(self, box=None, res=None, outname=None):
+    def plot_hydrophob(self, box=None, res=None, outname=None, camera=None):
         """
         Plot the hydrophobic features of a protein.
 
@@ -104,6 +111,8 @@ class Surface:
         :param type: Residue, optional
         :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -113,9 +122,9 @@ class Surface:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_hydrophob.png'
-        self.plot("hydrophob", "Hydrophob", box=box, res=res, outname=outname)
+        self.plot(feature="hydrophob", title="Hydrophob", box=box, res=res, outname=outname, camera=camera)
 
-    def plot_shape(self, box=None, res=None, outname=None):
+    def plot_shape(self, box=None, res=None, outname=None, camera=None):
         """
         Plot the shape features of a protein.
 
@@ -125,6 +134,8 @@ class Surface:
         :param type: Residue, optional
         :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -134,9 +145,9 @@ class Surface:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_shape.png'
-        self.plot("shape", "Shape", box=box, res=res, outname=outname)
+        self.plot(feature="shape", title="Shape", box=box, res=res, outname=outname, camera=camera)
 
-    def plot_charge(self, box=None, res=None, outname=None):
+    def plot_charge(self, box=None, res=None, outname=None, camera=None):
         """
         Plot the charge features of a protein.
 
@@ -146,6 +157,8 @@ class Surface:
         :param type: Residue, optional
         :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -155,4 +168,4 @@ class Surface:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_charge.png'
-        self.plot("charge", "Charge", box=box, res=res, outname=outname)
+        self.plot(feature="charge", title="Charge", box=box, res=res, outname=outname, camera=camera)

@@ -40,7 +40,7 @@ class Structure:
         self._atoms_vw, self._col_vw = self._dh.get_atom_mesh(atom_data, vw=1)
         
 
-    def manual_plot(self, box=0, res=0, outname=0, atoms=0, col_a=0, bonds=0, vw=0, residues=0, col_r=0, bb=0):
+    def manual_plot(self, box=0, res=0, outname=0, atoms=0, col_a=0, bonds=0, vw=0, residues=0, col_r=0, bb=0, camera=None):
         """
         Plot stick and point model
         
@@ -64,6 +64,8 @@ class Structure:
         :param type: Residue, optional
         :param name: bb - List of coordinates describing the back-bone of the protein, default: 0.
         :param type: bool, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot
         """
@@ -114,10 +116,15 @@ class Structure:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
+        
+        if camera: 
+            pl.camera = camera
+        else:
+            pl.camera.position = 'xy'
         pl.show(screenshot=outname, title='Provis')
 
 
-    def plot(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title=None):
+    def plot(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title=None, camera=None):
         """
         This member function is called by all other member functions. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.
         
@@ -139,6 +146,8 @@ class Structure:
         :param type: bool, optional
         :param name: title - Title of the plot window. Defaults to None.
         :param type: str, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot
         """
@@ -196,12 +205,13 @@ class Structure:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
-            
-            
+           
+        if camera: 
+            pl.camera.position = camera
         pl.show(screenshot=outname, title=title)
 
 
-    def plot_stick_point(self, box=0, res=None, outname=0):
+    def plot_stick_point(self, box=0, res=None, outname=0, camera=None):
         """
         Plot stick and point model of the protein. Atoms are spheres, bonds are tubes.
         
@@ -211,13 +221,15 @@ class Structure:
         :param type: Residue, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
 
-        self.plot(atoms=1, box=box, vw=0, bonds=1, residues=0, res=res, outname=outname, title="Stick Point")
+        self.plot(atoms=1, box=box, vw=0, bonds=1, residues=0, res=res, outname=outname, title="Stick Point", camera=camera)
         
-    def plot_atoms(self, box=0, res=0, outname=0):
+    def plot_atoms(self, box=0, res=0, outname=0, camera=None):
         """
         Plot the atoms as spheres.
         
@@ -229,6 +241,8 @@ class Structure:
         :param type: Residue, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -237,9 +251,9 @@ class Structure:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_atoms.png'
-        self.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=res, outname=outname, title="Atoms")
+        self.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=res, outname=outname, title="Atoms", camera=camera)
         
-    def plot_vw(self, box=0, res=0, outname=0):
+    def plot_vw(self, box=0, res=0, outname=0, camera=None):
         """
         Plot Van-der-Waals radius of atoms as wireframe spheres.
         
@@ -249,6 +263,8 @@ class Structure:
         :param type: Residue, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -257,9 +273,9 @@ class Structure:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_vw.png'
-        self.plot(atoms=1, box=box, vw=1, bonds=0, residues=0, res=res, title="Van-der-Waals")
+        self.plot(atoms=1, box=box, vw=1, bonds=0, residues=0, res=res, title="Van-der-Waals", camera=camera)
         
-    def plot_bonds(self, box=0, res=0, outname=0, colorful=False):
+    def plot_bonds(self, box=0, res=0, outname=0, colorful=False, camera=None):
         """
         Plot only the bonds. By default all bonds will be plotted uniformly. If you want to view the difference in bonds you can set the colorful variable to True.
         
@@ -278,6 +294,8 @@ class Structure:
         :param type: string, optional
         :param name: colorful - If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False
         :param type: bool, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -287,10 +305,10 @@ class Structure:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_bonds.png'
-        self.plot(atoms=0, box=box, vw=0, bonds=b, residues=0, res=res, outname=outname, title="Bonds")
+        self.plot(atoms=0, box=box, vw=0, bonds=b, residues=0, res=res, outname=outname, title="Bonds", camera=camera)
         
         
-    def plot_backbone(self, box=0, res=0, outname=0):
+    def plot_backbone(self, box=0, res=0, outname=0, camera=None):
         """
         Plots the backbone (roughly the amide bonds) of the protein.
         
@@ -300,6 +318,8 @@ class Structure:
         :param type: Residue, optional
         :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_backbone.png.
         :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
@@ -308,5 +328,5 @@ class Structure:
             new_name = self._name.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_backbone.png'
-        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=0, res=res, bb=1, outname=outname, title="Backbone")
+        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=0, res=res, bb=1, outname=outname, title="Backbone", camera=camera)
 

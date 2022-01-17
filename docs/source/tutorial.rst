@@ -21,7 +21,10 @@ As explained in
 
    name = "2fd7.pdb" # "2fd7" also works
 
+Setting global variables
+############################
 
+To make sure that one
 
 You will need to provide a .pdb file describing the protein you want to work with. To load this file, you will have to tell provis where the file is located.
 
