@@ -5,17 +5,23 @@ from provis.src.processing.name_checker import NameChecker
 
 class Structure:
     """
-    The Structure class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these.
+    The Structure class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these structures.
     """
-    def __init__(self, nc, dh=None, notebook=False):
+    def __init__(self, nc, dh=None, plot_solvent=False, notebook=False):
         """
-        Initializes Structure class with given filename.
-        Creates internal data structures; a DataHandler class instance and loads all the atomic information required for plotting.
+        The constructor creates the internal data structures and loads all the atomic information required for plotting.
+        
+        A NameChecker object is required for initialization, as this is how the program finds the desired pdb file/molecule.
+        If nothing else is passed the NameChecker object will be used to initialize the other internal objects of the structure class.
+        
+        Apart from the required NameChecker object one can also pass a DataHandler for even more control.
         
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
         :param name: dh - Instance of a DataHandler class. Used to retrieve atom-positional information. Default: None. If None a new DataHandler variable will be initialized with "nc".
         :param type: DataHandler, optional
+        :param name: plot_solvent - If True solvent molecules will also be plotted. Default: False.
+        :param type: bool, optional
         :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
         :param type: bool, optional 
         """
@@ -28,7 +34,7 @@ class Structure:
             self._dh = DataHandler(nc)
         else:
             self._dh = dh
-        atom_data = self._dh.get_atoms() # second arg: 1 = showsolvent
+        atom_data = self._dh.get_atoms(show_solvent=plot_solvent) # second arg: 1 = show_solvent
         ## return list of spheres (meshes) and colors for the spheres
         self._atoms, self._col_a = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
         ## return list of lines (meshes)
@@ -42,7 +48,7 @@ class Structure:
 
     def manual_plot(self, box=0, res=0, outname=0, atoms=0, col_a=0, bonds=0, vw=0, residues=0, col_r=0, bb=0, camera=None):
         """
-        Plot stick and point model
+        Plot stick and point model. In this function one can pass all the desired meshes to be plotted. One can get these meshes from the DataHandler class.
         
         :param name: box - If True bounding box also visualized, default: 0.
         :param type: bool, optional
@@ -126,7 +132,9 @@ class Structure:
 
     def plot(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title=None, camera=None):
         """
-        This member function is called by all other member functions. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.
+        This member function is called by all the others. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.
+        
+        All information to be plotted is already computed. This function simply dictates what is to be plotted.
         
         :param name: box, optional - If True bounding box also visualized, default: 0.
         :param type: bool, optional

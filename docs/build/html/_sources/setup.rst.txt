@@ -72,11 +72,11 @@ The data/ directory needs the following subdirectiories:
     ├── img        
     └── tmp
 
-The pdb directory is the location to store the pdb files to convert, as if a pdb file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the pdb file. 
+The pdb directory is the location to store the pdb files to convert, as if a *.pdb* file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the *.pdb* file. 
 
 The img directory stores all the screenshots of the outputted plots.
 
-The tmp directory stores all temporary files created by provis, such as the .face and .vert files of MSMS or the .mol2 files needed for the bonds.
+The tmp directory stores all temporary files created by provis, such as the *.face* and *.vert* files of MSMS or the *.mol2* files needed for the bonds.
 
 
 The binaries/ directory needs the following executables and subdirectiories:
@@ -89,4 +89,4 @@ The binaries/ directory needs the following executables and subdirectiories:
     └── pdb2pqr     
          └── pdb2pqr
 
-Where apbs and msms are executables/binaries and the pdb2pqr is the directory downloaded from the official website, containing the pdb2pqr binary.
+Where **apbs** and **msms** are executables/binaries and the *pdb2pqr* is the directory downloaded from the official website, containing the **pdb2pqr** binary.

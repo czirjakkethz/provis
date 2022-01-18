@@ -3,7 +3,7 @@ Example 1
 
 This is an example file to showcase some functionalities of provis.
 
-We showcase the easiest way to run provis. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation.
+We showcase the easiest way to run provis.
 The path to the "root directory"/data/tmp will automatically be found.
 This way you can have your pdb files nicely organized in the data/pdb directory (or simply have them in the root directory). 
 Your temporary files will be in the data/tmp directory and the screenshots of the plots in the data/img directory.

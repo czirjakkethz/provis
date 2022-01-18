@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>provis.src.processing package &mdash; provis 0.0.1 documentation</title>
+  <title>provis.src.processing package &mdash; provis 0.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -51,6 +51,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.data_handler">provis.src.processing.data_handler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.file_converter">provis.src.processing.file_converter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.name_checker">provis.src.processing.name_checker module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.protein">provis.src.processing.protein module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.residue">provis.src.processing.residue module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing.surface_handler">provis.src.processing.surface_handler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-provis.src.processing">Module contents</a></li>
@@ -66,8 +67,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="example1.html">Example 1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example2.html">Example 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -108,11 +109,11 @@
 <span id="provis-src-processing-data-handler-module"></span><h2>provis.src.processing.data_handler module<a class="headerlink" href="#module-provis.src.processing.data_handler" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.data_handler.</span></span><span class="sig-name descname"><span class="pre">DataHandler</span></span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.data_handler.</span></span><span class="sig-name descname"><span class="pre">DataHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The ‘brain’ of provis, when it comes to handling atomic positions.</p>
 <p>This class loads information from a variety of files and creates meshes to be plotted. 
-Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.</p>
+Upper level classes - eg. Structure - have their own DataHandler objects that do all the work.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atom_mesh">
 <span class="sig-name descname"><span class="pre">get_atom_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atom_mesh" title="Permalink to this definition"></a></dt>
@@ -188,7 +189,13 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dd><p>Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
+<dd class="field-odd"><p>dict - Dictionary of atomic coordinates by atom type.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - List of unique residue IDs (format from output_pdb_as_xyzrn())</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - Atomic coordinates (in same order as the residue IDs)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -221,7 +228,7 @@ Black for everything else.</p>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>list - List of pyvista lines representing each bond.</p>
 </dd>
-<dt class="field-even">Retrun</dt>
+<dt class="field-even">Retruns</dt>
 <dd class="field-even"><p>list - List of colors corresponding to the lines in the above list</p>
 </dd>
 </dl>
@@ -300,15 +307,15 @@ Black for everything else.</p>
 <span id="provis-src-processing-file-converter-module"></span><h2>provis.src.processing.file_converter module<a class="headerlink" href="#module-provis.src.processing.file_converter" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to create and destroy necessary files required in other parts of code.
-It has a bunch of classmethod functions to call the binaries and scripts to convert the files.</p>
-<p>Best practice is to initialize a FileConverter in a given file before calling any function of provis and call the cleanup method after the last plotting function is called. This will keep your directories decluttered. 
+It has a bunch of member functions to call the binaries and scripts to convert the files.</p>
+<p>Also has a cleanup function that removes everything in the “root_directory”/data/tmp (and data/img if specified) directory. Best practice is to call this function at the end of your main file.
 However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.cleanup">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.cleanup" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_img</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.cleanup" title="Permalink to this definition"></a></dt>
 <dd><p>Deletes all files from data/tmp (and data/img) directories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -322,7 +329,7 @@ However if you want to plot the same protein many times, then it is benificial t
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.msms">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.msms" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dens</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.msms" title="Permalink to this definition"></a></dt>
 <dd><p>Run the msms binary for given filename.</p>
 <p>It takes the {path}.xyzrn file as input and output is written to {path}_out_{dens}
 Binary path is read in from environment variable: MSMS_BIN. If environment variable does not exist binary will be looked up in provis/binaries/msms.</p>
@@ -343,7 +350,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_mol2">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_mol2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_mol2" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pdb_to_mol2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_mol2" title="Permalink to this definition"></a></dt>
 <dd><p>Run openbabel, to convert pdb to mol2</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -359,7 +366,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_pqr">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_pqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcefield</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'swanson'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_pqr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pdb_to_pqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcefield</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'swanson'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_pqr" title="Permalink to this definition"></a></dt>
 <dd><p>Run pdb2pqr, to convert pdb to pqr</p>
 <p>Binary path is read in from environment variable: PDB2PQR_BIN. If environment variable does not exist binary will be looked up in binaries/pdb2pqr/pdb2pqr.</p>
 <dl class="field-list simple">
@@ -378,7 +385,7 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pdb_to_xyzrn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pdb_to_xyzrn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn" title="Permalink to this definition"></a></dt>
 <dd><p>Converts .pdb to .xyzrn file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -402,32 +409,17 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <span id="provis-src-processing-name-checker-module"></span><h2>provis.src.processing.name_checker module<a class="headerlink" href="#module-provis.src.processing.name_checker" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.name_checker.NameChecker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.name_checker.</span></span><span class="sig-name descname"><span class="pre">NameChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.name_checker.</span></span><span class="sig-name descname"><span class="pre">NameChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The point of this class is to provide uniform naming and path locations to all the other classes of provis.
-NameChecker has class variables and a class method to return these variables.</p>
+NameChecker has internal variables and a method to return these variables.</p>
 <p>Variables: 
-pdb_name - Full path to the pdb file without the .pdb extension. Usually PROVIS_PATH/data/pdb/{pdb_id}.
-out_path - Full path to the temporary files. The names of all temporary files are derived from this variable. Usually PROVIS_PATH/data/tmp/{pdb_id}.
-base_path - Full path of the provis directory or any directory that has the following directory structure within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="provis.src.processing.name_checker.NameChecker.base_path">
-<span class="sig-name descname"><span class="pre">base_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker.base_path" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="provis.src.processing.name_checker.NameChecker.out_path">
-<span class="sig-name descname"><span class="pre">out_path</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker.out_path" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="provis.src.processing.name_checker.NameChecker.pdb_name">
-<span class="sig-name descname"><span class="pre">pdb_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker.pdb_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+self._pdb_name - Full path to the pdb file without the .pdb extension. Usually PROVIS_PATH/data/pdb/{pdb_id}.
+self._out_path - Full path to the temporary files. The names of all temporary files are derived from this variable. Usually PROVIS_PATH/data/tmp/{pdb_id}.
+self._base_path - Full path of the provis directory or any directory that has the following directory structure within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.name_checker.NameChecker.return_all">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">return_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker.return_all" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">return_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker.return_all" title="Permalink to this definition"></a></dt>
 <dd><p>Return all class variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -445,11 +437,23 @@ base_path - Full path of the provis directory or any directory that has the foll
 </dd></dl>
 
 </section>
+<section id="module-provis.src.processing.protein">
+<span id="provis-src-processing-protein-module"></span><h2>provis.src.processing.protein module<a class="headerlink" href="#module-provis.src.processing.protein" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="provis.src.processing.protein.Protein">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.protein.</span></span><span class="sig-name descname"><span class="pre">Protein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.protein.Protein" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The protein class encapsulates every other class and creates a user friendly way to plot your desired protein molecules.</p>
+<p>You can plot the desired property of your protein by first initializing a Protein class (eg. my_protein) and then calling the plotting functions of the Surface and Structure classes. 
+For example: my_protein.structure.plot_atoms()</p>
+</dd></dl>
+
+</section>
 <section id="module-provis.src.processing.residue">
 <span id="provis-src-processing-residue-module"></span><h2>provis.src.processing.residue module<a class="headerlink" href="#module-provis.src.processing.residue" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.residue.Residue">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.residue.</span></span><span class="sig-name descname"><span class="pre">Residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.residue.</span></span><span class="sig-name descname"><span class="pre">Residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Residue class is mainly used for plotting a bounding box around the given residue.</p>
 <dl class="py method">
@@ -508,7 +512,7 @@ base_path - Full path of the provis directory or any directory that has the foll
 <span id="provis-src-processing-surface-handler-module"></span><h2>provis.src.processing.surface_handler module<a class="headerlink" href="#module-provis.src.processing.surface_handler" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_handler.</span></span><span class="sig-name descname"><span class="pre">SurfaceHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dens</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_handler.</span></span><span class="sig-name descname"><span class="pre">SurfaceHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The ‘brain’ of provis, when it comes to handling surface information.</p>
 <p>This class loads information from a variety of files and creates meshes to be plotted. 
@@ -517,7 +521,7 @@ Upper level classes - eg. StickPoint - have their own AtomHandler objects that d
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.get_assignments">
 <span class="sig-name descname"><span class="pre">get_assignments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_assignments" title="Permalink to this definition"></a></dt>
 <dd><p>Get assignments (coloring) for the mesh. File has to exist, no way to produce it with provis. 
-Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
+Loads “root directory”/data/tmp/{pdb_id}.pth and returns it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>PyTourch object - Coloring of surface.</p>
@@ -527,7 +531,7 @@ Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.get_surface_features">
-<span class="sig-name descname"><span class="pre">get_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_surface_features" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_surface_features" title="Permalink to this definition"></a></dt>
 <dd><p>Get the coloring corresponding to a specific feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -536,6 +540,8 @@ Loads provis/data/tmp/{pdb_id}.pth and returns it.</p>
 <li><p><strong>type</strong> – Trimesh</p></li>
 <li><p><strong>name</strong> – feature - Name of feature we are interested in. Options: hydrophob, shape, charge.</p></li>
 <li><p><strong>type</strong> – str</p></li>
+<li><p><strong>name</strong> – native - Set to True when using native mesh computation. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>

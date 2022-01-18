@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to use Provis &mdash; provis 0.0.1 documentation</title>
+  <title>How to use Provis &mdash; provis 0.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Provis" href="provis.html" />
-    <link rel="prev" title="Setting up Provis" href="setup.html" /> 
+    <link rel="next" title="Example" href="example.html" />
+    <link rel="prev" title="Utilities for Provis" href="provis.utils.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,22 +38,24 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use Provis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#loading-a-pdb">Loading a pdb</a></li>
-</ul>
-</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="example1.html">Example 1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example2.html">Example 2</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use Provis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#loading-a-pdb">Loading a pdb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-protein-class-input-variables">Setting Protein class input variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-the-protein-class-works">How the Protein class works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -85,24 +87,68 @@
            <div itemprop="articleBody">
              
   <section id="how-to-use-provis">
-<h1>How to use Provis<a class="headerlink" href="#how-to-use-provis" title="Permalink to this headline"></a></h1>
+<span id="tutorial"></span><h1>How to use Provis<a class="headerlink" href="#how-to-use-provis" title="Permalink to this headline"></a></h1>
 <p>This section will explain how to use provis and how to get your desired plots.</p>
 <section id="loading-a-pdb">
 <h2>Loading a pdb<a class="headerlink" href="#loading-a-pdb" title="Permalink to this headline"></a></h2>
-<p>Provis uses the information in .pdb files to plot your desired protein. The most straightforward way is to pass the full path of the file to provis. For example save the path to the ‘name’ variable:</p>
+<p>Provis uses the information in <em>.pdb</em> files to plot your desired protein. The most straightforward way is to pass the full path of the file to provis, as the <em>.pdb</em> file can be saved anywhere if you pass the full path. For example save the path to the <strong>name</strong> variable:</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;/home/username/provis/data/pdb/2fd7.pdb&quot;</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>As explained in
-<a class="reference internal" href="setup.html#setup"><span class="std std-ref">Setting up Provis</span></a>, provis requires a specific directory structure. If you have your .pdb file stored in the ‘data/pdb/’ directory you do not have to specify a full path to the pdb file, but simply the name of the file:</p>
+<a class="reference internal" href="setup.html#setup"><span class="std std-ref">Setting up Provis</span></a>, provis requires a specific directory structure. If you have your <em>.pdb</em> file stored in the <strong>/data/pdb</strong> directory you do not have to specify a full path to the pdb file, but simply the name of the file:</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;2fd7.pdb&quot;</span> <span class="c1"># &quot;2fd7&quot; also works</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>You will need to provide a .pdb file describing the protein you want to work with. To load this file, you will have to tell provis where the file is located.</p>
+</section>
+<section id="setting-protein-class-input-variables">
+<h2>Setting Protein class input variables<a class="headerlink" href="#setting-protein-class-input-variables" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span> <span class="o">=</span> <span class="n">Protein</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">plot_solvent</span><span class="o">=</span><span class="n">solvent</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Setting the input variables of the Protein class is the next step to take. You have to pass the <strong>name</strong> variable from before.</p>
+<p>The path to the special direcotry explained in
+<a class="reference internal" href="setup.html#setup"><span class="std std-ref">Setting up Provis</span></a> has to also be provided. This is passed in the <strong>base_path</strong> variable and should point to the root directory of the <strong>/data</strong> and <strong>/binaries</strong> directories.</p>
+<p>You will have to also specify if you want to plot the <strong>msms</strong> binary version of the surface or the simpler native mesh. If the <strong>msms</strong> option is chosen you can also specify the <strong>density</strong> of the triangulation (to be passed to the <strong>msms</strong> binary).</p>
+<p>Solvent atoms can also be plotted by setting the <strong>plot_solvent</strong> variable to <em>True</em>.</p>
+<p>And finally if you are working in a Jupyter Notebook like environment then set the <strong>notebook</strong> varaible to <em>True</em>.</p>
+</section>
+<section id="how-the-protein-class-works">
+<h2>How the Protein class works<a class="headerlink" href="#how-the-protein-class-works" title="Permalink to this headline"></a></h2>
+<p>The Protein class encompasses and combines all other classes and files of provis.</p>
+<p>It first figures out the location of the <em>.pdb</em> file using the <strong>NameChecker</strong> class. Then it instantiates a <strong>FileConverter</strong> class so the necessairy temporary files can be converted from our <em>.pdb</em> file.</p>
+<p>Then a <strong>DataHandler</strong> class is created. This class calculates all the necessairy non-surface related meshes, such as the Spheres corresponding to each atom or the backbone of the molecule. Next, a <strong>SurfaceHandler</strong> class handles all the surface related computation.</p>
+<p>Finally, a <strong>Structure</strong> and a <strong>Surface</strong> class is created. These classes are instantiated with the above mentioned classes as input variables to ensure that no data duplication occurs and that the two will handle the same protein.</p>
+</section>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline"></a></h2>
+<p>Plotting can be achieved by calling the member functions of the <strong>**Structure</strong> and the <strong>Surface</strong> classes. For example for the <strong>prot</strong> class instance defined above the bonds of the molecule can be plotted as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_bonds</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl>
+<dt>All plotting functions have the following input variables:</dt><dd><ul class="simple">
+<li><p>box (bool): If True bounding box will be plotted around molecule.</p></li>
+<li><p>res (Residue): Specified residue will be marked with a red box.</p></li>
+<li><p>outname (str): Save image of the plot to the file passed in this variable (otherwise saved in data/img).</p></li>
+<li><p>camera (pyvista.camera): A pyvista camera object to be make it easier to set a fixed camera position to compare two molecules.</p></li>
+</ul>
+<p>Some of the plotting functions have additional input variables. For example; <strong>plot_bonds()</strong>:
+- colorful (bool): If True different bond types will be plotted in different colors.</p>
+<blockquote>
+<div><p>Single bonds: white
+Double bonds: blue
+Triple bonds: green
+Amide bonds: red
+Aromatic bonds: purple
+Undefined/Anything else: black</p>
+</div></blockquote>
+</dd>
+</dl>
 </section>
 </section>
 
@@ -110,8 +156,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="setup.html" class="btn btn-neutral float-left" title="Setting up Provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="provis.html" class="btn btn-neutral float-right" title="Provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="provis.utils.html" class="btn btn-neutral float-left" title="Utilities for Provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example.html" class="btn btn-neutral float-right" title="Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

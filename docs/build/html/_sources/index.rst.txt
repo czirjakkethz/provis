@@ -10,7 +10,9 @@ Provis is a protein visualization library based on python. As the name suggests 
 
 The library and this documentation were created by Kristof Czirjak as his Bachelor's Thesis at ETH Zurich.
 
-You can find `installation instructions <setup.html>`_ as well as the documentation of the `source code <https://github.com/czirjakkethz/provis>`_.
+You can find installation instructions under
+:ref:`setup`, a tutorial on 
+:ref:`tutorial`, as well as the documentation of the `source code <https://github.com/czirjakkethz/provis>`_.
 
 .. toctree::
    :maxdepth: 2
@@ -18,8 +20,7 @@ You can find `installation instructions <setup.html>`_ as well as the documentat
    
    req
    setup
-   tutorial
-
+   
 
 .. toctree::
    :maxdepth: 3
@@ -31,8 +32,8 @@ You can find `installation instructions <setup.html>`_ as well as the documentat
    :maxdepth: 3
    :caption: Examples:
    
-   example1
-   example2
+   tutorial
+   example
    
 .. toctree::
    :maxdepth: 2

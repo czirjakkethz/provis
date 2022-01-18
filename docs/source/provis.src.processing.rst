@@ -5,7 +5,6 @@ These classes constitute the "brain" of provis. All computation is done here (so
 
 The results/outputs of these classes are passed to the plotting classes for plotting.
 
-
 provis.src.processing.data\_handler module
 ------------------------------------------
 
@@ -26,6 +25,14 @@ provis.src.processing.name\_checker module
 ------------------------------------------
 
 .. automodule:: provis.src.processing.name_checker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+provis.src.processing.protein module
+------------------------------------
+
+.. automodule:: provis.src.processing.protein
    :members:
    :undoc-members:
    :show-inheritance:

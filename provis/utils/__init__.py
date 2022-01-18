@@ -154,14 +154,10 @@ DONOR_ATOMS["HG1"] = "OG1"
 def str2bool(v: str) -> bool:
     """Converts str to bool.
 
-    Parameters
-    ----------
-    v: str,
-        String element
+    :param name: v - String element
+    :param type: str
 
-    Returns
-    -------
-    boolean version of v
+    :returns: boolean version of v
     """
     v = v.lower()
     if v == "true":

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; provis 0.0.1 documentation</title>
+  <title>Index &mdash; provis 0.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -38,7 +38,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
@@ -46,8 +45,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="example1.html">Example 1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example2.html">Example 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -111,10 +110,6 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.processing.html#provis.src.processing.name_checker.NameChecker.base_path">base_path (provis.src.processing.name_checker.NameChecker attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="provis.utils.html#provis.utils.bond_parser.bond_parser">bond_parser() (in module provis.utils.bond_parser)</a>
 </li>
   </ul></td>
@@ -123,7 +118,7 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.cleanup">cleanup() (provis.src.processing.file_converter.FileConverter class method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.cleanup">cleanup() (provis.src.processing.file_converter.FileConverter method)</a>
 </li>
       <li><a href="provis.utils.html#provis.utils.charges_utils.compute_angle_deviation">compute_angle_deviation() (in module provis.utils.charges_utils)</a>
 </li>
@@ -169,6 +164,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="provis.utils.html#provis.utils.surface_utils.find_nearest_atom">find_nearest_atom() (in module provis.utils.surface_utils)</a>
+</li>
       <li><a href="provis.utils.html#provis.utils.surface_utils.fix_trimesh">fix_trimesh() (in module provis.utils.surface_utils)</a>
 </li>
   </ul></td>
@@ -259,6 +256,8 @@
 </li>
         <li><a href="provis.src.processing.html#module-provis.src.processing.name_checker">provis.src.processing.name_checker</a>
 </li>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.protein">provis.src.processing.protein</a>
+</li>
         <li><a href="provis.src.processing.html#module-provis.src.processing.residue">provis.src.processing.residue</a>
 </li>
         <li><a href="provis.src.processing.html#module-provis.src.processing.surface_handler">provis.src.processing.surface_handler</a>
@@ -278,7 +277,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.msms">msms() (provis.src.processing.file_converter.FileConverter class method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.msms">msms() (provis.src.processing.file_converter.FileConverter method)</a>
 </li>
       <li><a href="provis.src.processing.html#provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color">msms_mesh_and_color() (provis.src.processing.surface_handler.SurfaceHandler method)</a>
 </li>
@@ -302,10 +301,6 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.processing.html#provis.src.processing.name_checker.NameChecker.out_path">out_path (provis.src.processing.name_checker.NameChecker attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="provis.utils.html#provis.utils.surface_utils.output_pdb_as_xyzrn">output_pdb_as_xyzrn() (in module provis.utils.surface_utils)</a>
 </li>
   </ul></td>
@@ -314,16 +309,18 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="provis.src.processing.html#provis.src.processing.name_checker.NameChecker.pdb_name">pdb_name (provis.src.processing.name_checker.NameChecker attribute)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_mol2">pdb_to_mol2() (provis.src.processing.file_converter.FileConverter method)</a>
 </li>
-      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_mol2">pdb_to_mol2() (provis.src.processing.file_converter.FileConverter class method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_pqr">pdb_to_pqr() (provis.src.processing.file_converter.FileConverter method)</a>
 </li>
-      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_pqr">pdb_to_pqr() (provis.src.processing.file_converter.FileConverter class method)</a>
-</li>
-      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn">pdb_to_xyzrn() (provis.src.processing.file_converter.FileConverter class method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.file_converter.FileConverter.pdb_to_xyzrn">pdb_to_xyzrn() (provis.src.processing.file_converter.FileConverter method)</a>
 </li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot">plot() (provis.src.plotting.structure.Structure method)</a>
+
+      <ul>
+        <li><a href="provis.src.plotting.html#provis.src.plotting.surface.Surface.plot">(provis.src.plotting.surface.Surface method)</a>
 </li>
+      </ul></li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_atoms">plot_atoms() (provis.src.plotting.structure.Structure method)</a>
 </li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_backbone">plot_backbone() (provis.src.plotting.structure.Structure method)</a>
@@ -338,11 +335,11 @@
 </li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_stick_point">plot_stick_point() (provis.src.plotting.structure.Structure method)</a>
 </li>
-      <li><a href="provis.src.plotting.html#provis.src.plotting.surface.Surface.plot_surface">plot_surface() (provis.src.plotting.surface.Surface method)</a>
-</li>
       <li><a href="provis.src.plotting.html#provis.src.plotting.structure.Structure.plot_vw">plot_vw() (provis.src.plotting.structure.Structure method)</a>
 </li>
       <li><a href="provis.utils.html#provis.utils.surface_utils.prepare_trimesh">prepare_trimesh() (in module provis.utils.surface_utils)</a>
+</li>
+      <li><a href="provis.src.processing.html#provis.src.processing.protein.Protein">Protein (class in provis.src.processing.protein)</a>
 </li>
       <li>
     provis
@@ -407,6 +404,13 @@
 
       <ul>
         <li><a href="provis.src.processing.html#module-provis.src.processing.name_checker">module</a>
+</li>
+      </ul></li>
+      <li>
+    provis.src.processing.protein
+
+      <ul>
+        <li><a href="provis.src.processing.html#module-provis.src.processing.protein">module</a>
 </li>
       </ul></li>
       <li>
@@ -479,7 +483,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="provis.src.processing.html#provis.src.processing.residue.Residue">Residue (class in provis.src.processing.residue)</a>
 </li>
-      <li><a href="provis.src.processing.html#provis.src.processing.name_checker.NameChecker.return_all">return_all() (provis.src.processing.name_checker.NameChecker class method)</a>
+      <li><a href="provis.src.processing.html#provis.src.processing.name_checker.NameChecker.return_all">return_all() (provis.src.processing.name_checker.NameChecker method)</a>
 </li>
       <li><a href="provis.src.processing.html#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">return_mesh_and_color() (provis.src.processing.surface_handler.SurfaceHandler method)</a>
 </li>

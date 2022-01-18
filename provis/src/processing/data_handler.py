@@ -19,11 +19,11 @@ class DataHandler:
     The 'brain' of provis, when it comes to handling atomic positions. 
     
     This class loads information from a variety of files and creates meshes to be plotted. 
-    Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.
+    Upper level classes - eg. Structure - have their own DataHandler objects that do all the work.
     """
     def __init__(self, nc, fc=None):
         """
-        Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein. Load all size and color helper dictionaries.
+        Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein. Also loads all size and color helper dictionaries.
         
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
@@ -57,7 +57,6 @@ class DataHandler:
             "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D',
             "VAL": '#128033', "HOH": 'w', "HEM": 'r'}
         self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(self._base_path, 1)
-        self.get_backbone_mesh()
 
 
     def get_atoms(self, show_solvent=False):
@@ -438,4 +437,5 @@ class DataHandler:
                     count += 1
                 com /= count
                 res_list.append(com)
+                
         return np.array(res_list)

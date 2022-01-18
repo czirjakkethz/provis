@@ -9,34 +9,37 @@ class Surface:
     """
     The Surface class is used to visualize the surface information of the given molecule.
     
-    All member functions of the class are a "two in one" function:
-    - plot the surface created by the MSMS binary. 
-    - create a good approximation of the surface natively with o3d and trimesh and plot it. MSMS does not have to be installed for this option. (It is slightly slower and less precise)
+    The class can visualize two kinds of surfaces:
+    - the "correct" surface created by the MSMS binary. 
+    - a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is slightly slower and less precise)
     
-    Choose between the two by setting the msms Boolean variable (True corresponding to the MSMS binary option is default)
+    Choose between the two by setting the msms Boolean variable. (True corresponding to the MSMS binary option is default)
     
     """
-    def __init__(self, nc, dh=None, sh=None, density=None, msms=False, notebook=False):
+    def __init__(self, nc, sh=None, msms=False, density=3.0, notebook=False):
         """
-        Initialize Surface class with given filename. Creates internal data structures; a DataHandler to extract basic surface information and stores it in self._atmsurf (this is a list of Spheres for each atom roughly equating the Van-der-Waals radius).
+        In this constructor no mesh information is computed, simply preparations are made. Meshes are loaded in the plotting function.
+        
+        A NameChecker object is required for initialization, as this is how the program finds the desired pdb file/molecule.
+        If nothing else is passed the NameChecker object will be used to initialize the other internal objects of the surface class.
+        
+        Apart from the required NameChecker object one can also pass a SurfaceHandler for even more control.
         
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
-        :param name: dh - Instance of DataHandler. To be passed to self._sh (SurfaceHandler), not needed otherwise. Default: None.
-        :param type: DataHandler
-        :param name: density - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
-        :param type: float, optional
+        :param name: sh - Instance of SurfaceHandler. This class computes the required surface meshes for the plots. The "brain" of the Surface class. Default: None - a SurfaceHandler class will be initialized with the NameChecker object.
+        :param type: SurfaceHandler, optional
         :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
         :param type: bool, optional
+        :param name: density - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
+        :param type: float, optional
         :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
         :param type: bool, optional 
         """
         
         self._path, self._out_path, self._base_path = nc.return_all()
-        if density:
-            self._density = density
         if not sh:
-            self._sh = SurfaceHandler(nc, density=density, dh=dh)
+            self._sh = SurfaceHandler(nc, density=density)
         else:
             self._sh = sh
         self._msms = msms
@@ -45,7 +48,7 @@ class Surface:
 
     def plot(self, feature=None, title="Surface", patch=False, box=None, res=None, outname=None, camera=None):
         """
-        Plot the surface of protein.
+        Plot the surface of the protein.
         
         :param name: feature - Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).
         :param type: str, optional

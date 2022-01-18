@@ -27,16 +27,20 @@ class SurfaceHandler:
     Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.    
     """
   
-    def __init__(self, nc, fc=None, dh=None, density=None):
+    def __init__(self, nc, fc=None, dh=None, density=3.0):
         """
         Initializes SurfaceHandler class memeber variables: 
-        _dh: DataHandler - needed for native mesh creation
-        _path: str - path to pdb file (without extension)
-        _out_path: str - path to output files (without extension)
-        _density: float - density of surface mesh
+        _dh: DataHandler - needed for native mesh creation.
+        _fc: FileConverter - needed to create necessairy files.   
+        _path: str - path to pdb file (without extension).
+        _out_path: str - path to output files (without extension).
+        _base_path: str - path to root directory.
+        _density: float - density of surface mesh.
         _features: tuple(numpy.ndarray) - A collection of arrays representing the feature information for the surface of the protein, saved in a tuple.
-        _mesh: Mesh - Surface mesh of protein
+        _mesh: Mesh - Surface mesh of protein.
         _col: numpy.ndarray - Coloring map of surface. To be passed to pyvista.PolyData.add_mesh(scalars=).
+        _res_id: list - List of residue IDs (format from output_pdb_as_xyzrn())
+        _atom_coords: list - List of atomic coordinates. Just the coordinates in the same order as in _res_id.
 
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
@@ -44,17 +48,18 @@ class SurfaceHandler:
         :param type: FileConverter
         :param name: dh - Instance of a DataHandler class. Used to retrieve atom-positional information when calculating the surface of the protein natively. Default: None. If None a new DataHandler variable will be initialized with "nc".
         :param type: DataHandler, optional
-        :param name: density - Density needed for msms. Defaults to None.
+        :param name: density - Density needed for msms. Default: 3.0.
         :param type: float, optional
         """
-        if not dh:
-            self._dh = DataHandler(nc)
-        else:
-            self._dh = dh
+        
         if not fc:
             self._fc = FileConverter(nc)
         else:
             self._fc = fc
+        if not dh:
+            self._dh = DataHandler(nc, fc)
+        else:
+            self._dh = dh
         self._path, self._out_path, self._base_path = nc.return_all()
         self._density = density
         self._features = None
