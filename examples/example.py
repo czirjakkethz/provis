@@ -16,16 +16,15 @@ def main():
     First:
     Define variables needed later:
     """
-    name = "2fd7"
+    name = "traj"
     density = 3.0
-    solvent = 0
 
     """
     Second:
     Initializing the Protein class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!
     """
     
-    prot = Protein(name, base_path=None, density=density, plot_solvent=solvent, msms=False, notebook=False)
+    prot = Protein(name, base_path=None, density=density, plot_solvent=False, msms=False, notebook=False)
     
     """
     Third:
@@ -33,13 +32,13 @@ def main():
     
     Use the prot.structure (Structure class) and prot.surface (Surface class) member variables to plot.
     """
-    prot.structure.plot_backbone()
-    prot.structure.plot_atoms()
-    prot.structure.plot_bonds()
-    prot.structure.plot_vw()
-    prot.structure.plot_stick_point()
-    r = Residue(1)
-    r.add_residue(3)
+#    prot.structure.plot_backbone()
+#    prot.structure.plot_atoms()
+#    prot.structure.plot_bonds()
+#    prot.structure.plot_vw()
+#    prot.structure.plot_stick_point()
+    r = Residue(29)
+    r.add_residue(50)
     r. add_residue(1, 1)
     r.remove_residue(1, 1)
     prot.structure.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)

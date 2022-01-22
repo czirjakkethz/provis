@@ -209,7 +209,9 @@ class Structure:
                 res_name = residues_list[r + 1].get_resname()
                 d = (self._dh._res_size_dict[res_name] + pad) * 2
                 x, y, z = d,d,d
-                pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
+                res_exists = (self._dh.get_residue_info(r, chain,'com') != 1)
+                if res_exists:
+                    pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
 
         if bb:
             bb_mesh = self._dh.get_backbone_mesh()

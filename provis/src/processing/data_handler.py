@@ -72,37 +72,38 @@ class DataHandler:
         residues = self._structure.get_residues()
         residues_list = list(residues)
 
-#        i = 0
-#        atom_data = dict()
-#        for model in self._structure:
-#            if model.id == model_id:
-#                for residue in model:
-#                    if residue.get_resname() == "HOH" and not show_solvent:
-#                    continue
-#                for atom in residue:
-#                    type_name = atom.element
-#                    # If atom not in dictionary, add it as key with coords in list
-#                    if type_name not in atom_data:
-#                        atom_data[type_name] = [atom.get_coord()]
-#                    # If atom already in dictionary, append its coordinates to list
-#                    else:
-#                        atom_data[type_name].append(atom.get_coord())
-#
-#            i += 1
+        i = 0
+        atom_data = dict()
+        for model in self._structure:
+            if model.id == model_id:
+                for chain in model:
+                    for residue in chain:
+                        if residue.get_resname() == "HOH" and not show_solvent:
+                            continue
+                        for atom in residue:
+                            type_name = atom.element
+                            # If atom not in dictionary, add it as key with coords in list
+                            if type_name not in atom_data:
+                                atom_data[type_name] = [atom.get_coord()]
+                            # If atom already in dictionary, append its coordinates to list
+                            else:
+                                atom_data[type_name].append(atom.get_coord())
+
+            i += 1
 
         # initialize dictionary, then fill up iteratively
-        atom_data = dict()
-        for residue in residues_list:
-            if residue.get_resname() == "HOH" and not show_solvent:
-                continue
-            for atom in residue:
-                type_name = atom.element
-                # If atom not in dictionary, add it as key with coords in list
-                if type_name not in atom_data:
-                    atom_data[type_name] = [atom.get_coord()]
-                # If atom already in dictionary, append its coordinates to list
-                else:
-                    atom_data[type_name].append(atom.get_coord())
+#        atom_data = dict()
+#        for residue in residues_list:
+#            if residue.get_resname() == "HOH" and not show_solvent:
+#                continue
+#            for atom in residue:
+#                type_name = atom.element
+#                # If atom not in dictionary, add it as key with coords in list
+#                if type_name not in atom_data:
+#                    atom_data[type_name] = [atom.get_coord()]
+#                # If atom already in dictionary, append its coordinates to list
+#                else:
+#                    atom_data[type_name].append(atom.get_coord())
 
         # return the 3D positions of atoms organized by atom type
         return atom_data
@@ -217,7 +218,9 @@ class DataHandler:
                 COM_sum[1] += actual.iloc[i]['y'] * m
                 COM_sum[2] += actual.iloc[i]['z'] * m
                 a += m
-            
+            if a == 0:
+                print("ERROR: residue empty -> center of mass could not be found")
+                return 1
             COM = [i/a for i in COM_sum]
             return COM
             
