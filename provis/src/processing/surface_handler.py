@@ -173,6 +173,7 @@ class SurfaceHandler:
             # create rough surface by combining vw radii of each atom
             atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs()
             self._atmsurf, col = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
+#            print(self._atmsurf)
 
             # adding the spheres (by atom type) one at a time
             j = 0
@@ -215,6 +216,10 @@ class SurfaceHandler:
             
             tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
             self._mesh = tri_mesh
+#            print(self._mesh)
+#            tri_mesh.export('my_mesh.obj')
+#            self._mesh = trimesh.load_mesh('my_mesh.obj')
+#            print(self._mesh)
 
         # only needed if feature is specified (-> color map needs to be calculated)
         if feature:
@@ -240,9 +245,9 @@ class SurfaceHandler:
         """
         
         # run appropriate function to compute the mesh and the coloring
-        if msms:
-            self.msms_mesh_and_color(feature, patch)
-        else:
-            self.native_mesh_and_color(feature)
-          
+#        if msms:
+#            self.msms_mesh_and_color(feature, patch)
+#        else:
+#            self.native_mesh_and_color(feature)
+        self._mesh = trimesh.load_mesh('my_mesh.obj')
         return self._mesh, self._col

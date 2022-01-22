@@ -14,7 +14,7 @@ class Protein:
     For example: my_protein.structure.plot_atoms()
     """
   
-    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False):
+    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False, dh=None):
         """
         Initialize the class with the name of the pdb file and you are ready for plotting!
         
@@ -32,6 +32,7 @@ class Protein:
         :param type: bool, optional
         :param name: notebook - Set to True when using running in a Jupyter Notebook environment. Default: False.
         :param type: bool, optional
+        :param name: dh - Instance of DataHandler object. Needed for dynamic structure plotting. Only
         """
         if notebook:
             pyvista.set_jupyter_backend('panel')

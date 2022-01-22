@@ -27,24 +27,18 @@ class Structure:
         """
         self._notebook = notebook
         self._shading = not self._notebook
-
+        self._solvent = plot_solvent
         self._id, self._name, self._base_path = nc.return_all()
         # create "brain" of plotting class
         if not dh:
             self._dh = DataHandler(nc)
         else:
             self._dh = dh
-        atom_data = self._dh.get_atoms(show_solvent=plot_solvent) # second arg: 1 = show_solvent
-        ## return list of spheres (meshes) and colors for the spheres
-        self._atoms, self._col_a = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
-        ## return list of lines (meshes)
-        self._bonds, self._bond_col = self._dh.get_bond_mesh()
-        ## return list of spheres (meshes) and colors for the spheres
-        res_data = self._dh.get_residues()
-        self._residues, self._col_r = self._dh.get_residue_mesh(res_data)
-        
-        self._atoms_vw, self._col_vw = self._dh.get_atom_mesh(atom_data, vw=1)
-        
+    
+    def load_given_structure(self, model_id=0):
+        """
+        This function refreshes the internal data structures corresponding to the requested structure within a dynamic structure. In other words it refreshes the Structure class with the information of a given model id. Needed for DynamicStructure plotting.
+        """
 
     def manual_plot(self, box=0, res=0, outname=0, atoms=0, col_a=0, bonds=0, vw=0, residues=0, col_r=0, bb=0, camera=None):
         """
@@ -159,6 +153,8 @@ class Structure:
         
         :return: Pyvista.Plotter window - Window with interactive plot
         """
+        atom_data = self._dh.get_atoms(show_solvent=self._solvent) # second arg: 1 = show_solvent
+        
         pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
@@ -167,28 +163,38 @@ class Structure:
         opacity = 1 - vw*0.4
         style = 'surface'
         if atoms:
+            ## return list of spheres (meshes) and colors for the spheres
+            self._atoms, self._col_a = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
             if vw:
+                _atoms_vw, _col_vw = self._dh.get_atom_mesh(atom_data, vw=1)
                 style='wireframe'
-                for j, mesh in enumerate(self._atoms_vw):
-                    pl.add_mesh(mesh, color=self._col_vw[j], opacity=opacity, smooth_shading=self._shading, style=style)
+                for j, mesh in enumerate(_atoms_vw):
+                    pl.add_mesh(mesh, color=_col_vw[j], opacity=opacity, smooth_shading=self._shading, style=style)
             else:
                 for j, mesh in enumerate(self._atoms):
                     pl.add_mesh(mesh, color=self._col_a[j], opacity=opacity, smooth_shading=self._shading, style=style)
 
-        # adding the bonds one at a time
-        if bonds == 1:
-            for b in self._bonds:
-                pl.add_mesh(b, color="w", line_width=5, render_lines_as_tubes=True)
-        if bonds == 2:
-            for b, c in zip(self._bonds, self._bond_col):
-                pl.add_mesh(b, color=c, line_width=5, render_lines_as_tubes=True)
+        if bonds:
+            ## return list of lines (meshes)
+            _bonds, _bond_col = self._dh.get_bond_mesh()
+            # adding the bonds one at a time
+            if bonds == 1:
+                for b in _bonds:
+                    pl.add_mesh(b, color="w", line_width=5, render_lines_as_tubes=True)
+            if bonds == 2:
+                for b, c in zip(_bonds, _bond_col):
+                    pl.add_mesh(b, color=c, line_width=5, render_lines_as_tubes=True)
                 
                 
         # adding the spheres (by residue) one at a time
         # only executes if residue information provided
         if residues:
-            for k, mesh in enumerate(self._residues):
-                pl.add_mesh(mesh, color=self._col_r[k], opacity=0.2)
+            ## return list of spheres (meshes) and colors for the spheres
+            res_data = self._dh.get_residues()
+            _residues, _col_r = self._dh.get_residue_mesh(res_data)
+            
+            for k, mesh in enumerate(_residues):
+                pl.add_mesh(mesh, color=_col_r[k], opacity=0.2)
         
         # if specified add bounding box
         if box:

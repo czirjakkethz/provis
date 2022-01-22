@@ -59,7 +59,7 @@ class DataHandler:
         self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(self._base_path, 1)
 
 
-    def get_atoms(self, show_solvent=False):
+    def get_atoms(self, show_solvent=False, model_id=0):
         """
         Creates a dictionary of atomic coordinates from structure
         
@@ -71,7 +71,25 @@ class DataHandler:
         # load file into a python list
         residues = self._structure.get_residues()
         residues_list = list(residues)
-        
+
+#        i = 0
+#        atom_data = dict()
+#        for model in self._structure:
+#            if model.id == model_id:
+#                for residue in model:
+#                    if residue.get_resname() == "HOH" and not show_solvent:
+#                    continue
+#                for atom in residue:
+#                    type_name = atom.element
+#                    # If atom not in dictionary, add it as key with coords in list
+#                    if type_name not in atom_data:
+#                        atom_data[type_name] = [atom.get_coord()]
+#                    # If atom already in dictionary, append its coordinates to list
+#                    else:
+#                        atom_data[type_name].append(atom.get_coord())
+#
+#            i += 1
+
         # initialize dictionary, then fill up iteratively
         atom_data = dict()
         for residue in residues_list:

@@ -68,13 +68,15 @@ class Surface:
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
         # get appropriate mesh and coloring
+        print("pre mesh loading")
         mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch)
-        
+        print("mesh and color loaded")
         # plot
         pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
         pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
+        print("add mesh done")
         
         # if specified add bounding box
         if box:
