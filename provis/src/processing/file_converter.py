@@ -88,7 +88,7 @@ class FileConverter():
         FNULL = open(os.devnull, 'w')
         args = [MSMS_BIN, "-density", f"{dens}", "-hdensity", "3.0", "-probe",\
                         "1.5", "-if", f"{path}.xyzrn", "-of", file_base, "-af", file_base]
-        
+        print(args)
         output_exists = os.path.exists(file_base + ".vert") and os.path.exists(file_base + ".face") + os.path.exists(file_base + ".area")
         if os.path.isfile(MSMS_BIN):# and not output_exists:
             if not output_exists:

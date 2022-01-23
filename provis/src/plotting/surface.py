@@ -105,8 +105,8 @@ class Surface:
             pl.camera = camera
         else:
             pl.camera_position = 'xy'
-        pl.close()
-#        pl.show(screenshot=outname, title=title)
+        # pl.close()
+        pl.show(screenshot=outname, title=title)
 
     def plot_hydrophob(self, box=None, res=None, outname=None, camera=None):
         """

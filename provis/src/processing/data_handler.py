@@ -129,13 +129,13 @@ class DataHandler:
         atom_data = dict()
         atom_coords = []
         for vi in range(lenm):
-            if int(meshdata[vi][0]) == model_id:
-                fields = meshdata[vi].split()
+            fields = meshdata[vi].split()
+            if int(fields[5]) == model_id:
                 vertices = [None] * 3
-                vertices[0] = float(fields[1])
-                vertices[1] = float(fields[2])
-                vertices[2] = float(fields[3])
-                res_id[vi] = fields[6]
+                vertices[0] = float(fields[0])
+                vertices[1] = float(fields[1])
+                vertices[2] = float(fields[2])
+                res_id[vi] = fields[5]
                 res = res_id[vi].split("_")
                 atmtype = res[4][0]
                 if atmtype not in atom_data:

@@ -104,7 +104,7 @@ def output_pdb_as_xyzrn(pdb_file: str, xyzrn_file: str) -> None:
     for model in struct:
         for chain in model:
             for residue in chain:
-                if residue.get_resname() == "HOH" and not show_solvent:
+                if residue.get_resname() == "HOH":
                     continue
                 for atom in residue:
                     name = atom.get_name()
@@ -138,7 +138,7 @@ def output_pdb_as_xyzrn(pdb_file: str, xyzrn_file: str) -> None:
                             chain,
                             residue.get_id()[1], insertion, resname, name, color)
                     if coords is not None:
-                        outfile.write(str(i) + " " + coords + " " + RADII[atomtype] + " 1 " + full_id +
+                        outfile.write(coords + " " + RADII[atomtype] + " 1 " + str(i) + " " + full_id +  
                                       "\n")
         i += 1
 
