@@ -60,7 +60,7 @@ class SurfaceHandler:
             self._dh = DataHandler(nc, fc)
         else:
             self._dh = dh
-        self._path, self._out_path, self._base_path = nc.return_all()
+        self._path, self._out_path, self._base_path, self._mesh_path = nc.return_all()
         self._density = density
         self._features = None
         self._mesh = None
@@ -158,20 +158,25 @@ class SurfaceHandler:
         else:
             self._col = None
 
-    def native_mesh_and_color(self, feature=None):
+    def native_mesh_and_color(self, feature=None, model_id=0, dynamic=False):
         """
         Returns a mesh without the need for the MSMS binary.
         Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.
 
         :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to "".
         :param type: str, optional
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
+        :param name: dynamic - Set to True if you are plotting a dynamic model. Default: False.
+        :param type: bool, optional
 
         :returns: pyvista.PolyData - The mesh, always returned
         :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
-        if not self._mesh:
+        if not self._mesh or dynamic:
+            print("Calculating mesh with model id: ", model_id)
             # create rough surface by combining vw radii of each atom
-            atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs()
+            atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs(model_id=model_id)
             self._atmsurf, col = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
 
             # adding the spheres (by atom type) one at a time
@@ -215,10 +220,9 @@ class SurfaceHandler:
             
             tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
             self._mesh = tri_mesh
-#            print(self._mesh)
-#            tri_mesh.export('my_mesh.obj')
-#            self._mesh = trimesh.load_mesh('my_mesh.obj')
-#            print(self._mesh)
+            meshname = self._mesh_path + str(i) + '.obj'
+            tri_mesh.export(meshname)
+            print("Mesh calculation done.")
 
         # only needed if feature is specified (-> color map needs to be calculated)
         if feature:
@@ -227,7 +231,7 @@ class SurfaceHandler:
             self._col = None
 
     
-    def return_mesh_and_color(self, msms=False, feature=None, patch=False):
+    def return_mesh_and_color(self, msms=False, feature=None, patch=False, model_id=0, dynamic=False):
         """
         Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
         If you could not download the MSMS binary leave this variable false and you will not run into problems.
@@ -238,15 +242,23 @@ class SurfaceHandler:
         :param type: str, optional
         :param name: patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
         :param type: bool, optional
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
+        :param name: dynamic - Set to True if you are plotting a dynamic model. Default: False.
+        :param type: bool, optional
         
         :returns: trimesh.Trimesh - The mesh corresponding to the surface of the protein.
         :returns: numpy.ndarray - Coloring map corresponding to specified feature.
         """
         
-        # run appropriate function to compute the mesh and the coloring
-#        if msms:
-#            self.msms_mesh_and_color(feature, patch)
-#        else:
-#            self.native_mesh_and_color(feature)
-        self._mesh = trimesh.load_mesh('my_mesh.obj')
+        meshname = self._mesh_path + str(model_id) + '.obj'
+        if exists(meshname):
+            self._mesh = trimesh.load_mesh(meshname)
+        else:
+            # run appropriate function to compute the mesh and the coloring
+            if msms:
+                self.msms_mesh_and_color(feature, patch)
+            else:
+                self.native_mesh_and_color(feature, model_id=model_id, dynamic=dynamic)
+
         return self._mesh, self._col

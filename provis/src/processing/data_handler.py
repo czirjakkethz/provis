@@ -31,7 +31,7 @@ class DataHandler:
         :param name: fc - Instance of a FileConverter class. Needed if temporary files have not been created before instantiating this class. Default: None.
         :param type: FileConverter, optional
         """
-        self._path, self._out_path, self._base_path = nc.return_all()
+        self._path, self._out_path, self._base_path, mesh_path = nc.return_all()
         if not fc:
             self._fc = FileConverter(nc)
         else:
@@ -109,10 +109,13 @@ class DataHandler:
         return atom_data
         
             
-    def get_atoms_IDs(self):
+    def get_atoms_IDs(self, model_id=0):
         """
         Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.
-
+                        
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
+        
         :returns: dict - Dictionary of atomic coordinates by atom type.
         :returns: list - List of unique residue IDs (format from output_pdb_as_xyzrn())
         :returns: list - Atomic coordinates (in same order as the residue IDs)
@@ -123,24 +126,24 @@ class DataHandler:
         
         lenm = len(meshdata)
         res_id = [""] * lenm
-        
         atom_data = dict()
         atom_coords = []
         for vi in range(lenm):
-            fields = meshdata[vi].split()
-            vertices = [None] * 3
-            vertices[0] = float(fields[0])
-            vertices[1] = float(fields[1])
-            vertices[2] = float(fields[2])
-            res_id[vi] = fields[5]
-            res = res_id[vi].split("_")
-            atmtype = res[4][0]
-            if atmtype not in atom_data:
-                atom_data[atmtype] = [vertices]
-            # If atom already in dictionary, append its coordinates to list
-            else:
-                atom_data[atmtype].append(vertices)
-            atom_coords.append(vertices)
+            if int(meshdata[vi][0]) == model_id:
+                fields = meshdata[vi].split()
+                vertices = [None] * 3
+                vertices[0] = float(fields[1])
+                vertices[1] = float(fields[2])
+                vertices[2] = float(fields[3])
+                res_id[vi] = fields[6]
+                res = res_id[vi].split("_")
+                atmtype = res[4][0]
+                if atmtype not in atom_data:
+                    atom_data[atmtype] = [vertices]
+                # If atom already in dictionary, append its coordinates to list
+                else:
+                    atom_data[atmtype].append(vertices)
+                atom_coords.append(vertices)
 
 
         # return the 3D positions of atoms organized by atom type

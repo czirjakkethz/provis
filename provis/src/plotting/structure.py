@@ -28,17 +28,13 @@ class Structure:
         self._notebook = notebook
         self._shading = not self._notebook
         self._solvent = plot_solvent
-        self._id, self._name, self._base_path = nc.return_all()
+        self._id, self._name, self._base_path, self._mesh_path = nc.return_all()
         # create "brain" of plotting class
         if not dh:
             self._dh = DataHandler(nc)
         else:
             self._dh = dh
-    
-    def load_given_structure(self, model_id=0):
-        """
-        This function refreshes the internal data structures corresponding to the requested structure within a dynamic structure. In other words it refreshes the Structure class with the information of a given model id. Needed for DynamicStructure plotting.
-        """
+
 
     def manual_plot(self, box=0, res=0, outname=0, atoms=0, col_a=0, bonds=0, vw=0, residues=0, col_r=0, bb=0, camera=None):
         """
@@ -124,7 +120,7 @@ class Structure:
         pl.show(screenshot=outname, title='Provis')
 
 
-    def plot(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title=None, camera=None):
+    def plot(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title=None, camera=None, model_id=0, dynamic=False):
         """
         This member function is called by all the others. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.
         
@@ -150,10 +146,14 @@ class Structure:
         :param type: str, optional
         :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         :param type: pyvista.Camera, optional
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
+        :param name: dynamic - Set to True if you are plotting a dynamic model. Default: False.
+        :param type: bool, optional
         
         :return: Pyvista.Plotter window - Window with interactive plot
         """
-        atom_data = self._dh.get_atoms(show_solvent=self._solvent) # second arg: 1 = show_solvent
+        atom_data = self._dh.get_atoms(show_solvent=self._solvent, model_id=model_id) # second arg: 1 = show_solvent
         
         pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
@@ -225,6 +225,9 @@ class Structure:
         if camera: 
             pl.camera.position = camera
         pl.show(screenshot=outname, title=title)
+        if dynamic:
+            print("hi")
+            pl.close()
 
 
     def plot_stick_point(self, box=0, res=None, outname=0, camera=None):

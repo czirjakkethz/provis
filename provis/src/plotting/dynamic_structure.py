@@ -10,10 +10,10 @@ class DynamicStructure:
     """
     The Dynamic Structure class, similarly to the Protein class, encapsulates every other class and creates a user friendly way to plot your desired dynamic structure of a protein molecules.
     
-    While the class is built similarly to the Protein class it does not use the Protein class itself. This is due to the fact that the Protein class is a rigid class made for a single molecule and 
+    While the class is built similarly to the Protein class it does not use the Protein class itself. This is due to the fact that the Protein class is a rigid class made for a single molecule and
     """
   
-    def __init__(self):
+    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False, box=False, res=None, outname=None, camera=None, title=None):
         """
         Initialize the class with the name of the pdb file and you are ready for plotting!
         
@@ -31,17 +31,29 @@ class DynamicStructure:
         :param type: bool, optional
         :param name: notebook - Set to True when using running in a Jupyter Notebook environment. Default: False.
         :param type: bool, optional
+        #TODO: box
         """
         
             
-        Protein(pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False):
+#        Protein(pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False)
         if notebook:
             pyvista.set_jupyter_backend('panel')
         self._name_checker = NameChecker(pdb_name, base_path)
         self.file_converter = FileConverter(self._name_checker, density=density)
         self._data_handler =  DataHandler(self._name_checker, fc=self.file_converter)
         self._surface_handler = SurfaceHandler( self._name_checker, fc=self.file_converter, dh=self._data_handler, density=density)
+                
+        self.structure = Structure(self._name_checker, dh=self._data_handler, plot_solvent=plot_solvent, notebook=notebook)
+        self.surface = Surface(self._name_checker, sh=self._surface_handler, msms=msms, notebook=notebook)
+        
+    def plot_atoms(self):
+        i = 0
         for model in self._data_handler._structure:
-            self.structure = Structure(self._name_checker, dh=self._data_handler, plot_solvent=plot_solvent, notebook=notebook)
-            self.surface = Surface(self._name_checker, sh=self._surface_handler, msms=msms, notebook=notebook)
+            self.structure.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=res, outname=outname, title="Atoms", camera=camera, model_id=i, dynamic=True)
+            i+=1
 
+    def plot_surface(self):
+        i = 0
+        for model in self._data_handler._structure:
+            self.surface.plot(feature=None, title="Surface", patch=False, box=None, res=None, outname=None, camera=None, model_id=i)
+            i+=1

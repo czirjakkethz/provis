@@ -37,7 +37,7 @@ class Surface:
         :param type: bool, optional 
         """
         
-        self._path, self._out_path, self._base_path = nc.return_all()
+        self._path, self._out_path, self._base_path, self._mesh_path = nc.return_all()
         if not sh:
             self._sh = SurfaceHandler(nc, density=density)
         else:
@@ -46,7 +46,7 @@ class Surface:
         self._notebook = notebook
         self._shading = not self._notebook
 
-    def plot(self, feature=None, title="Surface", patch=False, box=None, res=None, outname=None, camera=None):
+    def plot(self, feature=None, title="Surface", patch=False, box=None, res=None, outname=None, camera=None, model_id=0):
         """
         Plot the surface of the protein.
         
@@ -64,17 +64,21 @@ class Surface:
         :param type: string, optional
         :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         :param type: pyvista.Camera, optional
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
+        
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
         # get appropriate mesh and coloring
-        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch)
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch, model_id=model_id, dynamic=True)
         # plot
         pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
+        print("Adding mesh...")
         pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
-        
+        print("Mesh added to plotter")
         # if specified add bounding box
         if box:
             pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
@@ -101,7 +105,8 @@ class Surface:
             pl.camera = camera
         else:
             pl.camera_position = 'xy'
-        pl.show(screenshot=outname, title=title)
+        pl.close()
+#        pl.show(screenshot=outname, title=title)
 
     def plot_hydrophob(self, box=None, res=None, outname=None, camera=None):
         """

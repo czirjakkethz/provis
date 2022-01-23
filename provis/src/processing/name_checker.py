@@ -54,10 +54,12 @@ class NameChecker:
 
 
         out_path = base_path + "data/tmp/" 
-        out_path += id 
+        out_path += id
+        mesh_path = base_path + "data/meshes/" + id
         self._pdb_name = name 
         self._out_path = out_path
         self._base_path = base_path
+        self._mesh_path = mesh_path
     
     def return_all(self):
         """
@@ -68,4 +70,4 @@ class NameChecker:
         :return: str - path to the root of the provis directory. Following file structure HAS TO exist within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.
         """
         
-        return self._pdb_name, self._out_path, self._base_path
+        return self._pdb_name, self._out_path, self._base_path, self._mesh_path

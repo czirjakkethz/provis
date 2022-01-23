@@ -100,40 +100,47 @@ def output_pdb_as_xyzrn(pdb_file: str, xyzrn_file: str) -> None:
     struct = parser.get_structure(id=pdb_id, file=pdb_file)
     outfile = open(xyzrn_file, "w")
 
-    for atom in struct.get_atoms():
-        name = atom.get_name()
-        residue = atom.get_parent()
-        # Ignore hetatms.
-        if residue.get_id()[0] != " ":
-            continue
-        resname = residue.get_resname()
-        reskey = residue.get_id()[1]
-        chain = residue.get_parent().get_id()
-        atomtype = name[0]
+    i = 0
+    for model in struct:
+        for chain in model:
+            for residue in chain:
+                if residue.get_resname() == "HOH" and not show_solvent:
+                    continue
+                for atom in residue:
+                    name = atom.get_name()
+                    residue = atom.get_parent()
+                    # Ignore hetatms.
+                    if residue.get_id()[0] != " ":
+                        continue
+                    resname = residue.get_resname()
+                    reskey = residue.get_id()[1]
+                    chain = residue.get_parent().get_id()
+                    atomtype = name[0]
 
-        color = "Green"
-        coords = None
-        if atomtype in RADII and resname in POLAR_HYDROGENS:
-            if atomtype == "O":
-                color = "Red"
-            if atomtype == "N":
-                color = "Blue"
-            if atomtype == "H":
-                if name in POLAR_HYDROGENS[resname]:
-                    color = "Blue"  # Polar hydrogens
-            coords = "{:.06f} {:.06f} {:.06f}".format(atom.get_coord()[0],
-                                                      atom.get_coord()[1],
-                                                      atom.get_coord()[2])
-            insertion = "x"
-            if residue.get_id()[2] != " ":
-                insertion = residue.get_id()[2]
-            # this is the weird ID; the 9th column of the xyzrn file
-            full_id = "{}_{:d}_{}_{}_{}_{}".format(
-                chain,
-                residue.get_id()[1], insertion, resname, name, color)
-        if coords is not None:
-            outfile.write(coords + " " + RADII[atomtype] + " 1 " + full_id +
-                          "\n")
+                    color = "Green"
+                    coords = None
+                    if atomtype in RADII and resname in POLAR_HYDROGENS:
+                        if atomtype == "O":
+                            color = "Red"
+                        if atomtype == "N":
+                            color = "Blue"
+                        if atomtype == "H":
+                            if name in POLAR_HYDROGENS[resname]:
+                                color = "Blue"  # Polar hydrogens
+                        coords = "{:.06f} {:.06f} {:.06f}".format(atom.get_coord()[0],
+                                                                  atom.get_coord()[1],
+                                                                  atom.get_coord()[2])
+                        insertion = "x"
+                        if residue.get_id()[2] != " ":
+                            insertion = residue.get_id()[2]
+                        # this is the weird ID; the 9th column of the xyzrn file
+                        full_id = "{}_{:d}_{}_{}_{}_{}".format(
+                            chain,
+                            residue.get_id()[1], insertion, resname, name, color)
+                    if coords is not None:
+                        outfile.write(str(i) + " " + coords + " " + RADII[atomtype] + " 1 " + full_id +
+                                      "\n")
+        i += 1
 
 
 def get_surface(out_path: str, density: float):

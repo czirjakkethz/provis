@@ -27,7 +27,7 @@ class FileConverter():
         :param type: bool, optional
         """
 
-        self._path, self._out_path, self._base_path = nc.return_all()
+        self._path, self._out_path, self._base_path, mesh = nc.return_all()
         if convert_all:
             self.pdb_to_xyzrn(self._path, self._out_path)
             self.msms(self._path, density)
