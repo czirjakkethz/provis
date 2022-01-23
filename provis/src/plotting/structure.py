@@ -269,6 +269,16 @@ class Structure:
             outname = self._base_path + 'data/img/' + new_name + '_atoms.png'
         self.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=res, outname=outname, title="Atoms", camera=camera)
         
+    def plot_residues(self, box=0, res=0, outname=0, camera=None):
+        """
+        """
+        # save a screenshot
+        if not outname:
+            new_name = self._name.split('/')
+            new_name = new_name[-1].split('.')[0]
+            outname = self._base_path + 'data/img/' + new_name + '_vw.png'
+        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=1, res=res, title="Residues", camera=camera)
+        
     def plot_vw(self, box=0, res=0, outname=0, camera=None):
         """
         Plot Van-der-Waals radius of atoms as wireframe spheres.

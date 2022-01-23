@@ -7,6 +7,7 @@ from os.path import exists
 import pandas as pd
 from biopandas.mol2 import PandasMol2
 import trimesh
+from biopandas.mol2 import split_multimol2
 
 from provis.utils.atminfo import import_atm_size_info, import_atm_mass_info
 from provis.utils.bond_parser import bond_parser
@@ -65,12 +66,11 @@ class DataHandler:
         
         :param name: show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.
         :param type: bool, optional
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
         
         :returns: dict - Dictionary of atomic coordinates by atom type.
         """
-        # load file into a python list
-        residues = self._structure.get_residues()
-        residues_list = list(residues)
 
         i = 0
         atom_data = dict()
@@ -146,9 +146,12 @@ class DataHandler:
         # return the 3D positions of atoms organized by atom type
         return atom_data, res_id, atom_coords
 
-    def get_residues(self):
+    def get_residues(self, model_id=0):
         """
         Creates a dictionary of coordinates by residues from structure object
+                
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
         
         :returns: dict - Dictionary of atomic coordinates by residue type.
         """
@@ -159,18 +162,21 @@ class DataHandler:
 
         # initialize dictionary, then fill up iteratively
         res_data = dict()
-        for res in res_list:
-            type_name = res.get_resname()
-            center_coord = [0., 0., 0.]
-            c = 0.
-            for atom in res:
-                center_coord = center_coord + atom.get_coord()
-                c += 1.
-            center_coord = center_coord / c
-            if type_name not in res_data:
-                res_data[type_name] = [center_coord]
-            else:
-                res_data[type_name].append(center_coord)
+        for model in self._structure:
+            if model.id == model_id:
+                for chain in model:
+                    for res in chain:
+                        type_name = res.get_resname()
+                        center_coord = [0., 0., 0.]
+                        c = 0.
+                        for atom in res:
+                            center_coord = center_coord + atom.get_coord()
+                            c += 1.
+                        center_coord = center_coord / c
+                        if type_name not in res_data:
+                            res_data[type_name] = [center_coord]
+                        else:
+                            res_data[type_name].append(center_coord)
 
         # return the 3D positions of atoms organized by atom type
         return res_data
@@ -380,7 +386,7 @@ class DataHandler:
         # return list of spheres and colors representing each res
         return res_spheres, colors_spheres
 
-    def get_bond_mesh(self):
+    def get_bond_mesh(self, model_id=0):
         """
         Determine bonds from 3D information.
         
@@ -391,6 +397,9 @@ class DataHandler:
             Red for all amide bonds,
             Purple for all aromatic bonds,
             Black for everything else.
+                        
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
         
         :returns: list - List of pyvista lines representing each bond.
         :retruns: list - List of colors corresponding to the lines in the above list
@@ -402,61 +411,92 @@ class DataHandler:
         if not file_exists:
             self._fc.pdb_to_mol2(self._path, self._out_path)
             
-        pmol = PandasMol2().read_mol2(fname)
-        bonds_in = bond_parser(fname)
 
-        # Find endpoints of bonds, create Line() and add to list of lines
+        i = 0
         bonds = []
         col = []
-        for i in range(len(bonds_in)):
-            my = pmol.df.iloc[int(bonds_in.iloc[i]['atom1'])-1][['x', 'y', 'z']]
-            c = pmol.df.iloc[int(bonds_in.iloc[i]['atom2'])-1][['x', 'y', 'z']]
-            
-            my_coord = my.values.tolist()
-            c_coord = c.values.tolist()
-            if bonds_in.iloc[i]['bond_type'] == '1': #TODO: differentiate between different bonds.
-                line = pv.Line(my_coord, c_coord, resolution=5)
-                col.append('w')
-            elif bonds_in.iloc[i]['bond_type'] == '2':
-                line = pv.Line(my_coord, c_coord, resolution=1)
-                col.append('b')
-            elif bonds_in.iloc[i]['bond_type'] == '3':
-                line = pv.Line(my_coord, c_coord, resolution=1)
-                col.append('g')
-            # amide bond in red
-            elif bonds_in.iloc[i]['bond_type'] == 'am':
-                line = pv.Line(my_coord, c_coord, resolution=1)
-                col.append('r')
-            # aromatic bond in purple
-            elif bonds_in.iloc[i]['bond_type'] == 'ar':
-                line = pv.Line(my_coord, c_coord, resolution=1)
-                col.append('m')
-            else:
-                line = pv.Line(my_coord, c_coord, resolution=1)
-                col.append('k')
-            bonds.append(line)
+        for mol2 in split_multimol2(fname):
+            # only do computation on desired model_id
+            keep_molecule = i == model_id
+            if keep_molecule:
+                # easy to handle the mol2 content as text -> convert it from list
+                str_mol2 = ''.join(mol2[1])
+                
+                # find start and end of the @<TRIPOS>ATOM section
+                start_atom = str_mol2.find('@<TRIPOS>ATOM')
+                # 13 = len('@<TRIPOS>ATOM')
+                end_atom = start_atom + 13 + str_mol2[start_atom:].replace('@<TRIPOS>ATOM','').find('@')
+                # figure out number of atoms
+                num_atoms = int(len(str_mol2[start_atom:end_atom].replace('@<TRIPOS>ATOM\n','').replace('\n',' ').strip().split())/9)
+                # create a dataframe of atoms
+                df_atoms = pd.DataFrame(np.array(str_mol2[start_atom:end_atom].replace('@<TRIPOS>ATOM\n','').replace('\n',' ').strip().split()).reshape((num_atoms,9)), columns=['atom_id', 'atom_name', 'x', 'y', 'z', 'atom_type', 'subst_id', 'subst_name', 'charge'])
+                
+                # find start of the @<TRIPOS>BOND section (end not needed, goes to end of string)
+                start_bond = str_mol2.find('@<TRIPOS>BOND')
+                # figure out number of bonds
+                num_bonds = int(len(str_mol2[start_bond:].replace('@<TRIPOS>BOND\n','').replace('\n',' ').strip().split())/4)
+                # create a dataframe of bonds
+                df_bond = pd.DataFrame(np.array(str_mol2[start_bond:].replace('@<TRIPOS>BOND\n','').replace('\n',' ').strip().split()).reshape((num_bonds,4)), columns=['bond_id', 'atom1', 'atom2', 'bond_type'])
+                
+                # find each the 3D coords for each two atoms in a bond
+                for i in range(num_bonds):
+                    my = df_atoms.iloc[int(df_bond.iloc[i]['atom1'])-1][['x', 'y', 'z']]
+                    c = df_atoms.iloc[int(df_bond.iloc[i]['atom2'])-1][['x', 'y', 'z']]
+                    
+                    my_coord = my.values.tolist()
+                    c_coord = c.values.tolist()
+                    my_coord = [float(i) for i in my_coord]
+                    c_coord = [float(i) for i in c_coord]
+                    if df_bond.iloc[i]['bond_type'] == '1':
+                        line = pv.Line(my_coord, c_coord, resolution=5)
+                        col.append('w')
+                    elif df_bond.iloc[i]['bond_type'] == '2':
+                        line = pv.Line(my_coord, c_coord, resolution=1)
+                        col.append('b')
+                    elif df_bond.iloc[i]['bond_type'] == '3':
+                        line = pv.Line(my_coord, c_coord, resolution=1)
+                        col.append('g')
+                    # amide bond in red
+                    elif df_bond.iloc[i]['bond_type'] == 'am':
+                        line = pv.Line(my_coord, c_coord, resolution=1)
+                        col.append('r')
+                    # aromatic bond in purple
+                    elif df_bond.iloc[i]['bond_type'] == 'ar':
+                        line = pv.Line(my_coord, c_coord, resolution=1)
+                        col.append('m')
+                    else:
+                        line = pv.Line(my_coord, c_coord, resolution=1)
+                        col.append('k')
+                    bonds.append(line)
+            i += 1
         
         return bonds, col
     
-    def get_backbone_mesh(self):
+    def get_backbone_mesh(self, model_id=0):
         """
         Creates and returns a Spline object representing the backbone of the protein.
+                
+        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+        :param type: int, optional
         
         :returns: numpy.ndarray - List of coordinates representing the centre of mass of each residue. To be used in stick_point to create a Spline.
         """
         
-        residues = self._structure.get_residues()
-        
+        i = 0
         res_list = []
-        for res in residues:
-            if res.get_resname() != "HOH":
-                com = [0, 0, 0]
-                count = 0
-                for atom in res: 
-                    coords = atom.get_coord()
-                    com += coords
-                    count += 1
-                com /= count
-                res_list.append(com)
-                
+        for model in self._structure:
+            if model.id == model_id:
+                for chain in model:
+                    for res in chain:
+                        if res.get_resname() != "HOH":
+                            com = [0, 0, 0]
+                            count = 0
+                            for atom in res:
+                                coords = atom.get_coord()
+                                com += coords
+                                count += 1
+                            com /= count
+                            res_list.append(com)
+            i += 1
+        
         return np.array(res_list)

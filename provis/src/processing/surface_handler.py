@@ -173,7 +173,6 @@ class SurfaceHandler:
             # create rough surface by combining vw radii of each atom
             atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs()
             self._atmsurf, col = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
-#            print(self._atmsurf)
 
             # adding the spheres (by atom type) one at a time
             j = 0
