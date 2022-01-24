@@ -41,6 +41,7 @@ In order to keep your directories uncluttered and make it easy to create a pipli
 	   │   ├── data/
 	   │   ├── pdb/
 	   │   ├── img/
+	   │   ├── meshes/
 	   │   └── tmp/
 	   └── binaries          
 	       ├── apbs
@@ -69,7 +70,8 @@ The data/ directory needs the following subdirectiories:
     data
     ├── data
     ├── pdb
-    ├── img        
+    ├── img   
+    ├── meshes
     └── tmp
 
 The pdb directory is the location to store the pdb files to convert, as if a *.pdb* file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the *.pdb* file. 

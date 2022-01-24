@@ -168,13 +168,15 @@ Upper level classes - eg. Structure - have their own DataHandler objects that do
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atoms">
-<span class="sig-name descname"><span class="pre">get_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a dictionary of atomic coordinates from structure</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -185,35 +187,47 @@ Upper level classes - eg. Structure - have their own DataHandler objects that do
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atoms_IDs">
-<span class="sig-name descname"><span class="pre">get_atoms_IDs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms_IDs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_atoms_IDs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms_IDs" title="Permalink to this definition"></a></dt>
 <dd><p>Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>dict - Dictionary of atomic coordinates by atom type.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list - List of unique residue IDs (format from output_pdb_as_xyzrn())</p>
+<dd class="field-even"><p>dict - Dictionary of atomic coordinates by atom type.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - Atomic coordinates (in same order as the residue IDs)</p>
+<dd class="field-odd"><p>list - List of unique residue IDs (format from output_pdb_as_xyzrn())</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - Atomic coordinates (in same order as the residue IDs)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_backbone_mesh">
-<span class="sig-name descname"><span class="pre">get_backbone_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_backbone_mesh" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_backbone_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_backbone_mesh" title="Permalink to this definition"></a></dt>
 <dd><p>Creates and returns a Spline object representing the backbone of the protein.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>numpy.ndarray - List of coordinates representing the centre of mass of each residue. To be used in stick_point to create a Spline.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy.ndarray - List of coordinates representing the centre of mass of each residue. To be used in stick_point to create a Spline.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_bond_mesh">
-<span class="sig-name descname"><span class="pre">get_bond_mesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_bond_mesh" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_bond_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_bond_mesh" title="Permalink to this definition"></a></dt>
 <dd><p>Determine bonds from 3D information.</p>
 <dl class="simple">
 <dt>The color information is as follows:</dt><dd><p>White for all single bonds, 
@@ -225,11 +239,17 @@ Black for everything else.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of pyvista lines representing each bond.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+</ul>
 </dd>
-<dt class="field-even">Retruns</dt>
-<dd class="field-even"><p>list - List of colors corresponding to the lines in the above list</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - List of pyvista lines representing each bond.</p>
+</dd>
+<dt class="field-odd">Retruns</dt>
+<dd class="field-odd"><p>list - List of colors corresponding to the lines in the above list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -280,11 +300,17 @@ Black for everything else.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_residues">
-<span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residues" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residues" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a dictionary of coordinates by residues from structure object</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>dict - Dictionary of atomic coordinates by residue type.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict - Dictionary of atomic coordinates by residue type.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -441,7 +467,7 @@ self._base_path - Full path of the provis directory or any directory that has th
 <span id="provis-src-processing-protein-module"></span><h2>provis.src.processing.protein module<a class="headerlink" href="#module-provis.src.processing.protein" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.processing.protein.Protein">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.protein.</span></span><span class="sig-name descname"><span class="pre">Protein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.protein.Protein" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.protein.</span></span><span class="sig-name descname"><span class="pre">Protein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.protein.Protein" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The protein class encapsulates every other class and creates a user friendly way to plot your desired protein molecules.</p>
 <p>You can plot the desired property of your protein by first initializing a Protein class (eg. my_protein) and then calling the plotting functions of the Surface and Structure classes. 
@@ -575,7 +601,7 @@ Loads “root directory”/data/tmp/{pdb_id}.pth and returns it.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color">
-<span class="sig-name descname"><span class="pre">native_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">native_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color" title="Permalink to this definition"></a></dt>
 <dd><p>Returns a mesh without the need for the MSMS binary.
 Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.</p>
 <dl class="field-list simple">
@@ -583,6 +609,10 @@ Always returns a pyvista.PolyData mesh of the surface and if a feature is specif
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to “”.</p></li>
 <li><p><strong>type</strong> – str, optional</p></li>
+<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – dynamic - Set to True if you are plotting a dynamic model. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -596,7 +626,7 @@ Always returns a pyvista.PolyData mesh of the surface and if a feature is specif
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">
-<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
 If you could not download the MSMS binary leave this variable false and you will not run into problems.</p>
 <dl class="field-list simple">
@@ -607,6 +637,10 @@ If you could not download the MSMS binary leave this variable false and you will
 <li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.</p></li>
 <li><p><strong>type</strong> – str, optional</p></li>
 <li><p><strong>name</strong> – patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – dynamic - Set to True if you are plotting a dynamic model. Default: False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>

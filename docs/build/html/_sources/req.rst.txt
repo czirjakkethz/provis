@@ -52,6 +52,7 @@ Pip
 * Pyvtk
 * Open3d
 * rTree
+* Panel
    
 Jupyter Notebook
 ---------------------

@@ -7,7 +7,7 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setup(name='provis',
-      version='0.0.19',
+      version='0.0.20',
       description='Protein Visualization Library in Python',
       long_description=long_description,
       long_description_content_type='text/markdown',

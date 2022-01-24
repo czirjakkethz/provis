@@ -30,10 +30,12 @@ You can find installation instructions under
 
 .. toctree::
    :maxdepth: 3
-   :caption: Examples:
+   :caption: Use and examples:
    
+   information
    tutorial
    example
+   dynamic_plotting
    
 .. toctree::
    :maxdepth: 2

@@ -55,7 +55,7 @@ Finally, a **Structure** and a **Surface** class is created. These classes are i
 Plotting
 ############
 
-Plotting can be achieved by calling the member functions of the ****Structure** and the **Surface** classes. For example for the **prot** class instance defined above the bonds of the molecule can be plotted as follows:
+Plotting can be achieved by calling the member functions of the **Structure** and the **Surface** classes. For example for the **prot** class instance defined above the bonds of the molecule can be plotted as follows:
 
 .. code-block:: python
 
@@ -68,6 +68,7 @@ All plotting functions have the following input variables:
  - camera (pyvista.camera): A pyvista camera object to be make it easier to set a fixed camera position to compare two molecules.
  
  Some of the plotting functions have additional input variables. For example; **plot_bonds()**:
+ 
  - colorful (bool): If True different bond types will be plotted in different colors.
  
   	Single bonds: white
@@ -76,3 +77,5 @@ All plotting functions have the following input variables:
         Amide bonds: red
         Aromatic bonds: purple
         Undefined/Anything else: black
+        
+

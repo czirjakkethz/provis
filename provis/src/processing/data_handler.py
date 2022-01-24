@@ -135,7 +135,7 @@ class DataHandler:
                 vertices[0] = float(fields[0])
                 vertices[1] = float(fields[1])
                 vertices[2] = float(fields[2])
-                res_id[vi] = fields[5]
+                res_id[vi] = fields[6]
                 res = res_id[vi].split("_")
                 atmtype = res[4][0]
                 if atmtype not in atom_data:

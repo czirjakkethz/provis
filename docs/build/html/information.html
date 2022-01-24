@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Additional information about provis &mdash; provis 0.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to use Provis" href="tutorial.html" />
+    <link rel="prev" title="Utilities for Provis" href="provis.utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> provis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Additional information about provis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#protein">Protein</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fileconverter">FileConverter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datahandler">DataHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#surfacehandler">SurfaceHandler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#surface">Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#residue">Residue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamicstructure">DynamicStructure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">provis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Additional information about provis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/information.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="additional-information-about-provis">
+<h1>Additional information about provis<a class="headerlink" href="#additional-information-about-provis" title="Permalink to this headline"></a></h1>
+<p>This section will try to explain the general code architecture and design decisions of the <strong>provis</strong> library.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
+<section id="protein">
+<h3>Protein<a class="headerlink" href="#protein" title="Permalink to this headline"></a></h3>
+<p>The <strong>Protein</strong> class encapsulates the whole <strong>provis</strong> library and is the easiest way to plot your (static) proteins. You can initialize it with a simple pdb filename in a single line of code and plot in the next.</p>
+</section>
+<section id="fileconverter">
+<h3>FileConverter<a class="headerlink" href="#fileconverter" title="Permalink to this headline"></a></h3>
+<p>The <strong>FileConverter</strong> class is responsible for creating the required files from the <em>.pdb</em> file. This class is hidden in other classes and only called when a file is needed/missing.</p>
+<p>IMPORTANT: the <strong>FileConverter</strong> class will not overwrite any existing files. This decision was made to not create the exact same file again and again. But this also means that if you have temporary file (used by the <strong>FileConverter</strong> class) that is corrupted or has bad information it will be used by <strong>provis</strong>. If you have any such problems you can always just delete all temporary files and then they will simply be newly created.</p>
+</section>
+<section id="datahandler">
+<h3>DataHandler<a class="headerlink" href="#datahandler" title="Permalink to this headline"></a></h3>
+<p>The <strong>DataHandler</strong> class processes the structural information of the protein and creates the meshes for plotting. The meshes created by this class are passed to the <strong>Structure</strong> class for plotting.</p>
+</section>
+<section id="surfacehandler">
+<h3>SurfaceHandler<a class="headerlink" href="#surfacehandler" title="Permalink to this headline"></a></h3>
+<p>The <strong>SurfaceHandler</strong> class processes the structural information of the protein and creates the meshes for plotting. The meshes created by this class are passed to the <strong>Surface</strong> class for plotting.</p>
+</section>
+<section id="structure">
+<h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline"></a></h3>
+<p>The Structure class handles every non-surface related plotting.</p>
+<p>The atoms can be plotted as a point cloud, bonds or the backbone of the molecule can be visualized and so can the Van-der-Waals radius of the atoms, as well as the residues of the protein.</p>
+</section>
+<section id="surface">
+<h3>Surface<a class="headerlink" href="#surface" title="Permalink to this headline"></a></h3>
+<p>The Surface class handles surface related plotting.</p>
+<p>Apart from the standard surface plot, interesting surface features - hydrophobicity, shape index, charges - can also be visualized.</p>
+</section>
+<section id="residue">
+<h3>Residue<a class="headerlink" href="#residue" title="Permalink to this headline"></a></h3>
+<p>The <strong>Residue</strong> class is a very basic class. With this class you can specify a given residue on a given chain that you want to mark in the plot. It is passed to the plotting classes and a red box is drawn around the specified residue.</p>
+</section>
+<section id="dynamicstructure">
+<h3>DynamicStructure<a class="headerlink" href="#dynamicstructure" title="Permalink to this headline"></a></h3>
+<p>See:
+<a class="reference internal" href="dynamic_plotting.html#dynamic-plotting"><span class="std std-ref">Dynamic Structures</span></a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="provis.utils.html" class="btn btn-neutral float-left" title="Utilities for Provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="How to use Provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Kristof Czirjak.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 Example
 ===========
 
-This is an example file to showcase some functionalities of - and the easiest way to run provis. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation. Otherwise set the base_path variable of the NameChecker object.
+This is an example file to showcase the easiest way to run provis in particular how to plot a single protein. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation. Otherwise set the base_path variable of the NameChecker object.
 
 If this is fullfilled path to the "root directory"/data/tmp will automatically be found.
 This way you can have your pdb files nicely organized in the data/pdb directory (or simply have them in the root directory). 

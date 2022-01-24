@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Example" href="example.html" />
-    <link rel="prev" title="Utilities for Provis" href="provis.utils.html" /> 
+    <link rel="prev" title="Additional information about provis" href="information.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,8 +46,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="information.html">Additional information about provis</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to use Provis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#loading-a-pdb">Loading a pdb</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-protein-class-input-variables">Setting Protein class input variables</a></li>
@@ -56,6 +57,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -126,7 +128,7 @@
 </section>
 <section id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline"></a></h2>
-<p>Plotting can be achieved by calling the member functions of the <strong>**Structure</strong> and the <strong>Surface</strong> classes. For example for the <strong>prot</strong> class instance defined above the bonds of the molecule can be plotted as follows:</p>
+<p>Plotting can be achieved by calling the member functions of the <strong>Structure</strong> and the <strong>Surface</strong> classes. For example for the <strong>prot</strong> class instance defined above the bonds of the molecule can be plotted as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_bonds</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -137,8 +139,9 @@
 <li><p>outname (str): Save image of the plot to the file passed in this variable (otherwise saved in data/img).</p></li>
 <li><p>camera (pyvista.camera): A pyvista camera object to be make it easier to set a fixed camera position to compare two molecules.</p></li>
 </ul>
-<p>Some of the plotting functions have additional input variables. For example; <strong>plot_bonds()</strong>:
-- colorful (bool): If True different bond types will be plotted in different colors.</p>
+<p>Some of the plotting functions have additional input variables. For example; <strong>plot_bonds()</strong>:</p>
+<ul>
+<li><p>colorful (bool): If True different bond types will be plotted in different colors.</p>
 <blockquote>
 <div><p>Single bonds: white
 Double bonds: blue
@@ -147,6 +150,8 @@ Amide bonds: red
 Aromatic bonds: purple
 Undefined/Anything else: black</p>
 </div></blockquote>
+</li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -156,7 +161,7 @@ Undefined/Anything else: black</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="provis.utils.html" class="btn btn-neutral float-left" title="Utilities for Provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="information.html" class="btn btn-neutral float-left" title="Additional information about provis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="example.html" class="btn btn-neutral float-right" title="Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

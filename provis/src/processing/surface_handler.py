@@ -185,8 +185,10 @@ class SurfaceHandler:
             for mesh in self._atmsurf[1:]:
                 mesh_ = mesh_ + (mesh)
 
+            print("Individual meshes added")
             # blur the spheres and extract edges (pyvista)
             mesh_ = mesh_.delaunay_3d(alpha=1.5).extract_feature_edges()
+            print("Delauney done")
             # create trimesh mesh
             new = trimesh.Trimesh(mesh_.points)
             cloud = o3d.geometry.PointCloud()
@@ -195,12 +197,14 @@ class SurfaceHandler:
             # reconstruct the surface mesh as a trimesh mesh
             radii = [0.1, 0.3, 0.45, 0.6, 0.75, 0.9,1.2, 1.5]
             tri_mesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
+            print("Trimesh created")
             v = np.asarray(tri_mesh.vertices)
             f = np.array(tri_mesh.triangles)
             f = np.c_[np.full(len(f), 3), f]
             mesh = pv.PolyData(v, f)
             shell =  mesh.clean().reconstruct_surface()#.clean()
             shell.compute_normals(inplace=True)
+            print("Reconstruction done")
 
             # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
             len_f = len(shell.faces)
@@ -220,7 +224,7 @@ class SurfaceHandler:
             
             tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
             self._mesh = tri_mesh
-            meshname = self._mesh_path + str(i) + '.obj'
+            meshname = self._mesh_path + "_" + str(model_id) + '.obj'
             tri_mesh.export(meshname)
             print("Mesh calculation done.")
 
@@ -251,7 +255,7 @@ class SurfaceHandler:
         :returns: numpy.ndarray - Coloring map corresponding to specified feature.
         """
         
-        meshname = self._mesh_path + str(model_id) + '.obj'
+        meshname = self._mesh_path + "_" + str(model_id) + '.obj'
         if exists(meshname):
             self._mesh = trimesh.load_mesh(meshname)
         else:
