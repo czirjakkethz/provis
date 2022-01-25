@@ -227,6 +227,21 @@ class SurfaceHandler:
             meshname = self._mesh_path + "_" + str(model_id) + '.obj'
             tri_mesh.export(meshname)
             print("Mesh calculation done.")
+            
+            # from pyvista import _vtk as vtk
+
+            # points = pv.wrap(pv.Sphere().points)
+
+            # alg = vtk.vtkSurfaceReconstructionFilter()
+            # alg.SetInputDataObject(points)
+            # alg.Update()
+            # mc = vtk.vtkMarchingCubes()
+            # mc.SetInputDataObject(alg.GetOutput())
+            # mc.SetValue(0, 0.0)
+            # mc.Update()
+            # surf = pv.wrap(mc.GetOutput())
+            # surf.clear_data()
+            # self._mesh = surf
 
         # only needed if feature is specified (-> color map needs to be calculated)
         if feature:
