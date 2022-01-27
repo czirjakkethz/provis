@@ -15,7 +15,7 @@ def main():
     First:
     Define variables needed later:
     """
-    name = "traj"
+    name = "2fd7"
     density = 3.0
 
     """
@@ -31,8 +31,8 @@ def main():
     
     Use the member functions of the DynamicStructure to plot the dynamic trajectory of the protein.
     """
-    # ds.plot_surface()
-    ds.plot_atoms()
+    ds.plot_surface()
+    #ds.plot_atoms()
 
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.

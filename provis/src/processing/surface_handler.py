@@ -196,60 +196,65 @@ class SurfaceHandler:
             # adding the spheres (by atom type) one at a time
             j = 0
             mesh_ = pv.wrap(self._atmsurf[0])
+            size = 0
             for mesh in self._atmsurf[1:]:
+                size += len(mesh.points)
                 mesh_ = mesh_ + (mesh)
 
             print(" - Spheres added")
+            a = 2
+            print(size)
+            if size > 100000:
+                a = 4
             # blur the spheres and extract edges (pyvista)
-            mesh_ = mesh_.delaunay_3d(alpha=1.5)#.extract_feature_edges(4)
-            mesh_ = pv.PolyData(mesh_).smooth()
+            mesh_ = mesh_.delaunay_3d(alpha=a).extract_feature_edges(2)
             print(" - Delauney done")
             # create trimesh mesh
-            # new = trimesh.Trimesh(mesh_.points)
-            # cloud = o3d.geometry.PointCloud()
-            # cloud.points = o3d.utility.Vector3dVector(new.vertices)
-            # # cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
-            # cloud.estimate_normals()
+            new = trimesh.Trimesh(mesh_.points)
+            cloud = o3d.geometry.PointCloud()
+            cloud.points = o3d.utility.Vector3dVector(new.vertices)
+            # cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
+            cloud.estimate_normals()
 
-            # # to obtain a consistent normal orientation
-            # cloud.orient_normals_towards_camera_location(cloud.get_center())
+            # to obtain a consistent normal orientation
+            cloud.orient_normals_towards_camera_location(cloud.get_center())
 
-            # # or you might want to flip the normals to make them point outward, not mandatory
-            # cloud.normals = o3d.utility.Vector3dVector( - np.asarray(cloud.normals))
-            # # reconstruct the surface mesh as a trimesh mesh
-            # # radii = [ 1.5,1.2, 0.9 ,0.75, 0.6, 0.45, 0.3 ]#[0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5]#
-            # #tri_mesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
-            # tri_mesh, _ = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(cloud, depth=9)
-            # print(" - Trimesh created")
-            # v = np.asarray(tri_mesh.vertices)
-            # f = np.array(tri_mesh.triangles)
-            # f = np.c_[np.full(len(f), 3), f]
-            # mesh = pv.PolyData(v, f)
-            # shell =  mesh.clean().smooth()#.reconstruct_surface()#.clean()
-            # shell.compute_normals(inplace=True)
-            # print(" - Reconstruction done")
+            # or you might want to flip the normals to make them point outward, not mandatory
+            cloud.normals = o3d.utility.Vector3dVector( - np.asarray(cloud.normals))
+            # reconstruct the surface mesh as a trimesh mesh
+            # radii = [0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5]#
+            # tri_mesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
+            tri_mesh, _ = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(cloud, depth=9)
+            print(" - Trimesh created")
+            v = np.asarray(tri_mesh.vertices)
+            f = np.array(tri_mesh.triangles)
+            f = np.c_[np.full(len(f), 3), f]
+            mesh = pv.PolyData(v, f)
+            shell =  mesh.clean().smooth()#.reconstruct_surface()#.clean()
+            shell.compute_normals(inplace=True)
+            print(" - Reconstruction done")
 
-            # # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
-            # len_f = len(shell.faces)
-            # faces_ = []
-            # i = 0
-            # while(i < len_f):
-            #     curr = shell.faces[i]
-            #     temp = [None] * curr
-            #     idxx = 0
-            #     j = i + 1
-            #     while(curr):
-            #         temp[idxx] = shell.faces[j + idxx]
-            #         idxx += 1
-            #         curr -= 1
-            #     faces_.append(temp)
-            #     i += idxx + 1
-            
-            # tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
-            self._mesh = mesh_#tri_mesh
-            # meshname = self._mesh_path + "_" + str(model_id) + '.obj'
-            # tri_mesh.export(meshname)
-            # print("Mesh calculation done.")
+            # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
+            len_f = len(shell.faces)
+            faces_ = []
+            i = 0
+            while(i < len_f):
+                curr = shell.faces[i]
+                temp = [None] * curr
+                idxx = 0
+                j = i + 1
+                while(curr):
+                    temp[idxx] = shell.faces[j + idxx]
+                    idxx += 1
+                    curr -= 1
+                faces_.append(temp)
+                i += idxx + 1   
+            tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
+
+            self._mesh = tri_mesh#shell
+            meshname = self._mesh_path + "_" + str(model_id) + '.obj'
+            tri_mesh.export(meshname)
+            print("Mesh calculation done.")
             
             # from pyvista import _vtk as vtk
 

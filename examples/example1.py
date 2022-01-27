@@ -46,9 +46,9 @@ def main():
     # prot.structure.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
 
     prot.surface.plot()
-    prot.surface.plot_hydrophob()
-    prot.surface.plot_shape()
-    prot.surface.plot_charge()
+    # prot.surface.plot_hydrophob()
+    # prot.surface.plot_shape()
+    # prot.surface.plot_charge()
 
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.

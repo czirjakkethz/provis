@@ -16,7 +16,7 @@ setup(name='provis',
       author_email='czirjakk@student.ethz.ch',
       license='Apache License',
       packages=find_packages(),
-      install_requires=['biopython', 'trimesh', 'pyvista', 'biopandas', 'torch', 'pyvtk', 'open3d', 'rtree', 'panel'],
+      install_requires=['biopython', 'trimesh', 'pyvista', 'biopandas', 'torch', 'pyvtk', 'open3d', 'rtree', 'panel', 'imageio-ffmpeg'],
       keywords=['python', 'protein', 'visualization', 'pdb'],
       zip_safe=False,
 
