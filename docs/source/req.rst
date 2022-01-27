@@ -4,13 +4,15 @@
 Requirements for Provis
 =========================
 
-Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages and binaries.
+Provis is based on the idea of not to reinvent the wheel, so quite a few third party packages and binaries are required to run it.
 
 Binaries
 ----------------------
 
 OpenBabel
 ^^^^^^^^^^^^^^^
+
+Needed to create the *mol.2* files. These files store the bond information.
 
 Easiest to install on Linux is by calling:
 
@@ -24,7 +26,7 @@ Alterantively: http://openbabel.org/wiki/Main_Page
 PDB2PQR and APBS
 ^^^^^^^^^^^^^^^^^^^^^
 
-These binaries are **required**, as they are used to extract surface inforamtion.
+These binaries are required for the surface feature plotting. The binaries create the 
 
 Download from: https://www.poissonboltzmann.org/
 
