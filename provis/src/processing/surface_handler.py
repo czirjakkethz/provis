@@ -13,6 +13,7 @@ from subprocess import PIPE, Popen
 import open3d as o3d
 import enum
 from os.path import exists
+import pickle
 
 from provis.utils.surface_utils import get_surface, compute_normal, prepare_trimesh, fix_trimesh, find_nearest_atom
 from provis.utils.surface_feat import compute_surface_features
@@ -123,7 +124,7 @@ class SurfaceHandler:
         else:
             raise NotImplementedError
 
-    def msms_mesh_and_color(self, feature=None, patch=False):
+    def msms_mesh_and_color(self, feature=None, patch=False, model_id=0):
         """
         Return the mesh and coloring ready for plotting.
 
@@ -135,7 +136,8 @@ class SurfaceHandler:
         :returns: Trimesh - The mesh, always returned
         :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
-        
+        print("MSMS mesh calculation:")
+
         path = f"{self._out_path}_out_{int(self._density * 10)}"
         face = path + '.face'
         vert = path + '.vert'
@@ -146,21 +148,32 @@ class SurfaceHandler:
             self._fc.msms(self._out_path, self._density)
         
         if not self._mesh:
+            print(" - Get surface")
             surface = get_surface(out_path=self._out_path, density=self._density)
             self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
                             resolution=1.5, apply_fixes=True)
+            
+            meshname = self._mesh_path + "_msms_" + str(model_id) + '.obj'
+            self._mesh.export(meshname)
+
         
         if feature:    
+            print(" - Feature: ", feature)
             if patch:
                 self._col = self.get_assignments()
             if not patch:
                 self._col = self.get_surface_features(self._mesh, feature)
+            fname = self._mesh_path + "_msms_" + feature + "_" + str(model_id)
+            with open(fname, 'wb') as f:
+                pickle.dump(self._col, f)
         else:
             self._col = None
 
     def native_mesh_and_color(self, feature=None, model_id=0, dynamic=False):
         """
-        Returns a mesh without the need for the MSMS binary.
+        Returns a mesh without the need for the MSMS binary. The mesh and coloring is also saved to the following file names:
+        Mesh: "root directory"/data/meshes/{pdb_id}_{model_id}.obj
+        Color: "root directory"/data/meshes/{pdb_id}_{feature}_{model_id}
         Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.
 
         :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to "".
@@ -173,11 +186,12 @@ class SurfaceHandler:
         :returns: pyvista.PolyData - The mesh, always returned
         :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
+        print("Native mesh calculation:")
         if not self._mesh or dynamic:
-            print("Calculating mesh with model id: ", model_id)
+            print(" - Feature: ", feature)
             # create rough surface by combining vw radii of each atom
             atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs(model_id=model_id)
-            self._atmsurf, col = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
+            self._atmsurf, col, _ = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
 
             # adding the spheres (by atom type) one at a time
             j = 0
@@ -185,48 +199,57 @@ class SurfaceHandler:
             for mesh in self._atmsurf[1:]:
                 mesh_ = mesh_ + (mesh)
 
-            print("Individual meshes added")
+            print(" - Spheres added")
             # blur the spheres and extract edges (pyvista)
-            mesh_ = mesh_.delaunay_3d(alpha=1.5).extract_feature_edges()
-            print("Delauney done")
+            mesh_ = mesh_.delaunay_3d(alpha=1.5)#.extract_feature_edges(4)
+            mesh_ = pv.PolyData(mesh_).smooth()
+            print(" - Delauney done")
             # create trimesh mesh
-            new = trimesh.Trimesh(mesh_.points)
-            cloud = o3d.geometry.PointCloud()
-            cloud.points = o3d.utility.Vector3dVector(new.vertices)
-            cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
-            # reconstruct the surface mesh as a trimesh mesh
-            radii = [0.1, 0.3, 0.45, 0.6, 0.75, 0.9,1.2, 1.5]
-            tri_mesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
-            print("Trimesh created")
-            v = np.asarray(tri_mesh.vertices)
-            f = np.array(tri_mesh.triangles)
-            f = np.c_[np.full(len(f), 3), f]
-            mesh = pv.PolyData(v, f)
-            shell =  mesh.clean().reconstruct_surface()#.clean()
-            shell.compute_normals(inplace=True)
-            print("Reconstruction done")
+            # new = trimesh.Trimesh(mesh_.points)
+            # cloud = o3d.geometry.PointCloud()
+            # cloud.points = o3d.utility.Vector3dVector(new.vertices)
+            # # cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
+            # cloud.estimate_normals()
 
-            # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
-            len_f = len(shell.faces)
-            faces_ = []
-            i = 0
-            while(i < len_f):
-                curr = shell.faces[i]
-                temp = [None] * curr
-                idxx = 0
-                j = i + 1
-                while(curr):
-                    temp[idxx] = shell.faces[j + idxx]
-                    idxx += 1
-                    curr -= 1
-                faces_.append(temp)
-                i += idxx + 1
+            # # to obtain a consistent normal orientation
+            # cloud.orient_normals_towards_camera_location(cloud.get_center())
+
+            # # or you might want to flip the normals to make them point outward, not mandatory
+            # cloud.normals = o3d.utility.Vector3dVector( - np.asarray(cloud.normals))
+            # # reconstruct the surface mesh as a trimesh mesh
+            # # radii = [ 1.5,1.2, 0.9 ,0.75, 0.6, 0.45, 0.3 ]#[0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5]#
+            # #tri_mesh= o3d.geometry.TriangleMesh.create_from_point_cloud_ball_pivoting(cloud, o3d.utility.DoubleVector(radii))#, depth=depth, width=width, scale=scale, linear_fit=linear_fit)
+            # tri_mesh, _ = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(cloud, depth=9)
+            # print(" - Trimesh created")
+            # v = np.asarray(tri_mesh.vertices)
+            # f = np.array(tri_mesh.triangles)
+            # f = np.c_[np.full(len(f), 3), f]
+            # mesh = pv.PolyData(v, f)
+            # shell =  mesh.clean().smooth()#.reconstruct_surface()#.clean()
+            # shell.compute_normals(inplace=True)
+            # print(" - Reconstruction done")
+
+            # # parse list of PolyData (format) faces and convert them into Trimesh (format) faces 
+            # len_f = len(shell.faces)
+            # faces_ = []
+            # i = 0
+            # while(i < len_f):
+            #     curr = shell.faces[i]
+            #     temp = [None] * curr
+            #     idxx = 0
+            #     j = i + 1
+            #     while(curr):
+            #         temp[idxx] = shell.faces[j + idxx]
+            #         idxx += 1
+            #         curr -= 1
+            #     faces_.append(temp)
+            #     i += idxx + 1
             
-            tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
-            self._mesh = tri_mesh
-            meshname = self._mesh_path + "_" + str(model_id) + '.obj'
-            tri_mesh.export(meshname)
-            print("Mesh calculation done.")
+            # tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
+            self._mesh = mesh_#tri_mesh
+            # meshname = self._mesh_path + "_" + str(model_id) + '.obj'
+            # tri_mesh.export(meshname)
+            # print("Mesh calculation done.")
             
             # from pyvista import _vtk as vtk
 
@@ -246,6 +269,10 @@ class SurfaceHandler:
         # only needed if feature is specified (-> color map needs to be calculated)
         if feature:
             self._col = self.get_surface_features(self._mesh, feature, self._res_id)
+            
+            fname = self._mesh_path + "_" + feature + "_" + str(model_id)
+            with open(fname, 'wb') as f:
+                pickle.dump(self._col, f)
         else:
             self._col = None
 
@@ -254,6 +281,8 @@ class SurfaceHandler:
         """
         Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
         If you could not download the MSMS binary leave this variable false and you will not run into problems.
+        
+        If the mesh and appropriate coloring has already been stored to a file, then this information will be loaded and no computation will be done.
         
         :param name: msms - If true, surface generated by msms binary is returned, else the native mesh. Default: False.
         :param type: bool, optional
@@ -270,13 +299,29 @@ class SurfaceHandler:
         :returns: numpy.ndarray - Coloring map corresponding to specified feature.
         """
         
-        meshname = self._mesh_path + "_" + str(model_id) + '.obj'
-        if exists(meshname):
-            self._mesh = trimesh.load_mesh(meshname)
+        need_to_compute = True
+        connect = "_"
+        if msms:
+            connect = "_msms_"
+            
+        meshname = self._mesh_path + connect + str(model_id) + '.obj'
+        mesh_exists = exists(meshname)
+        if feature:
+            fname = self._mesh_path + connect + feature + "_" + str(model_id)
+            col_exists = exists(fname)
+            if mesh_exists and col_exists:
+                self._mesh = trimesh.load_mesh(meshname)
+                with open(fname, 'rb') as f:
+                    self._col = pickle.load(f)
+                need_to_compute = False
         else:
+            if mesh_exists:
+                self._mesh = trimesh.load_mesh(meshname)
+           
+        if need_to_compute:
             # run appropriate function to compute the mesh and the coloring
             if msms:
-                self.msms_mesh_and_color(feature, patch)
+                self.msms_mesh_and_color(feature, patch, model_id=model_id)
             else:
                 self.native_mesh_and_color(feature, model_id=model_id, dynamic=dynamic)
 

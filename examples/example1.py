@@ -1,16 +1,14 @@
 """
 This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
-from provis.src.processing.file_converter import FileConverter
+from provis.src.processing.protein import Protein
 from provis.src.processing.residue import Residue
-from provis.src.plotting.structure import Structure
-from provis.src.processing.name_checker import NameChecker
 
 def main():
     """
     This is an example file to showcase some functionalities of provis.
     
-    We showcase the easiest way to run provis.
+    We showcase the easiest way to run provis. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation.
     The path to the "root directory"/data/tmp will automatically be found.
     This way you can have your pdb files nicely organized in the data/pdb directory (or simply have them in the root directory). 
     Your temporary files will be in the data/tmp directory and the screenshots of the plots in the data/img directory.
@@ -18,40 +16,44 @@ def main():
     First:
     Define variables needed later:
     """
-    name = "2fd7"
+    name = "1a3n"
     density = 3.0
-    
+
     """
     Second:
-    Initializing the NameChecker class will find and store the path of the pdb file and output path.
+    Initializing the Protein class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!
     """
-    nc = NameChecker(name)
+    
+    prot = Protein(name, base_path=None, density=density, plot_solvent=False, msms=False, notebook=False)
     
     """
     Third:
-    Structure is a class that handles all plotting not related to surfaces. This includes simple stick and point plots, the visualization of the bonds or the backbone of the protein.
+    Plot!
+    
+    Use the prot.structure (Structure class) and prot.surface (Surface class) member variables to plot.
     """
-    sp = Structure(nc, plot_solvent=True)
-    sp.plot_backbone()
-    sp.plot_atoms()
-    sp.plot_bonds()
-    sp.plot_vw()
-    sp.plot_stick_point()
-    r = Residue(1)
-    r.add_residue(3)
-    r. add_residue(1, 1)
-    r.remove_residue(1, 1)
-    sp.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
+
+    # prot.structure.plot_backbone()
+    # prot.structure.plot_atoms()
+    # prot.structure.plot_bonds()
+    # prot.structure.plot_vw()
+    # prot.structure.plot_stick_point()
+    # prot.structure.plot_residues()
+    # r = Residue(29)
+    # r.add_residue(50)
+    # r. add_residue(1, 1)
+    # r.remove_residue(1, 1)
+    # prot.structure.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
+
+    prot.surface.plot()
+    prot.surface.plot_hydrophob()
+    prot.surface.plot_shape()
+    prot.surface.plot_charge()
 
     """
-    Finally we can clean up all the temporary files from the "root direcotry"/data/tmp (and data/img) folders.
-    
-    We use a FileConverter class to achieve this.
-    
-    It is worth to mention however, that sometimes it is worth to keep the temporary files if you want to visualize this protein later on.
-    If you keep the temporary files they will not have to be computed again and visualization will be quicker.
+    And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
     """
-    sp._dh._fc.cleanup(delete_img=0)
+#    prot.file_converter.cleanup()
 
 if __name__ == "__main__":
     main()

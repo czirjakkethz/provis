@@ -163,16 +163,16 @@ class Structure:
         opacity = 1 - vw*0.4
         style = 'surface'
         if atoms:
-            ## return list of spheres (meshes) and colors for the spheres
-            self._atoms, self._col_a = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
             if vw:
-                _atoms_vw, _col_vw = self._dh.get_atom_mesh(atom_data, vw=1)
+                _atoms_vw, _col_vw, _ = self._dh.get_atom_mesh(atom_data, vw=1)
                 style='wireframe'
                 for j, mesh in enumerate(_atoms_vw):
                     pl.add_mesh(mesh, color=_col_vw[j], opacity=opacity, smooth_shading=self._shading, style=style)
             else:
-                for j, mesh in enumerate(self._atoms):
-                    pl.add_mesh(mesh, color=self._col_a[j], opacity=opacity, smooth_shading=self._shading, style=style)
+                ## return list of spheres (meshes) and colors for the spheres
+                _atoms, _col_a, _ = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
+                for j, mesh in enumerate(_atoms):
+                    pl.add_mesh(mesh, color=_col_a[j], opacity=opacity, smooth_shading=self._shading, style=style)
 
         if bonds:
             ## return list of lines (meshes)

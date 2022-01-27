@@ -70,13 +70,14 @@ class Surface:
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
+        print("Calculating mesh with model id: ", model_id)
         # get appropriate mesh and coloring
-        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch, model_id=model_id, dynamic=True)
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch, model_id=model_id, dynamic=False)# TODO: dynamic
         # plot
         pl = pv.Plotter(notebook=self._notebook)
         pl.background_color = 'grey'
         pl.enable_3_lights()
-        print("Adding mesh...")
+        print("Adding mesh to plotter...")
         pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
         print("Mesh added to plotter")
         # if specified add bounding box
@@ -103,8 +104,8 @@ class Surface:
             
         if camera: 
             pl.camera = camera
-        else:
-            pl.camera_position = 'xy'
+        # else:
+        #     pl.camera_position = 'xy'#
         # pl.close()
         pl.show(screenshot=outname, title=title)
 

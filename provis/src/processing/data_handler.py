@@ -267,13 +267,15 @@ class DataHandler:
         
         :returns: list - List of pyvista Shperes representing each atom
         :returns: list - List of colors corresponding to each atom
+        :returns: list - List of atom ID's for each atom
         """
         # these two dictionaries have to be manually created
         # also, if more/other atoms present in protein it will not work
 
         # create glyphs (spherical) to represent each atom
         atoms_spheres = []
-        colors_spheres = []
+        colors_list = []
+        name_list = []
         rad = probe / 2.0
         for atoms_type in atom_data:
 
@@ -289,13 +291,15 @@ class DataHandler:
 
             try:
                 # color the sphere according to 'CPK' standard
-                colors_spheres.append(self._atoms_color_dict[atoms_type])
+                colors_list.append(self._atoms_color_dict[atoms_type])
+                name_list.append(atoms_type)
             except KeyError:
                 # if atom is unrecognized, color it pink
-                colors_spheres.append('#DD77FF')
+                colors_list.append('#DD77FF')
+                name_list.append("Unkown")
 
         # return list of spheres and colors representing each atom
-        return atoms_spheres, colors_spheres
+        return atoms_spheres, colors_list, name_list
 
     def get_atom_trimesh(self, atom_data, vw=False, probe=0):
         """
@@ -310,13 +314,15 @@ class DataHandler:
         
         :returns: list - List of pyvista Shperes representing each atom
         :returns: list - List of colors for each atom
+        :returns: list - List of atom ID's for each atom
         """
         # these two dictionaries have to be manually created
         # also, if more/other atoms present in protein it will not work
 
         # create glyphs (spherical) to represent each atom
         atoms_spheres = []
-        colors_spheres = []
+        colors_list = []
+        name_list = []
         rad = probe / 2.0
         
 
@@ -339,13 +345,15 @@ class DataHandler:
 
             try:
                 # color the sphere according to 'CPK' standard
-                colors_spheres.append(self._atoms_color_dict[atoms_type])
+                colors_list.append(self._atoms_color_dict[atoms_type])
+                name_list.append(atoms_type)
             except KeyError:
                 # if atom is unrecognized, color it pink
-                colors_spheres.append('#DD77FF')
+                colors_list.append('#DD77FF')
+                name_list.append("Unkown")
 
         # return list of spheres and colors representing each atom
-        return atoms_spheres, colors_spheres
+        return atoms_spheres, colors_list, name_list
 
     def get_residue_mesh(self, res_data, phi_res = 25, theta_res = 25):
         """
@@ -364,7 +372,7 @@ class DataHandler:
 
         # create glyphs (spherical) to represent each res
         res_spheres = []
-        colors_spheres = []
+        colors_list = []
         for res_type in res_data:
 
             sphere = pv.Sphere(radius=0.0, phi_resolution=phi_res, theta_resolution=theta_res)
@@ -372,11 +380,11 @@ class DataHandler:
                 sphere = pv.Sphere(radius=self._res_size_dict[res_type], phi_resolution=phi_res, theta_resolution=theta_res)
                 
                 #color the sphere according to 'CPK' standard
-                colors_spheres.append(self._res_color_dict[res_type])
+                colors_list.append(self._res_color_dict[res_type])
                 
             except KeyError:
                 # color unkown to light purple
-                colors_spheres.append('#DD77FF')
+                colors_list.append('#DD77FF')
 
             # create a mesh with each residues position
             mesh = pv.PolyData(np.array(res_data[res_type]))
@@ -387,7 +395,7 @@ class DataHandler:
 
 
         # return list of spheres and colors representing each res
-        return res_spheres, colors_spheres
+        return res_spheres, colors_list
 
     def get_bond_mesh(self, model_id=0):
         """
