@@ -139,7 +139,7 @@ class DynamicStructure:
         # Create and structured surface
         mesh, cas = self._surface_handler.return_mesh_and_color(False, feature=feature, patch=patch, model_id=0)
         if not cas:
-            np.zeros(len(mesh.points))
+            np.zeros(len(mesh.vertices))
             
         # Create a plotter object and initialize first mesh
         plotter = pv.Plotter(notebook=self._notebook, off_screen=False)
@@ -155,9 +155,9 @@ class DynamicStructure:
         plotter.render()
         plotter.write_frame()
         for model in self._data_handler._structure:
-            mesh, cas = self._surface_handler.return_mesh_and_color(False, feature=feature, patch=patch, model_id=i)
+            mesh, cas = self._surface_handler.return_mesh_and_color(msms=False, feature=feature, patch=patch, model_id=i, dynamic=True)
             if not cas:
-                np.zeros(len(mesh.points))
+                np.zeros(len(mesh.vertices))
             
             i += 1
             

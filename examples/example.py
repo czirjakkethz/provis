@@ -15,7 +15,7 @@ def main():
     First:
     Define variables needed later:
     """
-    name = "2fd7"
+    name = "traj"
     density = 3.0
 
     """

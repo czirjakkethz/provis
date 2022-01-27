@@ -203,9 +203,8 @@ class SurfaceHandler:
 
             print(" - Spheres added")
             a = 2
-            print(size)
-            if size > 100000:
-                a = 4
+            if size > 70000:
+                a = 5
             # blur the spheres and extract edges (pyvista)
             mesh_ = mesh_.delaunay_3d(alpha=a).extract_feature_edges(2)
             print(" - Delauney done")
