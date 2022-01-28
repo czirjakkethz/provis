@@ -17,7 +17,7 @@ class DynamicStructure:
     While the class is built similarly to the Protein class it does not use the Protein class itself. This is due to the fact that the Protein class is a rigid class made for a single molecule and
     """
   
-    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False):
+    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=True, notebook=False):
         """
         Initialize the class with the name of the pdb file and you are ready for plotting!
         
@@ -31,7 +31,7 @@ class DynamicStructure:
         :param type: float, optional
         :param name: plot_solvent - If True solvent atoms will also be plotted. Default: False.
         :param type: bool, optional
-        :param name: msms - Set to True if you want to compute the surface information using the msms binary. If False surface will be computed natively. Default: False.
+        :param name: msms - Set to True if you want to compute the surface information using the msms binary. If False surface will be computed natively. Default: True.
         :param type: bool, optional
         :param name: notebook - Set to True when using running in a Jupyter Notebook environment. Default: False.
         :param type: bool, optional

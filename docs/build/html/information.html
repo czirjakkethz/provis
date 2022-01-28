@@ -50,6 +50,7 @@
 <p class="caption"><span class="caption-text">Use and examples:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">General information about provis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#msms">MSMS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#protein">Protein</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#namechecker">NameChecker</a></li>
@@ -102,6 +103,11 @@
   <section id="general-information-about-provis">
 <h1>General information about provis<a class="headerlink" href="#general-information-about-provis" title="Permalink to this headline"></a></h1>
 <p>This section describes the general code architecture and design decisions of the <strong>provis</strong> library.</p>
+<section id="msms">
+<h2>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h2>
+<p>As explained in the Getting started section, there are two ways to compute the surface. Using the <strong>msms</strong> binary or natively.</p>
+<p>Therefore, it is very important to specify which version you want to use. This can be done by setting the <strong>msms</strong> input variable in the constructor of the class that handles the surface plotting. These classes are: <strong>Surface</strong>, <strong>Protein</strong> and <strong>DynamicStructure</strong> (all three classes ultimately rely on the <strong>Surface</strong> class in the background).</p>
+</section>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
 <section id="protein">

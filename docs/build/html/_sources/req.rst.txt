@@ -24,17 +24,17 @@ Alterantively: http://openbabel.org/wiki/Main_Page
 
 OpenBabel is needed to create the *mol.2* files. These files store the bond information.
 
-PDB2PQR and APBS
+PDB2PQR
 ^^^^^^^^^^^^^^^^^^^^^
 
 Download from: https://www.poissonboltzmann.org/
 
-These binaries are required for the surface feature plotting. The binaries create the 
+Pdb2pqr is required for the surface feature plotting. If creates the *.pqr* file needed for the feature information calculation. 
 
 MSMS
 ^^^^^^^^^^^^^^^^^^^^^^
 
- MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis (although it is slower and chemically less accurate).
+ MSMS is optional but highly suggested. It is used to compute the surface, but a native method for the surface computation also exists in **provis** (although it is slower and chemically less accurate).
 
  Download MSMS form:
  https://ccsb.scripps.edu/mgltools/downloads/

@@ -35,6 +35,9 @@ Setting the input variables of the Protein class is the next step to take. You h
 The path to the special direcotry explained in 
 :ref:`setup` has to also be provided. This is passed in the **base_path** variable and should point to the root directory of the **/data** and **/binaries** directories.
 
+MSMS
+++++++
+
 You will have to also specify if you want to plot the **msms** binary version of the surface or the simpler native mesh. If the **msms** option is chosen you can also specify the **density** of the triangulation (to be passed to the **msms** binary).
 
 Solvent atoms can also be plotted by setting the **plot_solvent** variable to *True*.

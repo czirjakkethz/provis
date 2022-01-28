@@ -16,7 +16,7 @@ class Surface:
     Choose between the two by setting the msms Boolean variable. (Default: True, corresponding to the MSMS binary option.)
     
     """
-    def __init__(self, nc, sh=None, msms=False, density=3.0, notebook=False):
+    def __init__(self, nc, sh=None, msms=True, density=3.0, notebook=False):
         """
         In this constructor no mesh information is computed, simply preparations are made. Meshes are loaded in the plotting function.
         
@@ -29,7 +29,7 @@ class Surface:
         :param type: NameChecker
         :param name: sh - Instance of SurfaceHandler. This class computes the required surface meshes for the plots. The "brain" of the Surface class. Default: None - a SurfaceHandler class will be initialized with the NameChecker object.
         :param type: SurfaceHandler, optional
-        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: False.
+        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: True.
         :param type: bool, optional
         :param name: density - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
         :param type: float, optional

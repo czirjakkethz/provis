@@ -3,6 +3,13 @@ General information about provis
 
 This section describes the general code architecture and design decisions of the **provis** library.
 
+MSMS
++++++
+
+As explained in the Getting started section, there are two ways to compute the surface. Using the **msms** binary or natively. 
+
+Therefore, it is very important to specify which version you want to use. This can be done by setting the **msms** input variable in the constructor of the class that handles the surface plotting. These classes are: **Surface**, **Protein** and **DynamicStructure** (all three classes ultimately rely on the **Surface** class in the background).
+
 Classes
 ++++++++++
 

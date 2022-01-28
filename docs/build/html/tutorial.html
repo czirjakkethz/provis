@@ -52,7 +52,10 @@
 <li class="toctree-l1"><a class="reference internal" href="information.html">General information about provis</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to use Provis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#loading-a-pdb">Loading a pdb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setting-protein-class-input-variables">Setting Protein class input variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-protein-class-input-variables">Setting Protein class input variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#msms">MSMS</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#how-the-protein-class-works">How the Protein class works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a></li>
 </ul>
@@ -116,9 +119,12 @@
 <p>Setting the input variables of the Protein class is the next step to take. You have to pass the <strong>name</strong> variable from before.</p>
 <p>The path to the special direcotry explained in
 <a class="reference internal" href="setup.html#setup"><span class="std std-ref">Setting up Provis</span></a> has to also be provided. This is passed in the <strong>base_path</strong> variable and should point to the root directory of the <strong>/data</strong> and <strong>/binaries</strong> directories.</p>
+<section id="msms">
+<h3>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h3>
 <p>You will have to also specify if you want to plot the <strong>msms</strong> binary version of the surface or the simpler native mesh. If the <strong>msms</strong> option is chosen you can also specify the <strong>density</strong> of the triangulation (to be passed to the <strong>msms</strong> binary).</p>
 <p>Solvent atoms can also be plotted by setting the <strong>plot_solvent</strong> variable to <em>True</em>.</p>
 <p>And finally if you are working in a Jupyter Notebook like environment then set the <strong>notebook</strong> varaible to <em>True</em>.</p>
+</section>
 </section>
 <section id="how-the-protein-class-works">
 <h2>How the Protein class works<a class="headerlink" href="#how-the-protein-class-works" title="Permalink to this headline"></a></h2>
