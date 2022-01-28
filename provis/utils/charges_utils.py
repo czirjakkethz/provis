@@ -15,7 +15,7 @@ from provis.utils import ACCEPTOR_PLANES, RADII, DONOR_ATOMS
 
 def compute_hbond_helper(atom_name: str, res: Residue, v: np.ndarray) -> float:
     """
-    Helper function. Computes the charge of the vertex
+    Helper function. Computes the hydrogen bond for given atom.
     
     :param name: atom_name - Name of atom.
     :param type: str
@@ -24,7 +24,7 @@ def compute_hbond_helper(atom_name: str, res: Residue, v: np.ndarray) -> float:
     :param name: v - Vertices.
     :param type: np.ndarray
 
-    :returns: float - charge of the vertex
+    :returns: float - hydrogen bonds of the atom
     """
     # Check if it is a polar hydrogen.
     if is_polar_hydrogen(atom_name, res.get_resname()):

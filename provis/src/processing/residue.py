@@ -1,11 +1,13 @@
 
 class Residue():
     """
-    Residue class is mainly used for plotting a bounding box around the given residue.
+    Residue class is used for plotting a bounding box around the specified residue.
     """
     def __init__(self, id=None, chain=0, padding=0):
         """
         Initialize class. Can be empty, but better initialized with residue id and chain id.
+
+        Chain specifies which chain the residue is on and id is the id of the residue on the given chain.
         
         :param name: id - Residue id. Count starting at 0. Default: None.
         :param type: int, optional

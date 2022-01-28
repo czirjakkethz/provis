@@ -55,7 +55,12 @@ class DynamicStructure:
         self.structure = Structure(self._name_checker, dh=self._data_handler, plot_solvent=plot_solvent, notebook=notebook)
         self.surface = Surface(self._name_checker, sh=self._surface_handler, msms=msms, notebook=notebook)
         if msms:
-            self._num_models = self.file_converter.decompose_traj()
+            self._num_models = self.file_converter.decompose_traj(self._path)
+        else: 
+            i = 0
+            for model in self._data_handler._structure:
+                i += 1
+            self._num_models = i
             
         print("Initialized DynamicStructure class")
         
@@ -146,6 +151,7 @@ class DynamicStructure:
             
         # Create a plotter object and initialize first mesh
         plotter = pv.Plotter(notebook=self._notebook, off_screen=False)
+        plotter.smooth_shading = True
         plotter.add_mesh(mesh, scalars=cas, cmap='RdBu', lighting=True, smooth_shading=True, show_edges=False)
 
         # Open the movie file
@@ -158,9 +164,11 @@ class DynamicStructure:
         plotter.render()
         plotter.write_frame()
         for model in self._data_handler._structure:
-            mesh, cas = self._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i, num_models=self._num_models)
-                        
             i += 1
+            if i == self._num_models:
+                break
+            
+            mesh, cas = self._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i, num_models=self._num_models)            
             
             plotter.clear()
             plotter.smooth_shading = True
@@ -172,6 +180,7 @@ class DynamicStructure:
             plotter.write_frame()
             time.sleep(0.5)
             
+        plotter.render()
 
         # Closes and finalizes movie
         plotter.close()

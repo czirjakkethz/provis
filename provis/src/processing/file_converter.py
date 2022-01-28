@@ -7,7 +7,7 @@ from provis.utils.surface_utils import output_pdb_as_xyzrn
 class FileConverter():
     """
     Class to create and destroy necessary files required in other parts of code.
-    It has a bunch of member functions to call the binaries and scripts to convert the files.
+    The member functions call the binaries and scripts to convert the files.
     
     Also has a cleanup function that removes everything in the "root_directory"/data/tmp (and data/img if specified) directory. Best practice is to call this function at the end of your main file.
     However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.
@@ -15,7 +15,6 @@ class FileConverter():
     
     def __init__(self, nc, density=3.0, convert_all=False):
         """
-        Can be constructed empty. 
         If "convert_all" set to True conversions instant. Creates xyzr and mol2 files in every case and pqr, face and vert files if appropriate binary exists.
         
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
@@ -34,6 +33,7 @@ class FileConverter():
             self.msms(self._path, density)
             self.pdb_to_mol2(self._path, self._out_path)
             self.pdb_to_pqr(self._path, self._out_path)
+            self.decompose_traj(self._path)
             
     
     def pdb_to_xyzrn(self, path, output):
@@ -118,7 +118,11 @@ class FileConverter():
 
     def pdb_to_pqr(self, path, outpath, forcefield="swanson"):
         """
-        Run pdb2pqr, to convert pdb to pqr
+        Run the pdb2pqr binary for given filename.
+        
+        It takes the {path}.pdb file as input and output is written to {outpath}.pqr.
+        Binary path is read in from environment variable: MSMS_BIN. If environment variable does not exist binary will be looked up in provis/binaries/msms.
+
         
         Binary path is read in from environment variable: PDB2PQR_BIN. If environment variable does not exist binary will be looked up in binaries/pdb2pqr/pdb2pqr.
         
@@ -153,24 +157,30 @@ class FileConverter():
         else:
             print("PDB2PQR Binary not found under: ", PDB2PQR_BIN)
        
-    def decompose_traj(self):
+    def decompose_traj(self, path):
         """
-        As the MSMS binary is unable to work with trajectory .pdb files the large .pdb file containing all models is decomposed to one for each model.
-        
+        As the MSMS binary is unable to work with trajectory .pdb files the large .pdb file containing all models needs to be decomposed to one file per model.
+        This function completes this exact task.
+
         Only executes decomposition if the first file ("{pdb_file_name}_0.pdb") does not exists to avoid unnecessairy recomputation.
+        
+        :param name: path - Name of input (pdb) file (without extension)
+        :param type: str   
+
+        :returns: int - Number of models in the trajectory.
         """
         print("Decomposing trajectory pdb file")
         # Writing to a file
-        traj_name = self._path + ".pdb"
+        traj_name = path + ".pdb"
         traj = open(traj_name, 'r')
         model_id = 0
         
-        model_0 = self._path + "_0.pdb"
+        model_0 = path + "_0.pdb"
         if os.path.exists(model_0):
             from Bio.PDB import PDBParser
             parser = PDBParser()
-            file_name = self._path + ".pdb"
-            structure = parser.get_structure(self._path, file_name)
+            file_name = path + ".pdb"
+            structure = parser.get_structure(path, file_name)
             i = 0
             for model in structure:
                 i += 1
@@ -178,7 +188,7 @@ class FileConverter():
             return i
         
         while True:
-            new_name = self._path + "_" + str(model_id) + ".pdb"
+            new_name = path + "_" + str(model_id) + ".pdb"
 
             new_file = open(new_name, 'w')
         
@@ -207,15 +217,22 @@ class FileConverter():
         
         return model_id
         
-    def cleanup(self, delete_img: bool=False):
+    def cleanup(self, delete_img: bool=False, delete_meshes: bool=False):
         """
-        Deletes all files from data/tmp (and data/img) directories.
+        Deletes all files related to the current .pdb id from data/tmp (and if specified, the data/img and data/meshes) directories.
 
-        :param name: delete_img - If True data/img directory also cleared, else just the data/tmp. Default: False.
+        CAUTION: provis does not recompute existing files. So if you have a molecule that you want to plot multiple times then do not delete the temporary files.
+        WARNING: as provis does not recompute existing files it might occur that an old version of the file is stored in the temporary directories and this might cause provis to fail. If this is the case simply delete all temporary files (as well as meshes).
+
+        :param name: delete_img -  If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that "anything"). Default: False.
+        :param type: bool, optional
+        :param name: delete_meshes - If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that "anything"). Default: False
         :param type: bool, optional
         """
 
         import os, shutil
+
+        pdb_id = self._path.split("/")[-1].split("_")[0]
         tmp = self._base_path + "data/tmp/"
         folders = [tmp]
         if delete_img:
@@ -223,12 +240,13 @@ class FileConverter():
             folders.append(img)
         for folder in folders:
             for filename in os.listdir(folder):
-                file_path = os.path.join(folder, filename)
-                try:
-                    if os.path.isfile(file_path) or os.path.islink(file_path):
-                        os.unlink(file_path)
-                    elif os.path.isdir(file_path):
-                        shutil.rmtree(file_path)
-                except Exception as e:
-                    print('Failed to delete %s. Reason: %s' % (file_path, e))
+                if filename.split(".")[0].split("_")[0] == pdb_id:
+                    file_path = os.path.join(folder, filename)
+                    try:
+                        if os.path.isfile(file_path) or os.path.islink(file_path):
+                            os.unlink(file_path)
+                        elif os.path.isdir(file_path):
+                            shutil.rmtree(file_path)
+                    except Exception as e:
+                        print('Failed to delete %s. Reason: %s' % (file_path, e))
 

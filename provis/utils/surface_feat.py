@@ -195,6 +195,7 @@ def compute_charges(vertices: np.ndarray, pdb_id: str, path: str) -> np.ndarray:
     charge_file = f"{path}.pqr"
     if not os.path.exists(charge_file):
         raise ValueError(f"Charges cannot be computed. Missing file {pdb_id}.pqr. {pdb_id}")
+        return None
 
     chargefile = open(charge_file)
     charges = np.array([0.0] * len(vertices))

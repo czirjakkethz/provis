@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>provis.src.processing package &mdash; provis 0.0.2 documentation</title>
@@ -37,13 +37,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+              <p class="caption"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Download Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html#setting-up-provis">Setting up Provis</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<p class="caption"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="provis.html">Provis</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="provis.src.html">Source Code</a><ul class="current">
@@ -66,14 +66,14 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
+<p class="caption"><span class="caption-text">Use and examples:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="information.html">Additional information about provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="information.html">General information about provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
+<p class="caption"><span class="caption-text">Author(s)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
 </ul>
@@ -394,17 +394,21 @@ The dictionary is returned.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.file_converter.</span></span><span class="sig-name descname"><span class="pre">FileConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to create and destroy necessary files required in other parts of code.
-It has a bunch of member functions to call the binaries and scripts to convert the files.</p>
+The member functions call the binaries and scripts to convert the files.</p>
 <p>Also has a cleanup function that removes everything in the “root_directory”/data/tmp (and data/img if specified) directory. Best practice is to call this function at the end of your main file.
 However if you want to plot the same protein many times, then it is benificial to keep the temporary (data/tmp) files as if they exist provis will not recompute them.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.cleanup">
-<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_img</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Deletes all files from data/tmp (and data/img) directories.</p>
+<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delete_img</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_meshes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.cleanup" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes all files related to the current .pdb id from data/tmp (and if specified, the data/img and data/meshes) directories.</p>
+<p>CAUTION: provis does not recompute existing files. So if you have a molecule that you want to plot multiple times then do not delete the temporary files.
+WARNING: as provis does not recompute existing files it might occur that an old version of the file is stored in the temporary directories and this might cause provis to fail. If this is the case simply delete all temporary files (as well as meshes).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – delete_img - If True data/img directory also cleared, else just the data/tmp. Default: False.</p></li>
+<li><p><strong>name</strong> – delete_img -  If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that “anything”). Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – delete_meshes - If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that “anything”). Default: False</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
@@ -413,9 +417,21 @@ However if you want to plot the same protein many times, then it is benificial t
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.decompose_traj">
-<span class="sig-name descname"><span class="pre">decompose_traj</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.decompose_traj" title="Permalink to this definition"></a></dt>
-<dd><p>As the MSMS binary is unable to work with trajectory .pdb files the large .pdb file containing all models is decomposed to one for each model.</p>
+<span class="sig-name descname"><span class="pre">decompose_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.decompose_traj" title="Permalink to this definition"></a></dt>
+<dd><p>As the MSMS binary is unable to work with trajectory .pdb files the large .pdb file containing all models needs to be decomposed to one file per model.
+This function completes this exact task.</p>
 <p>Only executes decomposition if the first file (“{pdb_file_name}_0.pdb”) does not exists to avoid unnecessairy recomputation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – path - Name of input (pdb) file (without extension)</p></li>
+<li><p><strong>type</strong> – str</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>int - Number of models in the trajectory.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -458,7 +474,9 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.pdb_to_pqr">
 <span class="sig-name descname"><span class="pre">pdb_to_pqr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forcefield</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'swanson'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.pdb_to_pqr" title="Permalink to this definition"></a></dt>
-<dd><p>Run pdb2pqr, to convert pdb to pqr</p>
+<dd><p>Run the pdb2pqr binary for given filename.</p>
+<p>It takes the {path}.pdb file as input and output is written to {outpath}.pqr.
+Binary path is read in from environment variable: MSMS_BIN. If environment variable does not exist binary will be looked up in provis/binaries/msms.</p>
 <p>Binary path is read in from environment variable: PDB2PQR_BIN. If environment variable does not exist binary will be looked up in binaries/pdb2pqr/pdb2pqr.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -502,16 +520,16 @@ Binary path is read in from environment variable: MSMS_BIN. If environment varia
 <dt class="sig sig-object py" id="provis.src.processing.name_checker.NameChecker">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.name_checker.</span></span><span class="sig-name descname"><span class="pre">NameChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The point of this class is to provide uniform naming and path locations to all the other classes of provis.
+<p>This class provides uniform names and path locations to all the other classes of provis.
 NameChecker has internal variables and a method to return these variables.</p>
-<p>Variables: 
+<p>Class member variables: 
 self._pdb_name - Full path to the pdb file without the .pdb extension. Usually PROVIS_PATH/data/pdb/{pdb_id}.
 self._out_path - Full path to the temporary files. The names of all temporary files are derived from this variable. Usually PROVIS_PATH/data/tmp/{pdb_id}.
 self._base_path - Full path of the provis directory or any directory that has the following directory structure within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.name_checker.NameChecker.return_all">
 <span class="sig-name descname"><span class="pre">return_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.name_checker.NameChecker.return_all" title="Permalink to this definition"></a></dt>
-<dd><p>Return all class variables.</p>
+<dd><p>Return all class variables. This function is used by all other provis classes to retrieve the paths to the files needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>str - path to the input pdb id (file without the extension)</p>
@@ -546,7 +564,7 @@ For example: my_protein.structure.plot_atoms()</p>
 <dt class="sig sig-object py" id="provis.src.processing.residue.Residue">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.residue.</span></span><span class="sig-name descname"><span class="pre">Residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Residue class is mainly used for plotting a bounding box around the given residue.</p>
+<p>Residue class is used for plotting a bounding box around the specified residue.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.residue.Residue.add_residue">
 <span class="sig-name descname"><span class="pre">add_residue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.residue.Residue.add_residue" title="Permalink to this definition"></a></dt>
@@ -605,9 +623,11 @@ For example: my_protein.structure.plot_atoms()</p>
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.surface_handler.</span></span><span class="sig-name descname"><span class="pre">SurfaceHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The ‘brain’ of provis, when it comes to handling surface information.</p>
+<p>The ‘brain’ of provis, when it comes to handling surfaces.</p>
 <p>This class loads information from a variety of files and creates meshes to be plotted. 
-Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.</p>
+Upper level classes - eg. Surface - use SurfaceHandler objects to create the meshes.</p>
+<p>The SurfaceHandler class loads atom-positional information from a .pdb file and from this information computes the surface mesh.
+The surface can be computed by the MSMS binary or natively. The MSMS version is chemically more accurate and faster, but the MSMS binary has to be downloaded for it to work.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.get_assignments">
 <span class="sig-name descname"><span class="pre">get_assignments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_assignments" title="Permalink to this definition"></a></dt>
@@ -624,14 +644,20 @@ Loads “root directory”/data/tmp/{pdb_id}.pth and returns it.</p>
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.get_surface_features">
 <span class="sig-name descname"><span class="pre">get_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.get_surface_features" title="Permalink to this definition"></a></dt>
 <dd><p>Get the coloring corresponding to a specific feature.</p>
+<p>The code in words:
+Creates the pqr file if it does not exist.
+If the res_id variable is not empty retrieve the surface structure (list of specific surface-related information) using the get_surface() function.
+Else compile the surface structure from the mesh and the find_nearest_atom() function.
+Next, using the above mentioned surface structure compute all surface feature information.
+Finally return the coloring corresponding to the specified feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – mesh - The mesh</p></li>
 <li><p><strong>type</strong> – Trimesh</p></li>
-<li><p><strong>name</strong> – feature - Name of feature we are interested in. Options: hydrophob, shape, charge.</p></li>
+<li><p><strong>name</strong> – feature - Name of feature we are interested in. Options: hydrophob, shape, charge, hbonds.</p></li>
 <li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – native - Set to True when using native mesh computation. Default: False.</p></li>
+<li><p><strong>name</strong> – res_id - List of unique residue IDs (format from output_pdb_as_xyzrn()). Default: False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
@@ -644,24 +670,23 @@ Loads “root directory”/data/tmp/{pdb_id}.pth and returns it.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color">
-<span class="sig-name descname"><span class="pre">msms_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color" title="Permalink to this definition"></a></dt>
-<dd><p>Return the mesh and coloring ready for plotting.</p>
+<span class="sig-name descname"><span class="pre">msms_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color" title="Permalink to this definition"></a></dt>
+<dd><p>Return the mesh and coloring created by the MSMS binary.</p>
+<p>The code in words:
+If self._mesh_needed is set to True - if the mesh could not be loaded from a file - compute the mesh using the .face and .vert files created by the MSMS binary.
+If self._dynamic is False - if the mesh is needed for a static molecule - and the .face and .vert files do not exist compute these files using the FileConverter class.
+Do the same for self._dynamic == True.
+If the mesh is needed compute the mesh from the .face and .vert files.
+Finally, if a feature is specified check if the color information could be loaded from a file (self._color_needed) and compute it if needed.
+If no feature specified set the variable that stores color information to None. This will result in a white mesh.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.</p></li>
+<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.</p></li>
 <li><p><strong>type</strong> – str, optional</p></li>
 <li><p><strong>name</strong> – patch - Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – num_models - Number of models in a trajectory. Only important for dynamic structures. Default: 0.</p></li>
-<li><p><strong>type</strong> – int, optional</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Trimesh - The mesh, always returned</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the ‘scalars’ argument to get the encoded coloring.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -676,15 +701,9 @@ Always returns a pyvista.PolyData mesh of the surface and if a feature is specif
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to “”.</p></li>
+<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to “”.</p></li>
 <li><p><strong>type</strong> – str, optional</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pyvista.PolyData - The mesh, always returned</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the ‘scalars’ argument to get the encoded coloring.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -693,14 +712,19 @@ Always returns a pyvista.PolyData mesh of the surface and if a feature is specif
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">
 <span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
-If you could not download the MSMS binary leave this variable false and you will not run into problems.</p>
+If you could not download the MSMS binary leave the msms variable as False.</p>
 <p>If the mesh and appropriate coloring has already been stored to a file, then this information will be loaded and no computation will be done.</p>
+<p>The code in words:
+First, set a few class member variables that are used in the {*}_mesh_and_color() member functions.
+Next check if the mesh and color information has already been computed. If the files already exist load them and return. No computation will be done.
+Otherwise, depending on what the msms input variable is set to, compute either the msms_mesh_and_color() ir the native_mesh_and_color().
+Return the mesh and color information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – msms - If true, surface generated by msms binary is returned, else the native mesh. Default: False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.</p></li>
+<li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.</p></li>
 <li><p><strong>type</strong> – str, optional</p></li>
 <li><p><strong>name</strong> – patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>

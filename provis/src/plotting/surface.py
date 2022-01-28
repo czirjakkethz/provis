@@ -78,7 +78,7 @@ class Surface:
         """
         print("Calculating surface mesh with model id: ", model_id)
         # get appropriate mesh and coloring
-        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch, model_id=model_id, dynamic=False)# TODO: dynamic
+        mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch)
         # plot
         pl = pv.Plotter(notebook=self._notebook)
         print("Surface plotter created...")
@@ -116,7 +116,7 @@ class Surface:
             if self._msms:
                 ending = "_msms" + ending
                 
-            new_name = self._name.split('/')
+            new_name = self._path.split('/')
             new_name = new_name[-1].split('.')[0]
             
             ident = '_surface'

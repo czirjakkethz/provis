@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>General information about provis &mdash; provis 0.0.2 documentation</title>
@@ -37,21 +37,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
+              <p class="caption"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Download Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html#setting-up-provis">Setting up Provis</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
+<p class="caption"><span class="caption-text">Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
+<p class="caption"><span class="caption-text">Use and examples:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">General information about provis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#protein">Protein</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namechecker">NameChecker</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fileconverter">FileConverter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#datahandler">DataHandler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#surfacehandler">SurfaceHandler</a></li>
@@ -61,13 +62,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#dynamicstructure">DynamicStructure</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#design-decisions">Design decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-architecture">Code architecture</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
+<p class="caption"><span class="caption-text">Author(s)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
 </ul>
@@ -105,6 +108,10 @@
 <h3>Protein<a class="headerlink" href="#protein" title="Permalink to this headline"></a></h3>
 <p>The <strong>Protein</strong> class encapsulates the whole <strong>provis</strong> library and is the easiest way to plot your (static) proteins. You can initialize it with a simple pdb filename in a single line of code and plot in the next.</p>
 </section>
+<section id="namechecker">
+<h3>NameChecker<a class="headerlink" href="#namechecker" title="Permalink to this headline"></a></h3>
+<p>The <strong>NameChecker</strong> class is responsible for storing the paths to all the files used by <strong>provis</strong>. All other classes require a <strong>NameChecker</strong> class instance to be passed. Passing this <strong>NameChecker</strong> instance ensures that all other classes will work with the same molecule.</p>
+</section>
 <section id="fileconverter">
 <h3>FileConverter<a class="headerlink" href="#fileconverter" title="Permalink to this headline"></a></h3>
 <p>The <strong>FileConverter</strong> class is responsible for creating the required files from the <em>.pdb</em> file. This class is hidden in other classes and only called when a file is needed/missing.</p>
@@ -137,6 +144,61 @@
 <p>See:
 <a class="reference internal" href="dynamic_plotting.html#dynamic-plotting"><span class="std std-ref">Dynamic Structures</span></a>.</p>
 </section>
+</section>
+<section id="design-decisions">
+<h2>Design decisions<a class="headerlink" href="#design-decisions" title="Permalink to this headline"></a></h2>
+<p>Since creating meshes requires a lot of computation it was decided to store the results of these computations to files. This way if a protein is analysed with <strong>provis</strong> for the second time, then results of the expensive computation will already be known. This way one can simply load the information from the files and plot right away.</p>
+<p>Some classes of <strong>provis</strong> need the same information and need access to the same methods. For this reason, most classes of <strong>provis</strong> can be initialised with already existing instances of the internal variables. This way the exact same computations (for example: initialising the passed class) will be mitigated. Passing initialised classes also insures that the same molecule is being considered throughout the whole program.</p>
+<p>To ensure that only necessary computations are run the existence of the object to be computed is always checked. Both files and class instance variables are checked. If the given object already exists (and possible other checks are passed) then this object will not be recomputed.
+<strong>WARNING: this decision can result in an error if a new file with a previously existing name is analysed. **Provis</strong> will not know that the molecule is different and errors might occur. To fix this simply delete (or move) all temporary files related to this molecule.** This is a very rare problem, if you use <strong>provis</strong> normally and do not modify existing files then you will not run into this problem.</p>
+</section>
+<section id="code-architecture">
+<h2>Code architecture<a class="headerlink" href="#code-architecture" title="Permalink to this headline"></a></h2>
+<p>In the following will show how the above mentioned classes depend on one another.</p>
+<p>One can easily observe that all classes depend on the NameChecker class. And since some classes have other dependencies as well, duplication of the exact same class instance would seem quite likely. This is the reason (as described above) why all classes can be initialised with pre-existing instances of the necessary classes, so instead of duplication they will be shared. (Disclaimer: the classes can also be initialised empty, but then the above mentioned duplication occurs.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>FileConverter
+   └── NameChecker
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>DataHandler
+   ├── NameChecker
+   └── FileConverter
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Structure
+   ├── NameChecker
+   └── DataHandler
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SurfaceHandler
+   ├── NameChecker
+   ├── FileConverter
+   └── DataHandler
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Surface
+   ├── NameChecker
+   └── SurfaceHandler
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Protein
+   ├── NameChecker
+   ├── FileConverter
+   ├── DataHandler
+   ├── SurfaceHandler
+   ├── Structure
+   └── Surface
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>DynamicStructure
+   ├── NameChecker
+   ├── FileConverter
+   ├── DataHandler
+   ├── SurfaceHandler
+   ├── Structure
+   └── Surface
+</pre></div>
+</div>
 </section>
 </section>
 

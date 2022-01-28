@@ -23,10 +23,13 @@ from provis.src.processing.data_handler import DataHandler
 
 class SurfaceHandler:
     """
-    The 'brain' of provis, when it comes to handling surface information. 
+    The 'brain' of provis, when it comes to handling surfaces. 
     
     This class loads information from a variety of files and creates meshes to be plotted. 
-    Upper level classes - eg. StickPoint - have their own AtomHandler objects that do all the work.    
+    Upper level classes - eg. Surface - use SurfaceHandler objects to create the meshes.
+    
+    The SurfaceHandler class loads atom-positional information from a .pdb file and from this information computes the surface mesh.
+    The surface can be computed by the MSMS binary or natively. The MSMS version is chemically more accurate and faster, but the MSMS binary has to be downloaded for it to work.
     """
   
     def __init__(self, nc, fc=None, dh=None, density=3.0):
@@ -86,11 +89,18 @@ class SurfaceHandler:
         """
         Get the coloring corresponding to a specific feature.
 
+        The code in words:
+        Creates the pqr file if it does not exist.
+        If the res_id variable is not empty retrieve the surface structure (list of specific surface-related information) using the get_surface() function.
+        Else compile the surface structure from the mesh and the find_nearest_atom() function.
+        Next, using the above mentioned surface structure compute all surface feature information.
+        Finally return the coloring corresponding to the specified feature.
+
         :param name: mesh - The mesh
         :param type: Trimesh
-        :param name: feature - Name of feature we are interested in. Options: hydrophob, shape, charge.
+        :param name: feature - Name of feature we are interested in. Options: hydrophob, shape, charge, hbonds.
         :param type: str
-        :param name: native - Set to True when using native mesh computation. Default: False.
+        :param name: res_id - List of unique residue IDs (format from output_pdb_as_xyzrn()). Default: False.
         :param type: bool, optional
         
         :raises: NotImplementedError - If unkown feature specified error is raised
@@ -125,22 +135,27 @@ class SurfaceHandler:
             return self._features[0]
         elif feature == 'charge':
             return self._features[3]
+        elif feature == 'hbonds':
+            return self._features[1]
         else:
             raise NotImplementedError
 
-    def msms_mesh_and_color(self, feature=None, patch=False, model_id=0, num_models=0):
+    def msms_mesh_and_color(self, feature=None, patch=False):
         """
-        Return the mesh and coloring ready for plotting.
+        Return the mesh and coloring created by the MSMS binary.
 
-        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.
+        The code in words:
+        If self._mesh_needed is set to True - if the mesh could not be loaded from a file - compute the mesh using the .face and .vert files created by the MSMS binary.
+        If self._dynamic is False - if the mesh is needed for a static molecule - and the .face and .vert files do not exist compute these files using the FileConverter class.
+        Do the same for self._dynamic == True.
+        If the mesh is needed compute the mesh from the .face and .vert files.
+        Finally, if a feature is specified check if the color information could be loaded from a file (self._color_needed) and compute it if needed.
+        If no feature specified set the variable that stores color information to None. This will result in a white mesh.
+
+        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.
         :param type: str, optional
         :param name: patch - Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.
         :param type: bool, optional
-        :param name: num_models - Number of models in a trajectory. Only important for dynamic structures. Default: 0.
-        :param type: int, optional
-
-        :returns: Trimesh - The mesh, always returned
-        :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
         print("MSMS mesh calculation for model id: ", self._model_id)
 
@@ -172,13 +187,13 @@ class SurfaceHandler:
                     self._fc.msms(new_xyzrn_path, self._density)
                     path = f"{new_xyzrn_path}_out_{int(self._density * 10)}"
                 
-                print(" - Get surface")
-                surface = get_surface(out_path=new_xyzrn_path, density=self._density)
-                self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
-                                resolution=1.5, apply_fixes=True)
-            
-                meshname = self._mesh_path + "_msms_" + str(self._model_id) + '.obj'
-                self._mesh.export(meshname)
+            print(" - Get surface")
+            surface = get_surface(out_path=new_xyzrn_path, density=self._density)
+            self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
+                            resolution=1.5, apply_fixes=True)
+        
+            meshname = self._mesh_path + "_msms_" + str(self._model_id) + '.obj'
+            self._mesh.export(meshname)
         
         if feature:
             if self._color_needed:
@@ -194,17 +209,15 @@ class SurfaceHandler:
             self._col = None
 
     def native_mesh_and_color(self, feature=None):
+        # TODO
         """
         Returns a mesh without the need for the MSMS binary. The mesh and coloring is also saved to the following file names:
         Mesh: "root directory"/data/meshes/{pdb_id}_{model_id}.obj
         Color: "root directory"/data/meshes/{pdb_id}_{feature}_{model_id}
         Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.
 
-        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to "".
+        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to "".
         :param type: str, optional
-
-        :returns: pyvista.PolyData - The mesh, always returned
-        :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
         print("Native mesh calculation for model id: ", self._model_id)
         if self._mesh_needed:
@@ -305,13 +318,19 @@ class SurfaceHandler:
     def return_mesh_and_color(self, msms=False, feature=None, patch=False, model_id=0, num_models=0):
         """
         Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
-        If you could not download the MSMS binary leave this variable false and you will not run into problems.
+        If you could not download the MSMS binary leave the msms variable as False.
         
         If the mesh and appropriate coloring has already been stored to a file, then this information will be loaded and no computation will be done.
         
+        The code in words:
+        First, set a few class member variables that are used in the {*}_mesh_and_color() member functions.
+        Next check if the mesh and color information has already been computed. If the files already exist load them and return. No computation will be done.
+        Otherwise, depending on what the msms input variable is set to, compute either the msms_mesh_and_color() ir the native_mesh_and_color().
+        Return the mesh and color information.
+
         :param name: msms - If true, surface generated by msms binary is returned, else the native mesh. Default: False.
         :param type: bool, optional
-        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to None.
+        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.
         :param type: str, optional
         :param name: patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
         :param type: bool, optional
@@ -348,10 +367,11 @@ class SurfaceHandler:
                 self._mesh = trimesh.load_mesh(meshname)
                 self._mesh_needed = False
            
-        # run appropriate function to compute the mesh and the coloring
-        if msms:
-            self.msms_mesh_and_color(feature, patch, model_id=model_id, num_models=num_models)
-        else:
-            self.native_mesh_and_color(feature, model_id=model_id)
+        if self._color_needed or self._mesh_needed:
+            # run appropriate function to compute the mesh and the coloring
+            if msms:
+                self.msms_mesh_and_color(feature, patch)
+            else:
+                self.native_mesh_and_color(feature)
 
         return self._mesh, self._col

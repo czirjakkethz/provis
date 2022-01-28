@@ -4,10 +4,10 @@ import provis
 
 class NameChecker:
     """
-    The point of this class is to provide uniform naming and path locations to all the other classes of provis.
+    This class provides uniform names and path locations to all the other classes of provis.
     NameChecker has internal variables and a method to return these variables. 
     
-    Variables: 
+    Class member variables: 
     self._pdb_name - Full path to the pdb file without the .pdb extension. Usually PROVIS_PATH/data/pdb/{pdb_id}.
     self._out_path - Full path to the temporary files. The names of all temporary files are derived from this variable. Usually PROVIS_PATH/data/tmp/{pdb_id}.
     self._base_path - Full path of the provis directory or any directory that has the following directory structure within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb. 
@@ -19,7 +19,7 @@ class NameChecker:
         The "name" variable is a path to the pdb file with or without the pdb extension. One can also simply pass the pdb ID (name without extension) if the file is saved under: "root directory"/data/pdb.
         Always sets "out_path" to default output location: "root directory"/data/tmp.
         
-        This class is also a global class and ensures that all the plotting classes plot the same pdb file. The class has to be initialized once, after that everything simply uses the variables from the global class.
+        This class is passed to all other classes and ensures that all the plotting classes plot the same pdb file.
 
         :param name: name - Name and path to location of the pdb file. If simply pdb id (file name without .pdb extension) is provided the default directory - provis/data/pdb - will be searched for the file. If no file found the input is returned.
         :param type: str
@@ -63,7 +63,7 @@ class NameChecker:
     
     def return_all(self):
         """
-        Return all class variables.
+        Return all class variables. This function is used by all other provis classes to retrieve the paths to the files needed.
         
         :return: str - path to the input pdb id (file without the extension)
         :return: str - path to the output pdb id - data/tmp/{pdb_id}
