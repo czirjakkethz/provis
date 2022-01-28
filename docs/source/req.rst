@@ -9,10 +9,10 @@ Provis is based on the idea of not to reinvent the wheel, so quite a few third p
 Binaries
 ----------------------
 
+Binaries are 3rd party, ready to use programs, that are provided to the user as is. Here is a list of the required external programs and installation instructions.
+
 OpenBabel
 ^^^^^^^^^^^^^^^
-
-Needed to create the *mol.2* files. These files store the bond information.
 
 Easiest to install on Linux is by calling:
 
@@ -22,18 +22,19 @@ Easiest to install on Linux is by calling:
 
 Alterantively: http://openbabel.org/wiki/Main_Page
 
+OpenBabel is needed to create the *mol.2* files. These files store the bond information.
 
 PDB2PQR and APBS
 ^^^^^^^^^^^^^^^^^^^^^
 
-These binaries are required for the surface feature plotting. The binaries create the 
-
 Download from: https://www.poissonboltzmann.org/
 
+These binaries are required for the surface feature plotting. The binaries create the 
 
 MSMS
 ^^^^^^^^^^^^^^^^^^^^^^
- MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis.
+
+ MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis (although it is slower and chemically less accurate).
 
  Download MSMS form:
  https://ccsb.scripps.edu/mgltools/downloads/
@@ -44,7 +45,18 @@ MSMS
 Pip
 ----------------------
 
- All of the following can be dowloaded using pip and should be automatically installed when installing pip with provis:
+If provis was downloaded via pip (and not from the `github <https://github.com/czirjakkethz/provis>`_) then all of the following packages should be installed. 
+
+If not, then run the following command in the root directory of provis:
+
+.. code-block:: bash
+	
+	python3 setup.py develop
+    
+This should pip install everything, including the provis package.
+
+
+Here is a list of provis' pip dependencies:
 
 * BioPython
 * Trimesh
@@ -57,13 +69,5 @@ Pip
 * Panel
 * Imageio-ffmpeg
    
-Jupyter Notebook
----------------------
-
-If you want to run a fully interactive provis in the Jupyter Notebook environment you will have to install the following additional packages. Failing to do so will simply produce snapshot images instead of 3D plots.
-
-.. code-block:: bash
-
-    pip install ipyvtklink
     
 

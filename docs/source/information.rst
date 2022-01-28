@@ -1,7 +1,7 @@
-Additional information about provis
+General information about provis
 =====================================
 
-This section will try to explain the general code architecture and design decisions of the **provis** library.
+This section describes the general code architecture and design decisions of the **provis** library.
 
 Classes
 ++++++++++

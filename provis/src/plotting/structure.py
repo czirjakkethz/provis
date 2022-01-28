@@ -7,11 +7,11 @@ class Structure:
     """
     The Structure class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these structures.
     """
-    def __init__(self, nc, dh=None, plot_solvent=False, notebook=False):
+    def __init__(self, nc, dh=None, plot_solvent=False, notebook=False, msms=False):
         """
-        The constructor creates the internal data structures and loads all the atomic information required for plotting.
+        In this constructor no mesh information is computed, simply preparations are made. Meshes are loaded in the plotting function.
         
-        A NameChecker object is required for initialization, as this is how the program finds the desired pdb file/molecule.
+        A NameChecker object is required for initialization, as this is how the program finds the desired pdb file, molecule.
         If nothing else is passed the NameChecker object will be used to initialize the other internal objects of the structure class.
         
         Apart from the required NameChecker object one can also pass a DataHandler for even more control.
@@ -24,7 +24,10 @@ class Structure:
         :param type: bool, optional
         :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
         :param type: bool, optional 
+        :param name: msms - Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False.
+        :param type: bool, optional
         """
+        self._msms = msms
         self._notebook = notebook
         self._shading = not self._notebook
         self._solvent = plot_solvent
@@ -130,7 +133,7 @@ class Structure:
         :param type: bool, optional
         :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
         :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
+        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_stick_point.png. If Structure class was initialized with msms=True then output will have "_msms.png" as the ending.
         :param type: string, optional
         :param name: atoms - Plot atoms, default: 0.
         :param type: bool, optional
@@ -156,6 +159,7 @@ class Structure:
         atom_data = self._dh.get_atoms(show_solvent=self._solvent, model_id=model_id) # second arg: 1 = show_solvent
         
         pl = pv.Plotter(notebook=self._notebook)
+        print("Structure plotter created for model id: ", model_id)
         pl.background_color = 'grey'
         pl.enable_3_lights()
 
@@ -168,11 +172,13 @@ class Structure:
                 style='wireframe'
                 for j, mesh in enumerate(_atoms_vw):
                     pl.add_mesh(mesh, color=_col_vw[j], opacity=opacity, smooth_shading=self._shading, style=style)
+                print("Van-der-Waals atoms added...")
             else:
                 ## return list of spheres (meshes) and colors for the spheres
                 _atoms, _col_a, _ = self._dh.get_atom_mesh(atom_data, vw=0) # second arg: 1 = showvw spheres instead of "normal" radius
                 for j, mesh in enumerate(_atoms):
                     pl.add_mesh(mesh, color=_col_a[j], opacity=opacity, smooth_shading=self._shading, style=style)
+                print("Atoms added...")
 
         if bonds:
             ## return list of lines (meshes)
@@ -184,6 +190,7 @@ class Structure:
             if bonds == 2:
                 for b, c in zip(_bonds, _bond_col):
                     pl.add_mesh(b, color=c, line_width=5, render_lines_as_tubes=True)
+            print("Bonds added...")
                 
                 
         # adding the spheres (by residue) one at a time
@@ -195,11 +202,13 @@ class Structure:
             
             for k, mesh in enumerate(_residues):
                 pl.add_mesh(mesh, color=_col_r[k], opacity=0.2)
-        
-        # if specified add bounding box
-        if box:
-            pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
-        
+            print("Residues added...")
+
+        if bb:
+            bb_mesh = self._dh.get_backbone_mesh()
+            pl.add_mesh(pv.Spline(bb_mesh), render_lines_as_tubes=True, line_width=10)
+            print("Back-bone added...")
+             
         if res:
             res_list, chain_list, pad = res.get_res_info()
             for i, r in enumerate(res_list):
@@ -212,22 +221,35 @@ class Structure:
                 res_exists = (self._dh.get_residue_info(r, chain,'com') != 1)
                 if res_exists:
                     pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
-
-        if bb:
-            bb_mesh = self._dh.get_backbone_mesh()
-            pl.add_mesh(pv.Spline(bb_mesh), render_lines_as_tubes=True, line_width=10)
-        # save a screenshot
-        if not outname:
-            new_name = self._name.split('/')
-            new_name = new_name[-1].split('.')[0]
-            outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
-           
+            print("Residues marked...")
+          
+        # if specified add bounding box
+        if box:
+            pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
+            print("Bounding box added...")
+            
         if camera: 
             pl.camera.position = camera
+            print("Camera added...")
+        # else:
+        #     pl.camera_position = 'xy'#
+              
+        # save a screenshot
+        if not outname or outname[0] == '_':
+            ending = ".png"
+            if self._msms:
+                ending = "_msms" + ending
+                
+            new_name = self._name.split('/')
+            new_name = new_name[-1].split('.')[0]
+            
+            ident = '_stick_point'
+            if outname:
+                ident = outname
+            outname = self._base_path + 'data/img/' + new_name + "_" + str(model_id) + ident + ending 
+          
+        print("Showing plot")  
         pl.show(screenshot=outname, title=title)
-        if dynamic:
-            print("hi")
-            pl.close()
 
 
     def plot_stick_point(self, box=0, res=None, outname=0, camera=None):
@@ -248,9 +270,9 @@ class Structure:
 
         self.plot(atoms=1, box=box, vw=0, bonds=1, residues=0, res=res, outname=outname, title="Stick Point", camera=camera)
         
-    def plot_atoms(self, box=0, res=0, outname=0, camera=None):
+    def plot_atoms(self, box=0, res=0, outname=None, camera=None):
         """
-        Plot the atoms as spheres.
+        Plot the atoms as spheres. Each atom has a radius proportianal to its calculated atomic radius.
         
         Consult https://en.wikipedia.org/wiki/CPK_coloring for the coloring. 
         
@@ -265,26 +287,36 @@ class Structure:
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        # save a screenshot
         if not outname:
-            new_name = self._name.split('/')
-            new_name = new_name[-1].split('.')[0]
-            outname = self._base_path + 'data/img/' + new_name + '_atoms.png'
+            outname = '_atoms'
         self.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=res, outname=outname, title="Atoms", camera=camera)
         
     def plot_residues(self, box=0, res=0, outname=0, camera=None):
         """
+        Plot the residues as Spheres. Each sphere is the approximate size of the radius of the given residue. This plot should only be used to get a general feel for the layout of the protein.
+        
+        For coloring information please visit: http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm
+        
+        :param name: box, optional - If True bounding box also visualized, default: 0.
+        :param type: bool, optional
+        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+        :param type: Residue, optional
+        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.
+        :param type: string, optional
+        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+        :param type: pyvista.Camera, optional
+        
+        :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        # save a screenshot
+        
         if not outname:
-            new_name = self._name.split('/')
-            new_name = new_name[-1].split('.')[0]
-            outname = self._base_path + 'data/img/' + new_name + '_vw.png'
-        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=1, res=res, title="Residues", camera=camera)
+            outname = '_residues'
+        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=1, res=res, title="Residues", outname='_residues', camera=camera)
         
     def plot_vw(self, box=0, res=0, outname=0, camera=None):
         """
-        Plot Van-der-Waals radius of atoms as wireframe spheres.
+        Plot Van-der-Waals radius of atoms as spheres. Spheres have a wireframe style to be able to view inner structure as well.
+        To plot Van-der-Waals radii as solid spheres use the manual_plot() member function.
         
         :param name: box, optional - If True bounding box also visualized, default: 0.
         :param type: bool, optional
@@ -297,23 +329,22 @@ class Structure:
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        # save a screenshot
         if not outname:
-            new_name = self._name.split('/')
-            new_name = new_name[-1].split('.')[0]
-            outname = self._base_path + 'data/img/' + new_name + '_vw.png'
+            outname = '_vw'
         self.plot(atoms=1, box=box, vw=1, bonds=0, residues=0, res=res, title="Van-der-Waals", camera=camera)
         
     def plot_bonds(self, box=0, res=0, outname=0, colorful=False, camera=None):
         """
-        Plot only the bonds. By default all bonds will be plotted uniformly. If you want to view the difference in bonds you can set the colorful variable to True.
+        Plot only the bonds. By default all bonds will be plotted uniformly. 
         
-        Single bonds: white
-        Double bonds: blue
-        Triple bonds: green
-        Amide bonds: red
-        Aromatic bonds: purple
-        Undefined/Anything else: black
+        If the difference in bond types is of interest set the "colorful" variable to True.
+        Coloring:
+        - Single bonds: white
+        - Double bonds: blue
+        - Triple bonds: green
+        - Amide bonds: red
+        - Aromatic bonds: purple
+        - Undefined/Anything else: black
         
         :param name: box - If True bounding box also visualized, default: 0.
         :param type: bool, optional
@@ -329,11 +360,9 @@ class Structure:
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
         b = bool(colorful) * 1 + 1
-        # save a screenshot
+        
         if not outname:
-            new_name = self._name.split('/')
-            new_name = new_name[-1].split('.')[0]
-            outname = self._base_path + 'data/img/' + new_name + '_bonds.png'
+            outname = '_bonds'
         self.plot(atoms=0, box=box, vw=0, bonds=b, residues=0, res=res, outname=outname, title="Bonds", camera=camera)
         
         
@@ -352,10 +381,8 @@ class Structure:
         
         :return: Pyvista.Plotter window - Window with interactive plot.
         """
-        # save a screenshot
+        
         if not outname:
-            new_name = self._name.split('/')
-            new_name = new_name[-1].split('.')[0]
-            outname = self._base_path + 'data/img/' + new_name + '_backbone.png'
+            outname = '_backbone'
         self.plot(atoms=0, box=box, vw=0, bonds=0, residues=0, res=res, bb=1, outname=outname, title="Backbone", camera=camera)
 

@@ -2,18 +2,11 @@ Utilities for Provis
 ====================
 
 
+
 provis.utils.atminfo module
 ---------------------------
 
 .. automodule:: provis.utils.atminfo
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-provis.utils.bond\_parser module
---------------------------------
-
-.. automodule:: provis.utils.bond_parser
    :members:
    :undoc-members:
    :show-inheritance:

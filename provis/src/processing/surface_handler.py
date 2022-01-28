@@ -2,6 +2,7 @@
 # imports
 from genericpath import sameopenfile
 import os
+from os.path import exists
 
 import numpy as np
 from numpy.lib.twodim_base import tri
@@ -98,22 +99,25 @@ class SurfaceHandler:
         """
 
         # get surface
-        pdb_file = self._path + '.pdb'
+        pdb_file_path = self._path 
         
-        pqr_file = self._out_path + '.pqr'
-        if not exists(pqr_file):
-            self._fc.pdb_to_pqr(self._path, self._out_path)
-        
+        pqr_file_path = self._out_path
+        if self._color_needed and self._dynamic:
+            pdb_file_path = self._path + "_" + str(self._model_id) 
+            pqr_file_path = self._out_path + "_" + str(self._model_id)
+        if not exists(pqr_file_path + '.pqr'):
+            self._fc.pdb_to_pqr(pdb_file_path, pqr_file_path)
+        pdb_file = pdb_file_path + '.pdb'
         if not res_id:
-            surface = get_surface(self._out_path, density=self._density)
+            surface = get_surface(pqr_file_path, density=self._density)
         else:
             full_res_id = find_nearest_atom(self._atom_coords, res_id, mesh.vertices)
             
             surface = [mesh.vertices, mesh.faces, mesh.face_normals, full_res_id, mesh.area_faces]
             
         # compute features of surface
-        if not self._features:
-            self._features = compute_surface_features(surface, pdb_file, self._out_path, mesh, pdb_id = self._path)
+        if not self._features or self._color_needed:
+            self._features = compute_surface_features(surface, pdb_file, pqr_file_path, mesh, pdb_id = pdb_file_path)
 
         if feature == 'hydrophob':
             return self._features[2]
@@ -124,7 +128,7 @@ class SurfaceHandler:
         else:
             raise NotImplementedError
 
-    def msms_mesh_and_color(self, feature=None, patch=False, model_id=0):
+    def msms_mesh_and_color(self, feature=None, patch=False, model_id=0, num_models=0):
         """
         Return the mesh and coloring ready for plotting.
 
@@ -132,44 +136,65 @@ class SurfaceHandler:
         :param type: str, optional
         :param name: patch - Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.
         :param type: bool, optional
+        :param name: num_models - Number of models in a trajectory. Only important for dynamic structures. Default: 0.
+        :param type: int, optional
 
         :returns: Trimesh - The mesh, always returned
         :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
-        print("MSMS mesh calculation:")
+        print("MSMS mesh calculation for model id: ", self._model_id)
 
         path = f"{self._out_path}_out_{int(self._density * 10)}"
         face = path + '.face'
         vert = path + '.vert'
-        from os.path import exists
         # Check if face file exists. If not convert it from pdb
         file_exists = exists(face) and exists(vert)
-        if not file_exists:
-            self._fc.msms(self._out_path, self._density)
-        
-        if not self._mesh:
-            print(" - Get surface")
-            surface = get_surface(out_path=self._out_path, density=self._density)
-            self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
-                            resolution=1.5, apply_fixes=True)
+        if self._mesh_needed:
+            if not self._dynamic:
+                if not file_exists:
+                    self._fc.msms(self._out_path, self._density)
             
-            meshname = self._mesh_path + "_msms_" + str(model_id) + '.obj'
-            self._mesh.export(meshname)
-
+            new_xyzrn_path = self._out_path
+            if self._dynamic:
+                new_xyzrn_path = self._out_path + "_" + str(self._model_id) 
+                
+                # convert current mesh
+                path = f"{new_xyzrn_path}_out_{int(self._density * 10)}"
+                face = path + '.face'
+                vert = path + '.vert'
+                # Check if face file exists. If not convert it from pdb
+                file_exists = exists(face) and exists(vert)
+                if not file_exists:
+                    print("Creating face and vert files for current model...")
+                    new_name = self._path + "_" + str(self._model_id) 
+                    
+                    self._fc.pdb_to_xyzrn(new_name, new_xyzrn_path)
+                    self._fc.msms(new_xyzrn_path, self._density)
+                    path = f"{new_xyzrn_path}_out_{int(self._density * 10)}"
+                
+                print(" - Get surface")
+                surface = get_surface(out_path=new_xyzrn_path, density=self._density)
+                self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
+                                resolution=1.5, apply_fixes=True)
+            
+                meshname = self._mesh_path + "_msms_" + str(self._model_id) + '.obj'
+                self._mesh.export(meshname)
         
-        if feature:    
-            print(" - Feature: ", feature)
-            if patch:
-                self._col = self.get_assignments()
-            if not patch:
-                self._col = self.get_surface_features(self._mesh, feature)
-            fname = self._mesh_path + "_msms_" + feature + "_" + str(model_id)
-            with open(fname, 'wb') as f:
-                pickle.dump(self._col, f)
+        if feature:
+            print(self._color_needed)
+            if self._color_needed:
+                print(" - Feature: ", feature)
+                if patch:
+                    self._col = self.get_assignments()
+                if not patch:
+                    self._col = self.get_surface_features(self._mesh, feature)
+                fname = self._mesh_path + "_msms_" + feature + "_" + str(self._model_id)
+                with open(fname, 'wb') as f:
+                    pickle.dump(self._col, f)
         else:
             self._col = None
 
-    def native_mesh_and_color(self, feature=None, model_id=0, dynamic=False):
+    def native_mesh_and_color(self, feature=None):
         """
         Returns a mesh without the need for the MSMS binary. The mesh and coloring is also saved to the following file names:
         Mesh: "root directory"/data/meshes/{pdb_id}_{model_id}.obj
@@ -178,19 +203,15 @@ class SurfaceHandler:
 
         :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to "".
         :param type: str, optional
-        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
-        :param type: int, optional
-        :param name: dynamic - Set to True if you are plotting a dynamic model. Default: False.
-        :param type: bool, optional
 
         :returns: pyvista.PolyData - The mesh, always returned
         :returns: numpy.ndarray - Color map corresponding to specified feature. Only returned if a feature is specified as an input. This map can be passed to a pyvista.Plotter.add_mesh() function as the 'scalars' argument to get the encoded coloring.
         """
-        print("Native mesh calculation:")
-        if not self._mesh or dynamic:
+        print("Native mesh calculation for model id: ", self._model_id)
+        if self._mesh_needed:
             print(" - Feature: ", feature)
             # create rough surface by combining vw radii of each atom
-            atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs(model_id=model_id)
+            atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs(model_id=self._model_id)
             self._atmsurf, col, _ = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
 
             # adding the spheres (by atom type) one at a time
@@ -251,7 +272,7 @@ class SurfaceHandler:
             tri_mesh = trimesh.Trimesh(shell.points, faces=faces_)
 
             self._mesh = tri_mesh#shell
-            meshname = self._mesh_path + "_" + str(model_id) + '.obj'
+            meshname = self._mesh_path + "_" + str(self._model_id) + '.obj'
             tri_mesh.export(meshname)
             print("Mesh calculation done.")
             
@@ -272,16 +293,17 @@ class SurfaceHandler:
 
         # only needed if feature is specified (-> color map needs to be calculated)
         if feature:
-            self._col = self.get_surface_features(self._mesh, feature, self._res_id)
-            
-            fname = self._mesh_path + "_" + feature + "_" + str(model_id)
-            with open(fname, 'wb') as f:
-                pickle.dump(self._col, f)
+            if self._color_needed:
+                self._col = self.get_surface_features(self._mesh, feature, self._res_id)
+                
+                fname = self._mesh_path + "_" + feature + "_" + str(self._model_id)
+                with open(fname, 'wb') as f:
+                    pickle.dump(self._col, f)
         else:
             self._col = None
 
     
-    def return_mesh_and_color(self, msms=False, feature=None, patch=False, model_id=0, dynamic=False):
+    def return_mesh_and_color(self, msms=False, feature=None, patch=False, model_id=0, num_models=0):
         """
         Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
         If you could not download the MSMS binary leave this variable false and you will not run into problems.
@@ -296,14 +318,17 @@ class SurfaceHandler:
         :param type: bool, optional
         :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
         :param type: int, optional
-        :param name: dynamic - Set to True if you are plotting a dynamic model. Default: False.
-        :param type: bool, optional
+        :param name: num_models - Number of models in a trajectory. Only important for dynamic structures. Default: 0.
+        :param type: int, optional
         
         :returns: trimesh.Trimesh - The mesh corresponding to the surface of the protein.
         :returns: numpy.ndarray - Coloring map corresponding to specified feature.
         """
-        
-        need_to_compute = True
+        self._color_needed = True
+        self._mesh_needed = True
+        self._msms = msms
+        self._model_id = model_id
+        self._dynamic = num_models > 0
         connect = "_"
         if msms:
             connect = "_msms_"
@@ -315,18 +340,19 @@ class SurfaceHandler:
             col_exists = exists(fname)
             if mesh_exists and col_exists:
                 self._mesh = trimesh.load_mesh(meshname)
+                self._mesh_needed = False
                 with open(fname, 'rb') as f:
                     self._col = pickle.load(f)
-                need_to_compute = False
+                self._color_needed = False
         else:
             if mesh_exists:
                 self._mesh = trimesh.load_mesh(meshname)
+                self._mesh_needed = False
            
-        if need_to_compute:
-            # run appropriate function to compute the mesh and the coloring
-            if msms:
-                self.msms_mesh_and_color(feature, patch, model_id=model_id)
-            else:
-                self.native_mesh_and_color(feature, model_id=model_id, dynamic=dynamic)
+        # run appropriate function to compute the mesh and the coloring
+        if msms:
+            self.msms_mesh_and_color(feature, patch, model_id=model_id, num_models=num_models)
+        else:
+            self.native_mesh_and_color(feature, model_id=model_id)
 
         return self._mesh, self._col

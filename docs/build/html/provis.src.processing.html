@@ -40,7 +40,8 @@
               <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Download Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html#setting-up-provis">Setting up Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
@@ -65,10 +66,12 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="information.html">Additional information about provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -113,11 +116,18 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The ‘brain’ of provis, when it comes to handling atomic positions.</p>
 <p>This class loads information from a variety of files and creates meshes to be plotted. 
-Upper level classes - eg. Structure - have their own DataHandler objects that do all the work.</p>
+Upper level classes - eg. Structure - use DataHandler objects to create the meshes.</p>
+<p>The DataHandler class loads atom-positional information from a .pdb file and from this information computes the necessairy molecular structure mesh.
+It also loads pre-defined dictionaries from atminfo.py, that encode the size, coloring and mass of a given atom or residue.
+The member functions range from loading the atoms from the .pdb file and storing them by type, to creating the meshes from this information, as well as calculating bonds or the backbone.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atom_mesh">
 <span class="sig-name descname"><span class="pre">get_atom_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atom_mesh" title="Permalink to this definition"></a></dt>
 <dd><p>Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.</p>
+<p>The code in words:
+Iterates through the atom_data dictionary by atom type (from get_atoms()).
+It creates uniform Spheres (same size and color) in the position specified by the coordinates list for each atom type.
+Also differentiates between Van der Waals and normal radii and handles unkown atoms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -139,6 +149,9 @@ Upper level classes - eg. Structure - have their own DataHandler objects that do
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>list - List of colors corresponding to each atom</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - List of atom ID’s for each atom</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -146,6 +159,10 @@ Upper level classes - eg. Structure - have their own DataHandler objects that do
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atom_trimesh">
 <span class="sig-name descname"><span class="pre">get_atom_trimesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atom_trimesh" title="Permalink to this definition"></a></dt>
 <dd><p>Create a list of shperes and colors representing each atom for plotting in a Trimesh format. Used for feature computation in the surface_handler class.</p>
+<p>The code in words:
+Iterates through the atom_data dictionary by atom type (from get_atoms()).
+It creates uniform Spheres (same size and color) in the position specified by the coordinates list for each atom type.
+Also differentiates between Van der Waals and normal radii and handles unkown atoms.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -163,13 +180,22 @@ Upper level classes - eg. Structure - have their own DataHandler objects that do
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>list - List of colors for each atom</p>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list - List of atom ID’s for each atom</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atoms">
 <span class="sig-name descname"><span class="pre">get_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms" title="Permalink to this definition"></a></dt>
-<dd><p>Creates a dictionary of atomic coordinates from structure</p>
+<dd><p>Creates a dictionary that stores the 3D coordinates for each atom.
+The dictionary keys are the atom names. For each atom type in the given molecule the coordinates of the atoms of this type are stored in a list within the dictionary.</p>
+<p>The code in words:
+The .pdb file (loaded in __init__()) is iterated through. For each atom it is checked if the type of this atom is already in the dictionary. 
+If not then a new list is created with the coordinates of this atom and added to the dictionary with the name of the atom as the key.
+If the name of this atom is already present then the coordinates of the current atom are added to the list of coordinates of this same type of atom.
+The dictionary is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -188,7 +214,16 @@ Upper level classes - eg. Structure - have their own DataHandler objects that do
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_atoms_IDs">
 <span class="sig-name descname"><span class="pre">get_atoms_IDs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_atoms_IDs" title="Permalink to this definition"></a></dt>
-<dd><p>Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.</p>
+<dd><p>Get dictionary of atomic coordinates (same as get_atoms()) and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.
+Also return a list of all the atomic coordinates in a list in the same order as in the .pdb file.</p>
+<p>Used by the Surface class.</p>
+<p>The code in words:
+The .xyzrn file is loaded and is iterated through. The relevant fields are stored to temporary variables.
+For each atom it is checked if the type of this atom is already in the dictionary. 
+If not then a new list is created with the coordinates of this atom and added to the dictionary with the name of the atom as the key.
+If the name of this atom is already present then the coordinates of the current atom are added to the list of coordinates of this same type of atom.
+Regardless of the atom already being present in the dictionary the residue id and the coordinates are added to the two lists.
+The dictionary and the two lists are returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -212,6 +247,10 @@ Upper level classes - eg. Structure - have their own DataHandler objects that do
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_backbone_mesh">
 <span class="sig-name descname"><span class="pre">get_backbone_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_backbone_mesh" title="Permalink to this definition"></a></dt>
 <dd><p>Creates and returns a Spline object representing the backbone of the protein.</p>
+<p>The code in words:
+Iterates through the res_data dictionary by atom type (from get_residues()).
+Calculates the center of each residue and returns these points as a numpy array.
+(Later used to create a Spline.)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -238,6 +277,12 @@ Purple for all aromatic bonds,
 Black for everything else.</p>
 </dd>
 </dl>
+<p>The code in words:
+Parse mol2 file (also works on multi model file).
+Find where the boundaries of the current molecule are in the file.
+Extract the atomic and bond information by creating DataFrame.
+From the DataFrames get the information corresponding to the current bond: create a pyvista.Line() and store the bond type.
+Return the compiled lists of Lines and bond types (colors).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -257,7 +302,8 @@ Black for everything else.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_residue_info">
 <span class="sig-name descname"><span class="pre">get_residue_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">option</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residue_info" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates information about specified residue from mol2 file</p>
+<dd><p>Calculates information about specified residue from mol2 file.
+Depending on what is specified, either the center of mass (COM) or the charge is computed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -277,15 +323,19 @@ Black for everything else.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_residue_mesh">
 <span class="sig-name descname"><span class="pre">get_residue_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residue_mesh" title="Permalink to this definition"></a></dt>
-<dd><p>Create a list of Shperes and colors representing each residue for plotting</p>
+<dd><p>Create a list of Shperes and colors representing each residue for plotting. Can later be added to a mesh for plotting.</p>
+<p>The code in words:
+Iterates through the res_data dictionary by atom type (from get_residues()).
+It creates uniform Spheres (same size and color) in the position specified by the coordinates list for each residue type.
+Also differentiates between Van der Waals and normal radii and handles unkown residues.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – res_data - Dictionary of residues and their coordinates by residue type.</p></li>
 <li><p><strong>type</strong> – dict</p></li>
-<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing atoms. Defaul: 25.</p></li>
+<li><p><strong>name</strong> – phi_res - pyvista phi_resolution for Sphere objects representing residues. Defaul: 25.</p></li>
 <li><p><strong>type</strong> – int, optional</p></li>
-<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default:25.</p></li>
+<li><p><strong>name</strong> – theta_res - pyvista theta_resolution for Sphere objects representing residues. Default:25.</p></li>
 <li><p><strong>type</strong> – int, optional</p></li>
 </ul>
 </dd>
@@ -300,13 +350,21 @@ Black for everything else.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.data_handler.DataHandler.get_residues">
-<span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residues" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.data_handler.DataHandler.get_residues" title="Permalink to this definition"></a></dt>
 <dd><p>Creates a dictionary of coordinates by residues from structure object</p>
+<p>The code in words:
+The .pdb file (loaded in __init__()) is iterated through. For each residue it is checked if the type of this residue is already in the dictionary. 
+If not then a new list is created with the coordinates of this residue and added to the dictionary with the type of the residue as the key.
+If the type of this residue is already present then the coordinates of the current residue are added to the list of coordinates of this same type of residue.
+The coordinates of the residue are calculated as the arithmetic center of the coordinates.
+The dictionary is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
 <li><p><strong>type</strong> – int, optional</p></li>
+<li><p><strong>name</strong> – show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -351,6 +409,13 @@ However if you want to plot the same protein many times, then it is benificial t
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.processing.file_converter.FileConverter.decompose_traj">
+<span class="sig-name descname"><span class="pre">decompose_traj</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.file_converter.FileConverter.decompose_traj" title="Permalink to this definition"></a></dt>
+<dd><p>As the MSMS binary is unable to work with trajectory .pdb files the large .pdb file containing all models is decomposed to one for each model.</p>
+<p>Only executes decomposition if the first file (“{pdb_file_name}_0.pdb”) does not exists to avoid unnecessairy recomputation.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -470,7 +535,7 @@ self._base_path - Full path of the provis directory or any directory that has th
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.protein.</span></span><span class="sig-name descname"><span class="pre">Protein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.protein.Protein" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The protein class encapsulates every other class and creates a user friendly way to plot your desired protein molecules.</p>
-<p>You can plot the desired property of your protein by first initializing a Protein class (eg. my_protein) and then calling the plotting functions of the Surface and Structure classes. 
+<p>The desired properties of the protein can be plotted by first initializing a Protein class (eg. my_protein) and then calling the plotting functions of the Surface and Structure classes. 
 For example: my_protein.structure.plot_atoms()</p>
 </dd></dl>
 
@@ -579,7 +644,7 @@ Loads “root directory”/data/tmp/{pdb_id}.pth and returns it.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color">
-<span class="sig-name descname"><span class="pre">msms_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">msms_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.msms_mesh_and_color" title="Permalink to this definition"></a></dt>
 <dd><p>Return the mesh and coloring ready for plotting.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -588,6 +653,8 @@ Loads “root directory”/data/tmp/{pdb_id}.pth and returns it.</p>
 <li><p><strong>type</strong> – str, optional</p></li>
 <li><p><strong>name</strong> – patch - Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – num_models - Number of models in a trajectory. Only important for dynamic structures. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -601,18 +668,16 @@ Loads “root directory”/data/tmp/{pdb_id}.pth and returns it.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color">
-<span class="sig-name descname"><span class="pre">native_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a mesh without the need for the MSMS binary.
+<span class="sig-name descname"><span class="pre">native_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.native_mesh_and_color" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a mesh without the need for the MSMS binary. The mesh and coloring is also saved to the following file names:
+Mesh: “root directory”/data/meshes/{pdb_id}_{model_id}.obj
+Color: “root directory”/data/meshes/{pdb_id}_{feature}_{model_id}
 Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge. Defaults to “”.</p></li>
 <li><p><strong>type</strong> – str, optional</p></li>
-<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
-<li><p><strong>type</strong> – int, optional</p></li>
-<li><p><strong>name</strong> – dynamic - Set to True if you are plotting a dynamic model. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -626,9 +691,10 @@ Always returns a pyvista.PolyData mesh of the surface and if a feature is specif
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">
-<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
 If you could not download the MSMS binary leave this variable false and you will not run into problems.</p>
+<p>If the mesh and appropriate coloring has already been stored to a file, then this information will be loaded and no computation will be done.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -640,8 +706,8 @@ If you could not download the MSMS binary leave this variable false and you will
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
 <li><p><strong>type</strong> – int, optional</p></li>
-<li><p><strong>name</strong> – dynamic - Set to True if you are plotting a dynamic model. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – num_models - Number of models in a trajectory. Only important for dynamic structures. Default: 0.</p></li>
+<li><p><strong>type</strong> – int, optional</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

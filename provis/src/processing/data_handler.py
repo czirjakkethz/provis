@@ -1,6 +1,5 @@
 from os import fchdir
 from Bio.PDB import *
-from Bio import SeqIO
 import pyvista as pv
 import numpy as np
 from os.path import exists
@@ -9,8 +8,7 @@ from biopandas.mol2 import PandasMol2
 import trimesh
 from biopandas.mol2 import split_multimol2
 
-from provis.utils.atminfo import import_atm_size_info, import_atm_mass_info
-from provis.utils.bond_parser import bond_parser
+from provis.utils.atminfo import *
 from provis.src.processing.name_checker import NameChecker
 from provis.src.processing.file_converter import FileConverter
 
@@ -20,11 +18,16 @@ class DataHandler:
     The 'brain' of provis, when it comes to handling atomic positions. 
     
     This class loads information from a variety of files and creates meshes to be plotted. 
-    Upper level classes - eg. Structure - have their own DataHandler objects that do all the work.
+    Upper level classes - eg. Structure - use DataHandler objects to create the meshes.
+    
+    The DataHandler class loads atom-positional information from a .pdb file and from this information computes the necessairy molecular structure mesh.
+    It also loads pre-defined dictionaries from atminfo.py, that encode the size, coloring and mass of a given atom or residue.
+    The member functions range from loading the atoms from the .pdb file and storing them by type, to creating the meshes from this information, as well as calculating bonds or the backbone.
     """
     def __init__(self, nc, fc=None):
         """
-        Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein. Also loads all size and color helper dictionaries.
+        Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein.
+        It also loads, above mentioned, pre-defined dictionaries from atminfo.py, that encode the size, coloring and mass of a given atom or residue.
         
         :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
         :param type: NameChecker
@@ -42,27 +45,28 @@ class DataHandler:
         parser = PDBParser()
         file_name = self._path + ".pdb"
         self._structure = parser.get_structure(self._path, file_name)
-                # these two dictionaries have to be manually created
-        # could not find volume information for CYS, HIS, LYS, THR, TYR
-        # for above mentioned apporximation by "closest" available
-        self._res_size_dict = { "ALA": 2.80, "ARG": 3.77, "ASN": 3.18, "ASP": 1.51,
-            "CYS": 2.87, "GLN": 3.37, "GLU": 1.68, "GLY": 2.51, "HIS": 3.65,
-            "ILE": 3.43, "LEU": 3.42, "LYS": 3.77, "MET": 3.44, "PHE": 3.65,
-            "PRO": 3.13, "SER": 2.87, "THR": 2.87, "TRP": 3.54, "TYR": 3.65,
-            "VAL": 3.24, "HOH":1.375, "HEM": 33.43 } #HEM vol 156536
 
-
-        self._res_color_dict = {"ALA": '#13B6E2', "ARG": '#23DEFE', "ASN": '#0EFF57', "ASP": '#822DD2',
-            "CYS": '#A22282', "GLN": '#60C7B0', "GLU": '#6913FE', "GLY": '#8E41D0', "HIS": '#7089FC',
-            "ILE": '#0CAFF9', "LEU": '#806769', "LYS": '#8B7928', "MET": '#68D139', "PHE": '#8BA695',
-            "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D',
-            "VAL": '#128033', "HOH": 'w', "HEM": 'r'}
-        self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(self._base_path, 1)
-
+        self._res_size_dict, self._res_color_dict = import_res_size_info()
+        self._atoms_size_dict, self._atoms_color_dict, self._vw_dict = import_atm_size_info(True)
+       
+    def get_structure(self):
+        """
+        Return the loaded structure object
+        
+        :returns: structure
+        """
+        return self._structure
 
     def get_atoms(self, show_solvent=False, model_id=0):
         """
-        Creates a dictionary of atomic coordinates from structure
+        Creates a dictionary that stores the 3D coordinates for each atom.
+        The dictionary keys are the atom names. For each atom type in the given molecule the coordinates of the atoms of this type are stored in a list within the dictionary.
+        
+        The code in words:
+        The .pdb file (loaded in __init__()) is iterated through. For each atom it is checked if the type of this atom is already in the dictionary. 
+        If not then a new list is created with the coordinates of this atom and added to the dictionary with the name of the atom as the key.
+        If the name of this atom is already present then the coordinates of the current atom are added to the list of coordinates of this same type of atom.
+        The dictionary is returned.
         
         :param name: show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.
         :param type: bool, optional
@@ -91,28 +95,26 @@ class DataHandler:
 
             i += 1
 
-        # initialize dictionary, then fill up iteratively
-#        atom_data = dict()
-#        for residue in residues_list:
-#            if residue.get_resname() == "HOH" and not show_solvent:
-#                continue
-#            for atom in residue:
-#                type_name = atom.element
-#                # If atom not in dictionary, add it as key with coords in list
-#                if type_name not in atom_data:
-#                    atom_data[type_name] = [atom.get_coord()]
-#                # If atom already in dictionary, append its coordinates to list
-#                else:
-#                    atom_data[type_name].append(atom.get_coord())
-
         # return the 3D positions of atoms organized by atom type
         return atom_data
         
             
     def get_atoms_IDs(self, model_id=0):
         """
-        Get atomic coordinates and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.
-                        
+        Get dictionary of atomic coordinates (same as get_atoms()) and residue IDs (format from output_pdb_as_xyzrn()) from the xyzrn file.
+        Also return a list of all the atomic coordinates in a list in the same order as in the .pdb file.
+        
+        Used by the Surface class.
+        
+        The code in words:
+        The .xyzrn file is loaded and is iterated through. The relevant fields are stored to temporary variables.
+        For each atom it is checked if the type of this atom is already in the dictionary. 
+        If not then a new list is created with the coordinates of this atom and added to the dictionary with the name of the atom as the key.
+        If the name of this atom is already present then the coordinates of the current atom are added to the list of coordinates of this same type of atom.
+        Regardless of the atom already being present in the dictionary the residue id and the coordinates are added to the two lists.
+        The dictionary and the two lists are returned.
+        
+        
         :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
         :param type: int, optional
         
@@ -149,12 +151,21 @@ class DataHandler:
         # return the 3D positions of atoms organized by atom type
         return atom_data, res_id, atom_coords
 
-    def get_residues(self, model_id=0):
+    def get_residues(self, model_id=0, show_solvent=False):
         """
         Creates a dictionary of coordinates by residues from structure object
-                
+        
+        The code in words:
+        The .pdb file (loaded in __init__()) is iterated through. For each residue it is checked if the type of this residue is already in the dictionary. 
+        If not then a new list is created with the coordinates of this residue and added to the dictionary with the type of the residue as the key.
+        If the type of this residue is already present then the coordinates of the current residue are added to the list of coordinates of this same type of residue.
+        The coordinates of the residue are calculated as the arithmetic center of the coordinates.
+        The dictionary is returned.
+        
         :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
         :param type: int, optional
+        :param name: show_solvent - If True solvent molecules also added to retrun dictionary. Default: False.
+        :param type: bool, optional
         
         :returns: dict - Dictionary of atomic coordinates by residue type.
         """
@@ -169,24 +180,28 @@ class DataHandler:
             if model.id == model_id:
                 for chain in model:
                     for res in chain:
-                        type_name = res.get_resname()
-                        center_coord = [0., 0., 0.]
-                        c = 0.
-                        for atom in res:
-                            center_coord = center_coord + atom.get_coord()
-                            c += 1.
-                        center_coord = center_coord / c
-                        if type_name not in res_data:
-                            res_data[type_name] = [center_coord]
+                        if res.get_resname() == "HOH" and not show_solvent:
+                            continue
                         else:
-                            res_data[type_name].append(center_coord)
+                            type_name = res.get_resname()
+                            center_coord = [0., 0., 0.]
+                            c = 0.
+                            for atom in res:
+                                center_coord = center_coord + atom.get_coord()
+                                c += 1.
+                            center_coord = center_coord / c
+                            if type_name not in res_data:
+                                res_data[type_name] = [center_coord]
+                            else:
+                                res_data[type_name].append(center_coord)
 
         # return the 3D positions of atoms organized by atom type
         return res_data
 
     def get_residue_info(self, res, chain, option):
         """
-        Calculates information about specified residue from mol2 file
+        Calculates information about specified residue from mol2 file.
+        Depending on what is specified, either the center of mass (COM) or the charge is computed.
         
         :param name: res - Residue number of specified residue be looked at.
         :param type: str
@@ -196,9 +211,8 @@ class DataHandler:
         
         :returns: list - List of COM coords of given (exact) residue.
         """
-        
         # load info for given residue
-        fname = self._out_path + ".mol2"
+        fname = self._out_path + ".mol2"#TODO: make so it works with trajectories
         pmol = PandasMol2().read_mol2(fname)
         my = pmol.df[pmol.df['subst_id'] == res]
         
@@ -240,19 +254,16 @@ class DataHandler:
                 charge += my.iloc[i]['charge']
 
             return charge
-        
-    def get_structure(self):
-        """
-        Return the loaded structure object
-        
-        :returns: structure
-        """
-        return self._structure
-        
+
     
     def get_atom_mesh(self, atom_data, vw=0, probe=0, phi_res=10, theta_res = 10):
         """
         Create a list of Shperes and colors representing each atom for plotting. Can later be added to a mesh for plotting.
+        
+        The code in words:
+        Iterates through the atom_data dictionary by atom type (from get_atoms()).
+        It creates uniform Spheres (same size and color) in the position specified by the coordinates list for each atom type.
+        Also differentiates between Van der Waals and normal radii and handles unkown atoms.
         
         :param name: atom_data - Dictionary of atoms and their coordinates, by atom type.
         :param type: dict
@@ -304,6 +315,11 @@ class DataHandler:
     def get_atom_trimesh(self, atom_data, vw=False, probe=0):
         """
         Create a list of shperes and colors representing each atom for plotting in a Trimesh format. Used for feature computation in the surface_handler class.
+        
+        The code in words:
+        Iterates through the atom_data dictionary by atom type (from get_atoms()).
+        It creates uniform Spheres (same size and color) in the position specified by the coordinates list for each atom type.
+        Also differentiates between Van der Waals and normal radii and handles unkown atoms.
         
         :param name: atom_data - Dictionary of atoms and their coordinates, by atom type.
         :param type: dict
@@ -357,13 +373,18 @@ class DataHandler:
 
     def get_residue_mesh(self, res_data, phi_res = 25, theta_res = 25):
         """
-        Create a list of Shperes and colors representing each residue for plotting
+        Create a list of Shperes and colors representing each residue for plotting. Can later be added to a mesh for plotting.
+        
+        The code in words:
+        Iterates through the res_data dictionary by atom type (from get_residues()).
+        It creates uniform Spheres (same size and color) in the position specified by the coordinates list for each residue type.
+        Also differentiates between Van der Waals and normal radii and handles unkown residues.
         
         :param name: res_data - Dictionary of residues and their coordinates by residue type.
         :param type: dict
-        :param name: phi_res - pyvista phi_resolution for Sphere objects representing atoms. Defaul: 25.
+        :param name: phi_res - pyvista phi_resolution for Sphere objects representing residues. Defaul: 25.
         :param type: int, optional
-        :param name: theta_res - pyvista theta_resolution for Sphere objects representing atoms. Default:25.
+        :param name: theta_res - pyvista theta_resolution for Sphere objects representing residues. Default:25.
         :param type: int, optional
         
         :returns: list - List of pyvista Shperes representing each residue
@@ -408,7 +429,14 @@ class DataHandler:
             Red for all amide bonds,
             Purple for all aromatic bonds,
             Black for everything else.
-                        
+              
+        The code in words:
+        Parse mol2 file (also works on multi model file).
+        Find where the boundaries of the current molecule are in the file.
+        Extract the atomic and bond information by creating DataFrame.
+        From the DataFrames get the information corresponding to the current bond: create a pyvista.Line() and store the bond type.
+        Return the compiled lists of Lines and bond types (colors).
+        
         :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
         :param type: int, optional
         
@@ -486,7 +514,12 @@ class DataHandler:
     def get_backbone_mesh(self, model_id=0):
         """
         Creates and returns a Spline object representing the backbone of the protein.
-                
+          
+        The code in words:
+        Iterates through the res_data dictionary by atom type (from get_residues()).
+        Calculates the center of each residue and returns these points as a numpy array.
+        (Later used to create a Spline.)
+                      
         :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
         :param type: int, optional
         

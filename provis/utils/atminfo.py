@@ -4,18 +4,18 @@ from numpy.core.fromnumeric import size
 from numpy.core.numeric import outer
 import provis
 
-def import_atm_size_info(path, vw=0):
+def import_atm_size_info(vw=False):
     """
-    Funtion to load atomic radii from atmsize.csv, to be used in main
+    Funtion to load dictionaries storing atomic radii, color coding and Van-der-Waals radii by atom name.
     
-    :param name: dir - Directory path to base directory that contains data/data/atmsize.csv and data/data/atmvw.csv (downloadable from: https://github.com/czirjakkethz/provis/tree/main/data/data)
-    :param type: str
-    :param name: vw - Option to return vanderwaals radius.
+    Coloring from: https://sciencenotes.org/molecule-atom-colors-cpk-colors/
+    
+    :param name: vw - Option to return vanderwaals radius. Default: False.
     :param type: bool, optional
     
     :return: dict - dictionary of atomic radius by atom name
     :return: dict - dictionary of color by atom name
-    :return: dict - !optional! return dictionary of vw rdius by atom name
+    :return: dict - return dictionary of vw rdius by atom name
     """
     
 
@@ -299,7 +299,7 @@ def import_atm_size_info(path, vw=0):
   
 def import_atm_mass_info():
     """
-    Funtion to load atomic mass from atmmass.csv, to be used in main
+    Funtion to load dictionary storing atomic mass information by atom type.
     
     :return: dict - dictionary of atomic mass by atom name
     """
@@ -421,3 +421,30 @@ def import_atm_mass_info():
 
 
     return massdict
+
+def import_res_size_info():
+    """
+    Funtion to load dictionaries storing residue radii and color coding by residue name.
+        
+    Coloring from: http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm
+    
+    :return: dict - dictionary of radius by residue name
+    :return: dict - dictionary of color by residue name
+    """
+    # could not find volume information for CYS, HIS, LYS, THR, TYR
+    # for above mentioned apporximation by "closest" available
+
+    res_size_dict = { "ALA": 2.80, "ARG": 3.77, "ASN": 3.18, "ASP": 1.51,
+            "CYS": 2.87, "GLN": 3.37, "GLU": 1.68, "GLY": 2.51, "HIS": 3.65,
+            "ILE": 3.43, "LEU": 3.42, "LYS": 3.77, "MET": 3.44, "PHE": 3.65,
+            "PRO": 3.13, "SER": 2.87, "THR": 2.87, "TRP": 3.54, "TYR": 3.65,
+            "VAL": 3.24, "HOH":1.375, "HEM": 33.43 } #HEM vol 156536
+
+
+    res_color_dict = {"ALA": '#13B6E2', "ARG": '#23DEFE', "ASN": '#0EFF57', "ASP": '#822DD2',
+            "CYS": '#A22282', "GLN": '#60C7B0', "GLU": '#6913FE', "GLY": '#8E41D0', "HIS": '#7089FC',
+            "ILE": '#0CAFF9', "LEU": '#806769', "LYS": '#8B7928', "MET": '#68D139', "PHE": '#8BA695',
+            "PRO": '#9FEBA4', "SER": '#BBD7EB', "THR": '#D1A67A', "TRP": '#F93713', "TYR": '#E5613D',
+            "VAL": '#128033', "HOH": 'w', "HEM": 'r'}
+    
+    return res_size_dict, res_color_dict

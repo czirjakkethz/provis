@@ -42,6 +42,7 @@ class DynamicStructure:
         import warnings
         warnings.filterwarnings("ignore")
         self._solvent = plot_solvent
+        self._msms = msms
         if notebook:
             pyvista.set_jupyter_backend('pythreejs')
         self._notebook = notebook
@@ -53,6 +54,9 @@ class DynamicStructure:
                 
         self.structure = Structure(self._name_checker, dh=self._data_handler, plot_solvent=plot_solvent, notebook=notebook)
         self.surface = Surface(self._name_checker, sh=self._surface_handler, msms=msms, notebook=notebook)
+        if msms:
+            self._num_models = self.file_converter.decompose_traj()
+            
         print("Initialized DynamicStructure class")
         
     def plot_atoms(self, box=False, res=None, outname=None, camera=None, title="Atoms"):
@@ -117,7 +121,7 @@ class DynamicStructure:
 
     def plot_surface(self, feature=None, patch=False, title="Surface", box=None, res=None, outname=None, camera=None):
         """
-        Plot the dynamic atom cloud.
+        Plot the dynamic surface of the molecule.
 
 
         :param name: feature - Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).
@@ -137,9 +141,8 @@ class DynamicStructure:
         """
   
         # Create and structured surface
-        mesh, cas = self._surface_handler.return_mesh_and_color(False, feature=feature, patch=patch, model_id=0)
-        if not cas:
-            np.zeros(len(mesh.vertices))
+        mesh, cas = self._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=0, num_models=self._num_models)
+        
             
         # Create a plotter object and initialize first mesh
         plotter = pv.Plotter(notebook=self._notebook, off_screen=False)
@@ -155,10 +158,8 @@ class DynamicStructure:
         plotter.render()
         plotter.write_frame()
         for model in self._data_handler._structure:
-            mesh, cas = self._surface_handler.return_mesh_and_color(msms=False, feature=feature, patch=patch, model_id=i, dynamic=True)
-            if not cas:
-                np.zeros(len(mesh.vertices))
-            
+            mesh, cas = self._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i, num_models=self._num_models)
+                        
             i += 1
             
             plotter.clear()

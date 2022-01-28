@@ -1,3 +1,4 @@
+from genericpath import exists
 import subprocess
 import os.path
 from provis.src.processing.name_checker import NameChecker
@@ -152,7 +153,60 @@ class FileConverter():
         else:
             print("PDB2PQR Binary not found under: ", PDB2PQR_BIN)
        
+    def decompose_traj(self):
+        """
+        As the MSMS binary is unable to work with trajectory .pdb files the large .pdb file containing all models is decomposed to one for each model.
+        
+        Only executes decomposition if the first file ("{pdb_file_name}_0.pdb") does not exists to avoid unnecessairy recomputation.
+        """
+        print("Decomposing trajectory pdb file")
+        # Writing to a file
+        traj_name = self._path + ".pdb"
+        traj = open(traj_name, 'r')
+        model_id = 0
+        
+        model_0 = self._path + "_0.pdb"
+        if os.path.exists(model_0):
+            from Bio.PDB import PDBParser
+            parser = PDBParser()
+            file_name = self._path + ".pdb"
+            structure = parser.get_structure(self._path, file_name)
+            i = 0
+            for model in structure:
+                i += 1
 
+            return i
+        
+        while True:
+            new_name = self._path + "_" + str(model_id) + ".pdb"
+
+            new_file = open(new_name, 'w')
+        
+            # Get next line from file
+            line = traj.readline()
+        
+            # if line is empty
+            # end of file is reached
+            if not line:
+                new_file.close()
+                os.unlink(new_name)
+                break
+            
+            while line != 'TER\n':
+                while line == "ENDMDL\n" or line[0:6] == "REMARK":
+                    line = traj.readline()
+                new_file.writelines(line)
+                line = traj.readline()
+                if not line:
+                    break
+                
+            new_file.close()
+            model_id += 1
+            
+        traj.close()
+        
+        return model_id
+        
     def cleanup(self, delete_img: bool=False):
         """
         Deletes all files from data/tmp (and data/img) directories.

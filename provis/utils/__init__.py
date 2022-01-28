@@ -49,6 +49,8 @@ ACCEPTOR_ANGLES["O2"] = "C"
 ACCEPTOR_ANGLES["OXT"] = "C"
 ACCEPTOR_ANGLES["OT1"] = "C"
 ACCEPTOR_ANGLES["OT2"] = "C"
+ACCEPTOR_ANGLES["OC1"] = "C"
+ACCEPTOR_ANGLES["OC2"] = "C"
 # Dictionary from acceptor atom to a third atom on which to compute the plane.
 ACCEPTOR_PLANES = {}
 ACCEPTOR_PLANES["O"] = "CA"

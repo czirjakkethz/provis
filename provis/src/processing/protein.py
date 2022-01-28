@@ -10,15 +10,13 @@ class Protein:
     """
     The protein class encapsulates every other class and creates a user friendly way to plot your desired protein molecules. 
     
-    You can plot the desired property of your protein by first initializing a Protein class (eg. my_protein) and then calling the plotting functions of the Surface and Structure classes. 
+    The desired properties of the protein can be plotted by first initializing a Protein class (eg. my_protein) and then calling the plotting functions of the Surface and Structure classes. 
     For example: my_protein.structure.plot_atoms()
     """
   
     def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False, dh=None):
         """
-        Initialize the class with the name of the pdb file and you are ready for plotting!
-        
-        Set the optional variables to get the most out of provis.
+        Initialize the class with the name of the pdb file and plotting can be started!
 
         :param name: pdb_name - Name of the pdb file with or without the extension. If the file is not stored in the data/pdb directory the full path has to be specified.
         :param type: str

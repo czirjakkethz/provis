@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Setting up Provis &mdash; provis 0.0.2 documentation</title>
+  <title>Download Provis &mdash; provis 0.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -40,19 +40,22 @@
               <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up Provis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#binaries">Binaries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#binaries-directory">Binaries directory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#setting-environment-variables">Setting environment variables</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Download Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#setting-up-provis">Setting up Provis</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#directory-structure">Directory structure</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#easy-option">Easy option</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#more-versitile-option">More versitile option</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#the-data-directory-needs-the-following-subdirectiories">The data/ directory needs the following subdirectiories:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-binaries-directory-needs-the-following-executables-and-subdirectiories">The binaries/ directory needs the following executables and subdirectiories:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subdirectiories-of-the-data-directory">Subdirectiories of the data/ directory:</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#binaries">Binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binaries-directory">Binaries directory</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subdirectiories-and-executables-of-the-binaries-directory">Subdirectiories and executables of the binaries/ directory:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-environment-variables">Setting environment variables</a></li>
 </ul>
 </li>
 </ul>
@@ -62,10 +65,12 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="information.html">Additional information about provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -86,7 +91,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Setting up Provis</li>
+      <li>Download Provis</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -96,30 +101,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="setting-up-provis">
-<span id="setup"></span><h1>Setting up Provis<a class="headerlink" href="#setting-up-provis" title="Permalink to this headline"></a></h1>
-<p>Once you have every library installed, binary downloaded - and of course provis installed (either pip or with the setup.py in the root directory) - you will need to create an environment where provis feels at home. When this is set up you are ready to use provis and run it from anywhere.</p>
-<section id="binaries">
-<h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
-<p>After installing the binaries you can either set environment variables to specify the path or you can manually move the binaries to where provis can find them.</p>
-<section id="binaries-directory">
-<h3>Binaries directory<a class="headerlink" href="#binaries-directory" title="Permalink to this headline"></a></h3>
-<p>If you are running Ubuntu (20.04.3 LTS) and installed provis by cloning the github repository then you are all set.</p>
-<p>Otherwise you should move your binary files to the ‘binaries’ directory as explained below ::refMore versitile option.</p>
-</section>
-<section id="setting-environment-variables">
-<h3>Setting environment variables<a class="headerlink" href="#setting-environment-variables" title="Permalink to this headline"></a></h3>
-<p>Alternatively you can simply set the environment variables to point to the binary files.</p>
-<p>You should set MSMS_BIN, PDB2PQR_BIN and APBS_BIN to the location where the appropriate binary files are located.</p>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">MSMS_BIN</span><span class="o">=</span><span class="s1">&#39;/home/username/Downloads/msms&#39;</span>
+  <section id="download-provis">
+<h1>Download Provis<a class="headerlink" href="#download-provis" title="Permalink to this headline"></a></h1>
+<p>Provis can be downloaded by pip or from github.</p>
+<p><strong>Pip:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">provis</span>
 </pre></div>
 </div>
+<p><strong>Github:</strong> <a class="reference external" href="https://github.com/czirjakkethz/provis">https://github.com/czirjakkethz/provis</a></p>
+<p>If provis was downoaded from the git repository then the following command has to be run: (run it from the root directory)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
+</pre></div>
+</div>
+<p>This will set up provis as a python library on your machine, but also download all the python (pip) dependencies.</p>
 </section>
-</section>
+<section id="setting-up-provis">
+<span id="setup"></span><h1>Setting up Provis<a class="headerlink" href="#setting-up-provis" title="Permalink to this headline"></a></h1>
+<p>Some file paths are hard coded in provis in order to maintain an uncluttered and organized directory structure.</p>
+<p>However, this also means, that for provis to work this specific directory structure has to exist.</p>
 <section id="directory-structure">
 <h2>Directory structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline"></a></h2>
-<p>In order to keep your directories uncluttered and make it easy to create a pipline, provis requires a specific directory structure.See below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>provis
    ├── data
    │   ├── data/
@@ -134,20 +135,19 @@
             └── pdb2pqr
 </pre></div>
 </div>
-<p>The directories are needed as some parts of file loading is hard coded so if the directory structure is not present errors will occur.</p>
 <section id="easy-option">
 <h3>Easy option<a class="headerlink" href="#easy-option" title="Permalink to this headline"></a></h3>
-<p>If you clone provis from <a class="reference external" href="https://github.com/czirjakkethz/provis">github</a> and simply use this (provis) git directory as your base directory.</p>
+<p>Clone provis from <a class="reference external" href="https://github.com/czirjakkethz/provis">github</a> and simply use this git directory (provis) as the base directory.</p>
 </section>
 <section id="more-versitile-option">
 <h3>More versitile option<a class="headerlink" href="#more-versitile-option" title="Permalink to this headline"></a></h3>
-<p>You will need to create a data/ and (potentially) a binaries/ directory within your root directory.</p>
+<p>A data/ and (potentially) a binaries/ directory within the root directory will have to be created.</p>
 <blockquote>
-<div><p>– If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed. Otherwise the binaries from the Requirements
+<div><p>– If the environment variables for the binaries are set then the binaries/ directory is not needed (as provis will then use these variables to find the binaries). Otherwise the binaries from the Requirements
 <a class="reference internal" href="req.html#req"><span class="std std-ref">Requirements for Provis</span></a> section will all have to be copied into the binaries/ directory. –</p>
 </div></blockquote>
-<section id="the-data-directory-needs-the-following-subdirectiories">
-<h4>The data/ directory needs the following subdirectiories:<a class="headerlink" href="#the-data-directory-needs-the-following-subdirectiories" title="Permalink to this headline"></a></h4>
+<section id="subdirectiories-of-the-data-directory">
+<h4>Subdirectiories of the data/ directory:<a class="headerlink" href="#subdirectiories-of-the-data-directory" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>data
 ├── data
 ├── pdb
@@ -156,12 +156,21 @@
 └── tmp
 </pre></div>
 </div>
-<p>The pdb directory is the location to store the pdb files to convert, as if a <em>.pdb</em> file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the <em>.pdb</em> file.</p>
+<p>The pdb directory is the location to store the pdb files. If a <em>.pdb</em> file is stored here then it is enough to pass the pdb id (filename without extension) to provis. Otherwise the full path to the <em>.pdb</em> file needs to be passed.</p>
 <p>The img directory stores all the screenshots of the outputted plots.</p>
 <p>The tmp directory stores all temporary files created by provis, such as the <em>.face</em> and <em>.vert</em> files of MSMS or the <em>.mol2</em> files needed for the bonds.</p>
 </section>
-<section id="the-binaries-directory-needs-the-following-executables-and-subdirectiories">
-<h4>The binaries/ directory needs the following executables and subdirectiories:<a class="headerlink" href="#the-binaries-directory-needs-the-following-executables-and-subdirectiories" title="Permalink to this headline"></a></h4>
+</section>
+</section>
+<section id="binaries">
+<h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
+<p>After installing the binaries either set the environment variables to specify the path of their location or manually move the binaries to where provis can find them.</p>
+<section id="binaries-directory">
+<h3>Binaries directory<a class="headerlink" href="#binaries-directory" title="Permalink to this headline"></a></h3>
+<p>If you are running Ubuntu (20.04.3 LTS) and installed provis by cloning the github repository then you are all set.</p>
+<p>Otherwise move the binary files to the ‘binaries’ directory as explained below.</p>
+<section id="subdirectiories-and-executables-of-the-binaries-directory">
+<h4>Subdirectiories and executables of the binaries/ directory:<a class="headerlink" href="#subdirectiories-and-executables-of-the-binaries-directory" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>binaries
 ├── apbs
 ├── msms
@@ -169,8 +178,17 @@
      └── pdb2pqr
 </pre></div>
 </div>
-<p>Where <strong>apbs</strong> and <strong>msms</strong> are executables/binaries and the <em>pdb2pqr</em> is the directory downloaded from the official website, containing the <strong>pdb2pqr</strong> binary.</p>
+<p><strong>apbs</strong> and <strong>msms</strong> are executables and <em>pdb2pqr</em> is the directory downloaded from the official website, containing the <strong>pdb2pqr</strong> binary.</p>
 </section>
+</section>
+<section id="setting-environment-variables">
+<h3>Setting environment variables<a class="headerlink" href="#setting-environment-variables" title="Permalink to this headline"></a></h3>
+<p>Alternatively the environment variables can be set to point to the binary files.</p>
+<p>Set the MSMS_BIN, PDB2PQR_BIN and APBS_BIN variables to the full path to their appropriate binary files.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">MSMS_BIN</span><span class="o">=</span><span class="s1">&#39;/home/username/Downloads/msms&#39;</span>
+</pre></div>
+</div>
 </section>
 </section>
 </section>

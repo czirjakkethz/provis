@@ -1,38 +1,36 @@
+
+Download Provis
+================
+
+Provis can be downloaded by pip or from github.
+
+**Pip:**
+
+.. code-block::
+
+	pip install provis
+	
+**Github:** https://github.com/czirjakkethz/provis
+
+If provis was downoaded from the git repository then the following command has to be run: (run it from the root directory)
+
+.. code-block::
+	
+	python3 setup.py develop
+	
+This will set up provis as a python library on your machine, but also download all the python (pip) dependencies.
+
 .. _setup:
 
 Setting up Provis
 =========================
 
-Once you have every library installed, binary downloaded - and of course provis installed (either pip or with the setup.py in the root directory) - you will need to create an environment where provis feels at home. When this is set up you are ready to use provis and run it from anywhere.
+Some file paths are hard coded in provis in order to maintain an uncluttered and organized directory structure.
 
-Binaries
----------
-
-After installing the binaries you can either set environment variables to specify the path or you can manually move the binaries to where provis can find them.
-
-Binaries directory
-^^^^^^^^^^^^^^^^^^^^
-
-If you are running Ubuntu (20.04.3 LTS) and installed provis by cloning the github repository then you are all set.
-
-Otherwise you should move your binary files to the 'binaries' directory as explained below ::refMore versitile option.
-
-Setting environment variables
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Alternatively you can simply set the environment variables to point to the binary files.
-
-You should set MSMS_BIN, PDB2PQR_BIN and APBS_BIN to the location where the appropriate binary files are located.
-
-Example:
-
-.. code-block::
-
-	export MSMS_BIN='/home/username/Downloads/msms'
+However, this also means, that for provis to work this specific directory structure has to exist.
 
 Directory structure
 --------------------
-In order to keep your directories uncluttered and make it easy to create a pipline, provis requires a specific directory structure.See below:
 
 ::
 
@@ -49,21 +47,21 @@ In order to keep your directories uncluttered and make it easy to create a pipli
 	       └── pdb2pqr
 		    └── pdb2pqr
 
-The directories are needed as some parts of file loading is hard coded so if the directory structure is not present errors will occur.
+
 
 Easy option
 ^^^^^^^^^^^^
-If you clone provis from `github <https://github.com/czirjakkethz/provis>`_ and simply use this (provis) git directory as your base directory.
+Clone provis from `github <https://github.com/czirjakkethz/provis>`_ and simply use this git directory (provis) as the base directory.
 
 More versitile option
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-You will need to create a data/ and (potentially) a binaries/ directory within your root directory.
+A data/ and (potentially) a binaries/ directory within the root directory will have to be created.
 
- -- If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed. Otherwise the binaries from the Requirements 
+ -- If the environment variables for the binaries are set then the binaries/ directory is not needed (as provis will then use these variables to find the binaries). Otherwise the binaries from the Requirements 
  :ref:`req` section will all have to be copied into the binaries/ directory. --
 
-The data/ directory needs the following subdirectiories:
+Subdirectiories of the data/ directory:
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ::
 
@@ -74,14 +72,27 @@ The data/ directory needs the following subdirectiories:
     ├── meshes
     └── tmp
 
-The pdb directory is the location to store the pdb files to convert, as if a *.pdb* file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the *.pdb* file. 
+The pdb directory is the location to store the pdb files. If a *.pdb* file is stored here then it is enough to pass the pdb id (filename without extension) to provis. Otherwise the full path to the *.pdb* file needs to be passed. 
 
 The img directory stores all the screenshots of the outputted plots.
 
 The tmp directory stores all temporary files created by provis, such as the *.face* and *.vert* files of MSMS or the *.mol2* files needed for the bonds.
 
+Binaries
+---------
 
-The binaries/ directory needs the following executables and subdirectiories:
+After installing the binaries either set the environment variables to specify the path of their location or manually move the binaries to where provis can find them.
+
+
+Binaries directory
+^^^^^^^^^^^^^^^^^^^^
+
+If you are running Ubuntu (20.04.3 LTS) and installed provis by cloning the github repository then you are all set.
+
+Otherwise move the binary files to the 'binaries' directory as explained below.
+
+
+Subdirectiories and executables of the binaries/ directory:
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ::
 
@@ -91,4 +102,22 @@ The binaries/ directory needs the following executables and subdirectiories:
     └── pdb2pqr     
          └── pdb2pqr
 
-Where **apbs** and **msms** are executables/binaries and the *pdb2pqr* is the directory downloaded from the official website, containing the **pdb2pqr** binary.
+**apbs** and **msms** are executables and *pdb2pqr* is the directory downloaded from the official website, containing the **pdb2pqr** binary.
+
+
+Setting environment variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alternatively the environment variables can be set to point to the binary files.
+
+Set the MSMS_BIN, PDB2PQR_BIN and APBS_BIN variables to the full path to their appropriate binary files.
+
+Example:
+
+.. code-block::
+
+	export MSMS_BIN='/home/username/Downloads/msms'
+
+
+
+

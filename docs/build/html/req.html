@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Setting up Provis" href="setup.html" />
+    <link rel="next" title="Download Provis" href="setup.html" />
     <link rel="prev" title="Welcome to provis’s Wiki!" href="index.html" /> 
 </head>
 
@@ -47,19 +47,21 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#jupyter-notebook">Jupyter Notebook</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Download Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html#setting-up-provis">Setting up Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="information.html">Additional information about provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -92,9 +94,10 @@
              
   <section id="requirements-for-provis">
 <span id="req"></span><h1>Requirements for Provis<a class="headerlink" href="#requirements-for-provis" title="Permalink to this headline"></a></h1>
-<p>Provis is based on the idea of not to reinvent the wheel, so it requires quite a few third party packages and binaries.</p>
+<p>Provis is based on the idea of not to reinvent the wheel, so quite a few third party packages and binaries are required to run it.</p>
 <section id="binaries">
 <h2>Binaries<a class="headerlink" href="#binaries" title="Permalink to this headline"></a></h2>
+<p>Binaries are 3rd party, ready to use programs, that are provided to the user as is. Here is a list of the required external programs and installation instructions.</p>
 <section id="openbabel">
 <h3>OpenBabel<a class="headerlink" href="#openbabel" title="Permalink to this headline"></a></h3>
 <p>Easiest to install on Linux is by calling:</p>
@@ -104,16 +107,17 @@
 </div>
 </div></blockquote>
 <p>Alterantively: <a class="reference external" href="http://openbabel.org/wiki/Main_Page">http://openbabel.org/wiki/Main_Page</a></p>
+<p>OpenBabel is needed to create the <em>mol.2</em> files. These files store the bond information.</p>
 </section>
 <section id="pdb2pqr-and-apbs">
 <h3>PDB2PQR and APBS<a class="headerlink" href="#pdb2pqr-and-apbs" title="Permalink to this headline"></a></h3>
-<p>These binaries are <strong>required</strong>, as they are used to extract surface inforamtion.</p>
 <p>Download from: <a class="reference external" href="https://www.poissonboltzmann.org/">https://www.poissonboltzmann.org/</a></p>
+<p>These binaries are required for the surface feature plotting. The binaries create the</p>
 </section>
 <section id="msms">
 <h3>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h3>
 <blockquote>
-<div><p>MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis.</p>
+<div><p>MSMS is optional. It is used to compute the surface, but a native method for the surface computation also exists in provis (although it is slower and chemically less accurate).</p>
 <p>Download MSMS form:
 <a class="reference external" href="https://ccsb.scripps.edu/mgltools/downloads/">https://ccsb.scripps.edu/mgltools/downloads/</a></p>
 <p>This tutorial might help:
@@ -123,9 +127,13 @@
 </section>
 <section id="pip">
 <h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline"></a></h2>
-<blockquote>
-<div><p>All of the following can be dowloaded using pip and should be automatically installed when installing pip with provis:</p>
-</div></blockquote>
+<p>If provis was downloaded via pip (and not from the <a class="reference external" href="https://github.com/czirjakkethz/provis">github</a>) then all of the following packages should be installed.</p>
+<p>If not, then run the following command in the root directory of provis:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 setup.py develop
+</pre></div>
+</div>
+<p>This should pip install everything, including the provis package.</p>
+<p>Here is a list of provis’ pip dependencies:</p>
 <ul class="simple">
 <li><p>BioPython</p></li>
 <li><p>Trimesh</p></li>
@@ -136,14 +144,8 @@
 <li><p>Open3d</p></li>
 <li><p>rTree</p></li>
 <li><p>Panel</p></li>
+<li><p>Imageio-ffmpeg</p></li>
 </ul>
-</section>
-<section id="jupyter-notebook">
-<h2>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline"></a></h2>
-<p>If you want to run a fully interactive provis in the Jupyter Notebook environment you will have to install the following additional packages. Failing to do so will simply produce snapshot images instead of 3D plots.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ipyvtklink
-</pre></div>
-</div>
 </section>
 </section>
 
@@ -152,7 +154,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to provis’s Wiki!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="setup.html" class="btn btn-neutral float-right" title="Setting up Provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="setup.html" class="btn btn-neutral float-right" title="Download Provis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

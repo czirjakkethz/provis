@@ -23,15 +23,15 @@ def main():
     Initializing the DynamicStructure class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!
     """
     
-    ds = DynamicStructure(name, base_path=None, density=density, plot_solvent=False, msms=False, notebook=False)
-    
+    ds = DynamicStructure(name, base_path=None, density=density, plot_solvent=False, msms=True, notebook=False)
+    # ds.file_converter.decompose_traj()
     """
     Third:
     Plot!
     
     Use the member functions of the DynamicStructure to plot the dynamic trajectory of the protein.
     """
-    ds.plot_surface()
+    ds.plot_surface(feature="hydrophob")
     #ds.plot_atoms()
 
     """

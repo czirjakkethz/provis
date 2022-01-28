@@ -40,7 +40,8 @@
               <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting up Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Download Provis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html#setting-up-provis">Setting up Provis</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
@@ -62,10 +63,12 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="information.html">Additional information about provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
@@ -100,8 +103,8 @@
              
   <section id="provis-src-plotting-package">
 <h1>provis.src.plotting package<a class="headerlink" href="#provis-src-plotting-package" title="Permalink to this headline"></a></h1>
-<p>The plotting package includes the two classes that handle plotting.</p>
-<p>One can simply call the member functions of these classes to plot and everything will be done automatically.</p>
+<p>The plotting package includes the three classes that handle plotting.</p>
+<p>One can simply call the plotting member functions of these classes (after initialization) and everything will be done automatically.</p>
 <section id="module-provis.src.plotting.dynamic_structure">
 <span id="provis-src-plotting-dynamic-structure-module"></span><h2>provis.src.plotting.dynamic_structure module<a class="headerlink" href="#module-provis.src.plotting.dynamic_structure" title="Permalink to this headline"></a></h2>
 <dl class="py class">
@@ -135,7 +138,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_surface">
 <span class="sig-name descname"><span class="pre">plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Surface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_surface" title="Permalink to this definition"></a></dt>
-<dd><p>Plot the dynamic atom cloud.</p>
+<dd><p>Plot the dynamic surface of the molecule.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -165,7 +168,7 @@
 <span id="provis-src-plotting-structure-module"></span><h2>provis.src.plotting.structure module<a class="headerlink" href="#module-provis.src.plotting.structure" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.structure.</span></span><span class="sig-name descname"><span class="pre">Structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.structure.</span></span><span class="sig-name descname"><span class="pre">Structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_solvent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The Structure class is used to visualize the structural information of the given molecule. One can easily plot the atoms, residues, bonds or any combination of these structures.</p>
 <dl class="py method">
@@ -217,7 +220,7 @@
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
 <li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p></li>
+<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_stick_point.png. If Structure class was initialized with msms=True then output will have “_msms.png” as the ending.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>
 <li><p><strong>name</strong> – atoms - Plot atoms, default: 0.</p></li>
 <li><p><strong>type</strong> – bool, optional</p></li>
@@ -247,8 +250,8 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_atoms">
-<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_atoms" title="Permalink to this definition"></a></dt>
-<dd><p>Plot the atoms as spheres.</p>
+<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the atoms as spheres. Each atom has a radius proportianal to its calculated atomic radius.</p>
 <p>Consult <a class="reference external" href="https://en.wikipedia.org/wiki/CPK_coloring">https://en.wikipedia.org/wiki/CPK_coloring</a> for the coloring.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -295,13 +298,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_bonds">
 <span class="sig-name descname"><span class="pre">plot_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorful</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_bonds" title="Permalink to this definition"></a></dt>
-<dd><p>Plot only the bonds. By default all bonds will be plotted uniformly. If you want to view the difference in bonds you can set the colorful variable to True.</p>
-<p>Single bonds: white
-Double bonds: blue
-Triple bonds: green
-Amide bonds: red
-Aromatic bonds: purple
-Undefined/Anything else: black</p>
+<dd><p>Plot only the bonds. By default all bonds will be plotted uniformly.</p>
+<p>If the difference in bond types is of interest set the “colorful” variable to True.
+Coloring:
+- Single bonds: white
+- Double bonds: blue
+- Triple bonds: green
+- Amide bonds: red
+- Aromatic bonds: purple
+- Undefined/Anything else: black</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -326,7 +331,26 @@ Undefined/Anything else: black</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_residues">
 <span class="sig-name descname"><span class="pre">plot_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_residues" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Plot the residues as Spheres. Each sphere is the approximate size of the radius of the given residue. This plot should only be used to get a general feel for the layout of the protein.</p>
+<p>For coloring information please visit: <a class="reference external" href="http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm">http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
+<li><p><strong>type</strong> – bool, optional</p></li>
+<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
+<li><p><strong>type</strong> – Residue, optional</p></li>
+<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.</p></li>
+<li><p><strong>type</strong> – string, optional</p></li>
+<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
+<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_stick_point">
@@ -354,7 +378,8 @@ Undefined/Anything else: black</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_vw">
 <span class="sig-name descname"><span class="pre">plot_vw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_vw" title="Permalink to this definition"></a></dt>
-<dd><p>Plot Van-der-Waals radius of atoms as wireframe spheres.</p>
+<dd><p>Plot Van-der-Waals radius of atoms as spheres. Spheres have a wireframe style to be able to view inner structure as well.
+To plot Van-der-Waals radii as solid spheres use the manual_plot() member function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -385,13 +410,16 @@ Undefined/Anything else: black</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The Surface class is used to visualize the surface information of the given molecule.</p>
 <p>The class can visualize two kinds of surfaces:
-- the “correct” surface created by the MSMS binary. 
-- a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is slightly slower and less precise)</p>
-<p>Choose between the two by setting the msms Boolean variable. (True corresponding to the MSMS binary option is default)</p>
+- a chemically accurate surface created by the MSMS binary. 
+- a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is slower and less precise)</p>
+<p>Choose between the two by setting the msms Boolean variable. (Default: True, corresponding to the MSMS binary option.)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Surface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot" title="Permalink to this definition"></a></dt>
-<dd><p>Plot the surface of the protein.</p>
+<dd><p>Plot the surface of the protein. If the surface has already been computed and saved to the default file, then the surface will automatically be loaded from there.
+The surface can be computed either using the msms binary or natively. The msms binary is chemically accurate surface, while the native one is only for visualization purposes.</p>
+<p>If you run into any sort of error concerning array size mismatching or of the sort delete all the temporary files and the mesh ({root directory}/data/meshes/{pdb_id}_{model_id}.obj).
+This will force everything to be recomputed and the dimension mismatch should disappear.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -405,7 +433,7 @@ Undefined/Anything else: black</p>
 <li><p><strong>type</strong> – bool, optional</p></li>
 <li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
 <li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p></li>
+<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have “_msms.png” as the ending.</p></li>
 <li><p><strong>type</strong> – string, optional</p></li>
 <li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
 <li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
