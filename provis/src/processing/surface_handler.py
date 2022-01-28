@@ -181,7 +181,6 @@ class SurfaceHandler:
                 self._mesh.export(meshname)
         
         if feature:
-            print(self._color_needed)
             if self._color_needed:
                 print(" - Feature: ", feature)
                 if patch:
