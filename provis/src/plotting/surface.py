@@ -11,7 +11,7 @@ class Surface:
     
     The class can visualize two kinds of surfaces:
     - a chemically accurate surface created by the MSMS binary. 
-    - a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is slower and less precise)
+    - a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is fast, but less precise.)
     
     Choose between the two by setting the msms Boolean variable. (Default: True, corresponding to the MSMS binary option.)
     

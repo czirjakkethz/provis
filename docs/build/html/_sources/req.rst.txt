@@ -34,7 +34,7 @@ Pdb2pqr is required for the surface feature plotting. If creates the *.pqr* file
 MSMS
 ^^^^^^^^^^^^^^^^^^^^^^
 
- MSMS is optional but highly suggested. It is used to compute the surface, but a native method for the surface computation also exists in **provis** (although it is slower and chemically less accurate).
+ MSMS is optional but highly suggested. It is used to compute the surface, but a native method for the surface computation also exists in **provis** (and while it is fast, it is chemically less accurate).
 
  Download MSMS form:
  https://ccsb.scripps.edu/mgltools/downloads/

@@ -26,6 +26,10 @@ class NameChecker:
         :param name: base_path - Easiest if you leave this alone, clone the provis git repo and run everything in the provis root directory. Path to the base directory with the following file structure: {base_path}/data/data, {base_path}/data/img, {base_path}/data/tmp, {base_path}/data/pdb AND {base_path}/binaries that contains the binaries required to run provis. Defaults to the "provis" packages path.
         :param type: str, optional
         """
+        # disable warning from external binaries. Provis works regardless and clutters output.
+        import warnings
+        warnings.filterwarnings("ignore")
+
         if not base_path:
             path = os.getcwd() #path.dirname(provis.__file__)
             # path points to provis/provis, we only want provis/

@@ -37,10 +37,6 @@ class DynamicStructure:
         :param type: bool, optional
         """
         
-            
-#        Protein(pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=False, notebook=False)
-        import warnings
-        warnings.filterwarnings("ignore")
         self._solvent = plot_solvent
         self._msms = msms
         if notebook:
