@@ -327,6 +327,8 @@ class SurfaceHandler:
             fname = self._mesh_path + connect + feature + "_" + str(model_id)
             col_exists = exists(fname)
             if mesh_exists and col_exists:
+                print("Loading mesh from: ", meshname)
+                print("Loading features from: ", fname)
                 self._mesh = trimesh.load_mesh(meshname)
                 self._mesh_needed = False
                 with open(fname, 'rb') as f:
@@ -335,6 +337,7 @@ class SurfaceHandler:
         else:
             if mesh_exists:
                 self._mesh = trimesh.load_mesh(meshname)
+                print("Loading mesh from: ", meshname)
                 self._mesh_needed = False
            
         if self._color_needed or self._mesh_needed:

@@ -16,7 +16,7 @@ def main():
     First:
     Define variables needed later:
     """
-    name = "1a3n"
+    name = "traj"
     density = 3.0
 
     """
@@ -24,7 +24,7 @@ def main():
     Initializing the Protein class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!
     """
     
-    prot = Protein(name, base_path=None, density=density, plot_solvent=False, msms=False, notebook=False)
+    prot = Protein(name, base_path=None, density=density, plot_solvent=False, msms=True, notebook=False)
     
     """
     Third:

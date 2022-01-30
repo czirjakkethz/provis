@@ -170,11 +170,6 @@ class Structure:
         print("Structure plotter created for model id: ", model_id)
         pl.background_color = 'grey'
         pl.enable_3_lights()
-
-        # if specified add bounding box
-        if box:
-            pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
-            print("Bounding box added...")
             
         if camera: 
             pl.camera = camera
@@ -207,6 +202,7 @@ class Structure:
                 if exists(bond_mesh_name):
                     mesh = pv.PolyData(bond_mesh_name)
                 else:
+                    print("Calculating Bond mesh")
                     ## return list of lines (meshes)
                     _bonds, _bond_col, _ = self._dh.get_bond_mesh()
                     mesh = pv.PolyData()
@@ -277,12 +273,17 @@ class Structure:
                 d = (self._dh._res_size_dict[res_name] + pad) * 2
                 x, y, z = d,d,d
                 
-                center = self._sh._dh.get_residue_info(r, chain,'com')
+                center = self._dh.get_residue_info(r, chain,'com')
                 # if residue not found 1 is returned. Otherwise the coordinates
                 if center != 1:
                     pl.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')            
             print("Residues marked...")
-          
+       
+        # if specified add bounding box 
+        if box:
+            pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
+            print("Bounding box added...")
+            
         # save a screenshot
         if not outname or outname[0] == '_':
             ending = ".png"

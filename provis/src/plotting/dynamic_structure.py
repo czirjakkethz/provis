@@ -60,59 +60,7 @@ class DynamicStructure:
             self._num_models = i
         self._cam_pos = [0, 0, 0]
         print("Initialized DynamicStructure class")
-        
-    # def plot_tester(self, box=False, res=None, outname=None, camera=None, title="Atoms"):
-    #     """
-    #     Plot the dynamic atom cloud.
-
-    #     Parameters:
-    #         box: bool, optional
-    #             ptional - If True bounding box also visualized, default: 0.
-    #         res: Residue, optional
-    #             Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-    #         outname: string, optional
-    #             Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
-    #         camera: pyvista.Camera, optional
-    #             Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
-    #         title: str, optional
-    #             Title of the plotting window. Default: "Atoms".
-    #     """
-            
-    #     # Create a plotter object and initialize first mesh
-    #     plotter = pv.Plotter(notebook=self._notebook, off_screen=False)
-    #     plotter.smooth_shading = True
-    #     plotter.background_color = 'grey'
-
-    #     bb_mesh = self._data_handler.get_backbone_mesh(model_id=0)
-    #     plotter.add_mesh(bb_mesh, line_width=10)
-
-
-    #     # Open the movie file
-    #     plotter.open_movie("animation.mp4", 1)
-
-
-    #     # Update mesh
-    #     i = 0
-    #     plotter.enable_eye_dome_lighting()
-    #     plotter.render()
-    #     plotter.write_frame()
-    #     i = 0
-    #     for model in self._data_handler._structure:
-    #         atom_data = self._data_handler.get_atoms(show_solvent=self._solvent, model_id=i) # second arg: 1 = show_solvent
-            
-            
-    #         plotter.clear()
-    #         plotter.smooth_shading = True
-    #         bb_mesh = self._data_handler.get_backbone_mesh(model_id=i)
-    #         plotter.add_mesh(bb_mesh)
-
-    #         # must update normals when smooth shading is enabled
-    #         plotter.mesh.compute_normals(cell_normals=False, inplace=True)
-    #         plotter.render()
-    #         plotter.write_frame()
-    #         time.sleep(0.5)
-    #         i+=1
-    
+      
     def plot(self, box=False, res=None, outname=None, camera=None, title="Atoms", atoms=0, bonds=0, vw=0, residues=0, bb=0):
         """
         Plot the dynamic atom cloud.
@@ -136,9 +84,7 @@ class DynamicStructure:
         plotter.add_title(title)
         # save a screenshot
         if not outname or outname[0] == '_':
-            ending = "animation.mp4"
-            if self._msms:
-                ending = "_msms" + ending
+            ending = "_animation.mp4"
                 
             new_name = self._path.split('/')
             new_name = new_name[-1].split('.')[0]
@@ -169,15 +115,10 @@ class DynamicStructure:
   
             if camera: 
                 plotter.camera = camera
-                print("Camera added...")
+                print("Camera added for model id: ", i)
             else:
                 plotter.camera.position = self._cam_pos
 
-            # if specified add bounding box
-            if box:
-                plotter.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
-                print("Bounding box added...")
-              
             if atoms: 
                 # adding the spheres (by atom type) one at a time
                 opacity = 1 - vw*0.4
@@ -191,7 +132,7 @@ class DynamicStructure:
                         bigmesh += mesh
                         colors += [_atom_names[j]] * len(mesh.points)
                     plotter.add_mesh(bigmesh, scalars=colors, style=style)
-                    print("Van-der-Waals atoms added...")
+                    print("Van-der-Waals atoms added for model id: ", i)
                 else:
                     ## return list of spheres (meshes) and colors for the spheres
                     _atoms, _, _atom_names= self._data_handler.get_atom_mesh(atom_data, vw=0) 
@@ -202,7 +143,7 @@ class DynamicStructure:
                         bigmesh += mesh
                         colors += [_atom_names[j]] * len(mesh.points)
                     plotter.add_mesh(bigmesh, scalars=colors, style=style)
-                    print("Atoms added...")
+                    print("Atoms added for model id: ", i)
             
 
             if bonds:
@@ -232,7 +173,7 @@ class DynamicStructure:
                         bigmesh += mesh
                         colors += [_bond_names[j]] * len(mesh.points)
                     plotter.add_mesh(bigmesh, scalars=colors)
-                print("Bonds added...")
+                print("Bonds added for model id: ", i)
 
             # adding the spheres (by residue) one at a time
             # only executes if residue information provided
@@ -247,13 +188,13 @@ class DynamicStructure:
                     bigmesh += mesh
                     colors += [_res_names[j]] * len(mesh.points)
                 plotter.add_mesh(bigmesh, scalars=colors)
-                print("Residues added...")
+                print("Residues added for model id: ", i)
              
             if bb:
                 bb_mesh = self._data_handler.get_backbone_mesh(model_id=i)
                 
                 plotter.add_mesh(bb_mesh, line_width=10)
-                print("Back-bone added...")   
+                print("Back-bone added for model id: ", i)   
                
             if res:
                 res_list, chain_list, pad = res.get_res_info()
@@ -271,12 +212,17 @@ class DynamicStructure:
                     if res_exists:
                         bigmesh += pv.Cube(center=self._data_handler.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z)
                 
-                center = self._sh._dh.get_residue_info(r, chain,'com')
+                center = self._data_handler.get_residue_info(r, chain,'com')
                 # if residue not found 1 is returned. Otherwise the coordinates
                 if center != 1:
-                    plotter.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
-                print("Residues marked...")
+                    plotter.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, color='r')
+                print("Residues marked for model id: ", i)
  
+            # if specified add bounding box
+            if box:
+                plotter.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
+                print("Bounding box added for model id: ", i)
+              
             # must update normals when smooth shading is enabled
             plotter.mesh.compute_normals(cell_normals=False, inplace=True)
             plotter.render()
@@ -466,10 +412,27 @@ class DynamicStructure:
         # Create a plotter object and initialize first mesh
         plotter = pv.Plotter(notebook=self._notebook, off_screen=False)
         plotter.smooth_shading = True
-        plotter.add_mesh(mesh, scalars=cas, cmap='RdBu', show_edges=False)
+        plotter.background_color = 'grey'
+        plotter.add_title(title)
 
+        plotter.add_mesh(mesh, scalars=cas, cmap='RdBu', show_edges=False)
+        
+        # save a screenshot
+        if not outname or outname[0] == '_':
+            ending = "_animation.mp4"
+                
+            new_name = self._path.split('/')
+            new_name = new_name[-1].split('.')[0]
+            
+            ident = '_surface'
+            if outname:
+                ident = outname
+            if feature:
+                ident += '_' + feature
+            outname = self._base_path + 'data/img/' + new_name + ident + ending 
+          
         # Open the movie file
-        plotter.open_movie("animation.mp4", 1)
+        plotter.open_movie(outname, 1)
 
 
         # Update mesh
@@ -487,6 +450,9 @@ class DynamicStructure:
             plotter.clear()
             plotter.camera.position = self._cam_pos
             plotter.smooth_shading = True
+            plotter.background_color = 'grey'
+            plotter.add_title(title)
+
             plotter.add_mesh(mesh, scalars=cas, cmap='RdBu', show_edges=False)
 
             # must update normals when smooth shading is enabled
@@ -500,3 +466,70 @@ class DynamicStructure:
         # Closes and finalizes movie
         plotter.close()
         
+
+    def plot_hydrophob(self, box=None, res=None, outname=None, camera=None):
+        """
+        Plot the hydrophobic features of a protein.
+
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized, default: 0. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * max_distance_from_center, 0]. Default: None. 
+        
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
+        """
+        if not outname:
+            outname = '_hydrophob'
+        self.plot_surface(feature="hydrophob", title="Hydrophob", box=box, res=res, outname=outname, camera=camera)
+
+    def plot_shape(self, box=None, res=None, outname=None, camera=None):
+        """
+        Plot the shape features of a protein.
+
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized, default: 0. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
+        
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
+        """
+        
+        if not outname:
+            outname = '_shape'
+        self.plot_surface(feature="shape", title="Shape", box=box, res=res, outname=outname, camera=camera)
+
+    def plot_charge(self, box=None, res=None, outname=None, camera=None):
+        """
+        Plot the charge features of a protein.
+
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized, default: 0. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
+        
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
+        """
+        if not outname:
+            outname = '_charge'
+        self.plot_surface(feature="charge", title="Charge", box=box, res=res, outname=outname, camera=camera)

@@ -7,6 +7,7 @@ import pandas as pd
 from biopandas.mol2 import PandasMol2
 import trimesh
 from biopandas.mol2 import split_multimol2
+import copy
 
 from provis.utils.atminfo import *
 from provis.src.processing.name_checker import NameChecker
@@ -80,8 +81,8 @@ class DataHandler:
             break
         center = np.array(atoms)
         self._centroid = center.mean(axis=0)
-        self._max_coords = center.max(axis=0) - self._centroid
-        self._cam_pos = [0, max(self._max_coords) * 4, 0]
+        self._max_coords = center.max(axis=0)
+        self._cam_pos = [0, max(self._max_coords) * 3, 0]
 
     def get_structure(self):
         """
@@ -159,13 +160,13 @@ class DataHandler:
                             type_name = atom.element
                             # If atom not in dictionary, add it as key with coords in list
                             if type_name not in atom_data:
-                                coords = atom.get_coord()
+                                coords = copy.deepcopy(atom.get_coord())
                                 for j in range(3):
                                     coords[j] -= self._centroid[j]
                                 atom_data[type_name] = [coords]
                             # If atom already in dictionary, append its coordinates to list
                             else:
-                                coords = atom.get_coord()
+                                coords = copy.deepcopy(atom.get_coord())
                                 for j in range(3):
                                     coords[j] -= self._centroid[j]
                                 atom_data[type_name].append(coords)
@@ -206,10 +207,10 @@ class DataHandler:
         meshdata = (xyzrnfile.read().rstrip()).split("\n")
         xyzrnfile.close()
        
-        lenm = len(meshdata)
-        res_id = [""] * lenm
+        res_id = []
         atom_data = dict()
         atom_coords = []
+        lenm = len(meshdata)
         for vi in range(lenm):
             fields = meshdata[vi].split()
             if int(fields[5]) == model_id:
@@ -217,8 +218,8 @@ class DataHandler:
                 vertices[0] = float(fields[0]) - self._centroid[0]
                 vertices[1] = float(fields[1]) - self._centroid[1]
                 vertices[2] = float(fields[2]) - self._centroid[2]
-                res_id[vi] = fields[6]
-                res = res_id[vi].split("_")
+                res_id.append(fields[6])
+                res = fields[6].split("_")
                 atmtype = res[4][0]
                 if atmtype not in atom_data:
                     atom_data[atmtype] = [vertices]
@@ -226,7 +227,6 @@ class DataHandler:
                 else:
                     atom_data[atmtype].append(vertices)
                 atom_coords.append(vertices)
-
 
         # return the 3D positions of atoms organized by atom type
         return atom_data, res_id, atom_coords
@@ -271,6 +271,7 @@ class DataHandler:
                             c = 0.
                             for atom in res:
                                 center_coord = center_coord + atom.get_coord()
+                                center_coord -= self._centroid
                                 c += 1.
                             center_coord = center_coord / c
                             if type_name not in res_data:
@@ -692,6 +693,7 @@ class DataHandler:
                             for atom in res:
                                 coords = atom.get_coord()
                                 com += coords
+                                com -= self._centroid
                                 count += 1
                             com /= count
                             res_list.append(com)

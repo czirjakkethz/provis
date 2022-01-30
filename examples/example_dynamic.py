@@ -18,7 +18,7 @@ def main():
     name = "traj"
     base_path = None
     density = 3.0
-    msms = True
+    msms = False
     plot_solvent=False
     notebook=False
     """
@@ -33,7 +33,6 @@ def main():
     
     Use the member functions of the DynamicStructure to plot the dynamic trajectory of the protein.
     """
-    ds.plot_surface()#feature="hydrophob")
 
     r = Residue(29)
     r.add_residue(50)
@@ -48,7 +47,10 @@ def main():
     ds.plot_residues()
     ds.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
 
-
+    ds.plot_surface()
+    ds.plot_hydrophob()
+    ds.plot_shape()
+    ds.plot_charge()
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
     """
