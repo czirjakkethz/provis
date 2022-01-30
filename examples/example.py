@@ -9,7 +9,8 @@ def main():
     """
     This is an example to showcase briefly showcase the functionalities of provis through a few examples.
     
-    We showcase the easiest way to run provis. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation.
+    We showcase the easiest way to run provis. For this you should have this file in the root directory of the special directroy structure specified 
+    in the setup section of the documentation.
     The path to the "root directory"/data/tmp will automatically be found.
     This way you can have your pdb files nicely organized in the data/pdb directory (or simply have them in the root directory). 
     Your temporary files will be in the data/tmp directory and the screenshots of the plots in the data/img directory.
@@ -45,7 +46,7 @@ def main():
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter  or ds.file_converter (FileConverter class) member variable.
     """
-    # ds.file_converter.cleanup()
+    ds.file_converter.cleanup()
 
 if __name__ == "__main__":
     main()

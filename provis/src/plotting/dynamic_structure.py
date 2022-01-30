@@ -41,7 +41,7 @@ class DynamicStructure:
         self._solvent = plot_solvent
         self._msms = msms
         if notebook:
-            pyvista.set_jupyter_backend('pythreejs')
+            pyvista.set_jupyter_backend('panel')
         self._notebook = notebook
         self._name_checker = NameChecker(pdb_name, base_path)
         self._path, self._out_path, self._base_path, self._mesh_path = self._name_checker.return_all()
@@ -76,6 +76,13 @@ class DynamicStructure:
                 Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
             title: str, optional
                 Title of the plotting window. Default: "Atoms".
+        
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot
+            str - only if self._notebook is True
+                The full path to where the .mp4 video file is stored.
+
         """            
         # Create a plotter object and initialize first mesh
         plotter = pv.Plotter(notebook=self._notebook, off_screen=False)
@@ -230,6 +237,8 @@ class DynamicStructure:
             time.sleep(0.5)
             i+=1
         plotter.close()
+        if self._notebook:
+            return outname 
 
     def plot_stick_point(self, box=0, res=None, outname=0, camera=None):
         """
@@ -403,6 +412,12 @@ class DynamicStructure:
                 Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
             title: str, optional
                 Title of the plotting window. Default: "Surface".
+                
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot
+            str - only if self._notebook is True
+                The full path to where the .mp4 video file is stored.
         """
   
         # Create and structured surface
@@ -462,6 +477,8 @@ class DynamicStructure:
 
         # Closes and finalizes movie
         plotter.close()
+        if self._notebook:
+            return outname
         
 
     def plot_hydrophob(self, box=None, res=None, outname=None, camera=None):

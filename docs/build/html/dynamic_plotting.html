@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Structures &mdash; provis 0.0.2 documentation</title>
@@ -37,24 +37,27 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Getting started:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Download Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html#setting-up-provis">Setting up Provis</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Documentation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="provis.html">Provis</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use and examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="information.html">General information about provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Dynamic Structures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dynamic Structures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-use-the-dynamicstructure-class">How to use the DynamicStructure class?</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Author(s)</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
 </ul>
@@ -86,8 +89,47 @@
   <section id="dynamic-structures">
 <span id="dynamic-plotting"></span><h1>Dynamic Structures<a class="headerlink" href="#dynamic-structures" title="Permalink to this headline"></a></h1>
 <p>Dynamic structures showcase the transformation of a molecule in time. This trajectory of change can also be plotted with provis.</p>
-<p>The <strong>DynamicStructure</strong> class is used for this purpose. Unlike the <strong>Protein</strong> class, the <strong>DynamicStructure</strong> class has its own member functions used for plotting. This is due to the fact that each model (molecule at a given time) has to be plotted seperately and this is achieved by a loop within the member function.</p>
+<p>The <strong>DynamicStructure</strong> class achieves exactly that. Unlike the <strong>Protein</strong> class, the <strong>DynamicStructure</strong> class has its own member functions used for plotting. This is due to the fact that each model (molecule at a given time) has to be plotted seperately and this is achieved by a loop within the member function.</p>
 <p>For large molecules and a long trajectory the surface meshes can take a while to compute. It is advised to first precompute the meshes (they will be stored in <em>.obj</em> files in the <strong>“root directory”/data/meshes</strong> directory). Once the <em>.obj</em> files exist plotting will be seamless.</p>
+<p>The result of the plot will be saved to the <strong>“root directory”/data/img</strong> folder as an <em>.mp4</em> file.</p>
+<section id="how-to-use-the-dynamicstructure-class">
+<h2>How to use the DynamicStructure class?<a class="headerlink" href="#how-to-use-the-dynamicstructure-class" title="Permalink to this headline"></a></h2>
+<p>The <strong>DynamicStructure</strong> class is very similar to the <strong>Protein</strong> class.</p>
+<p>Import the necessairy files.</p>
+<p>First:
+Define variables needed later:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;2fd7&quot;</span>
+<span class="n">density</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="n">solvent</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>Second:
+Initialize the <strong>DynamicStructure</strong> class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">DynamicStructure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="n">base_path</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">plot_solvent</span><span class="o">=</span><span class="n">plot_solvent</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="n">msms</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="n">notebook</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Third:
+Plot!</p>
+<p>This class has its own plotting methods. Here is a complete list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">plot_backbone</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_atoms</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_bonds</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_vw</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_stick_point</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_residues</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">residues</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">bb</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_hydrophob</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_shape</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">plot_charge</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And finally, cleaning up is also possible with the “cleanup” function of the ds.file_converter (FileConverter class) member variable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">file_converter</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 

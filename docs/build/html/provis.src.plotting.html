@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>provis.src.plotting package &mdash; provis 0.0.2 documentation</title>
@@ -37,13 +37,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Getting started:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting started:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="req.html">Requirements for Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Download Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html#setting-up-provis">Setting up Provis</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Documentation:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Documentation:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="provis.html">Provis</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="provis.src.html">Source Code</a><ul class="current">
@@ -63,14 +63,14 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Use and examples:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Use and examples:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="information.html">General information about provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">How to use Provis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamic_plotting.html">Dynamic Structures</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Author(s)</span></p>
+<p class="caption" role="heading"><span class="caption-text">Author(s)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contact and motivation</a></li>
 </ul>
@@ -128,6 +128,13 @@
 <dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
 </dd>
 <dt>title: str, optional</dt><dd><p>Title of the plotting window. Default: “Atoms”.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot</p>
+</dd>
+<dt>str - only if self._notebook is True</dt><dd><p>The full path to where the .mp4 video file is stored.</p>
 </dd>
 </dl>
 </dd>
@@ -218,6 +225,54 @@ Coloring:
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_charge">
+<span class="sig-name descname"><span class="pre">plot_charge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_charge" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the charge features of a protein.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box, optional: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_hydrophob">
+<span class="sig-name descname"><span class="pre">plot_hydrophob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_hydrophob" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the hydrophobic features of a protein.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box, optional: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * max_distance_from_center, 0]. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_residues">
 <span class="sig-name descname"><span class="pre">plot_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_residues" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the residues as Spheres. Each sphere is the approximate size of the radius of the given residue. This plot should only be used to get a general feel for the layout of the protein.</p>
@@ -235,6 +290,30 @@ Coloring:
 </dl>
 </dd>
 <dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_shape">
+<span class="sig-name descname"><span class="pre">plot_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_shape" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the shape features of a protein.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box, optional: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
 <dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
 </dd>
 </dl>
@@ -285,6 +364,13 @@ Coloring:
 <dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
 </dd>
 <dt>title: str, optional</dt><dd><p>Title of the plotting window. Default: “Surface”.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot</p>
+</dd>
+<dt>str - only if self._notebook is True</dt><dd><p>The full path to where the .mp4 video file is stored.</p>
 </dd>
 </dl>
 </dd>
@@ -601,7 +687,7 @@ This will force everything to be recomputed and the dimension mismatch should di
 </dd>
 <dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have “_msms.png” as the ending.</p>
 </dd>
-<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
 </dd>
 <dt>model_id: int, optional</dt><dd><p>The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p>
 </dd>
@@ -627,7 +713,7 @@ This will force everything to be recomputed and the dimension mismatch should di
 </dd>
 <dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
 </dd>
-<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
 </dd>
 </dl>
 </dd>
@@ -675,7 +761,7 @@ This will force everything to be recomputed and the dimension mismatch should di
 </dd>
 <dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
 </dd>
-<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * “max distance from the center”, 0] (see: <a class="reference external" href="https://pro-vis.readthedocs.io/en/latest/tutorial.html">https://pro-vis.readthedocs.io/en/latest/tutorial.html</a> for more detail). Default: None.</p>
 </dd>
 </dl>
 </dd>
