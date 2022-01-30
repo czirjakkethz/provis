@@ -119,7 +119,7 @@ class SurfaceHandler:
         pdb_file_path = self._path 
         
         pqr_file_path = self._out_path
-        if self._color_needed and self._dynamic:
+        if self._color_needed:
             pdb_file_path = self._path + "_" + str(self._model_id) 
             pqr_file_path = self._out_path + "_" + str(self._model_id)
         if not exists(pqr_file_path + '.pqr'):
@@ -167,33 +167,31 @@ class SurfaceHandler:
         """
         print("MSMS mesh calculation for model id: ", self._model_id)
 
-        path = f"{self._out_path}_out_{int(self._density * 10)}"
+        path = f"{self._out_path}_{self._model_id}_out_{int(self._density * 10)}"
         face = path + '.face'
         vert = path + '.vert'
         # Check if face file exists. If not convert it from pdb
         file_exists = exists(face) and exists(vert)
         if self._mesh_needed:
-            if not self._dynamic:
-                if not file_exists:
-                    self._fc.msms(self._out_path, self._density)
+            if not file_exists:
+                self._fc.msms(self._out_path + "_" + str(self._model_id), self._density)
             
             new_xyzrn_path = self._out_path
-            if self._dynamic:
-                new_xyzrn_path = self._out_path + "_" + str(self._model_id) 
+            new_xyzrn_path = self._out_path + "_" + str(self._model_id) 
+            
+            # convert current mesh
+            path = f"{new_xyzrn_path}_out_{int(self._density * 10)}"
+            face = path + '.face'
+            vert = path + '.vert'
+            # Check if face file exists. If not convert it from pdb
+            file_exists = exists(face) and exists(vert)
+            if not file_exists:
+                print("Creating face and vert files for current model...")
+                new_name = self._path + "_" + str(self._model_id) 
                 
-                # convert current mesh
+                self._fc.pdb_to_xyzrn(new_name, new_xyzrn_path)
+                self._fc.msms(new_xyzrn_path, self._density)
                 path = f"{new_xyzrn_path}_out_{int(self._density * 10)}"
-                face = path + '.face'
-                vert = path + '.vert'
-                # Check if face file exists. If not convert it from pdb
-                file_exists = exists(face) and exists(vert)
-                if not file_exists:
-                    print("Creating face and vert files for current model...")
-                    new_name = self._path + "_" + str(self._model_id) 
-                    
-                    self._fc.pdb_to_xyzrn(new_name, new_xyzrn_path)
-                    self._fc.msms(new_xyzrn_path, self._density)
-                    path = f"{new_xyzrn_path}_out_{int(self._density * 10)}"
                 
             print(" - Get surface")
             surface = get_surface(out_path=new_xyzrn_path, density=self._density)
@@ -210,7 +208,7 @@ class SurfaceHandler:
                     self._col = self.get_assignments()
                 if not patch:
                     self._col = self.get_surface_features(self._mesh, feature)
-                fname = self._mesh_path + "_msms_" + feature + "_" + str(self._model_id)
+                fname = self._mesh_path + "_" + str(self._model_id) + "_msms_" + feature 
                 with open(fname, 'wb') as f:
                     pickle.dump(self._col, f)
         else:
@@ -274,7 +272,7 @@ class SurfaceHandler:
             if self._color_needed:
                 self._col = self.get_surface_features(self._mesh, feature, self._res_id)
                 
-                fname = self._mesh_path + "_" + feature + "_" + str(self._model_id)
+                fname = self._mesh_path + "_" + str(self._model_id) + "_" + feature 
                 with open(fname, 'wb') as f:
                     pickle.dump(self._col, f)
         else:
@@ -324,7 +322,7 @@ class SurfaceHandler:
         meshname = self._mesh_path + connect + str(model_id) + '.obj'
         mesh_exists = exists(meshname)
         if feature:
-            fname = self._mesh_path + connect + feature + "_" + str(model_id)
+            fname = self._mesh_path + "_" + str(model_id) + connect + feature
             col_exists = exists(fname)
             if mesh_exists and col_exists:
                 print("Loading mesh from: ", meshname)
