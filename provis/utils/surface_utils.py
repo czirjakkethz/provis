@@ -22,13 +22,18 @@ def read_msms(
         file_root: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[str]]:
     """Read surface constituents from output files generated using MSMS.
 
-    :param name: file_root - Root name for loading .face and .vert files (produced by MSMS). Default location is data/tmp/{pdb_id}s
-    :param type: str
+        file_root: str
+            Root name for loading .face and .vert files (produced by MSMS). Default location is data/tmp/{pdb_id}s
    
-    :returns: numpy.ndarray - vertices
-    :returns: numpy.ndarray - faces
-    :returns: numpy.ndarray - vertex normals
-    :returns: list - List of res_id's from output_pdb_as_xyzrn()
+    Parameters:
+        numpy.ndarray:
+            vertices
+        numpy.ndarray:
+            faces
+        numpy.ndarray:
+            vertex normals
+        list:
+            list of res_id's from output_pdb_as_xyzrn()
     """
     vertfile = open(file_root + ".vert")
     meshdata = (vertfile.read().rstrip()).split("\n")
@@ -85,10 +90,11 @@ def output_pdb_as_xyzrn(pdb_file: str, xyzrn_file: str) -> None:
     """
     Converts a .pdb file to a .xyzrn file.
 
-    :param name: pdb_file - path to PDB File to convert (with extension)
-    :param type: str
-    :param name: xyzrn_file - path to the xyzrn File (with extension)
-    :param type: str
+    Parameters:
+        pdb_file: str
+            path to PDB File to convert (with extension)
+        xyzrn_file: str
+            path to the xyzrn File (with extension)
     """
     # get absolute path for xyzrn_file, needed for open
     xyzrn_file = os.path.join(os.getcwd(), xyzrn_file)
@@ -147,16 +153,22 @@ def get_surface(out_path: str, density: float):
     """
     Wrapper function that reads in the output from the MSMS executable to build the protein surface.
 
-    :param name: out_path - path to output (output path from namechecker) directory. Usually data/tmp
-    :param type: str
-    :param name: density - Need to pass same density as used by the MSMS binary, as the face and vert files have the density included in their names. The variable is needed for loading these files.
-    :param type: bool
+        out_path: str
+            path to output (output path from namechecker) directory. Usually data/tmp
+        density: bool
+            Need to pass same density as used by the MSMS binary, as the face and vert files have the density included in their names. The variable is needed for loading these files.
         
-    :returns: numpy.ndarray - vertices
-    :returns: numpy.ndarray - faces
-    :returns: numpy.ndarray - vertex normals
-    :returns: list - List of res_id's from output_pdb_as_xyzrn()
-    :returns: dict - Dictionary: residues as keys, areas as values
+    Returns: 
+        numpy.ndarray:
+            vertices
+        numpy.ndarray:
+            faces
+        numpy.ndarray:
+            vertex normals
+        list:
+            list of res_id's from output_pdb_as_xyzrn()
+        dict:
+            dictionary: residues as keys, areas as values
     """
     file_base = os.path.abspath(out_path)
     file_base = f"{file_base}_out_{int(density * 10)}"
@@ -179,12 +191,15 @@ def compute_normal(vertices: np.ndarray, faces: np.ndarray) -> np.ndarray:
     """
     Compute normals for the vertices and faces
 
-    :param name: vertices - Vertices of the mesh
-    :param type: np.ndarray 
-    :param name: faces - Faces of the mesh
-    :param type: np.ndarray 
+    Parameters:
+        vertices: np.ndarray 
+            Vertices of the mesh
+        faces: np.ndarray 
+            Faces of the mesh
     
-    :returns: np.ndarray - Normals of the mesh
+    Returns: 
+        np.ndarray:
+            Normals of the mesh
     """
     vertex = vertices.T
     face = faces.T
@@ -226,12 +241,15 @@ def crossp(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     """
     Creates the cross product of two numpy arrays
 
-    :param name: x - Array 1
-    :param type: np.ndarray
-    :param name: y - Array 2
-    :param type: np.ndarray
+    Parameters:
+        x: np.ndarray
+            Array 1
+        y: np.ndarray
+            Array 2
 
-    :returns: np.ndarray - (Array 1) x (Array 2)
+    Returns: 
+        np.ndarray:
+            (Array 1) x (Array 2)
     """
     z = np.zeros((x.shape))
     z[0, :] = np.multiply(x[1, :], y[2, :]) - np.multiply(x[2, :], y[1, :])
@@ -248,16 +266,19 @@ def prepare_trimesh(vertices: np.ndarray,
     Prepare the mesh surface given vertices and faces. Optionally, compute
     normals and apply fixes to mesh.
 
-    :param name: vertices - Surface vertices
-    :param type: np.ndarray
-    :param name: faces - Triangular faces on the mesh
-    :param type: np.ndarray
-    :param name: normals - Normals for each vertex
-    :param type: np.ndarray
-    :param name: apply_fixes - Optional application of fixes to mesh. Check fix_mesh for details on fixes. Default: False,
-    :param type: bool
+    Parameters:
+        vertices: np.ndarray
+            Surface vertices
+        faces: np.ndarray
+            Triangular faces on the mesh
+        normals: np.ndarray
+            Normals for each vertex
+        apply_fixes: bool
+            Optional application of fixes to mesh. Check fix_mesh for details on fixes. Default: False,
 
-    :returns: trimesh.Trimesh - Mesh
+    Returns: 
+        trimesh.Trimesh:
+            Mesh
     """
     tmp_mesh = trimesh.Trimesh(vertices, faces)
     
@@ -279,12 +300,15 @@ def fix_trimesh(mesh, resolution: float = 1.0):
     a certain threshold, removing degenerate triangles, splitting longer edges to
     a given target length, and collapsing shorter edges.
 
-    :param name: mesh - Mesh
-    :param type: trimesh.Trimesh
-    :param name: resolution - Maximum size of edge in the mesh
-    :param tyoe: float
+    Parameters:
+        mesh: trimesh.Trimesh
+            Mesh
+        resolution: float
+            Maximum size of edge in the mesh
 
-    :returns: trimesh.Trimesh - mesh with all fixes applied
+    Returns: 
+        trimesh.Trimesh:
+            mesh with all fixes applied
     """
     target_len = resolution
     mesh, _ = trimesh.remove_duplicated_vertices(mesh, 0.001)

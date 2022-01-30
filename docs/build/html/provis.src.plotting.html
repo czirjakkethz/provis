@@ -114,23 +114,154 @@
 <p>The Dynamic Structure class, similarly to the Protein class, encapsulates every other class and creates a user friendly way to plot your desired dynamic structure of a protein molecules.</p>
 <p>While the class is built similarly to the Protein class it does not use the Protein class itself. This is due to the fact that the Protein class is a rigid class made for a single molecule and</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_atoms">
-<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Atoms'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_atoms" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Atoms'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the dynamic atom cloud.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-<li><p><strong>name</strong> – title - Title of the plotting window. Default: “Atoms”.</p></li>
-<li><p><strong>type</strong> – str, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+<dt>title: str, optional</dt><dd><p>Title of the plotting window. Default: “Atoms”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_atoms">
+<span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the atoms as spheres. Each atom has a radius proportianal to its calculated atomic radius.</p>
+<p>Consult <a class="reference external" href="https://en.wikipedia.org/wiki/CPK_coloring">https://en.wikipedia.org/wiki/CPK_coloring</a> for the coloring.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_backbone">
+<span class="sig-name descname"><span class="pre">plot_backbone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_backbone" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the backbone (roughly the amide bonds) of the protein.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_backbone.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_bonds">
+<span class="sig-name descname"><span class="pre">plot_bonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorful</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_bonds" title="Permalink to this definition"></a></dt>
+<dd><p>Plot only the bonds. By default all bonds will be plotted uniformly.</p>
+<p>If the difference in bond types is of interest set the “colorful” variable to True.
+Coloring:
+- Single bonds: white
+- Double bonds: blue
+- Triple bonds: green
+- Amide bonds: red
+- Aromatic bonds: purple
+- Undefined/Anything else: black</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p>
+</dd>
+<dt>colorful: bool, optional</dt><dd><p>If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_residues">
+<span class="sig-name descname"><span class="pre">plot_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_residues" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the residues as Spheres. Each sphere is the approximate size of the radius of the given residue. This plot should only be used to get a general feel for the layout of the protein.</p>
+<p>For coloring information please visit: <a class="reference external" href="http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm">http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm</a></p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_stick_point">
+<span class="sig-name descname"><span class="pre">plot_stick_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_stick_point" title="Permalink to this definition"></a></dt>
+<dd><p>Plot stick and point model of the protein. Atoms are spheres, bonds are tubes.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -139,24 +270,48 @@
 <dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_surface">
 <span class="sig-name descname"><span class="pre">plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Surface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_surface" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the dynamic surface of the molecule.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – feature - Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).</p></li>
-<li><p><strong>type</strong> – str, optional</p></li>
-<li><p><strong>name</strong> – patch - If True then coloring will be read in from “root directory”/data/tmp/{pdb_id}.pth file. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-<li><p><strong>name</strong> – title - Title of the plotting window. Default: “Surface”.</p></li>
-<li><p><strong>type</strong> – str, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>feature: str, optional</dt><dd><p>Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).</p>
+</dd>
+<dt>patch: bool, optional</dt><dd><p>If True then coloring will be read in from “root directory”/data/tmp/{pdb_id}.pth file. Default: False.</p>
+</dd>
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+<dt>title: str, optional</dt><dd><p>Title of the plotting window. Default: “Surface”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="provis.src.plotting.dynamic_structure.DynamicStructure.plot_vw">
+<span class="sig-name descname"><span class="pre">plot_vw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_structure.DynamicStructure.plot_vw" title="Permalink to this definition"></a></dt>
+<dd><p>Plot Van-der-Waals radius of atoms as spheres. Spheres have a wireframe style to be able to view inner structure as well.
+To plot Van-der-Waals radii as solid spheres use the manual_plot() member function.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -175,35 +330,36 @@
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.manual_plot">
 <span class="sig-name descname"><span class="pre">manual_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.manual_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Plot stick and point model. In this function one can pass all the desired meshes to be plotted. One can get these meshes from the DataHandler class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - List of pyvista Shperes representing each residue, default: 0.</p></li>
-<li><p><strong>type</strong> – list, optional</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._name}_stick_point.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – atoms - List of pyvista Shperes representing each atom, default: 0.</p></li>
-<li><p><strong>type</strong> – list, optional</p></li>
-<li><p><strong>name</strong> – col_a - List of colors for each atom, default: 0.</p></li>
-<li><p><strong>type</strong> – list, optional</p></li>
-<li><p><strong>name</strong> – bonds - List of pyvista Lines representing each bond, default: 0.</p></li>
-<li><p><strong>type</strong> – list, optional</p></li>
-<li><p><strong>name</strong> – vw - If True styling for Van-der-Waals plotting set. Vw atomic objects still have to be passed under ‘atoms’ variable.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – col_r - List of colors for each residue, default: 0.</p></li>
-<li><p><strong>type</strong> – list, optional</p></li>
-<li><p><strong>name</strong> – res - Specified residues will be plotted with a bounding box around them.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – bb - List of coordinates describing the back-bone of the protein, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot</p>
+<dt>res: list, optional</dt><dd><p>List of pyvista Shperes representing each residue, default: 0.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._name}_stick_point.</p>
+</dd>
+<dt>atoms: list, optional</dt><dd><p>List of pyvista Shperes representing each atom, default: 0.</p>
+</dd>
+<dt>col_a: list, optional</dt><dd><p>List of colors for each atom, default: 0.</p>
+</dd>
+<dt>bonds: list, optional</dt><dd><p>List of pyvista Lines representing each bond, default: 0.</p>
+</dd>
+<dt>vw: bool, optional</dt><dd><p>If True styling for Van-der-Waals plotting set. Vw atomic objects still have to be passed under ‘atoms’ variable.</p>
+</dd>
+<dt>col_r: list, optional</dt><dd><p>List of colors for each residue, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Specified residues will be plotted with a bounding box around them.</p>
+</dd>
+<dt>bb: bool, optional</dt><dd><p>List of coordinates describing the back-bone of the protein, default: 0.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -213,37 +369,38 @@
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot" title="Permalink to this definition"></a></dt>
 <dd><p>This member function is called by all the others. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.</p>
 <p>All information to be plotted is already computed. This function simply dictates what is to be plotted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_stick_point.png. If Structure class was initialized with msms=True then output will have “_msms.png” as the ending.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – atoms - Plot atoms, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – bonds, optional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: 0.</p></li>
-<li><p><strong>type</strong> – int, optional</p></li>
-<li><p><strong>name</strong> – vw - Plot Wan-der-Waals radii instead of atomic radii.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – residues, optional - Plot residue, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – bb - If True backbone of protein is plotted. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – title - Title of the plot window. Defaults to None.</p></li>
-<li><p><strong>type</strong> – str, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
-<li><p><strong>type</strong> – int, optional</p></li>
-<li><p><strong>name</strong> – dynamic - Set to True if you are plotting a dynamic model. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_stick_point.png. If Structure class was initialized with msms=True then output will have “_msms.png” as the ending.</p>
+</dd>
+<dt>atoms: bool, optional</dt><dd><p>Plot atoms, default: 0.</p>
+</dd>
+<dt>bonds: int, optional</dt><dd><p>ptional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: 0.</p>
+</dd>
+<dt>vw: bool, optional</dt><dd><p>Plot Wan-der-Waals radii instead of atomic radii.</p>
+</dd>
+<dt>residues: bool, optional</dt><dd><p>ptional - Plot residue, default: 0.</p>
+</dd>
+<dt>bb: bool, optional</dt><dd><p>If True backbone of protein is plotted. Default: False.</p>
+</dd>
+<dt>title: str, optional</dt><dd><p>Title of the plot window. Defaults to None.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+<dt>model_id: int, optional</dt><dd><p>The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p>
+</dd>
+<dt>dynamic: bool, optional</dt><dd><p>Set to True if you are plotting a dynamic model. Default: False.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -253,21 +410,22 @@
 <span class="sig-name descname"><span class="pre">plot_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_atoms" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the atoms as spheres. Each atom has a radius proportianal to its calculated atomic radius.</p>
 <p>Consult <a class="reference external" href="https://en.wikipedia.org/wiki/CPK_coloring">https://en.wikipedia.org/wiki/CPK_coloring</a> for the coloring.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -276,21 +434,22 @@
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_backbone">
 <span class="sig-name descname"><span class="pre">plot_backbone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_backbone" title="Permalink to this definition"></a></dt>
 <dd><p>Plots the backbone (roughly the amide bonds) of the protein.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_backbone.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_backbone.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -307,23 +466,24 @@ Coloring:
 - Amide bonds: red
 - Aromatic bonds: purple
 - Undefined/Anything else: black</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – colorful - If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p>
+</dd>
+<dt>colorful: bool, optional</dt><dd><p>If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -333,21 +493,22 @@ Coloring:
 <span class="sig-name descname"><span class="pre">plot_residues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_residues" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the residues as Spheres. Each sphere is the approximate size of the radius of the given residue. This plot should only be used to get a general feel for the layout of the protein.</p>
 <p>For coloring information please visit: <a class="reference external" href="http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm">http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -356,21 +517,22 @@ Coloring:
 <dt class="sig sig-object py" id="provis.src.plotting.structure.Structure.plot_stick_point">
 <span class="sig-name descname"><span class="pre">plot_stick_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_stick_point" title="Permalink to this definition"></a></dt>
 <dd><p>Plot stick and point model of the protein. Atoms are spheres, bonds are tubes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -380,21 +542,22 @@ Coloring:
 <span class="sig-name descname"><span class="pre">plot_vw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.structure.Structure.plot_vw" title="Permalink to this definition"></a></dt>
 <dd><p>Plot Van-der-Waals radius of atoms as spheres. Spheres have a wireframe style to be able to view inner structure as well.
 To plot Van-der-Waals radii as solid spheres use the manual_plot() member function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -409,9 +572,13 @@ To plot Van-der-Waals radii as solid spheres use the manual_plot() member functi
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.plotting.surface.</span></span><span class="sig-name descname"><span class="pre">Surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notebook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The Surface class is used to visualize the surface information of the given molecule.</p>
-<p>The class can visualize two kinds of surfaces:
-- a chemically accurate surface created by the MSMS binary. 
-- a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is fast, but less precise.)</p>
+<dl class="simple">
+<dt>The class can visualize two kinds of surfaces:</dt><dd><ul class="simple">
+<li><p>a chemically accurate surface created by the MSMS binary.</p></li>
+<li><p>a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is fast, but less precise.)</p></li>
+</ul>
+</dd>
+</dl>
 <p>Choose between the two by setting the msms Boolean variable. (Default: True, corresponding to the MSMS binary option.)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot">
@@ -420,29 +587,30 @@ To plot Van-der-Waals radii as solid spheres use the manual_plot() member functi
 The surface can be computed either using the msms binary or natively. The msms binary is chemically accurate surface, while the native one is only for visualization purposes.</p>
 <p>If you run into any sort of error concerning array size mismatching or of the sort delete all the temporary files and the mesh ({root directory}/data/meshes/{pdb_id}_{model_id}.obj).
 This will force everything to be recomputed and the dimension mismatch should disappear.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – feature - Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).</p></li>
-<li><p><strong>type</strong> – str, optional</p></li>
-<li><p><strong>name</strong> – title - Title of the plot window. Default: Surface.</p></li>
-<li><p><strong>type</strong> – str, optional</p></li>
-<li><p><strong>name</strong> – patch - If True then coloring will be read in from “root directory”/data/tmp/{pdb_id}.pth file. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have “_msms.png” as the ending.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-<li><p><strong>name</strong> – model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p></li>
-<li><p><strong>type</strong> – int, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>feature: str, optional</dt><dd><p>Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>title: str, optional</dt><dd><p>Title of the plot window. Default: Surface.</p>
+</dd>
+<dt>patch: bool, optional</dt><dd><p>If True then coloring will be read in from “root directory”/data/tmp/{pdb_id}.pth file. Default: False.</p>
+</dd>
+<dt>box, optional: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
+</dd>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have “_msms.png” as the ending.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+<dt>model_id: int, optional</dt><dd><p>The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -451,21 +619,22 @@ This will force everything to be recomputed and the dimension mismatch should di
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_charge">
 <span class="sig-name descname"><span class="pre">plot_charge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_charge" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the charge features of a protein.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box, optional: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -474,21 +643,22 @@ This will force everything to be recomputed and the dimension mismatch should di
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_hydrophob">
 <span class="sig-name descname"><span class="pre">plot_hydrophob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_hydrophob" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the hydrophobic features of a protein.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box, optional: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -497,21 +667,22 @@ This will force everything to be recomputed and the dimension mismatch should di
 <dt class="sig sig-object py" id="provis.src.plotting.surface.Surface.plot_shape">
 <span class="sig-name descname"><span class="pre">plot_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.surface.Surface.plot_shape" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the shape features of a protein.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – box, optional - If True bounding box also visualized, default: 0.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – res - Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p></li>
-<li><p><strong>type</strong> – Residue, optional</p></li>
-<li><p><strong>name</strong> – outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p></li>
-<li><p><strong>type</strong> – string, optional</p></li>
-<li><p><strong>name</strong> – camera - Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p></li>
-<li><p><strong>type</strong> – pyvista.Camera, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>box, optional: bool, optional</dt><dd><p>If True bounding box also visualized, default: 0.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pyvista.Plotter window - Window with interactive plot.</p>
+<dt>res: Residue, optional</dt><dd><p>Residues passed in ‘res’ will be plotted with a bounding box around them. Defaults to None.</p>
+</dd>
+<dt>outname: string, optional</dt><dd><p>save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.</p>
+</dd>
+<dt>camera: pyvista.Camera, optional</dt><dd><p>Pass a Pyvista Camera <a class="reference external" href="https://docs.pyvista.org/api/core/camera.html">https://docs.pyvista.org/api/core/camera.html</a> to manually set the camera position. If nothing/None is passed then the camera position will be set to ‘xy’. Default: None.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Pyvista.Plotter window</dt><dd><p>Window with interactive plot.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

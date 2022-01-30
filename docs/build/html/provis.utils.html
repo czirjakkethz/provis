@@ -104,11 +104,12 @@
 <dt class="sig sig-object py" id="provis.utils.atminfo.import_atm_mass_info">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.atminfo.</span></span><span class="sig-name descname"><span class="pre">import_atm_mass_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.atminfo.import_atm_mass_info" title="Permalink to this definition"></a></dt>
 <dd><p>Funtion to load dictionary storing atomic mass information by atom type.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>dict - dictionary of atomic mass by atom name</p>
+<blockquote>
+<div><dl class="simple">
+<dt>dict</dt><dd><p>dictionary of atomic mass by atom name</p>
 </dd>
 </dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
@@ -116,21 +117,20 @@
 <span class="sig-prename descclassname"><span class="pre">provis.utils.atminfo.</span></span><span class="sig-name descname"><span class="pre">import_atm_size_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.atminfo.import_atm_size_info" title="Permalink to this definition"></a></dt>
 <dd><p>Funtion to load dictionaries storing atomic radii, color coding and Van-der-Waals radii by atom name.</p>
 <p>Coloring from: <a class="reference external" href="https://sciencenotes.org/molecule-atom-colors-cpk-colors/">https://sciencenotes.org/molecule-atom-colors-cpk-colors/</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – vw - Option to return vanderwaals radius. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>vw: bool, optional</dt><dd><p>Option to return vanderwaals radius. Default: False.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dict - dictionary of atomic radius by atom name</p>
+</dl>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>dict - dictionary of color by atom name</p>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>dictionary of atomic radius by atom name</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dict - return dictionary of vw rdius by atom name</p>
+<dt>dict</dt><dd><p>dictionary of color by atom name</p>
+</dd>
+<dt>dict</dt><dd><p>return dictionary of vw rdius by atom name</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -140,12 +140,13 @@
 <span class="sig-prename descclassname"><span class="pre">provis.utils.atminfo.</span></span><span class="sig-name descname"><span class="pre">import_res_size_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.atminfo.import_res_size_info" title="Permalink to this definition"></a></dt>
 <dd><p>Funtion to load dictionaries storing residue radii and color coding by residue name.</p>
 <p>Coloring from: <a class="reference external" href="http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm">http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>dict - dictionary of radius by residue name</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>dict</dt><dd><p>dictionary of radius by residue name</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dict - dictionary of color by residue name</p>
+<dt>dict</dt><dd><p>dictionary of color by residue name</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -159,21 +160,22 @@
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_angle_deviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#provis.utils.charges_utils.compute_angle_deviation" title="Permalink to this definition"></a></dt>
 <dd><p>Computes the absolute angle deviation from theta. a, b, c form the three
 points that define the angle.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – a - Coordinate vector of the first point.</p></li>
-<li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – b - Coordinate vector of the second point.</p></li>
-<li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – c - Coordinate vector of the third point.</p></li>
-<li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – theta - Angle to compute deviation with respect to.</p></li>
-<li><p><strong>type</strong> – float</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>a: np.ndarray,</dt><dd><p>Coordinate vector of the first point.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>float - absolute deviation of the angle formed by a, b, c with theta</p>
+<dt>b: np.ndarray,</dt><dd><p>Coordinate vector of the second point.</p>
+</dd>
+<dt>c: np.ndarray,</dt><dd><p>Coordinate vector of the third point.</p>
+</dd>
+<dt>theta: float</dt><dd><p>Angle to compute deviation with respect to.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>float</dt><dd><p>absolute deviation of the angle formed by a, b, c with theta</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -182,15 +184,16 @@ points that define the angle.</p>
 <dt class="sig sig-object py" id="provis.utils.charges_utils.compute_angle_penalty">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_angle_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle_deviation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#provis.utils.charges_utils.compute_angle_penalty" title="Permalink to this definition"></a></dt>
 <dd><p>Compute the angle penalty corresponding to angle of deviation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – angle_deviation - Angle of deviation.</p></li>
-<li><p><strong>type</strong> – float</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>angle_deviation: float</dt><dd><p>Angle of deviation.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>float - Angle penalty.</p>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>float</dt><dd><p>Angle penalty.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -199,19 +202,20 @@ points that define the angle.</p>
 <dt class="sig sig-object py" id="provis.utils.charges_utils.compute_hbond_helper">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_hbond_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Bio.PDB.Residue.Residue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#provis.utils.charges_utils.compute_hbond_helper" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function. Computes the hydrogen bond for given atom.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atom_name - Name of atom.</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – res - Residue corresponding to atom.</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-<li><p><strong>name</strong> – v - Vertices.</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>atom_name: str</dt><dd><p>Name of atom.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>float - hydrogen bonds of the atom</p>
+<dt>res: Residue</dt><dd><p>Residue corresponding to atom.</p>
+</dd>
+<dt>v: np.ndarray</dt><dd><p>Vertices.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>float</dt><dd><p>hydrogen bonds of the atom</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -221,21 +225,22 @@ points that define the angle.</p>
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_plane_deviation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#provis.utils.charges_utils.compute_plane_deviation" title="Permalink to this definition"></a></dt>
 <dd><p>Computes the absolute plane deviation from theta. a, b, c form the three
 points that define the angle.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – a - Coordinate vector of the first point.</p></li>
-<li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – b - Coordinate vector of the second point.</p></li>
-<li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – c - Coordinate vector of the third point.</p></li>
-<li><p><strong>type</strong> – np.ndarray,</p></li>
-<li><p><strong>name</strong> – theta - Angle to compute deviation with respect to.</p></li>
-<li><p><strong>type</strong> – float</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>a: np.ndarray,</dt><dd><p>Coordinate vector of the first point.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>float - absolute deviation of the angle formed by a, b, c with theta</p>
+<dt>b: np.ndarray,</dt><dd><p>Coordinate vector of the second point.</p>
+</dd>
+<dt>c: np.ndarray,</dt><dd><p>Coordinate vector of the third point.</p>
+</dd>
+<dt>theta: float</dt><dd><p>Angle to compute deviation with respect to.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>float</dt><dd><p>absolute deviation of the angle formed by a, b, c with theta</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -244,18 +249,18 @@ points that define the angle.</p>
 <dt class="sig sig-object py" id="provis.utils.charges_utils.compute_satisfied_CO_HN">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">compute_satisfied_CO_HN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.charges_utils.compute_satisfied_CO_HN" title="Permalink to this definition"></a></dt>
 <dd><p>Compute the list of backbone C=O:H-N that are satisfied. These will be ignored.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atoms - list of atoms to be checked.</p></li>
-<li><p><strong>type</strong> – BioPython atoms</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>atoms: BioPython atoms</dt><dd><p>list of atoms to be checked.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>set - set of C=O bonds</p>
+</dl>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>set - set of H-N bonds</p>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>set</dt><dd><p>set of C=O bonds</p>
+</dd>
+<dt>set</dt><dd><p>set of H-N bonds</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -264,17 +269,18 @@ points that define the angle.</p>
 <dt class="sig sig-object py" id="provis.utils.charges_utils.is_acceptor_atom">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">is_acceptor_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Bio.PDB.Residue.Residue</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="headerlink" href="#provis.utils.charges_utils.is_acceptor_atom" title="Permalink to this definition"></a></dt>
 <dd><p>Check if atom is acceptor atom.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atom_name - Name of the atom</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – res - The corresponding residue</p></li>
-<li><p><strong>type</strong> – Residue</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>atom_name: str</dt><dd><p>Name of the atom</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>bool - True if conditions met</p>
+<dt>res: Residue</dt><dd><p>The corresponding residue</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>bool</dt><dd><p>True if conditions met</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -283,14 +289,13 @@ points that define the angle.</p>
 <dt class="sig sig-object py" id="provis.utils.charges_utils.is_polar_hydrogen">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">is_polar_hydrogen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="headerlink" href="#provis.utils.charges_utils.is_polar_hydrogen" title="Permalink to this definition"></a></dt>
 <dd><p>Check if the atom in a given residue has polar hydrogens.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – atom_name - Name of the atom</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – res_name - Residue name</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>atom_name: str</dt><dd><p>Name of the atom</p>
+</dd>
+<dt>res_name: str</dt><dd><p>Residue name</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -300,15 +305,16 @@ points that define the angle.</p>
 <span class="sig-prename descclassname"><span class="pre">provis.utils.charges_utils.</span></span><span class="sig-name descname"><span class="pre">normalize_electrostatics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_elec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#provis.utils.charges_utils.normalize_electrostatics" title="Permalink to this definition"></a></dt>
 <dd><p>Normalizing charges on the surface, by clipping to upper and lower thresholds
 and converting all values to a -1/1 scale.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – in_elec - Input charges for all surface vertices</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>in_elec: np.ndarray</dt><dd><p>Input charges for all surface vertices</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Normalized surface vertex charges</p>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Normalized surface vertex charges</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -324,21 +330,22 @@ and converting all values to a -1/1 scale.</p>
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_feat.</span></span><span class="sig-name descname"><span class="pre">assign_props_to_new_mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_vertices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_vertices</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_props</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_interpolation</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#provis.utils.surface_feat.assign_props_to_new_mesh" title="Permalink to this definition"></a></dt>
 <dd><p>Assign properties to vertices in modified mesh given the initial mesh. The
 assignment is carried using a KDTree data structure to query nearest points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – new_vertices - Vertices on the modified mesh</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – old_vertices - Vertices on the original mesh</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – old_props - Property values for each vertex on the original mesh</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – feature_interpolation - If set to True interpolates features to new vertices.</p></li>
-<li><p><strong>type</strong> – bool, (default True)</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>new_vertices: np.ndarray </dt><dd><p>Vertices on the modified mesh</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Property values for vertices on the modified mesh</p>
+<dt>old_vertices: np.ndarray </dt><dd><p>Vertices on the original mesh</p>
+</dd>
+<dt>old_props: np.ndarray </dt><dd><p>Property values for each vertex on the original mesh</p>
+</dd>
+<dt>feature_interpolation: bool, (default True)</dt><dd><p>If set to True interpolates features to new vertices.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Property values for vertices on the modified mesh</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -351,19 +358,20 @@ the PDB2PQR executable to prepare the pdb file for electrostatics. Poisson-
 Boltzmann electrostatics are computed using APSB executable. Multivalue,
 provided within APSB suite is used to assign charges to each vertex. The
 charges are further normalized.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – vertices - Surface vertex coordinates</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – pdb_id - PDB ID of the protein</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – path - Path of the pqr file in the form {path}.pqr</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>vertices: np.ndarray</dt><dd><p>Surface vertex coordinates</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Charge values for each vertex</p>
+<dt>pdb_id: str</dt><dd><p>PDB ID of the protein</p>
+</dd>
+<dt>path: str</dt><dd><p>Path of the pqr file in the form {path}.pqr</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Charge values for each vertex</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -372,19 +380,20 @@ charges are further normalized.</p>
 <dt class="sig sig-object py" id="provis.utils.surface_feat.compute_hbonds">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_hbonds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Bio.PDB.Residue.Residue</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#provis.utils.surface_feat.compute_hbonds" title="Permalink to this definition"></a></dt>
 <dd><p>Compute H-bond (hydrogen-bond) induced charges at every vertex.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – vertices - Vertices of mesh</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – residues - List of residues to compute</p></li>
-<li><p><strong>type</strong> – List[Residue]</p></li>
-<li><p><strong>name</strong> – names - List of custom names created by output_pdb_as_xyzrn()</p></li>
-<li><p><strong>type</strong> – List[str]</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>vertices: np.ndarray</dt><dd><p>Vertices of mesh</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Array of bonds, by vertex</p>
+<dt>residues: List[Residue]</dt><dd><p>List of residues to compute</p>
+</dd>
+<dt>names: List[str]</dt><dd><p>List of custom names created by output_pdb_as_xyzrn()</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Array of bonds, by vertex</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -396,15 +405,16 @@ charges are further normalized.</p>
 vertex has a mapping to the corresponding residue from the original protein.
 This is used to assign a hydrophobicity value to each vertex using the Kyte-
 Doolittle scale.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – names - Identifier names for each vertex in the surface</p></li>
-<li><p><strong>type</strong> – List[str]</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>names: List[str]</dt><dd><p>Identifier names for each vertex in the surface</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Hydrophobicity values for each surface vertex</p>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Hydrophobicity values for each surface vertex</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -416,15 +426,16 @@ Doolittle scale.</p>
 around a point on the surface, computed using the local curvature around each
 point. These values are derived using Trimesh’s available geometric
 processing functionality.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – mesh: The mesh is constructed using information about vertices and faces.</p></li>
-<li><p><strong>type</strong> – Trimesh</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>mesh: Trimesh</dt><dd><p>The mesh is constructed using information about vertices and faces.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Shape index for each vertex</p>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Shape index for each vertex</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -433,37 +444,35 @@ processing functionality.</p>
 <dt class="sig sig-object py" id="provis.utils.surface_feat.compute_surface_features">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_feat.</span></span><span class="sig-name descname"><span class="pre">compute_surface_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_mesh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mesh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pdb_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#provis.utils.surface_feat.compute_surface_features" title="Permalink to this definition"></a></dt>
 <dd><p>Computes all patch features.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – surface: Tuple of attributes characterizing the surface. These include vertices,
-faces, normals to each vertex, areas, fdue identifiers for vertices.</p></li>
-<li><p><strong>type</strong> – Surface</p></li>
-<li><p><strong>name</strong> – pdb_file - PDB File containing the atomic coordinates</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – path - Path to files without extensions. Usually data/tmp/{pdb_id}</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – mesh - The mesh.</p></li>
-<li><p><strong>type</strong> – trimesh.Trimesh</p></li>
-<li><p><strong>name</strong> – fix_mesh - Whether to fix the mesh by collapsing nodes and edges. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – return_mesh - Whether to return the mesh. Default: False.</p></li>
-<li><p><strong>type</strong> – bool, optional</p></li>
-<li><p><strong>name</strong> – pdb_id - PDB id of the associated protein. Default: None</p></li>
-<li><p><strong>type</strong> – str, optional</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>surface: Surface</dt><dd><p>Tuple of attributes characterizing the surface. These include vertices,
+faces, normals to each vertex, areas, fdue identifiers for vertices.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Shape index</p>
+<dt>pdb_file: str</dt><dd><p>PDB File containing the atomic coordinates</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>np.ndarray - Hydrogen bond induced charges</p>
+<dt>path: str</dt><dd><p>Path to files without extensions. Usually data/tmp/{pdb_id}</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Hydrophobicity of each surface vertex</p>
+<dt>mesh: trimesh.Trimesh</dt><dd><p>The mesh.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>np.ndarray - Electrostatics of each surface vertex</p>
+<dt>fix_mesh: bool, optional</dt><dd><p>Whether to fix the mesh by collapsing nodes and edges. Default: False.</p>
+</dd>
+<dt>return_mesh: bool, optional</dt><dd><p>Whether to return the mesh. Default: False.</p>
+</dd>
+<dt>pdb_id: str, optional</dt><dd><p>PDB id of the associated protein. Default: None</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Shape index</p>
+</dd>
+<dt>np.ndarray</dt><dd><p>Hydrogen bond induced charges</p>
+</dd>
+<dt>np.ndarray</dt><dd><p>Hydrophobicity of each surface vertex</p>
+</dd>
+<dt>np.ndarray</dt><dd><p>Electrostatics of each surface vertex</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -477,17 +486,18 @@ faces, normals to each vertex, areas, fdue identifiers for vertices.</p></li>
 <dt class="sig sig-object py" id="provis.utils.surface_utils.compute_normal">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">compute_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faces</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#provis.utils.surface_utils.compute_normal" title="Permalink to this definition"></a></dt>
 <dd><p>Compute normals for the vertices and faces</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – vertices - Vertices of the mesh</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – faces - Faces of the mesh</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>vertices: np.ndarray </dt><dd><p>Vertices of the mesh</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - Normals of the mesh</p>
+<dt>faces: np.ndarray </dt><dd><p>Faces of the mesh</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray:</dt><dd><p>Normals of the mesh</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -496,17 +506,18 @@ faces, normals to each vertex, areas, fdue identifiers for vertices.</p></li>
 <dt class="sig sig-object py" id="provis.utils.surface_utils.crossp">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">crossp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#provis.utils.surface_utils.crossp" title="Permalink to this definition"></a></dt>
 <dd><p>Creates the cross product of two numpy arrays</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – x - Array 1</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – y - Array 2</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>x: np.ndarray</dt><dd><p>Array 1</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>np.ndarray - (Array 1) x (Array 2)</p>
+<dt>y: np.ndarray</dt><dd><p>Array 2</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>np.ndarray:</dt><dd><p>(Array 1) x (Array 2)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -523,17 +534,18 @@ faces, normals to each vertex, areas, fdue identifiers for vertices.</p></li>
 specified resolution. These fixes include removing duplicated vertices wihin
 a certain threshold, removing degenerate triangles, splitting longer edges to
 a given target length, and collapsing shorter edges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – mesh - Mesh</p></li>
-<li><p><strong>type</strong> – trimesh.Trimesh</p></li>
-<li><p><strong>name</strong> – resolution - Maximum size of edge in the mesh</p></li>
-<li><p><strong>tyoe</strong> – float</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>mesh: trimesh.Trimesh</dt><dd><p>Mesh</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>trimesh.Trimesh - mesh with all fixes applied</p>
+<dt>resolution: float</dt><dd><p>Maximum size of edge in the mesh</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>trimesh.Trimesh:</dt><dd><p>mesh with all fixes applied</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -542,29 +554,27 @@ a given target length, and collapsing shorter edges.</p>
 <dt class="sig sig-object py" id="provis.utils.surface_utils.get_surface">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">get_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.surface_utils.get_surface" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper function that reads in the output from the MSMS executable to build the protein surface.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – out_path - path to output (output path from namechecker) directory. Usually data/tmp</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – density - Need to pass same density as used by the MSMS binary, as the face and vert files have the density included in their names. The variable is needed for loading these files.</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-</ul>
+<blockquote>
+<div><dl class="simple">
+<dt>out_path: str</dt><dd><p>path to output (output path from namechecker) directory. Usually data/tmp</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>numpy.ndarray - vertices</p>
+<dt>density: bool</dt><dd><p>Need to pass same density as used by the MSMS binary, as the face and vert files have the density included in their names. The variable is needed for loading these files.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>numpy.ndarray - faces</p>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>numpy.ndarray:</dt><dd><p>vertices</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>numpy.ndarray - vertex normals</p>
+<dt>numpy.ndarray:</dt><dd><p>faces</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of res_id’s from output_pdb_as_xyzrn()</p>
+<dt>numpy.ndarray:</dt><dd><p>vertex normals</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>dict - Dictionary: residues as keys, areas as values</p>
+<dt>list:</dt><dd><p>list of res_id’s from output_pdb_as_xyzrn()</p>
+</dd>
+<dt>dict:</dt><dd><p>dictionary: residues as keys, areas as values</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -573,14 +583,13 @@ a given target length, and collapsing shorter edges.</p>
 <dt class="sig sig-object py" id="provis.utils.surface_utils.output_pdb_as_xyzrn">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">output_pdb_as_xyzrn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xyzrn_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#provis.utils.surface_utils.output_pdb_as_xyzrn" title="Permalink to this definition"></a></dt>
 <dd><p>Converts a .pdb file to a .xyzrn file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – pdb_file - path to PDB File to convert (with extension)</p></li>
-<li><p><strong>type</strong> – str</p></li>
-<li><p><strong>name</strong> – xyzrn_file - path to the xyzrn File (with extension)</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>pdb_file: str</dt><dd><p>path to PDB File to convert (with extension)</p>
+</dd>
+<dt>xyzrn_file: str</dt><dd><p>path to the xyzrn File (with extension)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -590,21 +599,22 @@ a given target length, and collapsing shorter edges.</p>
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">prepare_trimesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">faces</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normals</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_fixes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.utils.surface_utils.prepare_trimesh" title="Permalink to this definition"></a></dt>
 <dd><p>Prepare the mesh surface given vertices and faces. Optionally, compute
 normals and apply fixes to mesh.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – vertices - Surface vertices</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – faces - Triangular faces on the mesh</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – normals - Normals for each vertex</p></li>
-<li><p><strong>type</strong> – np.ndarray</p></li>
-<li><p><strong>name</strong> – apply_fixes - Optional application of fixes to mesh. Check fix_mesh for details on fixes. Default: False,</p></li>
-<li><p><strong>type</strong> – bool</p></li>
-</ul>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>vertices: np.ndarray</dt><dd><p>Surface vertices</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>trimesh.Trimesh - Mesh</p>
+<dt>faces: np.ndarray</dt><dd><p>Triangular faces on the mesh</p>
+</dd>
+<dt>normals: np.ndarray</dt><dd><p>Normals for each vertex</p>
+</dd>
+<dt>apply_fixes: bool</dt><dd><p>Optional application of fixes to mesh. Check fix_mesh for details on fixes. Default: False,</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>trimesh.Trimesh:</dt><dd><p>Mesh</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -613,24 +623,23 @@ normals and apply fixes to mesh.</p>
 <dt class="sig sig-object py" id="provis.utils.surface_utils.read_msms">
 <span class="sig-prename descclassname"><span class="pre">provis.utils.surface_utils.</span></span><span class="sig-name descname"><span class="pre">read_msms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_root</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#provis.utils.surface_utils.read_msms" title="Permalink to this definition"></a></dt>
 <dd><p>Read surface constituents from output files generated using MSMS.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – file_root - Root name for loading .face and .vert files (produced by MSMS). Default location is data/tmp/{pdb_id}s</p></li>
-<li><p><strong>type</strong> – str</p></li>
-</ul>
+<blockquote>
+<div><dl class="simple">
+<dt>file_root: str</dt><dd><p>Root name for loading .face and .vert files (produced by MSMS). Default location is data/tmp/{pdb_id}s</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>numpy.ndarray - vertices</p>
+</dl>
+</div></blockquote>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>numpy.ndarray:</dt><dd><p>vertices</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>numpy.ndarray - faces</p>
+<dt>numpy.ndarray:</dt><dd><p>faces</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>numpy.ndarray - vertex normals</p>
+<dt>numpy.ndarray:</dt><dd><p>vertex normals</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>list - List of res_id’s from output_pdb_as_xyzrn()</p>
+<dt>list:</dt><dd><p>list of res_id’s from output_pdb_as_xyzrn()</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

@@ -3,7 +3,6 @@
 from genericpath import sameopenfile
 import os
 from os.path import exists
-
 import numpy as np
 from numpy.lib.twodim_base import tri
 import torch
@@ -47,14 +46,15 @@ class SurfaceHandler:
         _res_id: list - List of residue IDs (format from output_pdb_as_xyzrn())
         _atom_coords: list - List of atomic coordinates. Just the coordinates in the same order as in _res_id.
 
-        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
-        :param type: NameChecker
-        :param name: fc - Instance of a FileConverter class. Used to create the necessairy files (face, vert, pqr, ...) if they do not exist yet. Default: None.
-        :param type: FileConverter
-        :param name: dh - Instance of a DataHandler class. Used to retrieve atom-positional information when calculating the surface of the protein natively. Default: None. If None a new DataHandler variable will be initialized with "nc".
-        :param type: DataHandler, optional
-        :param name: density - Density needed for msms. Default: 3.0.
-        :param type: float, optional
+        Parameters:
+            nc: NameChecker
+                Instance of a NameChecker class. Used to pass the pdb file name and paths.
+            fc: FileConverter
+                Instance of a FileConverter class. Used to create the necessairy files (face, vert, pqr, ...) if they do not exist yet. Default: None.
+            dh: DataHandler, optional
+                Instance of a DataHandler class. Used to retrieve atom-positional information when calculating the surface of the protein natively. Default: None. If None a new DataHandler variable will be initialized with "nc".
+            density: float, optional
+                Density needed for msms. Default: 3.0.
         """
         
         if not fc:
@@ -78,7 +78,9 @@ class SurfaceHandler:
         Get assignments (coloring) for the mesh. File has to exist, no way to produce it with provis. 
         Loads "root directory"/data/tmp/{pdb_id}.pth and returns it.
 
-        :returns: PyTourch object - Coloring of surface.
+        Returns: 
+            PyTourch object
+                Coloring of surface.
         """
         filename = self._out_path.upper() + '.pth'
         assigment = torch.load(filename)
@@ -96,16 +98,21 @@ class SurfaceHandler:
         Next, using the above mentioned surface structure compute all surface feature information.
         Finally return the coloring corresponding to the specified feature.
 
-        :param name: mesh - The mesh
-        :param type: Trimesh
-        :param name: feature - Name of feature we are interested in. Options: hydrophob, shape, charge, hbonds.
-        :param type: str
-        :param name: res_id - List of unique residue IDs (format from output_pdb_as_xyzrn()). Default: False.
-        :param type: bool, optional
+        Parameters:
+            mesh: Trimesh
+                The mesh
+            feature: str
+                Name of feature we are interested in. Options: hydrophob, shape, charge, hbonds.
+            res_id: bool, optional
+                List of unique residue IDs (format from output_pdb_as_xyzrn()). Default: False.
         
-        :raises: NotImplementedError - If unkown feature specified error is raised
+        Returns: 
+            numpy.ndarray
+                Array of coloring corresponding to surface.
 
-        returns: numpy.ndarray - Array of coloring corresponding to surface.
+        Raises:
+            NotImplementedError
+                If unkown feature specified error is raised
         """
 
         # get surface
@@ -152,10 +159,11 @@ class SurfaceHandler:
         Finally, if a feature is specified check if the color information could be loaded from a file (self._color_needed) and compute it if needed.
         If no feature specified set the variable that stores color information to None. This will result in a white mesh.
 
-        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.
-        :param type: str, optional
-        :param name: patch - Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.
-        :param type: bool, optional
+        Parameters:
+            feature: str, optional
+                Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.
+            patch: bool, optional
+                Set coloring of mesh manually, from a file. If set to True get_assignments() will be called. Defaults to False.
         """
         print("MSMS mesh calculation for model id: ", self._model_id)
 
@@ -208,17 +216,16 @@ class SurfaceHandler:
         else:
             self._col = None
 
-    def native_mesh_and_color(self, feature=None, basic=True):
+    def native_mesh_and_color(self, feature=None):
         """
         Returns a mesh without the need for the MSMS binary. The mesh and coloring is also saved to the following file names:
         Mesh: "root directory"/data/meshes/{pdb_id}_{model_id}.obj
         Color: "root directory"/data/meshes/{pdb_id}_{feature}_{model_id}
         Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.
 
-        :param name: basic - Set to True to plot a very basic surface mesh (Van-der-Waals spheres for each atom). This mesh will not be saved to an .obj file. Default: False.
-        :param type: bool, optional
-        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to "".
-        :param type: str, optional
+        Parameters:
+            feature: str, optional
+                Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to "".
         """
         print("Native mesh calculation for model id: ", self._model_id)
         if self._mesh_needed:
@@ -233,40 +240,33 @@ class SurfaceHandler:
             mesh_ = pv.wrap(self._atmsurf[0])
             for mesh in self._atmsurf[1:]:
                 mesh_ = mesh_ + (mesh)
-            print(" - Spheres added")
+            
+            # blur the spheres and extract edges (pyvista)
+            mesh_ = mesh_.extract_surface()#.extract_feature_edges(1)#.delaunay_3d(alpha=a).extract_feature_edges(2)
+            # create trimesh mesh
+            new = trimesh.Trimesh(mesh_.points)
+            cloud = o3d.geometry.PointCloud()
+            cloud.points = o3d.utility.Vector3dVector(new.vertices)
+            # cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
+            cloud.estimate_normals()
 
-            if basic:
-                return mesh_
+            # to obtain a consistent normal orientation
+            cloud.orient_normals_towards_camera_location(cloud.get_center())
 
+            # or you might want to flip the normals to make them point outward, not mandatory
+            cloud.normals = o3d.utility.Vector3dVector( - np.asarray(cloud.normals))
+            # reconstruct the surface mesh as a trimesh mesh
+            tri_mesh, _ = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(cloud, depth=5)
+            print(" - Poisson completed")
+            v = np.asarray(tri_mesh.vertices)
+            f = np.array(tri_mesh.triangles)
 
-            if not basic:
-                
-                # blur the spheres and extract edges (pyvista)
-                mesh_ = mesh_.extract_surface()#.extract_feature_edges(1)#.delaunay_3d(alpha=a).extract_feature_edges(2)
-                # create trimesh mesh
-                new = trimesh.Trimesh(mesh_.points)
-                cloud = o3d.geometry.PointCloud()
-                cloud.points = o3d.utility.Vector3dVector(new.vertices)
-                # cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
-                cloud.estimate_normals()
+            tri_mesh = trimesh.Trimesh(v, faces=f)
 
-                # to obtain a consistent normal orientation
-                cloud.orient_normals_towards_camera_location(cloud.get_center())
-
-                # or you might want to flip the normals to make them point outward, not mandatory
-                cloud.normals = o3d.utility.Vector3dVector( - np.asarray(cloud.normals))
-                # reconstruct the surface mesh as a trimesh mesh
-                tri_mesh, _ = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(cloud, depth=5)
-                print(" - Poisson completed")
-                v = np.asarray(tri_mesh.vertices)
-                f = np.array(tri_mesh.triangles)
-
-                tri_mesh = trimesh.Trimesh(v, faces=f)
-
-                self._mesh = tri_mesh
-                meshname = self._mesh_path + "_" + str(self._model_id) + '.obj'
-                tri_mesh.export(meshname)
-                print("Mesh calculation done.")
+            self._mesh = tri_mesh
+            meshname = self._mesh_path + "_" + str(self._model_id) + '.obj'
+            tri_mesh.export(meshname)
+            print("Mesh calculation done.")
             
 
         # only needed if feature is specified (-> color map needs to be calculated)
@@ -294,19 +294,23 @@ class SurfaceHandler:
         Otherwise, depending on what the msms input variable is set to, compute either the msms_mesh_and_color() ir the native_mesh_and_color().
         Return the mesh and color information.
 
-        :param name: msms - If true, surface generated by msms binary is returned, else the native mesh. Default: False.
-        :param type: bool, optional
-        :param name: feature - Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.
-        :param type: str, optional
-        :param name: patch - Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
-        :param type: bool, optional
-        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
-        :param type: int, optional
-        :param name: num_models - Number of models in a trajectory. Only important for dynamic structures. Default: 0.
-        :param type: int, optional
+        Parameters:
+            msms: bool, optional
+                If true, surface generated by msms binary is returned, else the native mesh. Default: False.
+            feature: str, optional
+                Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to None.
+            patch: bool, optional
+                Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
+            model_id: int, optional
+                The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+            num_models: int, optional
+                Number of models in a trajectory. Only important for dynamic structures. Default: 0.
         
-        :returns: trimesh.Trimesh - The mesh corresponding to the surface of the protein.
-        :returns: numpy.ndarray - Coloring map corresponding to specified feature.
+        Returns: 
+            trimesh.Trimesh
+                The mesh corresponding to the surface of the protein.
+            numpy.ndarray
+                Coloring map corresponding to specified feature.
         """
         self._color_needed = True
         self._mesh_needed = True

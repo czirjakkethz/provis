@@ -1,5 +1,5 @@
 import pyvista as pv
-
+from os.path import exists
 from provis.src.processing.data_handler import DataHandler
 from provis.src.processing.name_checker import NameChecker
 
@@ -16,57 +16,61 @@ class Structure:
         
         Apart from the required NameChecker object one can also pass a DataHandler for even more control.
         
-        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
-        :param type: NameChecker
-        :param name: dh - Instance of a DataHandler class. Used to retrieve atom-positional information. Default: None. If None a new DataHandler variable will be initialized with "nc".
-        :param type: DataHandler, optional
-        :param name: plot_solvent - If True solvent molecules will also be plotted. Default: False.
-        :param type: bool, optional
-        :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
-        :param type: bool, optional 
-        :param name: msms - Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False.
-        :param type: bool, optional
+        Parameters:
+            nc: NameChecker
+                Instance of a NameChecker class. Used to pass the pdb file name and paths.
+            dh: DataHandler, optional
+                Instance of a DataHandler class. Used to retrieve atom-positional information. Default: None. If None a new DataHandler variable will be initialized with "nc".
+            plot_solvent: bool, optional
+                If True solvent molecules will also be plotted. Default: False.
+            notebook: bool, optional 
+                Needs to be set to true to work in a notebook environment. Defualts to False.
+            msms: bool, optional
+                Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False.
         """
         self._msms = msms
         self._notebook = notebook
         self._shading = not self._notebook
         self._solvent = plot_solvent
-        self._id, self._name, self._base_path, self._mesh_path = nc.return_all()
+        self._path, self._out_path, self._base_path, self._mesh_path = nc.return_all()
         # create "brain" of plotting class
         if not dh:
             self._dh = DataHandler(nc)
         else:
             self._dh = dh
-
+        self._cam_pos = [0, 0, 0]
 
     def manual_plot(self, box=0, res=0, outname=0, atoms=0, col_a=0, bonds=0, vw=0, residues=0, col_r=0, bb=0, camera=None):
         """
         Plot stick and point model. In this function one can pass all the desired meshes to be plotted. One can get these meshes from the DataHandler class.
         
-        :param name: box - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - List of pyvista Shperes representing each residue, default: 0.
-        :param type: list, optional
-        :param name: outname - save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._name}_stick_point.
-        :param type: string, optional
-        :param name: atoms - List of pyvista Shperes representing each atom, default: 0.
-        :param type: list, optional
-        :param name: col_a - List of colors for each atom, default: 0.
-        :param type: list, optional
-        :param name: bonds - List of pyvista Lines representing each bond, default: 0.
-        :param type: list, optional
-        :param name: vw - If True styling for Van-der-Waals plotting set. Vw atomic objects still have to be passed under 'atoms' variable.
-        :param type: bool, optional
-        :param name: col_r - List of colors for each residue, default: 0.
-        :param type: list, optional
-        :param name: res - Specified residues will be plotted with a bounding box around them.
-        :param type: Residue, optional
-        :param name: bb - List of coordinates describing the back-bone of the protein, default: 0.
-        :param type: bool, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box: bool, optional
+                If True bounding box also visualized, default: 0.
+            res: list, optional
+                List of pyvista Shperes representing each residue, default: 0.
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img directory. default: data/img/{self._out_path}_stick_point.
+            atoms: list, optional
+                List of pyvista Shperes representing each atom, default: 0.
+            col_a: list, optional
+                List of colors for each atom, default: 0.
+            bonds: list, optional
+                List of pyvista Lines representing each bond, default: 0.
+            vw: bool, optional
+                If True styling for Van-der-Waals plotting set. Vw atomic objects still have to be passed under 'atoms' variable.
+            col_r: list, optional
+                List of colors for each residue, default: 0.
+            res: Residue, optional
+                Specified residues will be plotted with a bounding box around them.
+            bb: bool, optional
+                List of coordinates describing the back-bone of the protein, default: 0.
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         
-        :return: Pyvista.Plotter window - Window with interactive plot
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot
         """
         
         pl = pv.Plotter(notebook=self._notebook)
@@ -108,11 +112,11 @@ class Structure:
         
         
         if bb:
-            pl.add_mesh(pv.Spline(bb), render_lines_as_tubes=True, smooth_shading=self._shading, line_width=10)
+            pl.add_mesh(bb, render_lines_as_tubes=True, smooth_shading=self._shading, line_width=10)
         
         # save a screenshot
         if not outname:
-            new_name = self._name.split('/')
+            new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
         
@@ -129,40 +133,54 @@ class Structure:
         
         All information to be plotted is already computed. This function simply dictates what is to be plotted.
         
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_stick_point.png. If Structure class was initialized with msms=True then output will have "_msms.png" as the ending.
-        :param type: string, optional
-        :param name: atoms - Plot atoms, default: 0.
-        :param type: bool, optional
-        :param name: bonds, optional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: 0.
-        :param type: int, optional
-        :param name: vw - Plot Wan-der-Waals radii instead of atomic radii.
-        :param type: bool, optional
-        :param name: residues, optional - Plot residue, default: 0.
-        :param type: bool, optional
-        :param name: bb - If True backbone of protein is plotted. Default: False.
-        :param type: bool, optional
-        :param name: title - Title of the plot window. Defaults to None.
-        :param type: str, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
-        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
-        :param type: int, optional
-        :param name: dynamic - Set to True if you are plotting a dynamic model. Default: False.
-        :param type: bool, optional
+        Parameters:
+            box: bool, optional
+                ptional - If True bounding box also visualized, default: 0.
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_stick_point.png. If Structure class was initialized with msms=True then output will have "_msms.png" as the ending.
+            atoms: bool, optional
+                Plot atoms, default: 0.
+            bonds: int, optional
+                ptional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: 0.
+            vw: bool, optional
+                Plot Wan-der-Waals radii instead of atomic radii.
+            residues: bool, optional
+                ptional - Plot residue, default: 0.
+            bb: bool, optional
+                If True backbone of protein is plotted. Default: False.
+            title: str, optional
+                Title of the plot window. Defaults to None.
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+            model_id: int, optional
+                The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
+            dynamic: bool, optional
+                Set to True if you are plotting a dynamic model. Default: False.
         
-        :return: Pyvista.Plotter window - Window with interactive plot
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot
         """
         atom_data = self._dh.get_atoms(show_solvent=self._solvent, model_id=model_id) # second arg: 1 = show_solvent
-        
+        self._cam_pos = self._dh._cam_pos
         pl = pv.Plotter(notebook=self._notebook)
         print("Structure plotter created for model id: ", model_id)
         pl.background_color = 'grey'
         pl.enable_3_lights()
 
+        # if specified add bounding box
+        if box:
+            pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
+            print("Bounding box added...")
+            
+        if camera: 
+            pl.camera = camera
+            print("Camera added...")
+        else:
+            pl.camera_position = self._cam_pos
+              
         # adding the spheres (by atom type) one at a time
         opacity = 1 - vw*0.4
         style = 'surface'
@@ -181,15 +199,54 @@ class Structure:
                 print("Atoms added...")
 
         if bonds:
-            ## return list of lines (meshes)
-            _bonds, _bond_col = self._dh.get_bond_mesh()
             # adding the bonds one at a time
+            bond_mesh_name = self._mesh_path + "_" + str(model_id) + "_bonds"
             if bonds == 1:
-                for b in _bonds:
-                    pl.add_mesh(b, color="w", line_width=5, render_lines_as_tubes=True)
+                bond_mesh_name += ".vtk"
+                if exists(bond_mesh_name):
+                    mesh = pv.PolyData(bond_mesh_name)
+                else:
+                    ## return list of lines (meshes)
+                    _bonds, _bond_col, _ = self._dh.get_bond_mesh()
+                    mesh = pv.PolyData()
+                    for b in _bonds:
+                        mesh += b
+                    mesh.save(bond_mesh_name)
+                pl.add_mesh(mesh, color="w", line_width=5, render_lines_as_tubes=True)
             if bonds == 2:
+                _bonds, _bond_col, _ = self._dh.get_bond_mesh()
                 for b, c in zip(_bonds, _bond_col):
                     pl.add_mesh(b, color=c, line_width=5, render_lines_as_tubes=True)
+                # colors = []
+                # mesh = pv.PolyData()
+                # bond_col_name = bond_mesh_name + "_col"
+                # bond_mesh_name += "_col.stl"         
+                # if exists(bond_mesh_name) and exists(bond_col_name):
+                #     mesh = pv.PolyData(bond_mesh_name)
+                #     with open(bond_col_name, 'rb') as f:
+                #         colors = pickle.load(f)
+                # else:
+                #     # # return list of lines (meshes)
+                #     # _bonds, _bond_col, _ = self._dh.get_bond_mesh()
+                #     # mesh = pv.PolyData()
+
+                #     # for b, c in zip(_bonds, _bond_col):
+                #     #     pl.add_mesh(b, color=c, line_width=5, render_lines_as_tubes=True)
+                    
+                #     # return list of lines (meshes)
+                    
+                #     _bonds, _bond_col, _bond_names = self._dh.get_bond_mesh()
+                #     print(len(_bond_names))
+                #     mesh = pv.PolyData()
+                #     colors = []
+                #     for j, b in enumerate(_bonds):
+                #         mesh += b
+                #         colors += [_bond_names[j]] * len(b.points)
+                #     import pickle
+                #     print(len(mesh.points))
+                #     with open(bond_col_name, 'wb') as f:
+                #         pickle.dump(colors, f)
+                # pl.add_mesh(b, scalars=colors, line_width=5, render_lines_as_tubes=True)
             print("Bonds added...")
                 
                 
@@ -198,7 +255,7 @@ class Structure:
         if residues:
             ## return list of spheres (meshes) and colors for the spheres
             res_data = self._dh.get_residues()
-            _residues, _col_r = self._dh.get_residue_mesh(res_data)
+            _residues, _col_r, _ = self._dh.get_residue_mesh(res_data)
             
             for k, mesh in enumerate(_residues):
                 pl.add_mesh(mesh, color=_col_r[k], opacity=0.2)
@@ -206,7 +263,7 @@ class Structure:
 
         if bb:
             bb_mesh = self._dh.get_backbone_mesh()
-            pl.add_mesh(pv.Spline(bb_mesh), render_lines_as_tubes=True, line_width=10)
+            pl.add_mesh(bb_mesh, render_lines_as_tubes=True, line_width=10)
             print("Back-bone added...")
              
         if res:
@@ -223,24 +280,13 @@ class Structure:
                     pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
             print("Residues marked...")
           
-        # if specified add bounding box
-        if box:
-            pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
-            print("Bounding box added...")
-            
-        if camera: 
-            pl.camera.position = camera
-            print("Camera added...")
-        # else:
-        #     pl.camera_position = 'xy'#
-              
         # save a screenshot
         if not outname or outname[0] == '_':
             ending = ".png"
             if self._msms:
                 ending = "_msms" + ending
                 
-            new_name = self._name.split('/')
+            new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             
             ident = '_stick_point'
@@ -256,16 +302,19 @@ class Structure:
         """
         Plot stick and point model of the protein. Atoms are spheres, bonds are tubes.
         
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box: bool, optional
+                ptional - If True bounding box also visualized, default: 0.
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
 
         self.plot(atoms=1, box=box, vw=0, bonds=1, residues=0, res=res, outname=outname, title="Stick Point", camera=camera)
@@ -276,16 +325,19 @@ class Structure:
         
         Consult https://en.wikipedia.org/wiki/CPK_coloring for the coloring. 
         
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box: bool, optional
+                ptional - If True bounding box also visualized, default: 0.
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         if not outname:
             outname = '_atoms'
@@ -297,16 +349,19 @@ class Structure:
         
         For coloring information please visit: http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm
         
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box: bool, optional
+                ptional - If True bounding box also visualized, default: 0.
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         
         if not outname:
@@ -318,16 +373,19 @@ class Structure:
         Plot Van-der-Waals radius of atoms as spheres. Spheres have a wireframe style to be able to view inner structure as well.
         To plot Van-der-Waals radii as solid spheres use the manual_plot() member function.
         
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box: bool, optional
+                ptional - If True bounding box also visualized, default: 0.
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         if not outname:
             outname = '_vw'
@@ -346,18 +404,21 @@ class Structure:
         - Aromatic bonds: purple
         - Undefined/Anything else: black
         
-        :param name: box - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
-        :param type: string, optional
-        :param name: colorful - If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False
-        :param type: bool, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box: bool, optional
+                If True bounding box also visualized, default: 0.
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
+            colorful: bool, optional
+                If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         b = bool(colorful) * 1 + 1
         
@@ -370,16 +431,19 @@ class Structure:
         """
         Plots the backbone (roughly the amide bonds) of the protein.
         
-        :param name: box - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_backbone.png.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box: bool, optional
+                If True bounding box also visualized, default: 0.
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_backbone.png.
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         
         if not outname:

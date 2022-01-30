@@ -17,14 +17,15 @@ class FileConverter():
         """
         If "convert_all" set to True conversions instant. Creates xyzr and mol2 files in every case and pqr, face and vert files if appropriate binary exists.
         
-        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
-        :param type: str, optional
-        :param name: density - Density of triangles. Default: 3.0.
-        :param type: float, optional
-        :param name: base_path - Path to "working directory" according to the rules of NameChecker().
-        :param type: str, optional
-        :param name: convert_all - Set to True if you want to convert all necessairy files on initialization. Default: False.
-        :param type: bool, optional
+        Parameters:
+            nc: str, optional
+                Instance of a NameChecker class. Used to pass the pdb file name and paths.
+            density: float, optional
+                Density of triangles. Default: 3.0.
+            base_path: str, optional
+                Path to "working directory" according to the rules of NameChecker().
+            convert_all: bool, optional
+                Set to True if you want to convert all necessairy files on initialization. Default: False.
         """
 
         self._path, self._out_path, self._base_path, mesh = nc.return_all()
@@ -40,12 +41,15 @@ class FileConverter():
         """
         Converts .pdb to .xyzrn file.
         
-        :param name: path - Name of input (pdb) file (without extension)
-        :param type: str
-        :param name: output - Name of output (xyzrn) file (without extension)
-        :param type: str
+        Parameters:
+            path: str
+                Name of input (pdb) file (without extension)
+            output: str
+                Name of output (xyzrn) file (without extension)
         
-        :return: void - xyzrn file
+        Returns: 
+            void
+                xyzrn file
         """
 
         # create filepath+filename.xyzrn for output file
@@ -65,12 +69,15 @@ class FileConverter():
         It takes the {path}.xyzrn file as input and output is written to {path}_out_{dens}
         Binary path is read in from environment variable: MSMS_BIN. If environment variable does not exist binary will be looked up in provis/binaries/msms.
         
-        :param name: path - Path to the/Name of the .xyzrn file to be converted.
-        :param type: str
-        :param name: dens - Density of triangulation
-        :param type: float
+        Parameters:
+            path: str
+                Path to the/Name of the .xyzrn file to be converted.
+            dens: float
+                Density of triangulation
         
-        :return: void - face and vert files
+        Returns: 
+            void
+                face and vert files
         """
         # print("./msms.exe -if %4s.xyzr -of %4s_out_%s -density %s" % (name, name, str(int(dens)), str(dens)))
 
@@ -104,10 +111,15 @@ class FileConverter():
         """
         Run openbabel, to convert pdb to mol2
         
-        :param name: path - Name of input (pdb) file (without extension)
-        :param type: str        
-        :param name: outpath - Name of desired output file (without extension). It will add .mol2 to the given path.
-        :param type: str
+        Parameters:
+            path: str        
+                Name of input (pdb) file (without extension)
+            outpath: str
+                Name of desired output file (without extension). It will add .mol2 to the given path.
+               
+        Returns: 
+            void
+                mol2 file
         """
         
         if not os.path.exists(outpath + ".mol2"):
@@ -126,12 +138,17 @@ class FileConverter():
         
         Binary path is read in from environment variable: PDB2PQR_BIN. If environment variable does not exist binary will be looked up in binaries/pdb2pqr/pdb2pqr.
         
-        :param name: path - Name of input (pdb) file (without extension)
-        :param type: str        
-        :param name: outpath - Name of desired output file (without extension). It will add .pqr to the given path.
-        :param type: str
-        :param name: forcefield - Force field used for charge computation, by binary. Default: swanson. Options: amber, charmm, parse, tyl06, peoepb and swanson
-        :param type: str, optional
+        Parameters:
+            path: str        
+                Name of input (pdb) file (without extension)
+            outpath: str
+                Name of desired output file (without extension). It will add .pqr to the given path.
+            forcefield: str, optional
+                Force field used for charge computation, by binary. Default: swanson. Options: amber, charmm, parse, tyl06, peoepb and swanson
+              
+        Returns: 
+            void
+                pqr file
         """
         
         try:
@@ -164,10 +181,13 @@ class FileConverter():
 
         Only executes decomposition if the first file ("{pdb_file_name}_0.pdb") does not exists to avoid unnecessairy recomputation.
         
-        :param name: path - Name of input (pdb) file (without extension)
-        :param type: str   
+        Parameters:
+            path: str   
+                Name of input (pdb) file (without extension)
 
-        :returns: int - Number of models in the trajectory.
+        Returns: 
+            int
+                Number of models in the trajectory.
         """
         print("Decomposing trajectory pdb file")
         # Writing to a file
@@ -224,10 +244,11 @@ class FileConverter():
         CAUTION: provis does not recompute existing files. So if you have a molecule that you want to plot multiple times then do not delete the temporary files.
         WARNING: as provis does not recompute existing files it might occur that an old version of the file is stored in the temporary directories and this might cause provis to fail. If this is the case simply delete all temporary files (as well as meshes).
 
-        :param name: delete_img -  If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that "anything"). Default: False.
-        :param type: bool, optional
-        :param name: delete_meshes - If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that "anything"). Default: False
-        :param type: bool, optional
+        Parameters:
+            delete_img: bool, optional
+                 If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that "anything"). Default: False.
+            delete_meshes: bool, optional
+                If True all files of the form {pdb_id}_{*} will be deleted from the data/meshes directory. (pdb_id is the name of the .pdb file without the .pdb extension and {*} represents that "anything"). Default: False
         """
 
         import os, shutil

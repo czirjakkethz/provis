@@ -10,12 +10,17 @@ def import_atm_size_info(vw=False):
     
     Coloring from: https://sciencenotes.org/molecule-atom-colors-cpk-colors/
     
-    :param name: vw - Option to return vanderwaals radius. Default: False.
-    :param type: bool, optional
+    Parameters:
+        vw: bool, optional
+            Option to return vanderwaals radius. Default: False.
     
-    :return: dict - dictionary of atomic radius by atom name
-    :return: dict - dictionary of color by atom name
-    :return: dict - return dictionary of vw rdius by atom name
+    Returns: 
+        dict
+            dictionary of atomic radius by atom name
+        dict
+            dictionary of color by atom name
+        dict
+            return dictionary of vw rdius by atom name
     """
     
 
@@ -301,7 +306,8 @@ def import_atm_mass_info():
     """
     Funtion to load dictionary storing atomic mass information by atom type.
     
-    :return: dict - dictionary of atomic mass by atom name
+        dict
+            dictionary of atomic mass by atom name
     """
     
     massdict = {'H': 1.00797, 
@@ -428,8 +434,11 @@ def import_res_size_info():
         
     Coloring from: http://acces.ens-lyon.fr/biotic/rastop/help/colour.htm
     
-    :return: dict - dictionary of radius by residue name
-    :return: dict - dictionary of color by residue name
+    Parameters:
+        dict
+            dictionary of radius by residue name
+        dict
+            dictionary of color by residue name
     """
     # could not find volume information for CYS, HIS, LYS, THR, TYR
     # for above mentioned apporximation by "closest" available

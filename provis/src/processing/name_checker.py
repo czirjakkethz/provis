@@ -21,10 +21,11 @@ class NameChecker:
         
         This class is passed to all other classes and ensures that all the plotting classes plot the same pdb file.
 
-        :param name: name - Name and path to location of the pdb file. If simply pdb id (file name without .pdb extension) is provided the default directory - provis/data/pdb - will be searched for the file. If no file found the input is returned.
-        :param type: str
-        :param name: base_path - Easiest if you leave this alone, clone the provis git repo and run everything in the provis root directory. Path to the base directory with the following file structure: {base_path}/data/data, {base_path}/data/img, {base_path}/data/tmp, {base_path}/data/pdb AND {base_path}/binaries that contains the binaries required to run provis. Defaults to the "provis" packages path.
-        :param type: str, optional
+        Parameters:
+            name: str
+                Name and path to location of the pdb file. If simply pdb id (file name without .pdb extension) is provided the default directory - provis/data/pdb - will be searched for the file. If no file found the input is returned.
+            base_path: str, optional
+                Easiest if you leave this alone, clone the provis git repo and run everything in the provis root directory. Path to the base directory with the following file structure: {base_path}/data/data, {base_path}/data/img, {base_path}/data/tmp, {base_path}/data/pdb AND {base_path}/binaries that contains the binaries required to run provis. Defaults to the "provis" packages path.
         """
         # disable warning from external binaries. Provis works regardless and clutters output.
         import warnings
@@ -69,9 +70,13 @@ class NameChecker:
         """
         Return all class variables. This function is used by all other provis classes to retrieve the paths to the files needed.
         
-        :return: str - path to the input pdb id (file without the extension)
-        :return: str - path to the output pdb id - data/tmp/{pdb_id}
-        :return: str - path to the root of the provis directory. Following file structure HAS TO exist within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.
+        Returns: 
+            str
+                path to the input pdb id (file without the extension)
+            str
+                path to the output pdb id - data/tmp/{pdb_id}
+            str
+                path to the root of the provis directory. Following file structure HAS TO exist within: {path}/data/data, {path}/data/img, {path}/data/tmp, {path}/data/pdb.
         """
         
         return self._pdb_name, self._out_path, self._base_path, self._mesh_path

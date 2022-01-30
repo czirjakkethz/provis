@@ -29,10 +29,13 @@ def compute_shape_index(mesh) -> np.ndarray:
     point. These values are derived using Trimesh's available geometric
     processing functionality.
 
-    :param name: mesh: The mesh is constructed using information about vertices and faces.
-    :param type: Trimesh
+    Parameters:
+        mesh: Trimesh
+            The mesh is constructed using information about vertices and faces.
 
-    :returns: np.ndarray - Shape index for each vertex
+    Returns: 
+        np.ndarray
+            Shape index for each vertex
     """
     normals = mesh.vertex_normals
     # n1 = mesh.get_attribute("vertex_nx")
@@ -61,14 +64,17 @@ def compute_hbonds(vertices: np.ndarray, residues: List[Residue],
                    names: List[str]) -> np.ndarray:
     """Compute H-bond (hydrogen-bond) induced charges at every vertex.
     
-    :param name: vertices - Vertices of mesh
-    :param type: np.ndarray
-    :param name: residues - List of residues to compute
-    :param type: List[Residue]
-    :param name: names - List of custom names created by output_pdb_as_xyzrn()
-    :param type: List[str]
+    Parameters:
+        vertices: np.ndarray
+            Vertices of mesh
+        residues: List[Residue]
+            List of residues to compute
+        names: List[str]
+            List of custom names created by output_pdb_as_xyzrn()
     
-    :returns: np.ndarray - Array of bonds, by vertex
+    Returns: 
+        np.ndarray
+            Array of bonds, by vertex
     """
     
     residue_dict = {}
@@ -113,16 +119,19 @@ def assign_props_to_new_mesh(new_vertices,
     Assign properties to vertices in modified mesh given the initial mesh. The
     assignment is carried using a KDTree data structure to query nearest points.
 
-    :param name: new_vertices - Vertices on the modified mesh
-    :param type: np.ndarray 
-    :param name: old_vertices - Vertices on the original mesh
-    :param type: np.ndarray 
-    :param name: old_props - Property values for each vertex on the original mesh
-    :param type: np.ndarray 
-    :param name: feature_interpolation - If set to True interpolates features to new vertices.
-    :param type: bool, (default True)
+    Parameters:
+        new_vertices: np.ndarray 
+            Vertices on the modified mesh
+        old_vertices: np.ndarray 
+            Vertices on the original mesh
+        old_props: np.ndarray 
+            Property values for each vertex on the original mesh
+        feature_interpolation: bool, (default True)
+            If set to True interpolates features to new vertices.
 
-    :returns: np.ndarray - Property values for vertices on the modified mesh
+    Returns: 
+        np.ndarray
+            Property values for vertices on the modified mesh
     """
     dataset = old_vertices
     testset = new_vertices
@@ -162,10 +171,13 @@ def compute_hydrophobicity(names: List[str]) -> np.ndarray:
     This is used to assign a hydrophobicity value to each vertex using the Kyte-
     Doolittle scale.
 
-    :param name: names - Identifier names for each vertex in the surface
-    :param type: List[str]
+    Parameters:
+        names: List[str]
+            Identifier names for each vertex in the surface
     
-    :returns: np.ndarray - Hydrophobicity values for each surface vertex
+    Returns: 
+        np.ndarray
+            Hydrophobicity values for each surface vertex
     """
     hp = np.zeros(len(names))
     for ix, name in enumerate(names):
@@ -182,14 +194,17 @@ def compute_charges(vertices: np.ndarray, pdb_id: str, path: str) -> np.ndarray:
     provided within APSB suite is used to assign charges to each vertex. The
     charges are further normalized.
 
-    :param name: vertices - Surface vertex coordinates
-    :param type: np.ndarray
-    :param name: pdb_id - PDB ID of the protein
-    :param type: str
-    :param name: path - Path of the pqr file in the form {path}.pqr
-    :param type: str
+    Parameters:
+        vertices: np.ndarray
+            Surface vertex coordinates
+        pdb_id: str
+            PDB ID of the protein
+        path: str
+            Path of the pqr file in the form {path}.pqr
     
-    :returns: np.ndarray - Charge values for each vertex
+    Returns: 
+        np.ndarray
+            Charge values for each vertex
     """
 
     charge_file = f"{path}.pqr"
@@ -217,26 +232,32 @@ def compute_surface_features(surface: Surface,
                              pdb_id: str = None) -> Tuple[np.ndarray]:
     """Computes all patch features.
 
-    :param name: surface: Tuple of attributes characterizing the surface. These include vertices,
-        faces, normals to each vertex, areas, fdue identifiers for vertices.
-    :param type: Surface
-    :param name: pdb_file - PDB File containing the atomic coordinates
-    :param type: str
-    :param name: path - Path to files without extensions. Usually data/tmp/{pdb_id}
-    :param type: str
-    :param name: mesh - The mesh.
-    :param type: trimesh.Trimesh
-    :param name: fix_mesh - Whether to fix the mesh by collapsing nodes and edges. Default: False.
-    :param type: bool, optional
-    :param name: return_mesh - Whether to return the mesh. Default: False.
-    :param type: bool, optional
-    :param name: pdb_id - PDB id of the associated protein. Default: None
-    :param type: str, optional
+    Parameters:
+        surface: Surface
+            Tuple of attributes characterizing the surface. These include vertices,
+            faces, normals to each vertex, areas, fdue identifiers for vertices.
+        pdb_file: str
+            PDB File containing the atomic coordinates
+        path: str
+            Path to files without extensions. Usually data/tmp/{pdb_id}
+        mesh: trimesh.Trimesh
+            The mesh.
+        fix_mesh: bool, optional
+            Whether to fix the mesh by collapsing nodes and edges. Default: False.
+        return_mesh: bool, optional
+            Whether to return the mesh. Default: False.
+        pdb_id: str, optional
+            PDB id of the associated protein. Default: None
 
-    :returns: np.ndarray - Shape index
-    :returns: np.ndarray - Hydrogen bond induced charges
-    :returns: np.ndarray - Hydrophobicity of each surface vertex
-    :returns: np.ndarray - Electrostatics of each surface vertex
+    Returns: 
+        np.ndarray
+            Shape index
+        np.ndarray
+            Hydrogen bond induced charges
+        np.ndarray
+            Hydrophobicity of each surface vertex
+        np.ndarray
+            Electrostatics of each surface vertex
     """
     residues = get_residues(pdb_file)
     vertices, faces, normals, names, areas = surface

@@ -10,8 +10,8 @@ class Surface:
     The Surface class is used to visualize the surface information of the given molecule.
     
     The class can visualize two kinds of surfaces:
-    - a chemically accurate surface created by the MSMS binary. 
-    - a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is fast, but less precise.)
+     - a chemically accurate surface created by the MSMS binary.
+     - a good approximation of the surface computed natively with o3d and trimesh. (MSMS does not have to be installed for this option. It is fast, but less precise.)
     
     Choose between the two by setting the msms Boolean variable. (Default: True, corresponding to the MSMS binary option.)
     
@@ -25,18 +25,20 @@ class Surface:
         
         Apart from the required NameChecker object one can also pass a SurfaceHandler for even more control.
         
-        :param name: nc - Instance of a NameChecker class. Used to pass the pdb file name and paths.
-        :param type: NameChecker
-        :param name: sh - Instance of SurfaceHandler. This class computes the required surface meshes for the plots. The "brain" of the Surface class. Default: None - a SurfaceHandler class will be initialized with the NameChecker object.
-        :param type: SurfaceHandler, optional
-        :param name: msms - If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: True.
-        :param type: bool, optional
-        :param name: density - sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density
-        :param type: float, optional
-        :param name: notebook - Needs to be set to true to work in a notebook environment. Defualts to False.
-        :param type: bool, optional 
-        :param name: msms - Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False.
-        :param type: bool, optional
+        Parameters:
+            nc: NameChecker
+                Instance of a NameChecker class. Used to pass the pdb file name and paths. 
+            sh: SurfaceHandler, optional
+                Instance of SurfaceHandler. This class computes the required surface meshes for the plots. The "brain" of the Surface class. Default: None :
+                a SurfaceHandler class will be initialized with the NameChecker object. 
+            msms: bool, optional
+                If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: True. 
+            density: float, optional
+                sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density 
+            notebook: bool, optional 
+                Needs to be set to true to work in a notebook environment. Defualts to False. 
+            msms: bool, optional
+                Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False. 
         """
         self._msms = msms
         self._path, self._out_path, self._base_path, self._mesh_path = nc.return_all()
@@ -56,27 +58,29 @@ class Surface:
         If you run into any sort of error concerning array size mismatching or of the sort delete all the temporary files and the mesh ({root directory}/data/meshes/{pdb_id}_{model_id}.obj).
         This will force everything to be recomputed and the dimension mismatch should disappear.
         
-        :param name: feature - Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).
-        :param type: str, optional
-        :param name: title - Title of the plot window. Default: Surface.
-        :param type: str, optional
-        :param name: patch - If True then coloring will be read in from "root directory"/data/tmp/{pdb_id}.pth file. Default: False.
-        :param type: bool, optional
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have "_msms.png" as the ending.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
-        :param name: model_id - The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
-        :param type: int, optional
+        Parameters:
+            feature: str, optional
+                Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring). 
+            title: str, optional
+                Title of the plot window. Default: Surface. 
+            patch: bool, optional
+                If True then coloring will be read in from "root directory"/data/tmp/{pdb_id}.pth file. Default: False. 
+            box, optional: bool, optional
+                If True bounding box also visualized, default: 0. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have "_msms.png" as the ending. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
+            model_id: int, optional
+                The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0. 
         
-        
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
-        print("Calculating surface mesh with model id: ", model_id)
+        print("Calculating surface mesh")
         # get appropriate mesh and coloring
         mesh, cas = self._sh.return_mesh_and_color(self._msms, feature=feature, patch=patch)
         # plot
@@ -107,8 +111,9 @@ class Surface:
         if camera: 
             pl.camera = camera
             print("Camera added...")
-        # else:
-        #     pl.camera_position = 'xy'#
+        else:
+            self._cam_pos = self._sh._dh._cam_pos
+            pl.camera.position = self._cam_pos
         
         # save a screenshot
         if not outname or outname[0] == '_':
@@ -130,16 +135,19 @@ class Surface:
         """
         Plot the hydrophobic features of a protein.
 
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized, default: 0. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         if not outname:
             outname = '_hydrophob'
@@ -149,16 +157,19 @@ class Surface:
         """
         Plot the shape features of a protein.
 
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized, default: 0. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         
         if not outname:
@@ -169,16 +180,19 @@ class Surface:
         """
         Plot the charge features of a protein.
 
-        :param name: box, optional - If True bounding box also visualized, default: 0.
-        :param type: bool, optional
-        :param name: res - Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
-        :param type: Residue, optional
-        :param name: outname - save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface.
-        :param type: string, optional
-        :param name: camera - Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
-        :param type: pyvista.Camera, optional
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized, default: 0. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
         
-        :return: Pyvista.Plotter window - Window with interactive plot.
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
         """
         if not outname:
             outname = '_charge'

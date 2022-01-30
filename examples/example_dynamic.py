@@ -2,7 +2,7 @@
 This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
 from provis.src.plotting.dynamic_structure import DynamicStructure
-
+from provis.src.processing.residue import Residue
 def main():
     """
     This is an example file to showcase some functionalities of provis.
@@ -33,13 +33,27 @@ def main():
     
     Use the member functions of the DynamicStructure to plot the dynamic trajectory of the protein.
     """
-    ds.plot_surface()#feature="hydrophob")
-    #ds.plot_atoms()
+    # ds.plot_surface()#feature="hydrophob")
+
+    # ds.plot_tester()
+
+    # ds.plot_backbone()
+    # ds.plot_atoms()
+    # ds.plot_bonds()
+    # ds.plot_vw()
+    # ds.plot_stick_point()
+    # ds.plot_residues()
+    r = Residue(29)
+    r.add_residue(50)
+    r. add_residue(1, 1)
+    r.remove_residue(1, 1)
+    ds.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
+
 
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
     """
-    ds.file_converter.cleanup()
+    # ds.file_converter.cleanup()
 
 if __name__ == "__main__":
     main()

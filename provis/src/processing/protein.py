@@ -15,23 +15,23 @@ class Protein:
     For example: my_protein.structure.plot_atoms()
     """
   
-    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=True, notebook=False, dh=None):
+    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=True, notebook=False):
         """
         Initialize the class with the name of the pdb file and plotting can be started!
 
-        :param name: pdb_name - Name of the pdb file with or without the extension. If the file is not stored in the data/pdb directory the full path has to be specified.
-        :param type: str
-        :param name: base_path - Path to the root directory of the required directory structure (see: https://pro-vis.readthedocs.io/en/latest/setup.html#). Only needs to be specified if it is not the current working directory. Default: None.
-        :param type: str, optional
-        :param name: density - Default: 3.0.
-        :param type: float, optional
-        :param name: plot_solvent - If True solvent atoms will also be plotted. Default: False.
-        :param type: bool, optional
-        :param name: msms - Set to True if you want to compute the surface information using the msms binary. If False surface will be computed natively. Default: True.
-        :param type: bool, optional
-        :param name: notebook - Set to True when using running in a Jupyter Notebook environment. Default: False.
-        :param type: bool, optional
-        :param name: dh - Instance of DataHandler object. Needed for dynamic structure plotting. Only
+        Parameters:
+            pdb_name: str
+                Name of the pdb file with or without the extension. If the file is not stored in the data/pdb directory the full path has to be specified.
+            base_path: str, optional
+                Path to the root directory of the required directory structure (see: https://pro-vis.readthedocs.io/en/latest/setup.html#). Only needs to be specified if it is not the current working directory. Default: None.
+            density: float, optional
+                Default: 3.0.
+            plot_solvent: bool, optional
+                If True solvent atoms will also be plotted. Default: False.
+            msms: bool, optional
+                Set to True if you want to compute the surface information using the msms binary. If False surface will be computed natively. Default: True.
+            notebook: bool, optional
+                Set to True when using running in a Jupyter Notebook environment. Default: False.
         """
         if notebook:
             pyvista.set_jupyter_backend('panel')
