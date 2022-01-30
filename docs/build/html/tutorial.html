@@ -57,7 +57,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#how-the-protein-class-works">How the Protein class works</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#camera">Camera</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
@@ -146,7 +149,7 @@
 <li><p>outname (str): Save image of the plot to the file passed in this variable (otherwise saved in data/img).</p></li>
 <li><p>camera (pyvista.camera): A pyvista camera object to be make it easier to set a fixed camera position to compare two molecules.</p></li>
 </ul>
-<p>Some of the plotting functions have additional input variables. For example; <strong>plot_bonds()</strong>:</p>
+<p>Some of the plotting functions have additional input variables. One example; <strong>plot_bonds()</strong>:</p>
 <ul>
 <li><p>colorful (bool): If True different bond types will be plotted in different colors.</p>
 <blockquote>
@@ -161,6 +164,11 @@ Undefined/Anything else: black</p>
 </ul>
 </dd>
 </dl>
+<section id="camera">
+<h3>Camera<a class="headerlink" href="#camera" title="Permalink to this headline"></a></h3>
+<p>Setting a good camera position is very important. By default the camera portion is set to <strong>[0, max * 4, 0]</strong>, where <strong>max</strong> is the largest deviation of the coordinates from the center of the molecule. This ensures that the whole molecule is visible in the plot window and that the camera will always face the same direction when plotting dynamically.</p>
+<p>To set the camera position manually the <strong>DataHandler</strong> class’ instance variables named <strong>DataHandler._cam_pos</strong> (the default camera position) and <strong>DataHandler._max_coords</strong> (the maximum deviation, as explained above) might be helpful.</p>
+</section>
 </section>
 </section>
 

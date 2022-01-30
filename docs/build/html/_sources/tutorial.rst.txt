@@ -70,7 +70,7 @@ All plotting functions have the following input variables:
  - outname (str): Save image of the plot to the file passed in this variable (otherwise saved in data/img).
  - camera (pyvista.camera): A pyvista camera object to be make it easier to set a fixed camera position to compare two molecules.
  
- Some of the plotting functions have additional input variables. For example; **plot_bonds()**:
+ Some of the plotting functions have additional input variables. One example; **plot_bonds()**:
  
  - colorful (bool): If True different bond types will be plotted in different colors.
  
@@ -80,5 +80,12 @@ All plotting functions have the following input variables:
         Amide bonds: red
         Aromatic bonds: purple
         Undefined/Anything else: black
+
+Camera
+++++++++
+
+Setting a good camera position is very important. By default the camera portion is set to **[0, max * 4, 0]**, where **max** is the largest deviation of the coordinates from the center of the molecule. This ensures that the whole molecule is visible in the plot window and that the camera will always face the same direction when plotting dynamically.
+
+To set the camera position manually the **DataHandler** class' instance variables named **DataHandler._cam_pos** (the default camera position) and **DataHandler._max_coords** (the maximum deviation, as explained above) might be helpful.
         
 

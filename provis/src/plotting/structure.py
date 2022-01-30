@@ -66,7 +66,7 @@ class Structure:
             bb: bool, optional
                 List of coordinates describing the back-bone of the protein, default: 0.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
         
         Returns: 
             Pyvista.Plotter window
@@ -123,7 +123,8 @@ class Structure:
         if camera: 
             pl.camera = camera
         else:
-            pl.camera.position = 'xy'
+            self._cam_pos = self._sh._dh._cam_pos
+            pl.camera.position = self._cam_pos
         pl.show(screenshot=outname, title='Provis')
 
 
@@ -153,7 +154,7 @@ class Structure:
             title: str, optional
                 Title of the plot window. Defaults to None.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
             model_id: int, optional
                 The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
             dynamic: bool, optional
@@ -275,9 +276,11 @@ class Structure:
                 res_name = residues_list[r + 1].get_resname()
                 d = (self._dh._res_size_dict[res_name] + pad) * 2
                 x, y, z = d,d,d
-                res_exists = (self._dh.get_residue_info(r, chain,'com') != 1)
-                if res_exists:
-                    pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
+                
+                center = self._sh._dh.get_residue_info(r, chain,'com')
+                # if residue not found 1 is returned. Otherwise the coordinates
+                if center != 1:
+                    pl.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')            
             print("Residues marked...")
           
         # save a screenshot
@@ -310,7 +313,7 @@ class Structure:
             outname: string, optional
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
         
         Returns: 
             Pyvista.Plotter window
@@ -333,7 +336,7 @@ class Structure:
             outname: string, optional
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
         
         Returns: 
             Pyvista.Plotter window
@@ -357,7 +360,7 @@ class Structure:
             outname: string, optional
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_residues.png.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
         
         Returns: 
             Pyvista.Plotter window
@@ -381,7 +384,7 @@ class Structure:
             outname: string, optional
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_atoms.png.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
         
         Returns: 
             Pyvista.Plotter window
@@ -414,7 +417,7 @@ class Structure:
             colorful: bool, optional
                 If True bonds will be plotted in a colorful manner. If False all bonds are white. Default: False
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
         
         Returns: 
             Pyvista.Plotter window
@@ -439,7 +442,7 @@ class Structure:
             outname: string, optional
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_backbone.png.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None.
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
         
         Returns: 
             Pyvista.Plotter window

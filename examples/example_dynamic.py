@@ -33,20 +33,19 @@ def main():
     
     Use the member functions of the DynamicStructure to plot the dynamic trajectory of the protein.
     """
-    # ds.plot_surface()#feature="hydrophob")
+    ds.plot_surface()#feature="hydrophob")
 
-    # ds.plot_tester()
-
-    # ds.plot_backbone()
-    # ds.plot_atoms()
-    # ds.plot_bonds()
-    # ds.plot_vw()
-    # ds.plot_stick_point()
-    # ds.plot_residues()
     r = Residue(29)
     r.add_residue(50)
     r. add_residue(1, 1)
     r.remove_residue(1, 1)
+
+    ds.plot_backbone()
+    ds.plot_atoms(res=r)
+    ds.plot_bonds()
+    ds.plot_vw()
+    ds.plot_stick_point()
+    ds.plot_residues()
     ds.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
 
 

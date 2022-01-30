@@ -72,7 +72,7 @@ class Surface:
             outname: string, optional
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have "_msms.png" as the ending. 
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
             model_id: int, optional
                 The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0. 
         
@@ -96,12 +96,15 @@ class Surface:
             res_list, chain_list, pad = res.get_res_info()
             for i, r in enumerate(res_list):
                 chain = chain_list[i]
-                residues = self._dh.get_structure().get_residues()
+                residues = self._sh._dh.get_structure().get_residues()
                 residues_list = list(residues)
                 res_name = residues_list[r + 1].get_resname()
-                d = (self._dh._res_size_dict[res_name] + pad) * 2
+                d = (self._sh._dh._res_size_dict[res_name] + pad) * 2
                 x, y, z = d,d,d
-                pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
+                center = self._sh._dh.get_residue_info(r, chain,'com')
+                # if residue not found 1 is returned. Otherwise the coordinates
+                if center != 1:
+                    pl.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
             print("Residues marked...")
 
         if box:
@@ -143,7 +146,7 @@ class Surface:
             outname: string, optional
                 save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * max_distance_from_center, 0]. Default: None. 
         
         Returns:
             Pyvista.Plotter window
@@ -165,7 +168,7 @@ class Surface:
             outname: string, optional
                 save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
         
         Returns:
             Pyvista.Plotter window
@@ -188,7 +191,7 @@ class Surface:
             outname: string, optional
                 save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to 'xy'. Default: None. 
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
         
         Returns:
             Pyvista.Plotter window

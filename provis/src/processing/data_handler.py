@@ -80,8 +80,8 @@ class DataHandler:
             break
         center = np.array(atoms)
         self._centroid = center.mean(axis=0)
-        self._max_coords = center.max(axis=0)
-        self._cam_pos = [0, max(self._max_coords) * 3, 0]
+        self._max_coords = center.max(axis=0) - self._centroid
+        self._cam_pos = [0, max(self._max_coords) * 4, 0]
 
     def get_structure(self):
         """
@@ -298,6 +298,8 @@ class DataHandler:
         """
         # load info for given residue
         fname = self._out_path + ".mol2"#TODO: make so it works with trajectories
+        if not exists(fname):
+            self._fc.pdb_to_mol2(self._path, self._out_path)
         pmol = PandasMol2().read_mol2(fname)
         my = pmol.df[pmol.df['subst_id'] == res]
         
@@ -329,6 +331,7 @@ class DataHandler:
             if a == 0:
                 print("ERROR: residue empty -> center of mass could not be found")
                 return 1
+            COM_sum -= self._centroid * a
             COM = [i/a for i in COM_sum]
             return COM
             
