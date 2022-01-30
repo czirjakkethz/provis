@@ -427,10 +427,7 @@ class DynamicStructure:
             ident = '_surface'
             if outname:
                 ident = outname
-            if feature:
-                ident += '_' + feature
             outname = self._base_path + 'data/img/' + new_name + ident + ending 
-          
         # Open the movie file
         plotter.open_movie(outname, 1)
 

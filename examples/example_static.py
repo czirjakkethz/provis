@@ -53,7 +53,7 @@ def main():
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
     """
-    prot.file_converter.cleanup()
+    # prot.file_converter.cleanup()
 
 if __name__ == "__main__":
     main()
