@@ -28,7 +28,7 @@ Setting Protein class input variables
 
 .. code-block:: python
 
-	prot = Protein(name, base_path=None, density=density, plot_solvent=solvent, msms=False, notebook=False)
+    prot = Protein(name, base_path=None, density=3.0)
 
 Setting the input variables of the Protein class is the next step to take. You have to pass the **name** variable from before.
 
@@ -57,6 +57,12 @@ Finally, a **Structure** and a **Surface** class is created. These classes are i
 
 Plotting
 ############
+
+Use the Plotter class to plot. One Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
+It is also possible to add more proteins using the Plotter.add_protein(Protein) method.
+
+    plot = Plotter(prot, prot2, msms=msms, notebook=notebook)
+
 
 Plotting can be achieved by calling the member functions of the **Structure** and the **Surface** classes. For example for the **prot** class instance defined above the bonds of the molecule can be plotted as follows:
 

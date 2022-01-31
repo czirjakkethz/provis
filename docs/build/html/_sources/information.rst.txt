@@ -8,7 +8,7 @@ MSMS
 
 As explained in the Getting started section, there are two ways to compute the surface. Using the **msms** binary or natively. 
 
-Therefore, it is very important to specify which version you want to use. This can be done by setting the **msms** input variable in the constructor of the class that handles the surface plotting. These classes are: **Surface**, **Protein** and **DynamicStructure** (all three classes ultimately rely on the **Surface** class in the background).
+Therefore, it is very important to specify which version you want to use. This can be done by setting the **msms** input variable in the constructor of the class that handles the surface plotting. These classes are: **Surface**, **Protein** and **DynamicPlotter** (all three classes ultimately rely on the **Surface** class in the background).
 
 Classes
 ++++++++++
@@ -16,7 +16,7 @@ Classes
 Protein
 ^^^^^^^^^
 
-The **Protein** class encapsulates the whole **provis** library and is the easiest way to plot your (static) proteins. You can initialize it with a simple pdb filename in a single line of code and plot in the next.
+The **Protein** class encapsulates the whole processing package of the **provis** library. You can initialize it with a simple pdb filename and the class can then be used to retrieve all the necessairy information for plotting.
 
 
 NameChecker
@@ -34,37 +34,34 @@ IMPORTANT: the **FileConverter** class will not overwrite any existing files. Th
 DataHandler
 ^^^^^^^^^^^^
 
-The **DataHandler** class processes the structural information of the protein and creates the meshes for plotting. The meshes created by this class are passed to the **Structure** class for plotting.
+The **DataHandler** class processes the structural information of the protein and creates the meshes for plotting.
 
 SurfaceHandler
 ^^^^^^^^^^^^^^^^
 
-The **SurfaceHandler** class processes the structural information of the protein and creates the meshes for plotting. The meshes created by this class are passed to the **Surface** class for plotting.
+The **SurfaceHandler** class processes the structural information of the protein and creates the meshes for plotting.
 
-Structure
+
+Plotter
 ^^^^^^^^^^
 
-The Structure class handles every non-surface related plotting.
+The **Plotter** class is responsible for static plotting. It plots the internal data of the passed **Protein** class(es). If multiple **Protein** classes are passed, then they will be plotted in a side-by-side manner. 
 
-The atoms can be plotted as a point cloud, bonds or the backbone of the molecule can be visualized and so can the Van-der-Waals radius of the atoms, as well as the residues of the protein.
+DynamicPlotter
+^^^^^^^^^^^^^^^^^
 
-Surface
-^^^^^^^^
+Similar to the **Plotter** class, the **DynamicPlotter** class plots instances of the **Protein** class. This class however, focuses on dynamic plotting. It plots the trajectory of a molecule.
 
-The Surface class handles surface related plotting.
+See:
+:ref:`dynamic_plotting`.
 
-Apart from the standard surface plot, interesting surface features - hydrophobicity, shape index, charges - can also be visualized.
 
 Residue
 ^^^^^^^^
 
 The **Residue** class is a very basic class. With this class you can specify a given residue on a given chain that you want to mark in the plot. It is passed to the plotting classes and a red box is drawn around the specified residue.
 
-DynamicStructure
-^^^^^^^^^^^^^^^^^
 
-See:
-:ref:`dynamic_plotting`.
 
 Design decisions
 +++++++++++++++++
@@ -94,14 +91,6 @@ One can easily observe that all classes depend on the NameChecker class. And sin
 	DataHandler
 	   ├── NameChecker
 	   └── FileConverter          
-	 
-
-::
-
-	Structure
-	   ├── NameChecker
-	   └── DataHandler      
-
 
 ::
 
@@ -113,29 +102,21 @@ One can easily observe that all classes depend on the NameChecker class. And sin
 
 ::
 
-	Surface
-	   ├── NameChecker
-	   └── SurfaceHandler   
-
-
-::
-
 	Protein
 	   ├── NameChecker
 	   ├── FileConverter
 	   ├── DataHandler
-	   ├── SurfaceHandler
-	   ├── Structure
-	   └── Surface      
+	   └── SurfaceHandler      
 
 
 ::
 
-	DynamicStructure
-	   ├── NameChecker
-	   ├── FileConverter
-	   ├── DataHandler
-	   ├── SurfaceHandler
-	   ├── Structure
-	   └── Surface      
+	Plotter
+	   └── Protein
+	         
+::
+
+	DynamicPlotter
+	   └── Protein
+	         
 

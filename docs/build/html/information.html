@@ -57,10 +57,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#fileconverter">FileConverter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#datahandler">DataHandler</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#surfacehandler">SurfaceHandler</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#structure">Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#surface">Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotter">Plotter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamicplotter">DynamicPlotter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#residue">Residue</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dynamicstructure">DynamicStructure</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#design-decisions">Design decisions</a></li>
@@ -106,13 +105,13 @@
 <section id="msms">
 <h2>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h2>
 <p>As explained in the Getting started section, there are two ways to compute the surface. Using the <strong>msms</strong> binary or natively.</p>
-<p>Therefore, it is very important to specify which version you want to use. This can be done by setting the <strong>msms</strong> input variable in the constructor of the class that handles the surface plotting. These classes are: <strong>Surface</strong>, <strong>Protein</strong> and <strong>DynamicStructure</strong> (all three classes ultimately rely on the <strong>Surface</strong> class in the background).</p>
+<p>Therefore, it is very important to specify which version you want to use. This can be done by setting the <strong>msms</strong> input variable in the constructor of the class that handles the surface plotting. These classes are: <strong>Surface</strong>, <strong>Protein</strong> and <strong>DynamicPlotter</strong> (all three classes ultimately rely on the <strong>Surface</strong> class in the background).</p>
 </section>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
 <section id="protein">
 <h3>Protein<a class="headerlink" href="#protein" title="Permalink to this headline"></a></h3>
-<p>The <strong>Protein</strong> class encapsulates the whole <strong>provis</strong> library and is the easiest way to plot your (static) proteins. You can initialize it with a simple pdb filename in a single line of code and plot in the next.</p>
+<p>The <strong>Protein</strong> class encapsulates the whole processing package of the <strong>provis</strong> library. You can initialize it with a simple pdb filename and the class can then be used to retrieve all the necessairy information for plotting.</p>
 </section>
 <section id="namechecker">
 <h3>NameChecker<a class="headerlink" href="#namechecker" title="Permalink to this headline"></a></h3>
@@ -125,30 +124,25 @@
 </section>
 <section id="datahandler">
 <h3>DataHandler<a class="headerlink" href="#datahandler" title="Permalink to this headline"></a></h3>
-<p>The <strong>DataHandler</strong> class processes the structural information of the protein and creates the meshes for plotting. The meshes created by this class are passed to the <strong>Structure</strong> class for plotting.</p>
+<p>The <strong>DataHandler</strong> class processes the structural information of the protein and creates the meshes for plotting.</p>
 </section>
 <section id="surfacehandler">
 <h3>SurfaceHandler<a class="headerlink" href="#surfacehandler" title="Permalink to this headline"></a></h3>
-<p>The <strong>SurfaceHandler</strong> class processes the structural information of the protein and creates the meshes for plotting. The meshes created by this class are passed to the <strong>Surface</strong> class for plotting.</p>
+<p>The <strong>SurfaceHandler</strong> class processes the structural information of the protein and creates the meshes for plotting.</p>
 </section>
-<section id="structure">
-<h3>Structure<a class="headerlink" href="#structure" title="Permalink to this headline"></a></h3>
-<p>The Structure class handles every non-surface related plotting.</p>
-<p>The atoms can be plotted as a point cloud, bonds or the backbone of the molecule can be visualized and so can the Van-der-Waals radius of the atoms, as well as the residues of the protein.</p>
+<section id="plotter">
+<h3>Plotter<a class="headerlink" href="#plotter" title="Permalink to this headline"></a></h3>
+<p>The <strong>Plotter</strong> class is responsible for static plotting. It plots the internal data of the passed <strong>Protein</strong> class(es). If multiple <strong>Protein</strong> classes are passed, then they will be plotted in a side-by-side manner.</p>
 </section>
-<section id="surface">
-<h3>Surface<a class="headerlink" href="#surface" title="Permalink to this headline"></a></h3>
-<p>The Surface class handles surface related plotting.</p>
-<p>Apart from the standard surface plot, interesting surface features - hydrophobicity, shape index, charges - can also be visualized.</p>
+<section id="dynamicplotter">
+<h3>DynamicPlotter<a class="headerlink" href="#dynamicplotter" title="Permalink to this headline"></a></h3>
+<p>Similar to the <strong>Plotter</strong> class, the <strong>DynamicPlotter</strong> class plots instances of the <strong>Protein</strong> class. This class however, focuses on dynamic plotting. It plots the trajectory of a molecule.</p>
+<p>See:
+<a class="reference internal" href="dynamic_plotting.html#dynamic-plotting"><span class="std std-ref">Dynamic Structures</span></a>.</p>
 </section>
 <section id="residue">
 <h3>Residue<a class="headerlink" href="#residue" title="Permalink to this headline"></a></h3>
 <p>The <strong>Residue</strong> class is a very basic class. With this class you can specify a given residue on a given chain that you want to mark in the plot. It is passed to the plotting classes and a red box is drawn around the specified residue.</p>
-</section>
-<section id="dynamicstructure">
-<h3>DynamicStructure<a class="headerlink" href="#dynamicstructure" title="Permalink to this headline"></a></h3>
-<p>See:
-<a class="reference internal" href="dynamic_plotting.html#dynamic-plotting"><span class="std std-ref">Dynamic Structures</span></a>.</p>
 </section>
 </section>
 <section id="design-decisions">
@@ -171,38 +165,25 @@
    └── FileConverter
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Structure
-   ├── NameChecker
-   └── DataHandler
-</pre></div>
-</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SurfaceHandler
    ├── NameChecker
    ├── FileConverter
    └── DataHandler
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Surface
-   ├── NameChecker
-   └── SurfaceHandler
-</pre></div>
-</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Protein
    ├── NameChecker
    ├── FileConverter
    ├── DataHandler
-   ├── SurfaceHandler
-   ├── Structure
-   └── Surface
+   └── SurfaceHandler
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>DynamicStructure
-   ├── NameChecker
-   ├── FileConverter
-   ├── DataHandler
-   ├── SurfaceHandler
-   ├── Structure
-   └── Surface
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Plotter
+   └── Protein
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>DynamicPlotter
+   └── Protein
 </pre></div>
 </div>
 </section>

@@ -1,15 +1,22 @@
 provis.src.plotting package
 ===========================
 
-The plotting package includes the three classes that handle plotting.
+The plotting package includes the four classes that handle plotting. (While the **Structure** and **Surface** classes still work, all of their functions also exist in the **Plotter**.)
 
-One can simply call the plotting member functions of these classes (after initialization) and everything will be done automatically.
+To plot a protein, one can simply call the plotting member functions of these classes (after initialization).
 
+provis.src.plotting.dynamic\_plotter module
+-------------------------------------------
 
-provis.src.plotting.dynamic\_structure module
----------------------------------------------
+.. automodule:: provis.src.plotting.dynamic_plotter
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. automodule:: provis.src.plotting.dynamic_structure
+provis.src.plotting.plotter module
+----------------------------------
+
+.. automodule:: provis.src.plotting.plotter
    :members:
    :undoc-members:
    :show-inheritance:

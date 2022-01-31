@@ -116,7 +116,7 @@
 </section>
 <section id="setting-protein-class-input-variables">
 <h2>Setting Protein class input variables<a class="headerlink" href="#setting-protein-class-input-variables" title="Permalink to this headline"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span> <span class="o">=</span> <span class="n">Protein</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">plot_solvent</span><span class="o">=</span><span class="n">solvent</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span> <span class="o">=</span> <span class="n">Protein</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Setting the input variables of the Protein class is the next step to take. You have to pass the <strong>name</strong> variable from before.</p>
@@ -138,6 +138,11 @@
 </section>
 <section id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline"></a></h2>
+<p>Use the Plotter class to plot. One Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
+It is also possible to add more proteins using the Plotter.add_protein(Protein) method.</p>
+<blockquote>
+<div><p>plot = Plotter(prot, prot2, msms=msms, notebook=notebook)</p>
+</div></blockquote>
 <p>Plotting can be achieved by calling the member functions of the <strong>Structure</strong> and the <strong>Surface</strong> classes. For example for the <strong>prot</strong> class instance defined above the bonds of the molecule can be plotted as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_bonds</span><span class="p">()</span>
 </pre></div>

@@ -26,37 +26,47 @@ Define variables needed later:
 
 
 Second:
-Initializing the Protein class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!
+Create a **Protein** class instance. Initialize it with your *.pdb* file name and other parameters.
+
+If you want to plot multiple proteins (or different models of the same trajectory) this is also possible. Simply create a second **Protein** class instance and pass it to the **Plotter**
 
 .. code-block:: python
 
-    prot = Protein(name, base_path=None, density=density, plot_solvent=solvent, msms=False, notebook=False)
+    prot = Protein(name, base_path=None, density=density)
+    prot2 = Protein(name, base_path=None, density=density, model_id=30)
+
+Initialize the **Plotter** class. This creates all the necessairy classes in the background and you are already good to go!
+
+.. code-block:: python
+
+    plotter = Plotter(name, base_path=base_path, density=density, plot_solvent=plot_solvent, msms=msms, notebook=notebook)
 
 Third:
 Plot!
 
-Use the prot.structure (Structure class) and prot.surface (Surface class) member variables to plot.
+Use the **Plotter** to plot.
 
 .. code-block:: python
 
-    prot.structure.plot_backbone()
-    prot.structure.plot_atoms()
-    prot.structure.plot_bonds()
-    prot.structure.plot_vw()
-    prot.structure.plot_stick_point()
+    plotter.plot_backbone()
+    plotter.plot_atoms()
+    plotter.plot_bonds()
+    plotter.plot_vw()
+    plotter.plot_stick_point()
+    plotter.plot_residues()
     r = Residue(1)
     r.add_residue(3)
     r. add_residue(1, 1)
     r.remove_residue(1, 1)
-    prot.structure.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
+    plotter.plot_structure(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
     
-    prot.surface.plot()    
-    prot.surface.plot_hydrophob()
-    prot.surface.plot_shape()
-    prot.surface.plot_charge()
+    plotter.plot_surface()    
+    plotter.plot_hydrophob()
+    plotter.plot_shape()
+    plotter.plot_charge()
 
 
-And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
+And finally clean up everything with the "cleanup" function of the Protein.file_converter (**FileConverter** class) member variable.
 
 .. code-block:: python
 

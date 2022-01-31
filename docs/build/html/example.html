@@ -102,31 +102,38 @@ Define variables needed later:</p>
 </pre></div>
 </div>
 <p>Second:
-Initializing the Protein class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span> <span class="o">=</span> <span class="n">Protein</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">plot_solvent</span><span class="o">=</span><span class="n">solvent</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+Create a <strong>Protein</strong> class instance. Initialize it with your <em>.pdb</em> file name and other parameters.</p>
+<p>If you want to plot multiple proteins (or different models of the same trajectory) this is also possible. Simply create a second <strong>Protein</strong> class instance and pass it to the <strong>Plotter</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span> <span class="o">=</span> <span class="n">Protein</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">)</span>
+<span class="n">prot2</span> <span class="o">=</span> <span class="n">Protein</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Initialize the <strong>Plotter</strong> class. This creates all the necessairy classes in the background and you are already good to go!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="n">base_path</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">plot_solvent</span><span class="o">=</span><span class="n">plot_solvent</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="n">msms</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="n">notebook</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Third:
 Plot!</p>
-<p>Use the prot.structure (Structure class) and prot.surface (Surface class) member variables to plot.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_backbone</span><span class="p">()</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_atoms</span><span class="p">()</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_bonds</span><span class="p">()</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_vw</span><span class="p">()</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot_stick_point</span><span class="p">()</span>
+<p>Use the <strong>Plotter</strong> to plot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plotter</span><span class="o">.</span><span class="n">plot_backbone</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_atoms</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_bonds</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_vw</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_stick_point</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_residues</span><span class="p">()</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">Residue</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">r</span><span class="o">.</span><span class="n">add_residue</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">r</span><span class="o">.</span> <span class="n">add_residue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">r</span><span class="o">.</span><span class="n">remove_residue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">residues</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">bb</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_structure</span><span class="p">(</span><span class="n">atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">residues</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">bb</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">prot</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">plot_hydrophob</span><span class="p">()</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">plot_shape</span><span class="p">()</span>
-<span class="n">prot</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">plot_charge</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_hydrophob</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_shape</span><span class="p">()</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_charge</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>And finally clean up everything with the “cleanup” function of the prot.file_converter (FileConverter class) member variable.</p>
+<p>And finally clean up everything with the “cleanup” function of the Protein.file_converter (<strong>FileConverter</strong> class) member variable.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span><span class="o">.</span><span class="n">file_converter</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 </pre></div>
 </div>
