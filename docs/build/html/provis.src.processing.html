@@ -567,9 +567,8 @@ self._base_path - Full path of the provis directory or any directory that has th
 <dt class="sig sig-object py" id="provis.src.processing.protein.Protein">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">provis.src.processing.protein.</span></span><span class="sig-name descname"><span class="pre">Protein</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdb_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.protein.Protein" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The protein class encapsulates every other class and creates a user friendly way to plot your desired protein molecules.</p>
-<p>The desired properties of the protein can be plotted by first initializing a Protein class (eg. my_protein) and then calling the plotting functions of the Surface and Structure classes. 
-For example: my_protein.structure.plot_atoms()</p>
+<p>The protein class encapsulates every other class in the provis.src.processing package.</p>
+<p>This class contains all the necessary information need for plotting.</p>
 </dd></dl>
 
 </section>
@@ -694,8 +693,6 @@ Finally return the coloring corresponding to the specified feature.</p>
 <dd><p>Return the mesh and coloring created by the MSMS binary.</p>
 <p>The code in words:
 If self._mesh_needed is set to True - if the mesh could not be loaded from a file - compute the mesh using the .face and .vert files created by the MSMS binary.
-If self._dynamic is False - if the mesh is needed for a static molecule - and the .face and .vert files do not exist compute these files using the FileConverter class.
-Do the same for self._dynamic == True.
 If the mesh is needed compute the mesh from the .face and .vert files.
 Finally, if a feature is specified check if the color information could be loaded from a file (self._color_needed) and compute it if needed.
 If no feature specified set the variable that stores color information to None. This will result in a white mesh.</p>
@@ -728,7 +725,7 @@ Always returns a pyvista.PolyData mesh of the surface and if a feature is specif
 
 <dl class="py method">
 <dt class="sig sig-object py" id="provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color">
-<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_models</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">return_mesh_and_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.processing.surface_handler.SurfaceHandler.return_mesh_and_color" title="Permalink to this definition"></a></dt>
 <dd><p>Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
 If you could not download the MSMS binary leave the msms variable as False.</p>
 <p>If the mesh and appropriate coloring has already been stored to a file, then this information will be loaded and no computation will be done.</p>
@@ -746,8 +743,6 @@ Return the mesh and color information.</p>
 <dt>patch: bool, optional</dt><dd><p>Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.</p>
 </dd>
 <dt>model_id: int, optional</dt><dd><p>The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.</p>
-</dd>
-<dt>num_models: int, optional</dt><dd><p>Number of models in a trajectory. Only important for dynamic structures. Default: 0.</p>
 </dd>
 </dl>
 </dd>

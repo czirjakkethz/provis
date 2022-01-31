@@ -26,7 +26,6 @@ Define variables needed later:
 
     name = "2fd7"
     density = 3.0
-    plot_solvent = False
 
 
 Second:
@@ -41,7 +40,7 @@ Initialize the **DynamicPlotter** class. This creates all the necessairy classes
 
 .. code-block:: python
 
-    ds = DynamicPlotter(name, base_path=base_path, density=density, plot_solvent=plot_solvent, msms=msms, notebook=notebook)
+    dp = DynamicPlotter(prot, msms=msms, notebook=notebook, plot_solvent=plot_solvent)
 
 Third:
 Plot!
@@ -50,18 +49,18 @@ This class has its own plotting methods. Here is a complete list:
 
 .. code-block:: python
 
-    ds.plot_backbone()
-    ds.plot_atoms()
-    ds.plot_bonds()
-    ds.plot_vw()
-    ds.plot_stick_point()
-    ds.plot_residues()
-    ds.plot_structure(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
+    dp.plot_backbone()
+    dp.plot_atoms()
+    dp.plot_bonds()
+    dp.plot_vw()
+    dp.plot_stick_point()
+    dp.plot_residues()
+    dp.plot_structure(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
 
-    ds.plot_surface()
-    ds.plot_hydrophob()
-    ds.plot_shape()
-    ds.plot_charge()
+    dp.plot_surface()
+    dp.plot_hydrophob()
+    dp.plot_shape()
+    dp.plot_charge()
 
 
 And finally, cleaning up is also possible with the "cleanup" function of the Protein.file_converter (**FileConverter** class) member variable.

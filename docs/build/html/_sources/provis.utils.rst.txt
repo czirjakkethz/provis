@@ -1,6 +1,7 @@
 Utilities for Provis
 ====================
 
+All of these files contain scripts and helper methods that are used by the core classes of **provis**.
 
 provis.utils.atminfo module
 ---------------------------

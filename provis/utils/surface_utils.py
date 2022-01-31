@@ -263,7 +263,6 @@ def crossp(x: np.ndarray, y: np.ndarray) -> np.ndarray:
 def prepare_trimesh(vertices: np.ndarray,
                  faces: np.ndarray,
                  normals: np.ndarray = None,
-                 resolution: float = 1.0,
                  apply_fixes: bool = False):
     """
     Prepare the mesh surface given vertices and faces. Optionally, compute

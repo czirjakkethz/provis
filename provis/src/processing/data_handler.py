@@ -30,7 +30,7 @@ class DataHandler:
         Load structure form pdb file (by parsing file) and save Biopython structure representation of the protein.
         It also loads, above mentioned, pre-defined dictionaries from atminfo.py, that encode the size, coloring and mass of a given atom or residue.
         
-        It also calculates the center of the atomic positions (as they appear in the pdb file). This will be used to re-center the atoms.
+        It also calculates the center of the atomic positions (as they appear in the pdb file). This will be used to re-center the atoms around the origin ([0, 0, 0]).
 
         Parameters:
             nc: NameChecker

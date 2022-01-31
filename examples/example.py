@@ -43,7 +43,9 @@ def main():
     dp.plot_atoms()
 
     """
-    And finally clean up everything with the "cleanup" function of the prot.file_converter  or ds.file_converter (FileConverter class) member variable.
+    And finally clean up everything with the "cleanup" function of the prot.file_converter  or ds.file_converter (FileConverter class) member variable.    
+
+    CAUTION: it is not advised to call the cleanup function if you plan to plot the same exact molecule once agian, since it is more efficient to load information from a temporary file than to recalculate it.
     """
     prot.file_converter.cleanup()
 

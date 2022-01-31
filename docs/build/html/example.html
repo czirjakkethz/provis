@@ -85,10 +85,10 @@
              
   <section id="example">
 <h1>Example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h1>
-<p>This is an example file to showcase the easiest way to run provis in particular how to plot a single protein. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation. Otherwise set the base_path variable of the NameChecker object.</p>
-<p>If this is fullfilled path to the “root directory”/data/tmp will automatically be found.
+<p>This is an example file to showcase the easiest way to run provis in particular how to plot a single protein. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation. Otherwise set the <strong>base_path</strong> variable of the <strong>NameChecker</strong> object.</p>
+<p>If this is fullfilled path to the <em>“root directory”/data/tmp</em> will automatically be found.
 This way you can have your pdb files nicely organized in the data/pdb directory (or simply have them in the root directory).
-Your temporary files will be in the data/tmp directory and the screenshots of the plots in the data/img directory.</p>
+Your temporary files will be in the <em>data/tmp</em> directory and the screenshots of the plots in the <em>data/img</em> directory.</p>
 <p>Import the necessairy files.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">provis.src.processing.protein</span> <span class="kn">import</span> <span class="n">Protein</span>
 <span class="kn">from</span> <span class="nn">provis.src.processing.residue</span> <span class="kn">import</span> <span class="n">Residue</span>
@@ -98,7 +98,9 @@ Your temporary files will be in the data/tmp directory and the screenshots of th
 Define variables needed later:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;2fd7&quot;</span>
 <span class="n">density</span> <span class="o">=</span> <span class="mf">3.0</span>
-<span class="n">solvent</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">plot_solvent</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">msms</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">notebook</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 <p>Second:
@@ -109,7 +111,7 @@ Create a <strong>Protein</strong> class instance. Initialize it with your <em>.p
 </pre></div>
 </div>
 <p>Initialize the <strong>Plotter</strong> class. This creates all the necessairy classes in the background and you are already good to go!</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_path</span><span class="o">=</span><span class="n">base_path</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">plot_solvent</span><span class="o">=</span><span class="n">plot_solvent</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="n">msms</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="n">notebook</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="n">prot</span><span class="p">,</span> <span class="n">prot2</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="n">msms</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="n">notebook</span><span class="p">,</span> <span class="n">plot_solvent</span><span class="o">=</span><span class="n">plot_solvent</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Third:
@@ -133,7 +135,7 @@ Plot!</p>
 <span class="n">plotter</span><span class="o">.</span><span class="n">plot_charge</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>And finally clean up everything with the “cleanup” function of the Protein.file_converter (<strong>FileConverter</strong> class) member variable.</p>
+<p>And finally clean up everything with the “cleanup” function of the <strong>Protein.file_converter</strong> (<strong>FileConverter</strong> class) member variable.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot</span><span class="o">.</span><span class="n">file_converter</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 </pre></div>
 </div>

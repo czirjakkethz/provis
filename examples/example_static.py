@@ -35,7 +35,7 @@ def main():
     Third:
     Plot!
     
-    Use the Plotter class to plot. One Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
+    Use the Plotter class to plot. At least one Protein instance has to be passed. If two proteins are passed then they will be plotted side-by-side.
     It is also possible to add more proteins using the Plotter.add_protein(Protein) method.
     """
     plot = Plotter(prot, prot2, msms=msms, notebook=notebook)
@@ -58,7 +58,9 @@ def main():
     plot.plot_charge(res=r)
 
     """
-    And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
+    And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.    
+
+    CAUTION: it is not advised to call the cleanup function if you plan to plot the same exact molecule once agian, since it is more efficient to load information from a temporary file than to recalculate it.
     """
     # prot.file_converter.cleanup()
 

@@ -1,11 +1,11 @@
 Example
 ===========
 
-This is an example file to showcase the easiest way to run provis in particular how to plot a single protein. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation. Otherwise set the base_path variable of the NameChecker object.
+This is an example file to showcase the easiest way to run provis in particular how to plot a single protein. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation. Otherwise set the **base_path** variable of the **NameChecker** object.
 
-If this is fullfilled path to the "root directory"/data/tmp will automatically be found.
+If this is fullfilled path to the *"root directory"/data/tmp* will automatically be found.
 This way you can have your pdb files nicely organized in the data/pdb directory (or simply have them in the root directory). 
-Your temporary files will be in the data/tmp directory and the screenshots of the plots in the data/img directory.
+Your temporary files will be in the *data/tmp* directory and the screenshots of the plots in the *data/img* directory.
     
 
 Import the necessairy files.
@@ -22,7 +22,9 @@ Define variables needed later:
 
     name = "2fd7"
     density = 3.0
-    solvent = 0
+    plot_solvent = False
+    msms = True
+    notebook = False
 
 
 Second:
@@ -39,7 +41,7 @@ Initialize the **Plotter** class. This creates all the necessairy classes in the
 
 .. code-block:: python
 
-    plotter = Plotter(name, base_path=base_path, density=density, plot_solvent=plot_solvent, msms=msms, notebook=notebook)
+    plot = Plotter(prot, prot2, msms=msms, notebook=notebook, plot_solvent=plot_solvent)
 
 Third:
 Plot!
@@ -66,7 +68,7 @@ Use the **Plotter** to plot.
     plotter.plot_charge()
 
 
-And finally clean up everything with the "cleanup" function of the Protein.file_converter (**FileConverter** class) member variable.
+And finally clean up everything with the "cleanup" function of the **Protein.file_converter** (**FileConverter** class) member variable.
 
 .. code-block:: python
 

@@ -6,6 +6,8 @@ How to use Provis
 
 This section will explain how to use provis and how to get your desired plots.
 
+In short you have to initialize a **Protein** class instance with the desired *.pdb* file. Then you have to create a **Plotter** or a **DynamicPlotter** class instance and pass the previously created **Protein** to it. Once the **(Dynamic)Plotter** is initialized you can plot using its plotting methods.
+
 Loading a pdb
 ###############
 
@@ -23,17 +25,32 @@ As explained in
 
    name = "2fd7.pdb" # "2fd7" also works
 
-Setting Protein class input variables
+Initializing the Protein class
 #######################################
+
+The Protein class encompasses and combines all classes of the **provis.src.processing** package.
+
+It first figures out the location of the *.pdb* file using the **NameChecker** class. Then it instantiates a **FileConverter** class so the necessairy temporary files can be converted from our *.pdb* file.
+
+Then a **DataHandler** class is created. This class calculates all the necessairy non-surface related meshes, such as the Spheres corresponding to each atom or the backbone of the molecule. Next, a **SurfaceHandler** class handles all the surface related computation.
 
 .. code-block:: python
 
     prot = Protein(name, base_path=None, density=3.0)
 
-Setting the input variables of the Protein class is the next step to take. You have to pass the **name** variable from before.
+Specify the **name** of the *.pdb* file.
 
 The path to the special direcotry explained in 
 :ref:`setup` has to also be provided. This is passed in the **base_path** variable and should point to the root directory of the **/data** and **/binaries** directories.
+
+
+Plotter class
+###############
+
+Use the Plotter class to plot. At least one Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
+It is possible to add more proteins later using the Plotter.add_protein(Protein) method.
+
+    plot = Plotter(prot, prot2, msms=msms, notebook=notebook)
 
 MSMS
 ++++++
@@ -44,31 +61,14 @@ Solvent atoms can also be plotted by setting the **plot_solvent** variable to *T
 
 And finally if you are working in a Jupyter Notebook like environment then set the **notebook** varaible to *True*.
 
-How the Protein class works
-#############################
-
-The Protein class encompasses and combines all other classes and files of provis.
-
-It first figures out the location of the *.pdb* file using the **NameChecker** class. Then it instantiates a **FileConverter** class so the necessairy temporary files can be converted from our *.pdb* file.
-
-Then a **DataHandler** class is created. This class calculates all the necessairy non-surface related meshes, such as the Spheres corresponding to each atom or the backbone of the molecule. Next, a **SurfaceHandler** class handles all the surface related computation.
-
-Finally, a **Structure** and a **Surface** class is created. These classes are instantiated with the above mentioned classes as input variables to ensure that no data duplication occurs and that the two will handle the same protein. 
-
 Plotting
-############
-
-Use the Plotter class to plot. One Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
-It is also possible to add more proteins using the Plotter.add_protein(Protein) method.
-
-    plot = Plotter(prot, prot2, msms=msms, notebook=notebook)
-
++++++++++
 
 Plotting can be achieved by calling the member functions of the **Structure** and the **Surface** classes. For example for the **prot** class instance defined above the bonds of the molecule can be plotted as follows:
 
 .. code-block:: python
 
-	prot.structure.plot_bonds()
+	plot.plot_bonds()
 	
 All plotting functions have the following input variables:
  - box (bool): If True bounding box will be plotted around molecule.

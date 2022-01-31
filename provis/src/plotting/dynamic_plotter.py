@@ -7,9 +7,9 @@ from provis.src.processing.protein import Protein
 
 class DynamicPlotter:
     """
-    The DynamicPlotter class, similarly to the Protein class, encapsulates every other class and creates a user friendly way to plot your desired dynamic structure of a protein molecules.
+    The DynamicPlotter class, similarly to the Plotter class, encapsulates every other class and creates a user friendly way to plot your desired dynamic structure of a protein molecules.
     
-    While the class is built similarly to the Protein class it does not use the Protein class itself. This is due to the fact that the Protein class is a rigid class made for a single molecule and
+    While the class is built similarly to the Plotter class it does not use the Plotter class itself. This is due to the fact that the Plotter class is a class made to plot a static molecules.
     """
         
     def __init__(self, prot: Protein, msms=True, notebook=False, plot_solvent=False):
@@ -26,12 +26,8 @@ class DynamicPlotter:
                 Instance of a Protein class. All information to be plotted is taken from this class. 
             msms: bool, optional
                 If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: True. 
-            density: float, optional
-                sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density 
             notebook: bool, optional 
                 Needs to be set to true to work in a notebook environment. Defualts to False. 
-            msms: bool, optional
-                Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False. 
             plot_solvent: bool, optional
                 If True solvent molecules will also be plotted. Default: False.
         """
@@ -69,7 +65,17 @@ class DynamicPlotter:
             camera: pyvista.Camera, optional
                 Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
             title: str, optional
-                Title of the plotting window. Default: "Atoms".
+                Title of the plotting window. Default: "Structure".
+            atoms: bool, optional
+                Plot atoms. Default: None.
+            bonds: int, optional
+                ptional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: None.
+            vw: bool, optional
+                Plot Wan-der-Waals radii instead of atomic radii.
+            residues: bool, optional
+                ptional - Plot residue. Default: None.
+            bb: bool, optional
+                If True backbone of protein is plotted. Default: False.        
         
         Returns: 
             Pyvista.Plotter window
@@ -396,6 +402,8 @@ class DynamicPlotter:
                 Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).
             patch: bool, optional
                 If True then coloring will be read in from "root directory"/data/tmp/{pdb_id}.pth file. Default: False.
+            title: str, optional
+                Title of the plot window. Default: Surface.
             box: bool, optional
                 ptional - If True bounding box also visualized, default: 0.
             res: Residue, optional
@@ -404,8 +412,6 @@ class DynamicPlotter:
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{pdb_id}_stick_point.png.
             camera: pyvista.Camera, optional
                 Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
-            title: str, optional
-                Title of the plotting window. Default: "Surface".
                 
         Returns: 
             Pyvista.Plotter window
@@ -415,7 +421,7 @@ class DynamicPlotter:
         """
   
         # Create and structured surface
-        mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=0, num_models=self._num_models)
+        mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=0)
         
             
         # Create a plotter object and initialize first mesh
@@ -448,19 +454,46 @@ class DynamicPlotter:
         plotter.write_frame()
         for model in self._protein._data_handler._structure:
             i += 1
-            if i == self._num_models:
-                break
             
-            mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i, num_models=self._num_models)            
+            mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i)            
             self._cam_pos = self._protein._data_handler._cam_pos
             plotter.clear()
-            plotter.camera.position = self._cam_pos
+            if not camera:
+                plotter.camera.position = self._cam_pos
+            else:
+                plotter.camera = camera
             plotter.smooth_shading = True
             plotter.background_color = 'grey'
             plotter.add_title(title)
 
             plotter.add_mesh(mesh, scalars=cas, cmap='RdBu', show_edges=False)
+ 
+            if res:
+                res_list, chain_list, pad = res.get_res_info()
 
+                bigmesh = pv.PolyData()
+                for j, r in enumerate(res_list):
+                    chain = chain_list[j]
+                    residues_ = self._protein._data_handler.get_structure().get_residues()
+                    residues_list = list(residues_)
+                    res_name = residues_list[r + 1].get_resname()
+                    d = (self._protein._data_handler._res_size_dict[res_name] + pad) * 2
+                    x, y, z = d,d,d
+                    res_exists = (self._protein._data_handler.get_residue_info(r, chain,'com') != 1)
+                    if res_exists:
+                        bigmesh += pv.Cube(center=self._protein._data_handler.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z)
+                
+                center = self._protein._data_handler.get_residue_info(r, chain,'com')
+                # if residue not found 1 is returned. Otherwise the coordinates
+                if center != 1:
+                    plotter.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, color='r')
+                print("Residues marked for model id: ", i)
+                
+            # if specified add bounding box
+            if box:
+                plotter.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
+                print("Bounding box added for model id: ", i)
+                
             # must update normals when smooth shading is enabled
             plotter.mesh.compute_normals(cell_normals=False, inplace=True)
             plotter.render()

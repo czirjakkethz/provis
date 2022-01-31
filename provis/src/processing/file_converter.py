@@ -22,8 +22,6 @@ class FileConverter():
                 Instance of a NameChecker class. Used to pass the pdb file name and paths.
             density: float, optional
                 Density of triangles. Default: 3.0.
-            base_path: str, optional
-                Path to "working directory" according to the rules of NameChecker().
             convert_all: bool, optional
                 Set to True if you want to convert all necessairy files on initialization. Default: False.
         """
@@ -259,6 +257,9 @@ class FileConverter():
         if delete_img:
             img = self._base_path + "data/img/"
             folders.append(img)
+        if delete_meshes:
+            mesh = self._base_path + "data/meshes/"
+            folders.append(mesh)
         for folder in folders:
             for filename in os.listdir(folder):
                 if filename.split(".")[0].split("_")[0] == pdb_id:

@@ -153,8 +153,6 @@ class SurfaceHandler:
 
         The code in words:
         If self._mesh_needed is set to True - if the mesh could not be loaded from a file - compute the mesh using the .face and .vert files created by the MSMS binary.
-        If self._dynamic is False - if the mesh is needed for a static molecule - and the .face and .vert files do not exist compute these files using the FileConverter class.
-        Do the same for self._dynamic == True.
         If the mesh is needed compute the mesh from the .face and .vert files.
         Finally, if a feature is specified check if the color information could be loaded from a file (self._color_needed) and compute it if needed.
         If no feature specified set the variable that stores color information to None. This will result in a white mesh.
@@ -279,7 +277,7 @@ class SurfaceHandler:
             self._col = None
 
     
-    def return_mesh_and_color(self, msms=False, feature=None, patch=False, model_id=0, num_models=0):
+    def return_mesh_and_color(self, msms=False, feature=None, patch=False, model_id=0):
         """
         Wrapper function to choose between the msms surface visualization vs the native surface visualization. 
         If you could not download the MSMS binary leave the msms variable as False.
@@ -301,8 +299,6 @@ class SurfaceHandler:
                 Set coloring of mesh manually. If set to True get_assignments() will be called. Defaults to False.
             model_id: int, optional
                 The dynamic model ID of the desired molecule. Count starts at 0. Leave default value for static molecules. Default: 0.
-            num_models: int, optional
-                Number of models in a trajectory. Only important for dynamic structures. Default: 0.
         
         Returns: 
             trimesh.Trimesh
@@ -315,7 +311,6 @@ class SurfaceHandler:
         self._msms = msms
         self._model_id = model_id
         print(self._model_id)
-        self._dynamic = num_models > 0
         connect = "_"
         if msms:
             connect = "_msms_"

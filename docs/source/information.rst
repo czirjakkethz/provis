@@ -71,14 +71,14 @@ Since creating meshes requires a lot of computation it was decided to store the 
 Some classes of **provis** need the same information and need access to the same methods. For this reason, most classes of **provis** can be initialised with already existing instances of the internal variables. This way the exact same computations (for example: initialising the passed class) will be mitigated. Passing initialised classes also insures that the same molecule is being considered throughout the whole program.
 
 To ensure that only necessary computations are run the existence of the object to be computed is always checked. Both files and class instance variables are checked. If the given object already exists (and possible other checks are passed) then this object will not be recomputed.
-**WARNING: this decision can result in an error if a new file with a previously existing name is analysed. **Provis** will not know that the molecule is different and errors might occur. To fix this simply delete (or move) all temporary files related to this molecule.** This is a very rare problem, if you use **provis** normally and do not modify existing files then you will not run into this problem.
+**WARNING: this decision can result in an error if a new file with a previously existing name is analysed. **Provis** will not know that the molecule is different and errors might occur. To fix this simply delete (or move) all temporary files related to this molecule.** This is a very rare problem, if you use **provis** normally and do not modify existing files then you will not run into this problem.d
 
 Code architecture
 ++++++++++++++++++
 
 In the following will show how the above mentioned classes depend on one another.
 
-One can easily observe that all classes depend on the NameChecker class. And since some classes have other dependencies as well, duplication of the exact same class instance would seem quite likely. This is the reason (as described above) why all classes can be initialised with pre-existing instances of the necessary classes, so instead of duplication they will be shared. (Disclaimer: the classes can also be initialised empty, but then the above mentioned duplication occurs.)
+One can easily observe that all classes depend on the **NameChecker** class. And since some classes have other dependencies as well, duplication of the exact same class instance would seem quite likely. This is the reason (as described above) why all classes can be initialised with pre-existing instances of the necessary classes, so instead of duplication they will be shared. (**Disclaimer**: the classes can also be initialised empty, but then the above mentioned duplication occurs.)
 
 ::
 

@@ -24,10 +24,7 @@ class Plotter:
         """
         In this constructor no mesh information is computed, simply preparations are made. Meshes are loaded in the plotting function.
         
-        A NameChecker object is required for initialization, as this is how the program finds the desired pdb file, molecule.
-        If nothing else is passed the NameChecker object will be used to initialize the other internal objects of the surface class.
-        
-        Apart from the required NameChecker object one can also pass a SurfaceHandler for even more control.
+        A Protein object is required for initialization, as the Plotter class plots the information gathered from the Protein class.
         
         Parameters:
             prot: Protein
@@ -40,8 +37,6 @@ class Plotter:
                 sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density 
             notebook: bool, optional 
                 Needs to be set to true to work in a notebook environment. Defualts to False. 
-            msms: bool, optional
-                Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False. 
             plot_solvent: bool, optional
                 If True solvent molecules will also be plotted. Default: False.
         """
@@ -165,7 +160,7 @@ class Plotter:
         pl.show(screenshot=outname, title='Provis')
 
 
-    def plot_structure(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title="Structure", camera=None, dynamic=False):
+    def plot_structure(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title="Structure", camera=None):
         """
         This member function is called by all the others. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.
         
@@ -192,8 +187,6 @@ class Plotter:
                 Title of the plot window. Default: Structure.
             camera: pyvista.Camera, optional
                 Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
-            dynamic: bool, optional
-                Set to True if you are plotting a dynamic model. Default: False.
         
         Returns: 
             Pyvista.Plotter window
