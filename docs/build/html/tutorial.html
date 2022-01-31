@@ -57,6 +57,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#msms">MSMS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#plotting">Plotting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#camera">Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-output">The output</a></li>
 </ul>
 </li>
 </ul>
@@ -129,9 +130,10 @@
 <h2>Plotter class<a class="headerlink" href="#plotter-class" title="Permalink to this headline"></a></h2>
 <p>Use the Plotter class to plot. At least one Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
 It is possible to add more proteins later using the Plotter.add_protein(Protein) method.</p>
-<blockquote>
-<div><p>plot = Plotter(prot, prot2, msms=msms, notebook=notebook)</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">prot2</span> <span class="o">=</span> <span class="n">Protein</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model_id</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="n">prot</span><span class="p">,</span> <span class="n">prot2</span><span class="p">,</span> <span class="n">msms</span><span class="o">=</span><span class="n">msms</span><span class="p">,</span> <span class="n">notebook</span><span class="o">=</span><span class="n">notebook</span><span class="p">)</span>
+</pre></div>
+</div>
 <section id="msms">
 <h3>MSMS<a class="headerlink" href="#msms" title="Permalink to this headline"></a></h3>
 <p>You will have to also specify if you want to plot the <strong>msms</strong> binary version of the surface or the simpler native mesh. If the <strong>msms</strong> option is chosen you can also specify the <strong>density</strong> of the triangulation (to be passed to the <strong>msms</strong> binary).</p>
@@ -169,8 +171,16 @@ Undefined/Anything else: black</p>
 </section>
 <section id="camera">
 <h3>Camera<a class="headerlink" href="#camera" title="Permalink to this headline"></a></h3>
-<p>Setting a good camera position is very important. By default the camera portion is set to <strong>[0, max * 4, 0]</strong>, where <strong>max</strong> is the largest deviation of the coordinates from the center of the molecule. This ensures that the whole molecule is visible in the plot window and that the camera will always face the same direction when plotting dynamically.</p>
+<p>Setting a good camera position is very important. By default the camera portion is set to <strong>[0, max * 3, 0]</strong>, where <strong>max</strong> is the largest deviation of the coordinates from the center of the molecule. This ensures that the whole molecule is visible in the plot window and that the camera will always face the same direction when plotting dynamically.</p>
 <p>To set the camera position manually the <strong>DataHandler</strong> class’ instance variables named <strong>DataHandler._cam_pos</strong> (the default camera position) and <strong>DataHandler._max_coords</strong> (the maximum deviation, as explained above) might be helpful.</p>
+</section>
+<section id="the-output">
+<h3>The output<a class="headerlink" href="#the-output" title="Permalink to this headline"></a></h3>
+<p>The output will be an interactive <strong>vtk.Window</strong> window. The output will also be saved as an image to <em>“root directory”/data/img</em>.</p>
+<p>The following image are the bonds of the 1st and 31st model of a given dynamic trajectory.</p>
+<a class="reference internal image-reference" href="_images/traj_30_bonds_msms.png"><img alt="The following images are the bonds of the 1st and 31st model of a given dynamic trajectory." src="_images/traj_30_bonds_msms.png" style="width: 600px;" /></a>
+<p>The following image are the atoms of the 1st and 31st model of a given dynamic trajectory.</p>
+<a class="reference internal image-reference" href="_images/traj_30_atoms_msms.png"><img alt="The following images are the atoms of the 1st and 31st model of a given dynamic trajectory." src="_images/traj_30_atoms_msms.png" style="width: 600px;" /></a>
 </section>
 </section>
 </section>

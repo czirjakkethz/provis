@@ -50,6 +50,9 @@ Plotter class
 Use the Plotter class to plot. At least one Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
 It is possible to add more proteins later using the Plotter.add_protein(Protein) method.
 
+.. code-block:: python
+
+    prot2 = Protein(name, model_id=30)
     plot = Plotter(prot, prot2, msms=msms, notebook=notebook)
 
 MSMS
@@ -87,11 +90,28 @@ All plotting functions have the following input variables:
         Aromatic bonds: purple
         Undefined/Anything else: black
 
+
 Camera
 ++++++++
 
-Setting a good camera position is very important. By default the camera portion is set to **[0, max * 4, 0]**, where **max** is the largest deviation of the coordinates from the center of the molecule. This ensures that the whole molecule is visible in the plot window and that the camera will always face the same direction when plotting dynamically.
+Setting a good camera position is very important. By default the camera portion is set to **[0, max * 3, 0]**, where **max** is the largest deviation of the coordinates from the center of the molecule. This ensures that the whole molecule is visible in the plot window and that the camera will always face the same direction when plotting dynamically.
 
 To set the camera position manually the **DataHandler** class' instance variables named **DataHandler._cam_pos** (the default camera position) and **DataHandler._max_coords** (the maximum deviation, as explained above) might be helpful.
         
+The output
++++++++++++
+
+The output will be an interactive **vtk.Window** window. The output will also be saved as an image to *"root directory"/data/img*.
+
+The following image are the bonds of the 1st and 31st model of a given dynamic trajectory.
+
+.. image:: images/traj_30_bonds_msms.png
+  :width: 600
+  :alt: The following images are the bonds of the 1st and 31st model of a given dynamic trajectory.
+
+The following image are the atoms of the 1st and 31st model of a given dynamic trajectory.
+
+.. image:: images/traj_30_atoms_msms.png
+  :width: 600
+  :alt: The following images are the atoms of the 1st and 31st model of a given dynamic trajectory.
 
