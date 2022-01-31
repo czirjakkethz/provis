@@ -16,10 +16,3 @@ __pycache__/
 ..readthedocs.yaml.swp
 .readthedocs.yaml 
 
-*.pyc
-*.vert
-*.face
-*.area
-*.pqr
-*.mol2
-*.xyzrn
