@@ -2,8 +2,16 @@
 
 Welcome to the repository of Provis - a python based protein visualization library.
 
-The easiest way to install is with ``` pip install provis ```, but the library has a few dependencies that have to be installed seperately.
-Please visit the  [documentation](https://pro-vis.readthedocs.io/en/latest/) for [installation instructions](https://pro-vis.readthedocs.io/en/latest/req.html) or continue reading below.
+[Documentation](https://pro-vis.readthedocs.io/en/latest/), [installation instructions](https://pro-vis.readthedocs.io/en/latest/req.html).
+
+Installation
+===============
+
+The easiest way to install is with ``` pip install provis ``` or by cloning this github repo and running: "python3 setup.py develop" from the base directory.
+
+The library has a few dependencies that have to be installed seperately.
+
+**FOLLOW THE INSTRUCTIONS IN "Requirements for Provis" AND "Setting up Provis"** Otherwise **provis** will not work.
 
 Requirements for Provis
 =========================
@@ -51,58 +59,103 @@ Pip
 * Torch
 * Pyvtk
 * Open3d
+* rTree
+* Panel
+* Imageio-ffmpeg
    
-Jupyter Notebook
----------------------
-
-If you want to run a fully interactive provis in the Jupyter Notebook environment you will have to install the following additional packages. Failing to do so will simply produce snapshot images instead of 3D plots.
-
-``` pip install ipyvtklink ```
-
 Setting up Provis
 =========================
 
-Once you have every library installed, binary downloaded and of course provis installed (either pip or with the setup.py in the root directory) you will need to create a directory structure where provis feels at home. When this is set up you are ready to use provis and run it from anywhere.
+Some file paths are hard coded in provis in order to maintain an uncluttered and organized directory structure.
+
+However, this also means, that for provis to work this specific directory structure has to exist.
 
 Directory structure
 --------------------
-You will need a directory with a specific folder structure.
-This way your directories will remain uncluttered and it makes it easy to create a pipline around provis.
 
-The directories are needed as some parts of file loading is hard coded in provis and if the directory structure is not present errors will occur.
+::
 
-### Easy option ###
+	provis
+	   ├── data
+	   │   ├── data/
+	   │   ├── pdb/
+	   │   ├── img/
+	   │   ├── meshes/
+	   │   └── tmp/
+	   └── binaries          
+	       ├── apbs
+	       ├── msms
+	       └── pdb2pqr
+		    └── pdb2pqr
 
-The easiest is if you clone provis from [github](https://github.com/czirjakkethz/provis) and simply use this github directory as your base directory.
 
-### More versitile option ###
 
-You will need a data/ and (potentially) a binaries/ directory as well.
+Easy option
+^^^^^^^^^^^^
+Clone provis from `github <https://github.com/czirjakkethz/provis>`_ and simply use this git directory (provis) as the base directory.
 
- -- If you set the environment variables for the binaries (provis will then use these to find the binaries) then the binaries/ directory is not needed, but otherwise it is and the binaries from the Requirements section will all have to be copied into there. --
+More versitile option
+^^^^^^^^^^^^^^^^^^^^^^^
 
-#### The data/ directory needs the following subdirectiories: ####
+A data/ and (potentially) a binaries/ directory within the root directory will have to be created.
 
+ -- If the environment variables for the binaries are set then the binaries/ directory is not needed (as provis will then use these variables to find the binaries). Otherwise the binaries from the Requirements 
+ :ref:`req` section will all have to be copied into the binaries/ directory. --
+
+Subdirectiories of the data/ directory:
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+::
 
     data
     ├── data
     ├── pdb
-    ├── img        
+    ├── img   
+    ├── meshes
     └── tmp
 
-The pdb directory is the location to store the pdb files to convert, as if a pdb file is stored here then it is enough to pass the pdb id (filename without extension) to provis and you do not have to pass a full path to the pdb file. 
+The pdb directory is the location to store the pdb files. If a *.pdb* file is stored here then it is enough to pass the pdb id (filename without extension) to provis. Otherwise the full path to the *.pdb* file needs to be passed. 
 
 The img directory stores all the screenshots of the outputted plots.
 
-The tmp directory stores all temporary files created by provis, such as the .face and .vert files of MSMS or the .mol2 files needed for the bonds.
+The tmp directory stores all temporary files created by provis, such as the *.face* and *.vert* files of MSMS or the *.mol2* files needed for the bonds.
+
+Binaries
+---------
+
+After installing the binaries either set the environment variables to specify the path of their location or manually move the binaries to where provis can find them.
 
 
-#### The binaries/ directory needs the following executables and subdirectiories: ####
+Binaries directory
+^^^^^^^^^^^^^^^^^^^^
+
+If you are running Ubuntu (20.04.3 LTS) and installed provis by cloning the github repository then you are all set.
+
+Otherwise move the binary files to the 'binaries' directory as explained below.
 
 
-    data
+Subdirectiories and executables of the binaries/ directory:
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+::
+
+    binaries
     ├── apbs
     ├── msms       
-    └── pdb2pqr
+    └── pdb2pqr     
+         └── pdb2pqr
 
-Where apbs and msms are executables/binaries and the pdb2pqr is the directory downloaded from the official website, containing the pdb2pqr binary.
+**apbs** and **msms** are executables and *pdb2pqr* is the directory downloaded from the official website, containing the **pdb2pqr** binary.
+
+
+Setting environment variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alternatively the environment variables can be set to point to the binary files.
+
+Set the MSMS_BIN, PDB2PQR_BIN and APBS_BIN variables to the full path to their appropriate binary files.
+
+Example:
+
+.. code-block::
+
+	export MSMS_BIN='/home/username/Downloads/msms'
+
