@@ -1,0 +1,1 @@
+Meshes and color lists will be stored in this directory
