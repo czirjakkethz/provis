@@ -1,0 +1,5 @@
+# vtk DataFile Version 5.1
+vtk output
+BINARY
+DATASET POLYDATA
+POINTS 0 float
