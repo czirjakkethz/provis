@@ -1,3 +1,4 @@
+from email.mime import base
 from genericpath import exists
 import os
 import provis
@@ -21,6 +22,11 @@ class NameChecker:
         
         This class is passed to all other classes and ensures that all the plotting classes plot the same pdb file.
 
+        The code in words:
+        Find the base directory (the root of the special directory structure specified in: https://pro-vis.readthedocs.io/en/latest/setup.html#setting-up-provis)
+        Deduce the path to the .pdb file, the data/tmp and data/meshes directories.
+        Return everything.
+        
         Parameters:
             name: str
                 Name and path to location of the pdb file. If simply pdb id (file name without .pdb extension) is provided the default directory - provis/data/pdb - will be searched for the file. If no file found the input is returned.
@@ -33,10 +39,10 @@ class NameChecker:
 
         if not base_path:
             path = os.getcwd() #path.dirname(provis.__file__)
-            # path points to provis/provis, we only want provis/
-            base_path = path #[0:-6]
-            if base_path.split("/")[-1] == "examples":
-                base_path = base_path[0:-8]
+            base_path = path
+            if base_path.split("/")[-2] == "provis":
+                len_f = len(base_path.split("/")[-1])
+                base_path = base_path[0:-len_f]
             
         if base_path[-1] != "/":
             base_path += "/"

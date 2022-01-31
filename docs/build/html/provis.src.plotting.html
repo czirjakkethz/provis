@@ -322,6 +322,13 @@ Coloring:
 <dt class="sig sig-object py" id="provis.src.plotting.dynamic_plotter.DynamicPlotter.plot_structure">
 <span class="sig-name descname"><span class="pre">plot_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Structure'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_plotter.DynamicPlotter.plot_structure" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the dynamic atom cloud.</p>
+<p>The code in words:
+Create a Plotter.
+Loop through the models of the Protein stored in self._protein and perform the following tasks.
+Clear the plotter.
+Add the specified meshes to the subplotter.
+Set the camera position.
+Render the plotter.</p>
 <dl class="simple">
 <dt>Parameters:</dt><dd><dl class="simple">
 <dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized, default: 0.</p>
@@ -360,6 +367,13 @@ Coloring:
 <dt class="sig sig-object py" id="provis.src.plotting.dynamic_plotter.DynamicPlotter.plot_surface">
 <span class="sig-name descname"><span class="pre">plot_surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Surface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.dynamic_plotter.DynamicPlotter.plot_surface" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the dynamic surface of the molecule.</p>
+<p>The code in words:
+Create a Plotter.
+Loop through the models of the Protein stored in self._protein and perform the following tasks.
+Clear the plotter.
+Add the specified meshes to the subplotter.
+Set the camera position.
+Render the plotter.</p>
 <dl class="simple">
 <dt>Parameters:</dt><dd><dl class="simple">
 <dt>feature: str, optional</dt><dd><p>Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).</p>
@@ -692,6 +706,12 @@ Coloring:
 <span class="sig-name descname"><span class="pre">plot_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">residues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Structure'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#provis.src.plotting.plotter.Plotter.plot_structure" title="Permalink to this definition"></a></dt>
 <dd><p>This member function is called by all the others. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.</p>
 <p>All information to be plotted is already computed. This function simply dictates what is to be plotted.</p>
+<p>The code in words:
+Create a Plotter of size(1, {len(self._proteins)}).
+Loop through the Proteins in the self._proteins list and perform the following tasks.
+Add the specified meshes to the subplotter.
+Set the camera position.
+Show the plotter.</p>
 <dl class="simple">
 <dt>Parameters:</dt><dd><dl class="simple">
 <dt>box: bool, optional</dt><dd><p>ptional - If True bounding box also visualized. Default: None.</p>
@@ -731,6 +751,12 @@ Coloring:
 The surface can be computed either using the msms binary or natively. The msms binary is chemically accurate surface, while the native one is only for visualization purposes.</p>
 <p>If you run into any sort of error concerning array size mismatching or of the sort delete all the temporary files and the mesh ({root directory}/data/meshes/{pdb_id}_{model_id}.obj).
 This will force everything to be recomputed and the dimension mismatch should disappear.</p>
+<p>The code in words:
+Create a Plotter of size(1, {len(self._proteins)}).
+Loop through the Proteins in the self._proteins list and perform the following tasks.
+Add the specified meshes to the subplotter.
+Set the camera position.
+Show the plotter.</p>
 <dl class="simple">
 <dt>Parameters:</dt><dd><dl class="simple">
 <dt>feature: str, optional</dt><dd><p>Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).</p>

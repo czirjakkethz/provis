@@ -55,6 +55,14 @@ class DynamicPlotter:
         """
         Plot the dynamic atom cloud.
 
+        The code in words:
+        Create a Plotter.
+        Loop through the models of the Protein stored in self._protein and perform the following tasks.
+        Clear the plotter.
+        Add the specified meshes to the subplotter.
+        Set the camera position.
+        Render the plotter.
+        
         Parameters:
             box: bool, optional
                 ptional - If True bounding box also visualized, default: 0.
@@ -397,6 +405,14 @@ class DynamicPlotter:
         """
         Plot the dynamic surface of the molecule.
 
+        The code in words:
+        Create a Plotter.
+        Loop through the models of the Protein stored in self._protein and perform the following tasks.
+        Clear the plotter.
+        Add the specified meshes to the subplotter.
+        Set the camera position.
+        Render the plotter.
+        
         Parameters:
             feature: str, optional
                 Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring).

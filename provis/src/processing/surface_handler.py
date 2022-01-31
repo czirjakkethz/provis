@@ -219,6 +219,13 @@ class SurfaceHandler:
         Color: "root directory"/data/meshes/{pdb_id}_{feature}_{model_id}
         Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.
 
+        The code in words:
+        If self._mesh_needed is set to True - if the mesh could not be loaded from a file - compute the mesh using the native tools.
+        Get the atomic positional information from the DataHandler class.
+        Extract the surface of the combined mesh and use the o3d.geometry.TriangleMesh.create_from_point_cloud_poisson() method to create a smooth surface.
+        Finally, if a feature is specified check if the color information could be loaded from a file (self._color_needed) and compute it if needed.
+        If no feature specified set the variable that stores color information to None. This will result in a white mesh.
+        
         Parameters:
             feature: str, optional
                 Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to "".
@@ -229,7 +236,7 @@ class SurfaceHandler:
             print(" - Feature: ", feature)
             # create rough surface by combining vw radii of each atom
             atom_data, self._res_id, self._atom_coords = self._dh.get_atoms_IDs(model_id=self._model_id)
-            self._atmsurf, col, _ = self._dh.get_atom_mesh(atom_data, vw=1, probe=0.1)
+            self._atmsurf, col, _ = self._dh.get_atom_mesh(atom_data, vw=1, probe=1)
 
             # adding the spheres (by atom type) one at a time
             j = 0
@@ -238,13 +245,14 @@ class SurfaceHandler:
                 mesh_ = mesh_ + (mesh)
             
             # blur the spheres and extract edges (pyvista)
-            mesh_ = mesh_.extract_surface()#.extract_feature_edges(1)#.delaunay_3d(alpha=a).extract_feature_edges(2)
+            mesh_ = mesh_.extract_surface()
             # create trimesh mesh
             new = trimesh.Trimesh(mesh_.points)
             cloud = o3d.geometry.PointCloud()
             cloud.points = o3d.utility.Vector3dVector(new.vertices)
             # cloud.normals = o3d.utility.Vector3dVector(new.vertex_normals)
             cloud.estimate_normals()
+            print(" - Intermediate mesh created")
 
             # to obtain a consistent normal orientation
             cloud.orient_normals_towards_camera_location(cloud.get_center())
