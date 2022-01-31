@@ -15,7 +15,7 @@ class Protein:
     For example: my_protein.structure.plot_atoms()
     """
   
-    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=True, notebook=False):
+    def __init__(self, pdb_name, base_path=None, density=3.0, model_id=0):
         """
         Initialize the class with the name of the pdb file and plotting can be started!
 
@@ -26,18 +26,11 @@ class Protein:
                 Path to the root directory of the required directory structure (see: https://pro-vis.readthedocs.io/en/latest/setup.html#). Only needs to be specified if it is not the current working directory. Default: None.
             density: float, optional
                 Default: 3.0.
-            plot_solvent: bool, optional
-                If True solvent atoms will also be plotted. Default: False.
-            msms: bool, optional
-                Set to True if you want to compute the surface information using the msms binary. If False surface will be computed natively. Default: True.
-            notebook: bool, optional
-                Set to True when using running in a Jupyter Notebook environment. Default: False.
+            model_id: int, optional
+                Scpecify the model id of the desired molecule from a trajectory file. Count starts at 0. Leave default value for static molecules. Default: 0.
         """
-        if notebook:
-            pyvista.set_jupyter_backend('panel')
+        self._model_id = model_id
         self._name_checker = NameChecker(pdb_name, base_path)
         self.file_converter = FileConverter(self._name_checker, density=density)
         self._data_handler =  DataHandler(self._name_checker, fc=self.file_converter)
         self._surface_handler = SurfaceHandler( self._name_checker, fc=self.file_converter, dh=self._data_handler, density=density)
-        self.structure = Structure(self._name_checker, dh=self._data_handler, plot_solvent=plot_solvent, notebook=notebook)
-        self.surface = Surface(self._name_checker, sh=self._surface_handler, msms=msms, notebook=notebook)

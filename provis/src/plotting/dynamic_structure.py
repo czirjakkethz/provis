@@ -49,8 +49,6 @@ class DynamicStructure:
         self._data_handler =  DataHandler(self._name_checker, fc=self.file_converter)
         self._surface_handler = SurfaceHandler( self._name_checker, fc=self.file_converter, dh=self._data_handler, density=density)
                 
-        self.structure = Structure(self._name_checker, dh=self._data_handler, plot_solvent=plot_solvent, notebook=notebook)
-        self.surface = Surface(self._name_checker, sh=self._surface_handler, msms=msms, notebook=notebook)
         if msms:
             self._num_models = self.file_converter.decompose_traj(self._path)
         else: 
@@ -186,7 +184,7 @@ class DynamicStructure:
             # only executes if residue information provided
             if residues:
                 ## return list of spheres (meshes) and colors for the spheres
-                res_data = self._data_handler.get_residues()
+                res_data = self._data_handler.get_residues(model_id=i)
                 _residues, _col_r, _res_names = self._data_handler.get_residue_mesh(res_data)
                 
                 bigmesh = pv.PolyData()

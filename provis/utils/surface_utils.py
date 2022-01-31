@@ -149,7 +149,7 @@ def output_pdb_as_xyzrn(pdb_file: str, xyzrn_file: str) -> None:
         i += 1
 
 
-def get_surface(out_path: str, density: float):
+def get_surface(out_path: str, density: float, center=[0, 0, 0]):
     """
     Wrapper function that reads in the output from the MSMS executable to build the protein surface.
 
@@ -157,7 +157,9 @@ def get_surface(out_path: str, density: float):
             path to output (output path from namechecker) directory. Usually data/tmp
         density: bool
             Need to pass same density as used by the MSMS binary, as the face and vert files have the density included in their names. The variable is needed for loading these files.
-        
+        center: List[float], optional
+            Center of the atom cloud. Easily passed from DataHandler._centroid. Default: [0, 0, 0].
+            
     Returns: 
         numpy.ndarray:
             vertices
@@ -183,8 +185,9 @@ def get_surface(out_path: str, density: float):
     for line in ses_file:
         fields = line.split()
         areas[fields[3]] = fields[1]
-
-    return vertices, faces, normals, names, areas
+    
+    re_centered_verts = vertices - center
+    return re_centered_verts, faces, normals, names, areas
 
 
 def compute_normal(vertices: np.ndarray, faces: np.ndarray) -> np.ndarray:

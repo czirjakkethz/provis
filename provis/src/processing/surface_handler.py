@@ -126,7 +126,7 @@ class SurfaceHandler:
             self._fc.pdb_to_pqr(pdb_file_path, pqr_file_path)
         pdb_file = pdb_file_path + '.pdb'
         if not res_id:
-            surface = get_surface(pqr_file_path, density=self._density)
+            surface = get_surface(pqr_file_path, density=self._density, center=self._dh._centroid)
         else:
             full_res_id = find_nearest_atom(self._atom_coords, res_id, mesh.vertices)
             
@@ -194,7 +194,7 @@ class SurfaceHandler:
                 path = f"{new_xyzrn_path}_out_{int(self._density * 10)}"
                 
             print(" - Get surface")
-            surface = get_surface(out_path=new_xyzrn_path, density=self._density)
+            surface = get_surface(out_path=new_xyzrn_path, density=self._density, center=self._dh._centroid)
             self._mesh = prepare_trimesh(vertices=surface[0], faces=surface[1], normals=surface[2], 
                             resolution=1.5, apply_fixes=True)
         
@@ -314,6 +314,7 @@ class SurfaceHandler:
         self._mesh_needed = True
         self._msms = msms
         self._model_id = model_id
+        print(self._model_id)
         self._dynamic = num_models > 0
         connect = "_"
         if msms:
