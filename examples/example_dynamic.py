@@ -39,23 +39,23 @@ def main():
     """
     dp = DynamicPlotter(prot, msms=msms, notebook=notebook, plot_solvent=plot_solvent)
 
-    dp.plot_surface()
-    dp.plot_hydrophob()
-    dp.plot_shape()
-    dp.plot_charge()
-    
     r = Residue(29)
     r.add_residue(50)
     r. add_residue(1, 1)
     r.remove_residue(1, 1)
 
-    dp.plot_backbone()
-    dp.plot_atoms(res=r)
-    dp.plot_bonds()
-    dp.plot_vw()
-    dp.plot_stick_point()
-    dp.plot_residues()
-    dp.plot_structure(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
+    # dp.plot_surface()
+    # dp.plot_hydrophob()
+    dp.plot_shape(res=r)
+    # dp.plot_charge()
+    
+    # dp.plot_backbone()
+    # dp.plot_atoms(res=r)
+    # dp.plot_bonds()
+    # dp.plot_vw()
+    # dp.plot_stick_point()
+    # dp.plot_residues()
+    # dp.plot_structure(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
 
     
     """

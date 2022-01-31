@@ -419,18 +419,12 @@ class DynamicPlotter:
             str - only if self._notebook is True
                 The full path to where the .mp4 video file is stored.
         """
-  
-        # Create and structured surface
-        mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=0)
-        
-            
+     
         # Create a plotter object and initialize first mesh
         plotter = pv.Plotter(notebook=self._notebook, off_screen=False)
         plotter.smooth_shading = True
         plotter.background_color = 'grey'
         plotter.add_title(title)
-
-        plotter.add_mesh(mesh, scalars=cas, cmap='RdBu', show_edges=False)
         
         # save a screenshot
         if not outname or outname[0] == '_':
@@ -453,8 +447,7 @@ class DynamicPlotter:
         plotter.render()
         plotter.write_frame()
         for model in self._protein._data_handler._structure:
-            i += 1
-            
+
             mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i)            
             self._cam_pos = self._protein._data_handler._cam_pos
             plotter.clear()
@@ -499,6 +492,7 @@ class DynamicPlotter:
             plotter.render()
             plotter.write_frame()
             time.sleep(0.5)
+            i += 1
             
         plotter.render()
 
