@@ -19,7 +19,7 @@ class DataHandler:
     The 'brain' of provis, when it comes to handling atomic positions. 
     
     This class loads information from a variety of files and creates meshes to be plotted. 
-    Upper level classes - eg. Structure - use DataHandler objects to create the meshes.
+    Upper level classes - eg. Protein - use DataHandler objects to create the meshes.
     
     The DataHandler class loads atom-positional information from a .pdb file and from this information computes the necessairy molecular structure mesh.
     It also loads pre-defined dictionaries from atminfo.py, that encode the size, coloring and mass of a given atom or residue.

@@ -165,7 +165,7 @@ class Plotter:
         pl.show(screenshot=outname, title='Provis')
 
 
-    def plot_structure(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title=None, camera=None, dynamic=False):
+    def plot_structure(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title="Structure", camera=None, dynamic=False):
         """
         This member function is called by all the others. Using this function you can plot any combination of the results gotten from the specialized member functions. For example you could plot the atoms and the backbone of the protein in the same plot.
         
@@ -189,7 +189,7 @@ class Plotter:
             bb: bool, optional
                 If True backbone of protein is plotted. Default: False.
             title: str, optional
-                Title of the plot window. Defaults to None.
+                Title of the plot window. Default: Structure.
             camera: pyvista.Camera, optional
                 Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
             dynamic: bool, optional
@@ -306,7 +306,7 @@ class Plotter:
             new_name = self._out_path.split('/')
             new_name = new_name[-1].split('.')[0]
             
-            ident = '_stick_point'
+            ident = '_structure'
             if outname:
                 ident = outname
             outname = self._base_path + 'data/img/' + new_name + "_" + str(prot._model_id) + ident + ending 

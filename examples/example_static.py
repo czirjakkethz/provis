@@ -20,9 +20,12 @@ def main():
     name = "traj"
     density = 3.0
     msms = True
+    notebook = False
     """
     Second:
-    Initializing the Protein class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!
+    Initialize the Protein class with the desired molecule. 
+    
+    It is possible to choose a specific model from a trajectory to plot it as a single protein. 
     """
     
     prot = Protein(name, base_path=None, density=density)
@@ -32,9 +35,10 @@ def main():
     Third:
     Plot!
     
-    Use the prot.structure (Structure class) and prot.surface (Surface class) member variables to plot.
+    Use the Plotter class to plot. One Protein has to be passed. If two proteins are passed then they will be plotted side-by-side.
+    It is also possible to add more proteins using the Plotter.add_protein(Protein) method.
     """
-    plot = Plotter(prot, prot2, msms=msms, notebook=False)
+    plot = Plotter(prot, prot2, msms=msms, notebook=notebook)
     
     plot.plot_backbone()
     plot.plot_atoms()

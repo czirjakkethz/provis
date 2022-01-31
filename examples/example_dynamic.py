@@ -1,7 +1,8 @@
 """
 This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
-from provis.src.plotting.dynamic_structure import DynamicStructure
+from provis.src.processing.protein import Protein
+from provis.src.plotting.dynamic_plotter import DynamicPlotter
 from provis.src.processing.residue import Residue
 def main():
     """
@@ -23,38 +24,43 @@ def main():
     notebook=False
     """
     Second:
-    Initializing the DynamicStructure class will prepare everything for plotting. It creates all the necessairy classes in the background and you are already good to go!
-    """
+    Initialize the Protein class with the desired molecule. 
     
-    ds = DynamicStructure(name, base_path=base_path, density=density, plot_solvent=plot_solvent, msms=msms, notebook=notebook)
+    It is possible to choose a specific model from a trajectory to plot it as a single protein. 
+    """
+
+    prot = Protein(name, base_path=None, density=density)
+
     """
     Third:
     Plot!
     
-    Use the member functions of the DynamicStructure to plot the dynamic trajectory of the protein.
+    Use the DynamicPlotter class to plot the full trajectory of an protein.
     """
+    dp = DynamicPlotter(prot, msms=msms, notebook=notebook, plot_solvent=plot_solvent)
 
     r = Residue(29)
     r.add_residue(50)
     r. add_residue(1, 1)
     r.remove_residue(1, 1)
 
-    ds.plot_backbone()
-    ds.plot_atoms(res=r)
-    ds.plot_bonds()
-    ds.plot_vw()
-    ds.plot_stick_point()
-    ds.plot_residues()
-    ds.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
+    dp.plot_backbone()
+    dp.plot_atoms(res=r)
+    dp.plot_bonds()
+    dp.plot_vw()
+    dp.plot_stick_point()
+    dp.plot_residues()
+    dp.plot_structure(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
 
-    ds.plot_surface()
-    ds.plot_hydrophob()
-    ds.plot_shape()
-    ds.plot_charge()
+    dp.plot_surface()
+    dp.plot_hydrophob()
+    dp.plot_shape()
+    dp.plot_charge()
+    
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
     """
-    # ds.file_converter.cleanup()
+    # prot.file_converter.cleanup()
 
 if __name__ == "__main__":
     main()

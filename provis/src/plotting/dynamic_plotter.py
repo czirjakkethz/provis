@@ -12,7 +12,7 @@ class DynamicPlotter:
     While the class is built similarly to the Protein class it does not use the Protein class itself. This is due to the fact that the Protein class is a rigid class made for a single molecule and
     """
         
-    def __init__(self, prot: Protein, prot2=None, msms=True, notebook=False, plot_solvent=False):
+    def __init__(self, prot: Protein, msms=True, notebook=False, plot_solvent=False):
         """
         In this constructor no mesh information is computed, simply preparations are made. Meshes are loaded in the plotting function.
         
@@ -24,8 +24,6 @@ class DynamicPlotter:
         Parameters:
             prot: Protein
                 Instance of a Protein class. All information to be plotted is taken from this class. 
-            prot2: Protein
-                Second instance of a Protein class.
             msms: bool, optional
                 If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: True. 
             density: float, optional
@@ -45,9 +43,7 @@ class DynamicPlotter:
 
         if notebook:
             pv.set_jupyter_backend('panel')
-        self._proteins = [prot]
-        if prot2:
-            self._proteins.append(prot2)
+        self._protein = prot
              
         if msms:
             self._num_models = prot.file_converter.decompose_traj(self._path)
@@ -59,7 +55,7 @@ class DynamicPlotter:
         self._cam_pos = [0, 0, 0]
         print("Initialized DynamicPlotter class")
        
-    def plot(self, box=False, res=None, outname=None, camera=None, title="Atoms", atoms=0, bonds=0, vw=0, residues=0, bb=0):
+    def plot_structure(self, box=False, res=None, outname=None, camera=None, title="Structure", atoms=0, bonds=0, vw=0, residues=0, bb=0):
         """
         Plot the dynamic atom cloud.
 
@@ -94,7 +90,7 @@ class DynamicPlotter:
             new_name = self._path.split('/')
             new_name = new_name[-1].split('.')[0]
             
-            ident = '_stick_point'
+            ident = '_structure'
             if outname:
                 ident = outname
             outname = self._base_path + 'data/img/' + new_name + ident + ending 
@@ -108,15 +104,15 @@ class DynamicPlotter:
         plotter.enable_eye_dome_lighting()
         plotter.render()
         plotter.write_frame()
-        for model in self._proteins[0]._data_handler._structure:
+        for model in self._protein._data_handler._structure:
 
             plotter.clear()
             plotter.smooth_shading = True
             plotter.background_color = 'grey'
             plotter.add_title(title)
 
-            atom_data = self._proteins[0]._data_handler.get_atoms(show_solvent=self._solvent, model_id=i) # second arg: 1 = show_solvent
-            self._cam_pos = self._proteins[0]._data_handler._cam_pos
+            atom_data = self._protein._data_handler.get_atoms(show_solvent=self._solvent, model_id=i) # second arg: 1 = show_solvent
+            self._cam_pos = self._protein._data_handler._cam_pos
   
             if camera: 
                 plotter.camera = camera
@@ -129,7 +125,7 @@ class DynamicPlotter:
                 opacity = 1 - vw*0.4
                 style = 'surface'
                 if vw:
-                    _atoms_vw, _, _atom_names = self._proteins[0]._data_handler.get_atom_mesh(atom_data, vw=1)
+                    _atoms_vw, _, _atom_names = self._protein._data_handler.get_atom_mesh(atom_data, vw=1)
                     style='wireframe'
                     bigmesh = pv.PolyData()
                     colors = []
@@ -140,7 +136,7 @@ class DynamicPlotter:
                     print("Van-der-Waals atoms added for model id: ", i)
                 else:
                     ## return list of spheres (meshes) and colors for the spheres
-                    _atoms, _, _atom_names= self._proteins[0]._data_handler.get_atom_mesh(atom_data, vw=0) 
+                    _atoms, _, _atom_names= self._protein._data_handler.get_atom_mesh(atom_data, vw=0) 
                     
                     bigmesh = pv.PolyData()
                     colors = []
@@ -153,7 +149,7 @@ class DynamicPlotter:
 
             if bonds:
                 ## return list of lines (meshes)
-                _bonds, _, _bond_names = self._proteins[0]._data_handler.get_bond_mesh(model_id=i)
+                _bonds, _, _bond_names = self._protein._data_handler.get_bond_mesh(model_id=i)
                 # adding the bonds one at a time
                 if bonds == 1:
 
@@ -184,8 +180,8 @@ class DynamicPlotter:
             # only executes if residue information provided
             if residues:
                 ## return list of spheres (meshes) and colors for the spheres
-                res_data = self._proteins[0]._data_handler.get_residues(model_id=i)
-                _residues, _col_r, _res_names = self._proteins[0]._data_handler.get_residue_mesh(res_data)
+                res_data = self._protein._data_handler.get_residues(model_id=i)
+                _residues, _col_r, _res_names = self._protein._data_handler.get_residue_mesh(res_data)
                 
                 bigmesh = pv.PolyData()
                 colors = []
@@ -196,7 +192,7 @@ class DynamicPlotter:
                 print("Residues added for model id: ", i)
              
             if bb:
-                bb_mesh = self._proteins[0]._data_handler.get_backbone_mesh(model_id=i)
+                bb_mesh = self._protein._data_handler.get_backbone_mesh(model_id=i)
                 
                 plotter.add_mesh(bb_mesh, line_width=10)
                 print("Back-bone added for model id: ", i)   
@@ -208,16 +204,16 @@ class DynamicPlotter:
                 colors = []
                 for j, r in enumerate(res_list):
                     chain = chain_list[j]
-                    residues_ = self._proteins[0]._data_handler.get_structure().get_residues()
+                    residues_ = self._protein._data_handler.get_structure().get_residues()
                     residues_list = list(residues_)
                     res_name = residues_list[r + 1].get_resname()
-                    d = (self._proteins[0]._data_handler._res_size_dict[res_name] + pad) * 2
+                    d = (self._protein._data_handler._res_size_dict[res_name] + pad) * 2
                     x, y, z = d,d,d
-                    res_exists = (self._proteins[0]._data_handler.get_residue_info(r, chain,'com') != 1)
+                    res_exists = (self._protein._data_handler.get_residue_info(r, chain,'com') != 1)
                     if res_exists:
-                        bigmesh += pv.Cube(center=self._proteins[0]._data_handler.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z)
+                        bigmesh += pv.Cube(center=self._protein._data_handler.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z)
                 
-                center = self._proteins[0]._data_handler.get_residue_info(r, chain,'com')
+                center = self._protein._data_handler.get_residue_info(r, chain,'com')
                 # if residue not found 1 is returned. Otherwise the coordinates
                 if center != 1:
                     plotter.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, color='r')
@@ -257,7 +253,7 @@ class DynamicPlotter:
                 Window with interactive plot.
         """
 
-        self.plot(atoms=1, box=box, vw=0, bonds=1, residues=0, res=res, outname=outname, title="Stick Point", camera=camera)
+        self.plot_structure(atoms=1, box=box, vw=0, bonds=1, residues=0, res=res, outname=outname, title="Stick Point", camera=camera)
         
     def plot_atoms(self, box=0, res=0, outname=None, camera=None):
         """
@@ -281,7 +277,7 @@ class DynamicPlotter:
         """
         if not outname:
             outname = '_atoms'
-        self.plot(atoms=1, box=box, vw=0, bonds=0, residues=0, res=res, outname=outname, title="Atoms", camera=camera)
+        self.plot_structure(atoms=1, box=box, vw=0, bonds=0, residues=0, res=res, outname=outname, title="Atoms", camera=camera)
         
     def plot_residues(self, box=0, res=0, outname=0, camera=None):
         """
@@ -306,7 +302,7 @@ class DynamicPlotter:
         
         if not outname:
             outname = '_residues'
-        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=1, res=res, title="Residues", outname='_residues', camera=camera)
+        self.plot_structure(atoms=0, box=box, vw=0, bonds=0, residues=1, res=res, title="Residues", outname='_residues', camera=camera)
         
     def plot_vw(self, box=0, res=0, outname=0, camera=None):
         """
@@ -329,7 +325,7 @@ class DynamicPlotter:
         """
         if not outname:
             outname = '_vw'
-        self.plot(atoms=1, box=box, vw=1, bonds=0, residues=0, res=res, title="Van-der-Waals", camera=camera)
+        self.plot_structure(atoms=1, box=box, vw=1, bonds=0, residues=0, res=res, title="Van-der-Waals", camera=camera)
         
     def plot_bonds(self, box=0, res=0, outname=0, colorful=False, camera=None):
         """
@@ -364,7 +360,7 @@ class DynamicPlotter:
         
         if not outname:
             outname = '_bonds'
-        self.plot(atoms=0, box=box, vw=0, bonds=b, residues=0, res=res, outname=outname, title="Bonds", camera=camera)
+        self.plot_structure(atoms=0, box=box, vw=0, bonds=b, residues=0, res=res, outname=outname, title="Bonds", camera=camera)
         
         
     def plot_backbone(self, box=0, res=0, outname=0, camera=None):
@@ -388,7 +384,7 @@ class DynamicPlotter:
         
         if not outname:
             outname = '_backbone'
-        self.plot(atoms=0, box=box, vw=0, bonds=0, residues=0, res=res, bb=True, outname=outname, title="Backbone", camera=camera)
+        self.plot_structure(atoms=0, box=box, vw=0, bonds=0, residues=0, res=res, bb=True, outname=outname, title="Backbone", camera=camera)
 
 
     def plot_surface(self, feature=None, patch=False, title="Surface", box=None, res=None, outname=None, camera=None):
@@ -419,7 +415,7 @@ class DynamicPlotter:
         """
   
         # Create and structured surface
-        mesh, cas = self._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=0, num_models=self._num_models)
+        mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=0, num_models=self._num_models)
         
             
         # Create a plotter object and initialize first mesh
@@ -450,13 +446,13 @@ class DynamicPlotter:
         plotter.enable_eye_dome_lighting()
         plotter.render()
         plotter.write_frame()
-        for model in self._proteins[0]._data_handler._structure:
+        for model in self._protein._data_handler._structure:
             i += 1
             if i == self._num_models:
                 break
             
-            mesh, cas = self._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i, num_models=self._num_models)            
-            self._cam_pos = self._proteins[0]._data_handler._cam_pos
+            mesh, cas = self._protein._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i, num_models=self._num_models)            
+            self._cam_pos = self._protein._data_handler._cam_pos
             plotter.clear()
             plotter.camera.position = self._cam_pos
             plotter.smooth_shading = True
