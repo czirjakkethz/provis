@@ -39,6 +39,11 @@ def main():
     """
     dp = DynamicPlotter(prot, msms=msms, notebook=notebook, plot_solvent=plot_solvent)
 
+    dp.plot_surface()
+    dp.plot_hydrophob()
+    dp.plot_shape()
+    dp.plot_charge()
+    
     r = Residue(29)
     r.add_residue(50)
     r. add_residue(1, 1)
@@ -52,10 +57,6 @@ def main():
     dp.plot_residues()
     dp.plot_structure(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)
 
-    dp.plot_surface()
-    dp.plot_hydrophob()
-    dp.plot_shape()
-    dp.plot_charge()
     
     """
     And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
