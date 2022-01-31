@@ -75,4 +75,9 @@ And finally clean up everything with the "cleanup" function of the **Protein.fil
     prot.file_converter.cleanup()
 
 
+The following image shows the hydrophobicity of the 2fd7 protein.
+
+.. image:: images/2fd7_hydrophob.png
+  :width: 600
+  :alt: The following image shows the hydrophobicity of the 2fd7 protein.
 

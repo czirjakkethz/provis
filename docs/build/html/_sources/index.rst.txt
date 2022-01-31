@@ -14,6 +14,19 @@ You can find installation instructions under
 :ref:`setup`, a tutorial on 
 :ref:`tutorial`, as well as the documentation of the `source code <https://github.com/czirjakkethz/provis>`_.
 
+What **provis** is capable of:
+
+.. raw:: html
+
+	<video width="320" height="240" controls>
+	  <source src="images/traj_hydrophob_animation.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+	</video>
+
+The following video shows the hydrophobic trajectory of a given protein.
+
+|
+
 .. toctree::
    :maxdepth: 2
    :caption: Getting started:
