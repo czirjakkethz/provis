@@ -18,10 +18,9 @@ What **provis** is capable of:
 
 .. raw:: html
 
-	<video width="320" height="240" controls>
-	  <source src="images/traj_hydrophob_animation.mp4" type="video/mp4">
-	Your browser does not support the video tag.
-	</video>
+    <iframe width="560" height="315" src="https://youtu.be/TjawKSH_Wbo" frameborder="0" allowfullscreen></iframe>
+
+
 
 The following video shows the hydrophobic trajectory of a given protein.
 
