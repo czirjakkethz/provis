@@ -10,6 +10,8 @@ datasets
 provis/data/tmp
 dist/*
 build/*
+data/meshes/*
+data/tmp/*
 .ipynb_checkpoints/
 provis.egg-info/
 __pycache__/
