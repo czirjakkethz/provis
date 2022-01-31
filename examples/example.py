@@ -1,7 +1,7 @@
 """
 This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
-from provis.src.plotting.dynamic_structure import DynamicStructure
+from provis.src.plotting.dynamic_plotter import DynamicPlotter
 from provis.src.processing.residue import Residue
 from provis.src.processing.protein import Protein
 
@@ -34,12 +34,12 @@ def main():
     prot.surface.plot_shape()
 
     """
-    Initializing the DynamicStructure class is used for dynamic plotting.
+    Initializing the DynamicPlotter class is used for dynamic plotting.
    
-    Use the methods of the DynamicStructure class to plot the dynamic trajectory of the protein.   
+    Use the methods of the DynamicPlotter class to plot the dynamic trajectory of the protein.   
     """
     
-    ds = DynamicStructure(name, base_path=base_path, density=density, plot_solvent=plot_solvent, msms=msms, notebook=notebook)
+    ds = DynamicPlotter(name, base_path=base_path, density=density, plot_solvent=plot_solvent, msms=msms, notebook=notebook)
     ds.plot_atoms()
 
 

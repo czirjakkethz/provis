@@ -3,62 +3,62 @@ import numpy as np
 import pyvista as pv
 import time
 
-from provis.src.processing.file_converter import FileConverter
-from provis.src.plotting.structure import Structure
-from provis.src.plotting.surface import Surface
-from provis.src.processing.name_checker import NameChecker
-from provis.src.processing.data_handler import DataHandler
-from provis.src.processing.surface_handler import SurfaceHandler
+from provis.src.processing.protein import Protein
 
-class DynamicStructure:
+class DynamicPlotter:
     """
-    The Dynamic Structure class, similarly to the Protein class, encapsulates every other class and creates a user friendly way to plot your desired dynamic structure of a protein molecules.
+    The DynamicPlotter class, similarly to the Protein class, encapsulates every other class and creates a user friendly way to plot your desired dynamic structure of a protein molecules.
     
     While the class is built similarly to the Protein class it does not use the Protein class itself. This is due to the fact that the Protein class is a rigid class made for a single molecule and
     """
-  
-    def __init__(self, pdb_name, base_path=None, density=3.0, plot_solvent=False, msms=True, notebook=False):
-        """
-        Initialize the class with the name of the pdb file and you are ready for plotting!
         
-        Set the optional variables to get the most out of provis.
-
+    def __init__(self, prot: Protein, prot2=None, msms=True, notebook=False, plot_solvent=False):
+        """
+        In this constructor no mesh information is computed, simply preparations are made. Meshes are loaded in the plotting function.
+        
+        A NameChecker object is required for initialization, as this is how the program finds the desired pdb file, molecule.
+        If nothing else is passed the NameChecker object will be used to initialize the other internal objects of the surface class.
+        
+        Apart from the required NameChecker object one can also pass a SurfaceHandler for even more control.
+        
         Parameters:
-            pdb_name: str
-                Name of the pdb file with or without the extension. If the file is not stored in the data/pdb directory the full path has to be specified.
-            base_path: str, optional
-                Path to the root directory of the required directory structure (see: https://pro-vis.readthedocs.io/en/latest/setup.html#). Only needs to be specified if it is not the current working directory. Default: None.
-            density: float, optional
-                Default: 3.0.
-            plot_solvent: bool, optional
-                If True solvent atoms will also be plotted. Default: False.
+            prot: Protein
+                Instance of a Protein class. All information to be plotted is taken from this class. 
+            prot2: Protein
+                Second instance of a Protein class.
             msms: bool, optional
-                Set to True if you want to compute the surface information using the msms binary. If False surface will be computed natively. Default: True.
-            notebook: bool, optional
-                Set to True when using running in a Jupyter Notebook environment. Default: False.
+                If True plot msms binary version of surface. If False plot the native (non-binary) surface. Default: True. 
+            density: float, optional
+                sampling density used in msms binary. Also needed to load the face and vert files, as their (file)names include the density 
+            notebook: bool, optional 
+                Needs to be set to true to work in a notebook environment. Defualts to False. 
+            msms: bool, optional
+                Set to True when running the msms version. Only used to save image with "msms" at end of filename ({root directory}/data/img/{pdb_id}_{plot type}_msms.png). Default: False. 
+            plot_solvent: bool, optional
+                If True solvent molecules will also be plotted. Default: False.
         """
-        
-        self._solvent = plot_solvent
         self._msms = msms
-        if notebook:
-            pyvista.set_jupyter_backend('panel')
         self._notebook = notebook
-        self._name_checker = NameChecker(pdb_name, base_path)
-        self._path, self._out_path, self._base_path, self._mesh_path = self._name_checker.return_all()
-        self.file_converter = FileConverter(self._name_checker, density=density)
-        self._data_handler =  DataHandler(self._name_checker, fc=self.file_converter)
-        self._surface_handler = SurfaceHandler( self._name_checker, fc=self.file_converter, dh=self._data_handler, density=density)
-                
+        self._shading = not self._notebook
+        self._solvent = plot_solvent
+        self._path, self._out_path, self._base_path, self._mesh_path = prot._name_checker.return_all()
+
+        if notebook:
+            pv.set_jupyter_backend('panel')
+        self._proteins = [prot]
+        if prot2:
+            self._proteins.append(prot2)
+             
         if msms:
-            self._num_models = self.file_converter.decompose_traj(self._path)
+            self._num_models = prot.file_converter.decompose_traj(self._path)
         else: 
             i = 0
-            for model in self._data_handler._structure:
+            for model in prot._data_handler._structure:
                 i += 1
             self._num_models = i
         self._cam_pos = [0, 0, 0]
-        print("Initialized DynamicStructure class")
-      
+        print("Initialized DynamicPlotter class")
+       
     def plot(self, box=False, res=None, outname=None, camera=None, title="Atoms", atoms=0, bonds=0, vw=0, residues=0, bb=0):
         """
         Plot the dynamic atom cloud.
@@ -108,15 +108,15 @@ class DynamicStructure:
         plotter.enable_eye_dome_lighting()
         plotter.render()
         plotter.write_frame()
-        for model in self._data_handler._structure:
+        for model in self._proteins[0]._data_handler._structure:
 
             plotter.clear()
             plotter.smooth_shading = True
             plotter.background_color = 'grey'
             plotter.add_title(title)
 
-            atom_data = self._data_handler.get_atoms(show_solvent=self._solvent, model_id=i) # second arg: 1 = show_solvent
-            self._cam_pos = self._data_handler._cam_pos
+            atom_data = self._proteins[0]._data_handler.get_atoms(show_solvent=self._solvent, model_id=i) # second arg: 1 = show_solvent
+            self._cam_pos = self._proteins[0]._data_handler._cam_pos
   
             if camera: 
                 plotter.camera = camera
@@ -129,7 +129,7 @@ class DynamicStructure:
                 opacity = 1 - vw*0.4
                 style = 'surface'
                 if vw:
-                    _atoms_vw, _, _atom_names = self._data_handler.get_atom_mesh(atom_data, vw=1)
+                    _atoms_vw, _, _atom_names = self._proteins[0]._data_handler.get_atom_mesh(atom_data, vw=1)
                     style='wireframe'
                     bigmesh = pv.PolyData()
                     colors = []
@@ -140,7 +140,7 @@ class DynamicStructure:
                     print("Van-der-Waals atoms added for model id: ", i)
                 else:
                     ## return list of spheres (meshes) and colors for the spheres
-                    _atoms, _, _atom_names= self._data_handler.get_atom_mesh(atom_data, vw=0) 
+                    _atoms, _, _atom_names= self._proteins[0]._data_handler.get_atom_mesh(atom_data, vw=0) 
                     
                     bigmesh = pv.PolyData()
                     colors = []
@@ -153,7 +153,7 @@ class DynamicStructure:
 
             if bonds:
                 ## return list of lines (meshes)
-                _bonds, _, _bond_names = self._data_handler.get_bond_mesh(model_id=i)
+                _bonds, _, _bond_names = self._proteins[0]._data_handler.get_bond_mesh(model_id=i)
                 # adding the bonds one at a time
                 if bonds == 1:
 
@@ -184,8 +184,8 @@ class DynamicStructure:
             # only executes if residue information provided
             if residues:
                 ## return list of spheres (meshes) and colors for the spheres
-                res_data = self._data_handler.get_residues(model_id=i)
-                _residues, _col_r, _res_names = self._data_handler.get_residue_mesh(res_data)
+                res_data = self._proteins[0]._data_handler.get_residues(model_id=i)
+                _residues, _col_r, _res_names = self._proteins[0]._data_handler.get_residue_mesh(res_data)
                 
                 bigmesh = pv.PolyData()
                 colors = []
@@ -196,7 +196,7 @@ class DynamicStructure:
                 print("Residues added for model id: ", i)
              
             if bb:
-                bb_mesh = self._data_handler.get_backbone_mesh(model_id=i)
+                bb_mesh = self._proteins[0]._data_handler.get_backbone_mesh(model_id=i)
                 
                 plotter.add_mesh(bb_mesh, line_width=10)
                 print("Back-bone added for model id: ", i)   
@@ -208,16 +208,16 @@ class DynamicStructure:
                 colors = []
                 for j, r in enumerate(res_list):
                     chain = chain_list[j]
-                    residues_ = self._data_handler.get_structure().get_residues()
+                    residues_ = self._proteins[0]._data_handler.get_structure().get_residues()
                     residues_list = list(residues_)
                     res_name = residues_list[r + 1].get_resname()
-                    d = (self._data_handler._res_size_dict[res_name] + pad) * 2
+                    d = (self._proteins[0]._data_handler._res_size_dict[res_name] + pad) * 2
                     x, y, z = d,d,d
-                    res_exists = (self._data_handler.get_residue_info(r, chain,'com') != 1)
+                    res_exists = (self._proteins[0]._data_handler.get_residue_info(r, chain,'com') != 1)
                     if res_exists:
-                        bigmesh += pv.Cube(center=self._data_handler.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z)
+                        bigmesh += pv.Cube(center=self._proteins[0]._data_handler.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z)
                 
-                center = self._data_handler.get_residue_info(r, chain,'com')
+                center = self._proteins[0]._data_handler.get_residue_info(r, chain,'com')
                 # if residue not found 1 is returned. Otherwise the coordinates
                 if center != 1:
                     plotter.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, color='r')
@@ -450,13 +450,13 @@ class DynamicStructure:
         plotter.enable_eye_dome_lighting()
         plotter.render()
         plotter.write_frame()
-        for model in self._data_handler._structure:
+        for model in self._proteins[0]._data_handler._structure:
             i += 1
             if i == self._num_models:
                 break
             
             mesh, cas = self._surface_handler.return_mesh_and_color(msms=self._msms, feature=feature, patch=patch, model_id=i, num_models=self._num_models)            
-            self._cam_pos = self._data_handler._cam_pos
+            self._cam_pos = self._proteins[0]._data_handler._cam_pos
             plotter.clear()
             plotter.camera.position = self._cam_pos
             plotter.smooth_shading = True

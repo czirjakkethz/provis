@@ -50,9 +50,8 @@ class Plotter:
         self._proteins = [prot]
         if prot2:
             self._proteins.append(prot2)
-        self._msms = msms
-        self._path, self._out_path, self._base_path, self._mesh_path = prot._name_checker.return_all()
-        
+            
+        self._path, self._out_path, self._base_path, self._mesh_path = prot._name_checker.return_all()        
         self._msms = msms
         self._notebook = notebook
         self._shading = not self._notebook
