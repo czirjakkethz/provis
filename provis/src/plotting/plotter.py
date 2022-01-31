@@ -69,157 +69,101 @@ class Plotter:
         
         self._proteins.append(protein)
 
-    def plot_surface(self, feature=None, title="Surface", patch=False, box=None, res=None, outname=None, camera=None):
+    def manual_plot(self, box=False, res=None, outname=None, atoms=None, col_a=None, bonds=None, vw=0, residues=None, col_r=None, bb=None, camera=None):
         """
-        Plot the surface of the protein. If the surface has already been computed and saved to the default file, then the surface will automatically be loaded from there.
-        The surface can be computed either using the msms binary or natively. The msms binary is chemically accurate surface, while the native one is only for visualization purposes.
-        
-        If you run into any sort of error concerning array size mismatching or of the sort delete all the temporary files and the mesh ({root directory}/data/meshes/{pdb_id}_{model_id}.obj).
-        This will force everything to be recomputed and the dimension mismatch should disappear.
+        Plots list of meshes directly. One can get these meshes from the DataHandler class.
         
         Parameters:
-            feature: str, optional
-                Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring). 
-            title: str, optional
-                Title of the plot window. Default: Surface. 
-            patch: bool, optional
-                If True then coloring will be read in from "root directory"/data/tmp/{pdb_id}.pth file. Default: False. 
-            box, optional: bool, optional
-                If True bounding box also visualized, default: 0. 
-            res: Residue, optional
-                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            box: bool, optional
+                If True bounding box also visualized. Default: False.
+            res: list, optional
+                List of pyvista Shperes representing each residue. Default: None.
             outname: string, optional
-                Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have "_msms.png" as the ending. 
+                save image of plot to specified filename. Will appear in data/img directory. Defaults to data/img/{self._out_path}_stick_point.
+            atoms: list, optional
+                List of pyvista Shperes representing each atom. Default: None.
+            col_a: list, optional
+                List of colors for each atom. Default: None.
+            bonds: list, optional
+                List of pyvista Lines representing each bond. Default: None.
+            vw: bool, optional
+                If True styling for Van-der-Waals plotting set. Vw atomic objects still have to be passed under 'atoms' variable.
+            col_r: list, optional
+                List of colors for each residue. Default: None.
+            res: Residue, optional
+                Specified residues will be plotted with a bounding box around them.
+            bb: pyvista.Spline, optional
+                Spline describing the back-bone of the protein. Default: None.
             camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
-            
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 4 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None.
+        
         Returns: 
             Pyvista.Plotter window
-                Window with interactive plot.
+                Window with interactive plot
         """
-        print("Calculating surface mesh")
         
         # plot
         plot_size = len(self._proteins)
         pl = pv.Plotter(notebook=self._notebook, shape=(1, plot_size))
+        print("Surface plotter created...")
         for p_id, prot in enumerate(self._proteins):
-            print("Surface plotter created for model id:", prot._model_id)
-            mesh, cas = prot._surface_handler.return_mesh_and_color(self._msms, feature=feature, patch=patch, model_id=prot._model_id)
             pl.subplot(0, p_id)
             pl.background_color = 'grey'
             pl.enable_3_lights()
-            pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
-            print("Mesh added to plotter...")
-            # if specified add bounding box
+
+            if camera: 
+                pl.camera = camera
+            else:
+                self._cam_pos = prot._data_handler._cam_pos
+                pl.camera.position = self._cam_pos
+                
+            # adding the spheres (by atom type) one at a time
+            opacity = 1 - vw*0.4
+            style = 'surface'
+            if atoms != 0:
+                if vw:
+                    style='wireframe'
+                for j, mesh in enumerate(atoms):
+                    pl.add_mesh(mesh, color=col_a[j], opacity=opacity, smooth_shading=self._shading, style=style)
+
+            # adding the bonds one at a time
+            if bonds:
+                for b in bonds:
+                    pl.add_mesh(b, color='w', render_lines_as_tubes=True, line_width=5)
+            # adding the spheres (by residue) one at a time
+            # only executes if residue information provided
+            if residues:
+                for k, mesh in enumerate(residues):
+                    pl.add_mesh(mesh, color=col_r[k], opacity=0.2)
+            
             
             if res:
                 res_list, chain_list, pad = res.get_res_info()
                 for i, r in enumerate(res_list):
                     chain = chain_list[i]
-                    residues_ = prot._data_handler.get_structure().get_residues()
-                    residues_list = list(residues_)
+                    residues = self._dh.get_structure().get_residues()
+                    residues_list = list(residues)
                     res_name = residues_list[r + 1].get_resname()
-                    d = (prot._data_handler._res_size_dict[res_name] + pad) * 2
+                    d = (self._dh._res_size_dict[res_name] + pad) * 2
                     x, y, z = d,d,d
-                    center = prot._data_handler.get_residue_info(r, chain,'com')
-                    # if residue not found 1 is returned. Otherwise the coordinates
-                    if center != 1:
-                        pl.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
-                print("Residues marked...")
-
+                    pl.add_mesh(pv.Cube(center=self._dh.get_residue_info(r, chain,'com'), x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, color='r')
+            
+            
+            if bb:
+                pl.add_mesh(bb, render_lines_as_tubes=True, smooth_shading=self._shading, line_width=10)
+            
+            # if specified add bounding box
             if box:
                 pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
-                print("Bounding box added...")
         
-            if camera: 
-                pl.camera = camera
-                print("Camera added...")
-            else:
-                self._cam_pos = prot._data_handler._cam_pos
-                pl.camera.position = self._cam_pos
-            
-            # save a screenshot
-            if not outname or outname[0] == '_':
-                ending = ".png"
-                if self._msms:
-                    ending = "_msms" + ending
-                    
-                new_name = self._path.split('/')
-                new_name = new_name[-1].split('.')[0]
-                
-                ident = '_surface'
-                if outname:
-                    ident = outname
-                outname = self._base_path + 'data/img/' + new_name + "_" + str(prot._model_id) + ident + ending
-       
-        pl.show(screenshot=outname, title=title)
-
-    def plot_hydrophob(self, box=None, res=None, outname=None, camera=None):
-        """
-        Plot the hydrophobic features of a protein.
-
-        Parameters:
-            box, optional: bool, optional
-                If True bounding box also visualized, default: 0. 
-            res: Residue, optional
-                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
-            outname: string, optional
-                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
-            camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * max_distance_from_center, 0]. Default: None. 
-        
-        Returns:
-            Pyvista.Plotter window
-                Window with interactive plot.
-        """
+        # save a screenshot
         if not outname:
-            outname = '_hydrophob'
-        self.plot_surface(feature="hydrophob", title="Hydrophob", box=box, res=res, outname=outname, camera=camera)
-
-    def plot_shape(self, box=None, res=None, outname=None, camera=None):
-        """
-        Plot the shape features of a protein.
-
-        Parameters:
-            box, optional: bool, optional
-                If True bounding box also visualized, default: 0. 
-            res: Residue, optional
-                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
-            outname: string, optional
-                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
-            camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
+            new_name = self._out_path.split('/')
+            new_name = new_name[-1].split('.')[0]
+            outname = self._base_path + 'data/img/' + new_name + '_stick_point.png'
         
-        Returns:
-            Pyvista.Plotter window
-                Window with interactive plot.
-        """
-        
-        if not outname:
-            outname = '_shape'
-        self.plot_surface(feature="shape", title="Shape", box=box, res=res, outname=outname, camera=camera)
-
-    def plot_charge(self, box=None, res=None, outname=None, camera=None):
-        """
-        Plot the charge features of a protein.
-
-        Parameters:
-            box, optional: bool, optional
-                If True bounding box also visualized, default: 0. 
-            res: Residue, optional
-                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
-            outname: string, optional
-                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
-            camera: pyvista.Camera, optional
-                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
-        
-        Returns:
-            Pyvista.Plotter window
-                Window with interactive plot.
-        """
-        if not outname:
-            outname = '_charge'
-        self.plot_surface(feature="charge", title="Charge", box=box, res=res, outname=outname, camera=camera)
+        print("Showing plot")
+        pl.show(screenshot=outname, title='Provis')
 
 
     def plot_structure(self, box=0, res=None, outname=0, atoms=0, bonds=0, vw=0, residues=0, bb=0, title=None, camera=None, dynamic=False):
@@ -230,19 +174,19 @@ class Plotter:
         
         Parameters:
             box: bool, optional
-                ptional - If True bounding box also visualized, default: 0.
+                ptional - If True bounding box also visualized. Default: None.
             res: Residue, optional
                 Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
             outname: string, optional
                 Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_stick_point.png. If Structure class was initialized with msms=True then output will have "_msms.png" as the ending.
             atoms: bool, optional
-                Plot atoms, default: 0.
+                Plot atoms. Default: None.
             bonds: int, optional
-                ptional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: 0.
+                ptional - Plot bond. If zero or undefined then it does not plot the bonds, if 1 it plots all bonds uniformly, if 2 it plots colorful bonds (see data_handler). Default: None.
             vw: bool, optional
                 Plot Wan-der-Waals radii instead of atomic radii.
             residues: bool, optional
-                ptional - Plot residue, default: 0.
+                ptional - Plot residue. Default: None.
             bb: bool, optional
                 If True backbone of protein is plotted. Default: False.
             title: str, optional
@@ -378,7 +322,7 @@ class Plotter:
         
         Parameters:
             box: bool, optional
-                ptional - If True bounding box also visualized, default: 0.
+                ptional - If True bounding box also visualized. Default: None.
             res: Residue, optional
                 Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
             outname: string, optional
@@ -401,7 +345,7 @@ class Plotter:
         
         Parameters:
             box: bool, optional
-                ptional - If True bounding box also visualized, default: 0.
+                ptional - If True bounding box also visualized. Default: None.
             res: Residue, optional
                 Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
             outname: string, optional
@@ -425,7 +369,7 @@ class Plotter:
         
         Parameters:
             box: bool, optional
-                ptional - If True bounding box also visualized, default: 0.
+                ptional - If True bounding box also visualized. Default: None.
             res: Residue, optional
                 Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
             outname: string, optional
@@ -449,7 +393,7 @@ class Plotter:
         
         Parameters:
             box: bool, optional
-                ptional - If True bounding box also visualized, default: 0.
+                ptional - If True bounding box also visualized. Default: None.
             res: Residue, optional
                 Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
             outname: string, optional
@@ -480,7 +424,7 @@ class Plotter:
         
         Parameters:
             box: bool, optional
-                If True bounding box also visualized, default: 0.
+                If True bounding box also visualized. Default: None.
             res: Residue, optional
                 Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
             outname: string, optional
@@ -507,7 +451,7 @@ class Plotter:
         
         Parameters:
             box: bool, optional
-                If True bounding box also visualized, default: 0.
+                If True bounding box also visualized. Default: None.
             res: Residue, optional
                 Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None.
             outname: string, optional
@@ -523,4 +467,157 @@ class Plotter:
         if not outname:
             outname = '_backbone'
         self.plot_structure(atoms=0, box=box, vw=0, bonds=0, residues=0, res=res, bb=1, outname=outname, title="Backbone", camera=camera)
+
+
+    def plot_surface(self, feature=None, title="Surface", patch=False, box=None, res=None, outname=None, camera=None):
+        """
+        Plot the surface of the protein. If the surface has already been computed and saved to the default file, then the surface will automatically be loaded from there.
+        The surface can be computed either using the msms binary or natively. The msms binary is chemically accurate surface, while the native one is only for visualization purposes.
+        
+        If you run into any sort of error concerning array size mismatching or of the sort delete all the temporary files and the mesh ({root directory}/data/meshes/{pdb_id}_{model_id}.obj).
+        This will force everything to be recomputed and the dimension mismatch should disappear.
+        
+        Parameters:
+            feature: str, optional
+                Pass which feature (coloring) you want to plot. Options: hydrophob, shape, charge. Default: None (uniform coloring). 
+            title: str, optional
+                Title of the plot window. Default: Surface. 
+            patch: bool, optional
+                If True then coloring will be read in from "root directory"/data/tmp/{pdb_id}.pth file. Default: False. 
+            box, optional: bool, optional
+                If True bounding box also visualized. Default: None. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                Save image of plot to specified filename. Will appear in data/img directory. Defaults to {root directory}/data/img/{pdb_id}_{model_id}_surface.png. If Surface class was initialized with msms=True then output will have "_msms.png" as the ending. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
+            
+        Returns: 
+            Pyvista.Plotter window
+                Window with interactive plot.
+        """
+        print("Calculating surface mesh")
+        
+        # plot
+        plot_size = len(self._proteins)
+        pl = pv.Plotter(notebook=self._notebook, shape=(1, plot_size))
+        for p_id, prot in enumerate(self._proteins):
+            print("Surface plotter created for model id:", prot._model_id)
+            mesh, cas = prot._surface_handler.return_mesh_and_color(self._msms, feature=feature, patch=patch, model_id=prot._model_id)
+            pl.subplot(0, p_id)
+            pl.background_color = 'grey'
+            pl.enable_3_lights()
+            pl.add_mesh(mesh, scalars=cas, cmap='RdBu', smooth_shading=self._shading, show_edges=False)
+            print("Mesh added to plotter...")
+            # if specified add bounding box
+            
+            if res:
+                res_list, chain_list, pad = res.get_res_info()
+                for i, r in enumerate(res_list):
+                    chain = chain_list[i]
+                    residues_ = prot._data_handler.get_structure().get_residues()
+                    residues_list = list(residues_)
+                    res_name = residues_list[r + 1].get_resname()
+                    d = (prot._data_handler._res_size_dict[res_name] + pad) * 2
+                    x, y, z = d,d,d
+                    center = prot._data_handler.get_residue_info(r, chain,'com')
+                    # if residue not found 1 is returned. Otherwise the coordinates
+                    if center != 1:
+                        pl.add_mesh(pv.Cube(center=center, x_length=x, y_length=y, z_length=z), style='wireframe', show_edges=1, line_width=5, smooth_shading=self._shading, color='r')
+                print("Residues marked...")
+
+            if box:
+                pl.add_bounding_box(color='white', corner_factor=0.5, line_width=1)
+                print("Bounding box added...")
+        
+            if camera: 
+                pl.camera = camera
+                print("Camera added...")
+            else:
+                self._cam_pos = prot._data_handler._cam_pos
+                pl.camera.position = self._cam_pos
+            
+            # save a screenshot
+            if not outname or outname[0] == '_':
+                ending = ".png"
+                if self._msms:
+                    ending = "_msms" + ending
+                    
+                new_name = self._path.split('/')
+                new_name = new_name[-1].split('.')[0]
+                
+                ident = '_surface'
+                if outname:
+                    ident = outname
+                outname = self._base_path + 'data/img/' + new_name + "_" + str(prot._model_id) + ident + ending
+       
+        pl.show(screenshot=outname, title=title)
+
+    def plot_hydrophob(self, box=None, res=None, outname=None, camera=None):
+        """
+        Plot the hydrophobic features of a protein.
+
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized. Default: None. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * max_distance_from_center, 0]. Default: None. 
+        
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
+        """
+        if not outname:
+            outname = '_hydrophob'
+        self.plot_surface(feature="hydrophob", title="Hydrophob", box=box, res=res, outname=outname, camera=camera)
+
+    def plot_shape(self, box=None, res=None, outname=None, camera=None):
+        """
+        Plot the shape features of a protein.
+
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized. Default: None. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
+        
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
+        """
+        
+        if not outname:
+            outname = '_shape'
+        self.plot_surface(feature="shape", title="Shape", box=box, res=res, outname=outname, camera=camera)
+
+    def plot_charge(self, box=None, res=None, outname=None, camera=None):
+        """
+        Plot the charge features of a protein.
+
+        Parameters:
+            box, optional: bool, optional
+                If True bounding box also visualized. Default: None. 
+            res: Residue, optional
+                Residues passed in 'res' will be plotted with a bounding box around them. Defaults to None. 
+            outname: string, optional
+                save image of plot to specified filename. Will appear in data/img/ directory. Default: data/img/{self._out_path}_surface. 
+            camera: pyvista.Camera, optional
+                Pass a Pyvista Camera https://docs.pyvista.org/api/core/camera.html to manually set the camera position. If nothing/None is passed then the camera position will be set to [0, 3 * "max distance from the center", 0] (see: https://pro-vis.readthedocs.io/en/latest/tutorial.html for more detail). Default: None. 
+        
+        Returns:
+            Pyvista.Plotter window
+                Window with interactive plot.
+        """
+        if not outname:
+            outname = '_charge'
+        self.plot_surface(feature="charge", title="Charge", box=box, res=res, outname=outname, camera=camera)
 

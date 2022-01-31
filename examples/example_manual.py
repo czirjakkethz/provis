@@ -1,67 +1,50 @@
 """
 This file was created by Kristof Czirjak as part of his Bachelor's Thesis - provis
 """
-from ctypes import Structure
-from provis.src.processing.data_handler import DataHandler
-from provis.src.processing.name_checker import NameChecker
+from provis.src.plotting.plotter import Plotter
+from provis.src.processing.protein import Protein
 from provis.src.processing.residue import Residue
-from provis.src.plotting.surface import Surface
 
 def main():
     """
     This is an example file to showcase some functionalities of provis.
     
-    We showcase how to run provis when you are outside the special directroy structure specified in the setup section of the documentation.
-    The full path to the pdb file has to be passed, as well as the full path to the above mentioned special directory structure.
-        
+    We showcase the easiest way to run provis. For this you should have this file in the root directory of the special directroy structure specified in the setup section of the documentation.
+    The path to the "root directory"/data/tmp will automatically be found.
+    This way you can have your pdb files nicely organized in the data/pdb directory (or simply have them in the root directory). 
+    Your temporary files will be in the data/tmp directory and the screenshots of the plots in the data/img directory.
+    
+    First:
     Define variables needed later:
     """
-    name = "/home/kczi/Documents/provis/data/pdb/2fd7"
-    base_path='/home/kczi/Documents/provis/'
+    name = "traj"
     density = 3.0
+    msms = True
+    """
+    Second:
+    Initializing the Protein. This class instance needs to be passed to the Plotter.
+    """
     
-    """
-    The NameChecker class will find and store the path of the pdb file and output path.
-    """
-    nc = NameChecker(name, base_path)
-    
-    """
-    A DataHandler class can be initialzied explicitly, by passing the NameChecker class instance.
-    However, this is actually not obligatory, as the higher level plotting classes can create their own DataHandler classes.
-    It is still best practice to initialize all classes explicitly and pass them as arguments to other classes to avoid unnecessairy duplication in memory and unnecessairy computations.
-    """
-    dh = DataHandler(nc)
-    
-    """
-    Structure is a class that handles all plotting related to the structure / general layout of the molecule. This includes the atom cloud, the bonds or the backbone of the molecule, amongst others.    
-    
-    As mentioned above we can initialize the Structure class with a DataHandler.
-    """
+    prot = Protein(name, base_path=None, density=density)
 
-    struct = Structure(nc, dh=dh)
-    struct.plot_backbone()
-    struct.plot_atoms()
-    struct.plot_bonds()
-    struct.plot_vw()
-    struct.plot_stick_point()
-    struct.plot_residues()
-    r = Residue(29)
-    r.add_residue(50)
-    r. add_residue(1, 1)
-    r.remove_residue(1, 1)
-    struct.plot(atoms=1, box=1, bonds=1, vw=0, residues=0, res=r, bb=0)    
-    
     """
-    Surface is a class that handles all plotting related to surfaces. This includes basic surface visualization as well as the surface properties.    
+    Third:
+    Plot!
     
-    As seen here the Surface class can be initialized with only a NameChecker instance. Ideally, however one would pass a SurfaceHandler class instance on initialization.
+    Use the Plotter to plot. Create the necessairy lists of meshes with the DataHandler object.
     """
-    s = Surface(nc, density=density)
-    s.plot()    
-    s.plot_hydrophob()
-    s.plot_shape()
-    s.plot_charge()
-
+    plot = Plotter(prot, msms=msms, notebook=False)
+    
+    atom_data = prot._data_handler.get_atoms(show_solvent=False, model_id=prot._model_id) 
+    atoms, col_a, _ = prot._data_handler.get_atom_mesh(atom_data, vw=False) # second arg = True => show vw spheres instead of "normal" radius
+   
+        
+    plot.manual_plot(atoms=atoms, col_a=col_a)    
+  
+    """
+    And finally clean up everything with the "cleanup" function of the prot.file_converter (FileConverter class) member variable.
+    """
+    # prot.file_converter.cleanup()
 
 if __name__ == "__main__":
     main()
