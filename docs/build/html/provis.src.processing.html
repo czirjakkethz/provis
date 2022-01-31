@@ -714,6 +714,12 @@ If no feature specified set the variable that stores color information to None. 
 Mesh: “root directory”/data/meshes/{pdb_id}_{model_id}.obj
 Color: “root directory”/data/meshes/{pdb_id}_{feature}_{model_id}
 Always returns a pyvista.PolyData mesh of the surface and if a feature is specified it also returns the coloring according to that feature.</p>
+<p>The code in words:
+If self._mesh_needed is set to True - if the mesh could not be loaded from a file - compute the mesh using the native tools.
+Get the atomic positional information from the DataHandler class.
+Extract the surface of the combined mesh and use the o3d.geometry.TriangleMesh.create_from_point_cloud_poisson() method to create a smooth surface.
+Finally, if a feature is specified check if the color information could be loaded from a file (self._color_needed) and compute it if needed.
+If no feature specified set the variable that stores color information to None. This will result in a white mesh.</p>
 <dl class="simple">
 <dt>Parameters:</dt><dd><dl class="simple">
 <dt>feature: str, optional</dt><dd><p>Name of feature, same as in get_surface_features. Options: hydrophob, shape, charge, hbonds. Defaults to “”.</p>

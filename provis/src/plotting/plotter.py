@@ -166,6 +166,13 @@ class Plotter:
         
         All information to be plotted is already computed. This function simply dictates what is to be plotted.
         
+        The code in words:
+        Create a Plotter of size(1, {len(self._proteins)}).
+        Loop through the Proteins in the self._proteins list and perform the following tasks.
+        Add the specified meshes to the subplotter.
+        Set the camera position.
+        Show the plotter.
+          
         Parameters:
             box: bool, optional
                 ptional - If True bounding box also visualized. Default: None.
@@ -468,6 +475,13 @@ class Plotter:
         
         If you run into any sort of error concerning array size mismatching or of the sort delete all the temporary files and the mesh ({root directory}/data/meshes/{pdb_id}_{model_id}.obj).
         This will force everything to be recomputed and the dimension mismatch should disappear.
+        
+        The code in words:
+        Create a Plotter of size(1, {len(self._proteins)}).
+        Loop through the Proteins in the self._proteins list and perform the following tasks.
+        Add the specified meshes to the subplotter.
+        Set the camera position.
+        Show the plotter.
         
         Parameters:
             feature: str, optional

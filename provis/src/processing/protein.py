@@ -20,6 +20,10 @@ class Protein:
         
         Check if the molecule of the given model_id exists for this given .pdb file. If not set model_id to 0.
 
+        The code in words:
+        Initialize all provis.src.processing classes (passing them to one another to avoid duplication).
+        Calculates the number of molecules in the trajectory and assures that model_id is in the trajectory. (Otherwise sets it to 0)
+        
         Parameters:
             pdb_name: str
                 Name of the pdb file with or without the extension. If the file is not stored in the data/pdb directory the full path has to be specified.
